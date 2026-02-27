@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>🥔 Potato Kingdom</title>
+<!-- Telegram Web App SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Orbitron:wght@700;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#07080F;--card:#0E1220;--card2:#131829;
+  --d:#67E8F9;--g:#FBBF24;--s:#94A3B8;--b:#CD7F32;
+  --green:#4ADE80;--red:#F87171;--orange:#FB923C;--purple:#A78BFA;
+  --white:#F1F5F9;--muted:rgba(241,245,249,0.4);--faint:rgba(241,245,249,0.08);
+  --border:rgba(241,245,249,0.1);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html,body{
+  background:var(--bg);
+  font-family:'Noto Sans KR',sans-serif;
+  width:100%;height:100%;
+  overflow:hidden;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── 전체 앱 컨테이너 ── */
+.app{
+  width:100%;height:100vh;height:100dvh;
+  display:flex;flex-direction:column;
+  position:relative;
+  overflow:hidden;
+  padding-top:var(--safe-top);
+  padding-bottom:var(--safe-bottom);
+}
+
+/* ── 상태바 (텔레그램 내부에서는 텔레그램 헤더가 대체) ── */
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 20px 4px;
+  font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);
+  flex-shrink:0;
+}
+
+/* ── 화면 공통 ── */
+.screen{display:none;flex:1;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.screen.active{display:flex;}
+
+.screen-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;flex:1;}
+
+/* ── 하단 탭 ── */
+.bottom-tab{
+  display:flex;
+  background:rgba(10,13,22,0.97);
+  border-top:1px solid var(--border);
+  padding:8px 0;
+  padding-bottom:max(10px, var(--safe-bottom));
+  flex-shrink:0;
+}
+
+.tab-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;transition:all .2s;opacity:.4;
+  -webkit-tap-highlight-color:transparent;
+  padding:4px 0;
+}
+.tab-item:active{transform:scale(.92);opacity:.6;}
+.tab-item.active{opacity:1;}
+
+.tab-icon{font-size:22px;line-height:1;}
+.tab-label{font-size:10px;font-weight:700;color:var(--white);letter-spacing:.3px;}
+.tab-item.active .tab-label{color:var(--g);}
+
+/* ── 공통 컴포넌트 ── */
+.card{
+  background:var(--card);
+  border:1px solid var(--faint);
+  border-radius:18px;padding:16px;
+  position:relative;overflow:hidden;
+}
+
+.sec-label{
+  font-size:10px;font-weight:700;color:var(--muted);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;
+}
+
+.chip{
+  display:inline-flex;align-items:center;gap:4px;
+  border-radius:100px;padding:3px 10px;
+  font-size:11px;font-weight:700;
+}
+.chip-g{background:rgba(251,191,36,.12);color:var(--g);border:1px solid rgba(251,191,36,.25);}
+.chip-d{background:rgba(103,232,249,.12);color:var(--d);border:1px solid rgba(103,232,249,.25);}
+.chip-s{background:rgba(148,163,184,.12);color:var(--s);border:1px solid rgba(148,163,184,.2);}
+.chip-b{background:rgba(205,127,50,.1);color:var(--b);border:1px solid rgba(205,127,50,.2);}
+.chip-red{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.25);}
+.chip-green{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.25);}
+
+.btn{
+  width:100%;padding:14px;border-radius:14px;border:none;
+  font-size:14px;font-weight:900;font-family:'Noto Sans KR',sans-serif;
+  cursor:pointer;transition:all .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active{transform:scale(.97);}
+.btn-gold{
+  background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;
+  box-shadow:0 4px 20px rgba(251,191,36,.3);
+}
+.btn-outline{
+  background:transparent;color:var(--white);
+  border:1px solid var(--border);
+}
+
+.progress-bar{
+  height:8px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden;margin:8px 0;
+}
+.progress-fill{height:100%;border-radius:100px;transition:width .5s ease;}
+
+/* ──────────────────────────────────────
+   1. 홈 화면
+──────────────────────────────────────*/
+.home-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 16px 12px;
+}
+.home-profile{display:flex;align-items:center;gap:10px;}
+.avatar{
+  width:38px;height:38px;border-radius:12px;
+  background:linear-gradient(135deg,#1e2a40,#2a3a5c);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  border:1px solid rgba(251,191,36,.2);
+}
+.home-name{font-size:14px;font-weight:700;color:var(--white);}
+.home-guild-row{display:flex;align-items:center;gap:5px;margin-top:2px;}
+.home-reward{text-align:right;}
+.home-reward-label{font-size:10px;color:var(--muted);margin-bottom:2px;}
+.home-reward-num{
+  font-family:'Orbitron',monospace;font-size:18px;font-weight:900;
+  color:var(--g);line-height:1;
+  text-shadow:0 0 12px rgba(251,191,36,.4);
+}
+.home-reward-unit{font-size:11px;color:rgba(251,191,36,.6);}
+
+/* 감자 카드 */
+.potato-card{
+  background:linear-gradient(135deg,#111c30,#0d1525);
+  border:1px solid rgba(251,191,36,.25);
+  border-radius:20px;padding:20px 18px;
+  position:relative;overflow:hidden;
+}
+.potato-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.4),transparent);
+}
+.potato-card::after{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:100px;height:100px;border-radius:50%;
+  background:radial-gradient(circle,rgba(251,191,36,.07),transparent 70%);
+}
+.potato-main-row{display:flex;align-items:center;gap:16px;}
+.potato-emoji{font-size:56px;line-height:1;animation:float 3s ease-in-out infinite;}
+.potato-info{flex:1;}
+.potato-timer-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.potato-timer{
+  font-family:'Orbitron',monospace;font-size:26px;font-weight:900;
+  color:var(--white);line-height:1;margin-bottom:10px;
+}
+.potato-timer.ready{color:var(--green);text-shadow:0 0 16px rgba(74,222,128,.4);}
+.harvest-btn{
+  padding:12px 20px;border-radius:12px;border:none;
+  font-size:14px;font-weight:900;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  background:linear-gradient(135deg,#4ADE80,#22C55E);color:#000;
+  box-shadow:0 4px 16px rgba(74,222,128,.3);
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.harvest-btn:active{transform:scale(.95);}
+.harvest-btn.disabled{
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);
+  box-shadow:none;pointer-events:none;
+}
+.potato-next{font-size:11px;color:var(--muted);margin-top:8px;}
+
+/* 미션 */
+.mission-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.mission-progress-text{font-size:12px;font-weight:700;color:var(--g);}
+.mission-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;border-radius:12px;
+  background:rgba(255,255,255,.02);border:1px solid transparent;
+  margin-bottom:6px;
+}
+.mission-item.done{background:rgba(74,222,128,.04);border-color:rgba(74,222,128,.15);}
+.mission-check{
+  width:22px;height:22px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.mission-check.done{background:rgba(74,222,128,.15);color:var(--green);}
+.mission-check.todo{background:rgba(255,255,255,.06);color:transparent;border:1px solid rgba(255,255,255,.12);}
+.mission-text{flex:1;}
+.mission-name{font-size:13px;font-weight:700;color:var(--white);}
+.mission-count{font-size:11px;color:var(--muted);margin-top:1px;}
+.mission-btn{
+  padding:8px 14px;border-radius:8px;border:none;
+  font-size:11px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  background:rgba(251,191,36,.12);color:var(--g);
+  border:1px solid rgba(251,191,36,.2);
+  -webkit-tap-highlight-color:transparent;
+}
+.mission-btn:active{transform:scale(.95);}
+.mission-done-label{font-size:11px;color:var(--green);font-weight:700;}
+
+/* ──────────────────────────────────────
+   2. 포테이토 팡 로비
+──────────────────────────────────────*/
+#s-game{
+  background:linear-gradient(160deg,#0a0e1a 0%,#060810 100%);
+}
+.lobby-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%,rgba(251,191,36,.08) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 80%,rgba(139,92,246,.06) 0%,transparent 60%);
+}
+.lobby-inner{position:relative;z-index:1;padding:16px 16px 0;display:flex;flex-direction:column;flex:1;}
+
+.lobby-header{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+}
+.lobby-title{
+  font-family:'Orbitron',monospace;font-size:20px;font-weight:900;
+  background:linear-gradient(135deg,#FBBF24,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.lobby-plays{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);
+  border-radius:100px;padding:5px 12px;
+  font-size:12px;font-weight:700;color:var(--g);
+}
+
+.tier-provoke{
+  background:linear-gradient(135deg,#131e35,#0f1828);
+  border:1px solid rgba(251,191,36,.25);border-radius:20px;
+  padding:20px;text-align:center;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.tier-provoke::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.5),transparent);
+}
+.tier-badge-big{font-size:44px;margin-bottom:8px;animation:float 2.5s ease-in-out infinite;}
+.tier-name{font-size:18px;font-weight:900;color:var(--white);margin-bottom:6px;}
+.tier-challenge{
+  font-size:13px;font-weight:700;
+  background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);
+  border-radius:10px;padding:8px 12px;color:var(--g);
+  display:inline-block;
+}
+.tier-subtext{font-size:11px;color:var(--muted);margin-top:8px;}
+
+.ad-toggle-card{
+  background:linear-gradient(135deg,#13102a,#180f35);
+  border:1px solid rgba(139,92,246,.3);border-radius:18px;
+  padding:16px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.ad-toggle-card.pulsing{animation:pulse-border 1.5s ease-in-out infinite;}
+@keyframes pulse-border{
+  0%,100%{border-color:rgba(139,92,246,.3);box-shadow:none;}
+  50%{border-color:rgba(139,92,246,.7);box-shadow:0 0 20px rgba(139,92,246,.25);}
+}
+.ad-toggle-row{display:flex;align-items:center;gap:12px;}
+.ad-toggle-icon{
+  width:44px;height:44px;border-radius:14px;flex-shrink:0;
+  background:rgba(139,92,246,.15);display:flex;align-items:center;justify-content:center;font-size:22px;
+  border:1px solid rgba(139,92,246,.25);
+}
+.ad-toggle-text{flex:1;}
+.ad-toggle-title{font-size:14px;font-weight:700;color:var(--white);}
+.ad-toggle-sub{font-size:11px;color:rgba(139,92,246,.7);margin-top:2px;}
+.toggle-switch{
+  width:52px;height:28px;border-radius:100px;
+  background:rgba(255,255,255,.1);position:relative;cursor:pointer;
+  transition:all .3s;flex-shrink:0;border:1px solid rgba(255,255,255,.1);
+  -webkit-tap-highlight-color:transparent;
+}
+.toggle-switch.on{background:linear-gradient(135deg,#8B5CF6,#6D28D9);border-color:transparent;box-shadow:0 0 16px rgba(139,92,246,.4);}
+.toggle-knob{
+  width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.4);
+  position:absolute;top:2px;left:3px;transition:all .3s;
+}
+.toggle-switch.on .toggle-knob{left:27px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);}
+
+.ad-hint{
+  font-size:11px;padding:8px 12px;border-radius:10px;margin-top:10px;
+  background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.15);
+  color:rgba(167,139,250,.8);transition:all .3s;
+}
+
+.start-btn{
+  width:100%;padding:18px;border-radius:18px;border:none;
+  background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;
+  font-size:17px;font-weight:900;font-family:'Noto Sans KR',sans-serif;
+  cursor:pointer;position:relative;overflow:hidden;
+  box-shadow:0 6px 28px rgba(251,191,36,.4);transition:all .15s;
+  margin-top:auto;margin-bottom:16px;
+  -webkit-tap-highlight-color:transparent;
+}
+.start-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transform:translateX(-100%);animation:sweep 2s ease infinite;
+}
+.start-btn:active{transform:scale(.97);}
+
+/* ──────────────────────────────────────
+   3. 인게임
+──────────────────────────────────────*/
+#s-play{background:#070810;overflow:hidden;}
+#s-play.fever{background:linear-gradient(160deg,#1a0a2e,#0e0518)!important;}
+
+.game-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px 6px;position:relative;z-index:10;flex-shrink:0;
+}
+.score-box{text-align:left;}
+.score-label{font-size:10px;color:var(--muted);letter-spacing:1px;font-weight:700;}
+.score-num{
+  font-family:'Orbitron',monospace;font-size:26px;font-weight:900;
+  color:var(--white);line-height:1;transition:color .3s;
+}
+.score-num.up{color:var(--g);animation:scoreUp .3s ease;}
+
+.timer-wrap{text-align:right;}
+.timer-label{font-size:10px;color:var(--muted);letter-spacing:1px;font-weight:700;}
+.timer-num{
+  font-family:'Orbitron',monospace;font-size:26px;font-weight:900;
+  color:var(--white);line-height:1;transition:color .3s;
+}
+.timer-num.urgent{color:var(--red);animation:urgent-pulse .5s ease-in-out infinite;}
+
+.combo-area{
+  text-align:center;height:28px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:900;color:var(--purple);
+  opacity:0;transition:opacity .3s;
+  text-shadow:0 0 12px rgba(167,139,250,.5);
+}
+.combo-area.show{opacity:1;}
+
+.fever-banner{
+  position:absolute;top:60px;left:0;right:0;z-index:20;
+  text-align:center;pointer-events:none;
+  opacity:0;transform:scale(.8);transition:all .3s;
+}
+.fever-banner.active{opacity:1;transform:scale(1);}
+.fever-text{
+  font-family:'Orbitron',monospace;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#FBBF24,#F59E0B,#FBBF24);
+  background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:gold-shimmer 1s ease infinite;letter-spacing:2px;
+}
+.fever-sub{font-size:12px;color:var(--g);font-weight:700;margin-top:2px;}
+
+/* 그리드 — 반응형 */
+.board-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:4px 10px;position:relative;
+}
+.board{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  gap:3px;width:100%;max-width:min(360px, calc(100vw - 24px));
+  aspect-ratio:1;
+  position:relative;z-index:5;
+}
+.cell{
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:min(5vw, 22px);cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform .12s,box-shadow .12s;
+  border:1.5px solid transparent;
+  user-select:none;-webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;
+}
+.cell:active{transform:scale(.88);}
+.cell.selected{
+  transform:scale(1.12);
+  border-color:rgba(255,255,255,.6);
+  box-shadow:0 0 0 2px rgba(255,255,255,.3),0 4px 16px rgba(0,0,0,.4);
+  z-index:10;
+}
+.cell.matched{animation:matchPop .4s ease forwards;}
+.cell.falling{animation:fallIn .25s ease;}
+.cell.hint{animation:hint-pulse 1s ease-in-out 2;}
+
+.p0{background:linear-gradient(135deg,#FDE047,#EAB308);}
+.p1{background:linear-gradient(135deg,#F87171,#EF4444);}
+.p2{background:linear-gradient(135deg,#4ADE80,#22C55E);}
+.p3{background:linear-gradient(135deg,#60A5FA,#3B82F6);}
+.p4{background:linear-gradient(135deg,#C084FC,#A855F7);}
+
+.game-bottom{
+  padding:6px 18px 10px;display:flex;gap:8px;position:relative;z-index:10;flex-shrink:0;
+}
+.game-bottom-btn{
+  flex:1;padding:12px;border-radius:14px;border:none;
+  font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.game-bottom-btn:active{transform:scale(.95);}
+.btn-quit{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--faint);}
+
+.urgent-border{
+  position:absolute;inset:0;pointer-events:none;z-index:50;
+  border:4px solid var(--red);
+  opacity:0;transition:opacity .3s;box-shadow:inset 0 0 30px rgba(248,113,113,.2);
+}
+.urgent-border.show{opacity:1;animation:border-flash .5s ease-in-out infinite;}
+
+.extend-popup{
+  position:absolute;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+  padding:20px;
+}
+.extend-popup.show{opacity:1;pointer-events:all;}
+.extend-box{
+  background:linear-gradient(135deg,#131828,#0f1420);
+  border:1px solid rgba(251,191,36,.3);border-radius:24px;
+  padding:28px 24px;text-align:center;width:100%;max-width:320px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  animation:popIn .3s ease;
+}
+.extend-emoji{font-size:48px;margin-bottom:12px;animation:shake .4s ease;}
+.extend-title{font-size:18px;font-weight:900;color:var(--white);margin-bottom:6px;}
+.extend-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.extend-btn-primary{
+  width:100%;padding:16px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;
+  font-size:15px;font-weight:900;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  box-shadow:0 4px 20px rgba(251,191,36,.4);margin-bottom:10px;
+  -webkit-tap-highlight-color:transparent;
+}
+.extend-btn-primary:active{transform:scale(.97);}
+.extend-btn-secondary{
+  background:none;border:none;color:var(--muted);
+  font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  padding:10px;-webkit-tap-highlight-color:transparent;
+}
+
+/* ──────────────────────────────────────
+   4. 게임 결과
+──────────────────────────────────────*/
+#s-result{background:linear-gradient(160deg,#0a0e1a,#060810);}
+.result-wrap{padding:20px 16px;display:flex;flex-direction:column;flex:1;}
+
+.result-title{
+  font-family:'Orbitron',monospace;font-size:24px;font-weight:900;
+  text-align:center;
+  background:linear-gradient(135deg,#FBBF24,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:20px;
+}
+
+.result-score-card{
+  background:linear-gradient(135deg,#131e35,#0f1828);
+  border:1px solid rgba(251,191,36,.25);border-radius:20px;
+  padding:20px;text-align:center;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.result-score-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.5),transparent);
+}
+.result-base-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;}
+.result-base-num{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--muted);}
+.result-base-label{font-size:12px;color:var(--muted);}
+.result-buff-stamp{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);
+  border-radius:10px;padding:6px 14px;margin-bottom:10px;
+  font-size:13px;font-weight:700;color:var(--purple);
+  animation:stampIn .4s ease;
+}
+.result-final-row{display:flex;align-items:baseline;justify-content:center;gap:6px;}
+.result-final-num{
+  font-family:'Orbitron',monospace;font-size:48px;font-weight:900;color:var(--g);
+  line-height:1;filter:drop-shadow(0 0 16px rgba(251,191,36,.4));
+  animation:countUp .8s ease;
+}
+.result-final-unit{font-size:18px;color:rgba(251,191,36,.6);font-weight:700;}
+
+.guild-contrib-card{
+  background:var(--card);border:1px solid var(--faint);border-radius:18px;
+  padding:16px;margin-bottom:14px;
+}
+.guild-contrib-title{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:12px;}
+.guild-contrib-label{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px;
+}
+.guild-contrib-improvement{font-size:13px;font-weight:900;color:var(--green);}
+.contrib-bar{height:12px;background:rgba(255,255,255,.06);border-radius:100px;overflow:hidden;margin-bottom:6px;}
+.contrib-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#4ADE80,#22C55E);width:0%;transition:width 1s ease;box-shadow:0 0 8px rgba(74,222,128,.4);}
+.contrib-sub{font-size:11px;color:var(--muted);}
+
+.result-actions{display:flex;flex-direction:column;gap:8px;margin-top:auto;}
+.result-replay-btn{
+  width:100%;padding:16px;border-radius:16px;border:none;
+  background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;
+  font-size:15px;font-weight:900;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  box-shadow:0 4px 20px rgba(251,191,36,.3);position:relative;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.result-replay-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transform:translateX(-100%);animation:sweep 2s ease infinite;
+}
+.result-replay-btn:active{transform:scale(.97);}
+.result-back-btn{
+  width:100%;padding:13px;border-radius:14px;
+  background:transparent;border:1px solid var(--faint);
+  color:var(--muted);font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.result-back-btn:active{transform:scale(.97);}
+
+/* ──────────────────────────────────────
+   5. 길드 찾기
+──────────────────────────────────────*/
+.guild-warn{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.25);
+  border-radius:14px;padding:12px 14px;
+}
+.guild-warn-icon{font-size:20px;}
+.guild-warn-text{font-size:12px;font-weight:700;color:var(--red);}
+.guild-warn-sub{font-size:11px;color:rgba(248,113,113,.6);margin-top:2px;}
+
+.guild-card{
+  background:var(--card);border-radius:18px;
+  border:1px solid var(--faint);overflow:hidden;
+}
+.guild-card.highlight{border-color:rgba(74,222,128,.3);background:linear-gradient(135deg,#0d1c12,#0a1710);}
+
+.guild-card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px 0;
+}
+.guild-card-left{display:flex;align-items:center;gap:10px;}
+.guild-emblem-wrap{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  border:1px solid var(--faint);
+}
+.guild-emblem-s{background:rgba(148,163,184,.08);}
+.guild-emblem-g{background:rgba(251,191,36,.08);}
+.guild-card-name{font-size:15px;font-weight:700;color:var(--white);}
+.guild-card-name-row{display:flex;align-items:center;gap:6px;}
+
+.guild-card-body{padding:10px 16px 14px;}
+.guild-member-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.guild-member-num{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:var(--green);}
+.guild-member-total{color:rgba(255,255,255,.3);font-size:14px;}
+.guild-member-hint{
+  font-size:11px;color:var(--green);font-weight:700;
+  background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);
+  border-radius:6px;padding:3px 8px;
+}
+.guild-member-hint.normal{color:var(--muted);background:transparent;border-color:transparent;}
+.guild-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.guild-meta-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);}
+.guild-card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;background:rgba(255,255,255,.02);border-top:1px solid var(--faint);
+}
+.guild-ton-range{display:flex;flex-direction:column;}
+.guild-ton-label{font-size:10px;color:var(--muted);}
+.guild-ton-num{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;color:var(--g);}
+.guild-join-btn{
+  padding:10px 18px;border-radius:12px;border:none;
+  font-size:13px;font-weight:900;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.guild-join-btn:active{transform:scale(.95);}
+.guild-join-primary{background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;box-shadow:0 3px 12px rgba(251,191,36,.3);}
+.guild-join-secondary{background:rgba(255,255,255,.07);color:var(--white);border:1px solid var(--border);}
+.guild-create-btn{
+  width:100%;padding:13px;border-radius:14px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);
+  font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* ──────────────────────────────────────
+   6. 내 길드
+──────────────────────────────────────*/
+.my-guild-header{
+  background:linear-gradient(135deg,#131e2e,#0f1824);
+  border:1px solid rgba(251,191,36,.2);border-radius:20px;padding:18px;
+  position:relative;overflow:hidden;
+}
+.my-guild-header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.4),transparent);
+}
+.my-guild-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.my-guild-name-row{display:flex;align-items:center;gap:8px;}
+.my-guild-name{font-size:18px;font-weight:900;color:var(--white);}
+.my-guild-stats{display:flex;gap:0;}
+.my-guild-stat{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.06);}
+.my-guild-stat:last-child{border-right:none;}
+.my-guild-stat-val{font-family:'Orbitron',monospace;font-size:17px;font-weight:900;color:var(--white);margin-bottom:2px;}
+.my-guild-stat-val.ton{color:var(--g);}
+.my-guild-stat-val.big{color:var(--green);font-size:22px;}
+.my-guild-stat-val.warn{color:var(--red);animation:blink-red 1s ease infinite;}
+.my-guild-stat-label{font-size:10px;color:var(--muted);}
+
+.valid-warning{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);
+  border-radius:12px;padding:10px 12px;
+}
+.valid-warning-text{font-size:12px;color:var(--red);font-weight:700;line-height:1.4;}
+
+.gallows-card{background:var(--card);border-radius:18px;padding:16px;}
+.gallows-title{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--red);margin-bottom:12px;}
+.offender-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:12px;
+  background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.1);
+  margin-bottom:6px;
+}
+.offender-avatar{
+  width:34px;height:34px;border-radius:10px;
+  background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.offender-name{font-size:13px;font-weight:700;color:var(--white);}
+.offender-status{font-size:11px;color:var(--red);margin-top:1px;}
+.poke-btn{
+  margin-left:auto;flex-shrink:0;
+  padding:8px 14px;border-radius:8px;border:none;
+  background:rgba(248,113,113,.12);color:var(--red);
+  font-size:11px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  border:1px solid rgba(248,113,113,.2);-webkit-tap-highlight-color:transparent;
+}
+.poke-btn:active{transform:scale(.95);}
+
+.leaderboard-card{background:var(--card);border-radius:18px;padding:16px;}
+.lb-title{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;letter-spacing:1px;}
+.lb-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:4px;}
+.lb-item.me{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.15);}
+.lb-rank{width:24px;text-align:center;font-family:'Orbitron',monospace;font-size:13px;font-weight:900;color:var(--muted);}
+.lb-rank.gold-rank{color:var(--g);}
+.lb-name{flex:1;font-size:13px;font-weight:700;color:var(--white);}
+.lb-name.me-name{color:var(--g);}
+.lb-pts{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--muted);}
+.lb-pts.me-pts{color:var(--g);}
+
+/* ──────────────────────────────────────
+   7. 지갑
+──────────────────────────────────────*/
+.wallet-hero{
+  background:linear-gradient(135deg,#0f1c2e,#0b1520);
+  border:1px solid rgba(251,191,36,.2);border-radius:20px;padding:20px;
+  position:relative;overflow:hidden;
+}
+.wallet-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,.5),transparent);
+}
+.wallet-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:6px;}
+.wallet-amount{display:flex;align-items:baseline;gap:6px;margin-bottom:4px;}
+.wallet-num{font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:var(--g);filter:drop-shadow(0 0 12px rgba(251,191,36,.3));}
+.wallet-unit{font-size:16px;font-weight:700;color:rgba(251,191,36,.6);}
+.wallet-hold-row{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(251,163,26,.07);border:1px solid rgba(251,163,26,.15);
+  border-radius:8px;padding:7px 10px;margin-top:10px;
+}
+.wallet-hold-label{font-size:12px;color:rgba(251,163,26,.8);font-weight:700;}
+.wallet-hold-reason{font-size:11px;color:rgba(251,163,26,.55);}
+
+.countdown-card{
+  background:linear-gradient(135deg,#0e1628,#0a1020);
+  border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:16px;text-align:center;
+}
+.countdown-label{font-size:11px;font-weight:700;color:rgba(139,92,246,.7);letter-spacing:1px;margin-bottom:10px;}
+.countdown-time{font-family:'Orbitron',monospace;font-size:24px;font-weight:900;color:var(--white);letter-spacing:2px;margin-bottom:6px;}
+.countdown-time span{color:#A78BFA;}
+.countdown-sub{font-size:11px;color:var(--muted);line-height:1.5;}
+
+.history-card{background:var(--card);border-radius:18px;padding:16px;}
+.history-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--faint);}
+.history-item:last-child{border-bottom:none;}
+.history-week{font-size:12px;color:var(--muted);}
+.history-status{font-size:11px;font-weight:700;color:var(--green);}
+.history-amt{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--g);}
+
+.kyc-banner{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(251,163,26,.07);border:1px solid rgba(251,163,26,.2);
+  border-radius:14px;padding:12px 14px;
+}
+.kyc-banner-text{flex:1;}
+.kyc-banner-title{font-size:13px;font-weight:700;color:var(--orange);}
+.kyc-banner-sub{font-size:11px;color:rgba(251,163,26,.6);margin-top:2px;}
+.kyc-banner-btn{
+  flex-shrink:0;padding:8px 14px;border-radius:10px;border:none;
+  background:rgba(251,163,26,.15);color:var(--orange);
+  font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  border:1px solid rgba(251,163,26,.25);-webkit-tap-highlight-color:transparent;
+}
+
+.wallet-actions{display:flex;gap:8px;}
+.wallet-action-btn{
+  flex:1;padding:14px;border-radius:14px;border:none;
+  font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.wallet-action-btn:active{transform:scale(.97);}
+.wallet-action-primary{background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;box-shadow:0 4px 16px rgba(251,191,36,.25);}
+.wallet-action-secondary{background:rgba(255,255,255,.06);color:var(--white);border:1px solid var(--border);}
+
+/* 파티클 */
+.particle{
+  position:absolute;pointer-events:none;font-size:18px;
+  animation:particleFly .8s ease forwards;z-index:30;
+}
+
+/* ── 애니메이션 ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink-red{0%,100%{color:var(--red)}50%{color:rgba(248,113,113,.5)}}
+@keyframes sweep{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+@keyframes roll{0%{transform:translateY(0);opacity:1}50%{transform:translateY(-12px);opacity:0}51%{transform:translateY(12px);opacity:0}100%{transform:translateY(0);opacity:1}}
+.rolling{animation:roll .6s ease;}
+@keyframes matchPop{0%{transform:scale(1);opacity:1}40%{transform:scale(1.3)}100%{transform:scale(0);opacity:0}}
+@keyframes fallIn{0%{transform:translateY(-40px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes hint-pulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 4px rgba(255,255,255,.4)}}
+@keyframes scoreUp{0%{transform:scale(1.3);color:var(--g)}100%{transform:scale(1)}}
+@keyframes urgent-pulse{0%,100%{color:var(--red)}50%{color:rgba(248,113,113,.4)}}
+@keyframes border-flash{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes gold-shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes popIn{0%{transform:scale(.7);opacity:0}70%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+@keyframes stampIn{0%{transform:scale(0) rotate(-15deg);opacity:0}70%{transform:scale(1.1) rotate(3deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes countUp{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes particleFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="statusbar">
+    <span>🥔 POTATO KINGDOM</span>
+    <span id="tg-user-name"></span>
+  </div>
+
+  <!-- ═══ 홈 ═══ -->
+  <div class="screen active" id="s-home">
+    <div class="home-header">
+      <div class="home-profile">
+        <div class="avatar">🧑</div>
+        <div>
+          <div class="home-name" id="home-username">감자농부</div>
+          <div class="home-guild-row">
+            <span class="chip chip-g">🛡️ 감자연합 · 골드</span>
+          </div>
+        </div>
+      </div>
+      <div class="home-reward">
+        <div class="home-reward-label">이번주 예상</div>
+        <div class="home-reward-num" id="rolling-num">0.8~1.3</div>
+        <div class="home-reward-unit">TON</div>
+      </div>
+    </div>
+
+    <div class="screen-body">
+      <div class="potato-card">
+        <div class="potato-main-row">
+          <div class="potato-emoji">🥔</div>
+          <div class="potato-info">
+            <div class="potato-timer-label">⏱ 다음 수확까지</div>
+            <div class="potato-timer" id="home-timer">03:12:45</div>
+            <button class="harvest-btn disabled" id="harvest-btn" ontouchend="onHarvest(event)" onclick="onHarvest(event)">수확하기</button>
+          </div>
+        </div>
+        <div class="potato-next">🌱 다음 수확 예약됨 · 8시간 성장</div>
+      </div>
+
+      <div class="card">
+        <div class="mission-header">
+          <div class="sec-label" style="margin-bottom:0">오늘 할 일</div>
+          <div class="mission-progress-text">유효달성률 60% (3/5)</div>
+        </div>
+        <div class="progress-bar" style="margin:8px 0 12px">
+          <div class="progress-fill" style="width:60%;background:linear-gradient(90deg,#FBBF24,#F59E0B);box-shadow:0 0 8px rgba(251,191,36,.3)"></div>
+        </div>
+        <div class="mission-item done">
+          <div class="mission-check done">✓</div>
+          <div class="mission-text"><div class="mission-name">출석 체크</div><div class="mission-count">3/3 완료</div></div>
+          <div class="mission-done-label">✅ 완료</div>
+        </div>
+        <div class="mission-item done">
+          <div class="mission-check done">✓</div>
+          <div class="mission-text"><div class="mission-name">수확</div><div class="mission-count">3/3 완료</div></div>
+          <div class="mission-done-label">✅ 완료</div>
+        </div>
+        <div class="mission-item">
+          <div class="mission-check todo"></div>
+          <div class="mission-text"><div class="mission-name">게임 플레이</div><div class="mission-count">2/10 진행중</div></div>
+          <button class="mission-btn" onclick="switchTab('game')">게임하기 →</button>
+        </div>
+        <div class="mission-item done">
+          <div class="mission-check done">✓</div>
+          <div class="mission-text"><div class="mission-name">광고 부스터</div><div class="mission-count">5/5 완료</div></div>
+          <div class="mission-done-label">✅ 완료</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 게임 로비 ═══ -->
+  <div class="screen" id="s-game">
+    <div class="lobby-bg"></div>
+    <div class="lobby-inner">
+      <div class="lobby-header">
+        <div class="lobby-title">POTATO PANG</div>
+        <div class="lobby-plays">🎮 남은 판: <span id="lobby-plays">7</span>/10</div>
+      </div>
+      <div class="tier-provoke">
+        <div class="tier-badge-big">🥈</div>
+        <div class="tier-name">현재 길드: 실버 티어</div>
+        <div class="tier-challenge">🏆 골드 승급까지 평균 3,500점 필요!</div>
+        <div class="tier-subtext">이번 판 점수가 길드 랭킹에 즉시 반영됩니다</div>
+      </div>
+      <div class="ad-toggle-card pulsing" id="ad-card">
+        <div class="ad-toggle-row">
+          <div class="ad-toggle-icon">🎁</div>
+          <div class="ad-toggle-text">
+            <div class="ad-toggle-title">광고 보고 이번 판 점수 2배!</div>
+            <div class="ad-toggle-sub" id="ad-remain-text">남은 부스터: 5/5회</div>
+          </div>
+          <div class="toggle-switch on" id="lobby-toggle" onclick="toggleLobbyAd()">
+            <div class="toggle-knob"></div>
+          </div>
+        </div>
+        <div class="ad-hint" id="lobby-ad-hint">⚡ ON 상태 · 게임 시작 시 광고 재생 → 완료 후 이번 판 ×2 적용</div>
+      </div>
+      <button class="start-btn" onclick="startGame()">➔ 퍼즐 시작하기</button>
+    </div>
+  </div>
+
+  <!-- ═══ 인게임 ═══ -->
+  <div class="screen" id="s-play">
+    <div class="urgent-border" id="urgent-border"></div>
+    <div class="game-top">
+      <div class="score-box"><div class="score-label">SCORE</div><div class="score-num" id="score-display">0</div></div>
+      <div class="combo-area" id="combo-area"></div>
+      <div class="timer-wrap"><div class="timer-label">TIME</div><div class="timer-num" id="timer-display">60</div></div>
+    </div>
+    <div class="fever-banner" id="fever-banner">
+      <div class="fever-text">🔥 FEVER TIME! 🔥</div>
+      <div class="fever-sub">모든 점수 1.5배 · 10초</div>
+    </div>
+    <div class="board-wrap"><div class="board" id="board"></div></div>
+    <div class="game-bottom">
+      <button class="game-bottom-btn btn-quit" onclick="endGame()">포기</button>
+    </div>
+    <div class="extend-popup" id="extend-popup">
+      <div class="extend-box">
+        <div class="extend-emoji">⏳</div>
+        <div class="extend-title">아깝다! 지금 포기하면 손해!</div>
+        <div class="extend-sub">콤보가 무르익고 있습니다.<br>10초만 더 하면 골드 승급 가능성이 올라갑니다!</div>
+        <button class="extend-btn-primary" onclick="extendTime()">💎 다이아 2개 쓰고 10초 연장</button>
+        <button class="extend-btn-secondary" onclick="endGame()">포기하고 결과 보기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 결과 ═══ -->
+  <div class="screen" id="s-result">
+    <div class="result-wrap">
+      <div class="result-title">🎉 STAGE CLEAR!</div>
+      <div class="result-score-card">
+        <div class="result-base-row">
+          <div class="result-base-num" id="result-base">0</div>
+          <div class="result-base-label">점</div>
+        </div>
+        <div class="result-buff-stamp" id="result-buff" style="display:none">🎁 광고 2배 버프 발동!</div>
+        <div class="result-final-row">
+          <div class="result-final-num" id="result-final">0</div>
+          <div class="result-final-unit">점</div>
+        </div>
+      </div>
+      <div class="guild-contrib-card">
+        <div class="guild-contrib-title">🛡️ 길드 기여도 반영</div>
+        <div class="guild-contrib-label">
+          <span>내 점수가 길드에 반영되었습니다!</span>
+          <span class="guild-contrib-improvement" id="contrib-improvement">↑ 4% 상승!</span>
+        </div>
+        <div class="contrib-bar"><div class="contrib-fill" id="contrib-fill"></div></div>
+        <div class="contrib-sub" id="contrib-sub">실버 상위 42% → 38%</div>
+      </div>
+      <div class="result-actions">
+        <button class="result-replay-btn" onclick="goLobby()">🔄 한 판 더 하기 (남은: <span id="result-plays">6</span>/10)</button>
+        <button class="result-back-btn" onclick="switchTab('home')">🏠 킹덤 홈으로</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 길드 찾기 ═══ -->
+  <div class="screen" id="s-guild">
+    <div style="padding:12px 16px 4px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-size:18px;font-weight:900;color:var(--white)">🛡️ 길드</div>
+      <div style="display:flex;gap:8px">
+        <span style="font-size:11px;font-weight:700;color:var(--muted);padding:5px 10px;border-radius:8px;background:var(--faint)">찾기</span>
+        <span style="font-size:11px;font-weight:700;color:var(--g);padding:5px 10px;border-radius:8px;background:rgba(251,191,36,.1)">랭킹</span>
+      </div>
+    </div>
+    <div class="screen-body">
+      <div class="guild-warn"><div class="guild-warn-icon">⚠️</div><div><div class="guild-warn-text">길드 미가입 시 이번주 TON 정산에서 완전히 제외됩니다!</div><div class="guild-warn-sub">지금 가입하면 이번주 랭킹부터 바로 적용</div></div></div>
+      <div class="sec-label">⚡ 추천 길드 (즉시 가입 가능)</div>
+      <div class="guild-card highlight">
+        <div class="guild-card-header"><div class="guild-card-left"><div class="guild-emblem-wrap guild-emblem-s">🥔</div><div><div class="guild-card-name-row"><span class="guild-card-name">감자연합</span><span class="chip chip-s" style="font-size:10px">실버</span></div></div></div><div class="chip chip-green" style="font-size:10px">가입 즉시 보상!</div></div>
+        <div class="guild-card-body"><div class="guild-member-bar"><div class="guild-member-num">6<span class="guild-member-total">/10</span></div><div class="guild-member-hint">내가 가입하면 유효 7명!</div></div><div class="guild-card-meta"><div class="guild-meta-item">🌏 KR</div><div class="guild-meta-item">⏰ KST</div></div></div>
+        <div class="guild-card-footer"><div class="guild-ton-range"><div class="guild-ton-label">이번주 예상</div><div class="guild-ton-num">8~12 TON</div></div><button class="guild-join-btn guild-join-primary">즉시 가입</button></div>
+      </div>
+      <div class="guild-card">
+        <div class="guild-card-header"><div class="guild-card-left"><div class="guild-emblem-wrap guild-emblem-g">⚔️</div><div><div class="guild-card-name-row"><span class="guild-card-name">크립토파머</span><span class="chip chip-g" style="font-size:10px">골드</span></div></div></div></div>
+        <div class="guild-card-body"><div class="guild-member-bar"><div class="guild-member-num">9<span class="guild-member-total">/10</span></div><div class="guild-member-hint normal">승인 후 가입</div></div><div class="guild-card-meta"><div class="guild-meta-item">🌏 EN</div><div class="guild-meta-item">⏰ EST</div></div></div>
+        <div class="guild-card-footer"><div class="guild-ton-range"><div class="guild-ton-label">이번주 예상</div><div class="guild-ton-num" style="color:var(--g)">15~20 TON</div></div><button class="guild-join-btn guild-join-secondary">가입 신청</button></div>
+      </div>
+      <button class="guild-create-btn">+ 내 길드 직접 만들기 <span style="font-size:10px;color:rgba(255,255,255,.2)">(다이아 100개)</span></button>
+    </div>
+  </div>
+
+  <!-- ═══ 내 길드 ═══ -->
+  <div class="screen" id="s-myguild">
+    <div style="padding:12px 16px 4px;font-size:18px;font-weight:900;color:var(--white)">🛡️ 내 길드</div>
+    <div class="screen-body">
+      <div class="my-guild-header">
+        <div class="my-guild-top"><div class="my-guild-name-row"><span class="my-guild-name">감자연합</span><span class="chip chip-g">골드</span></div><div style="font-size:11px;color:var(--muted)">시즌1 · 2주차</div></div>
+        <div class="my-guild-stats">
+          <div class="my-guild-stat"><div class="my-guild-stat-val ton">12~18</div><div class="my-guild-stat-label">길드 예상 TON</div></div>
+          <div class="my-guild-stat"><div class="my-guild-stat-val ton">1.2~1.8</div><div class="my-guild-stat-label">내 예상 TON</div></div>
+          <div class="my-guild-stat"><div class="my-guild-stat-val big warn">7/10</div><div class="my-guild-stat-label">유효 멤버</div></div>
+        </div>
+      </div>
+      <div class="valid-warning"><div style="font-size:18px">🚨</div><div class="valid-warning-text">한 명만 조건 미달 되어도 이번주 랭킹에서 강제 제외됩니다!</div></div>
+      <div class="gallows-card">
+        <div class="gallows-title">⚠️ 조건 미달자</div>
+        <div class="offender-item"><div class="offender-avatar">👤</div><div><div class="offender-name">Jin***</div><div class="offender-status">출석 2/3 부족</div></div><button class="poke-btn">🔔 찌르기</button></div>
+        <div class="offender-item"><div class="offender-avatar">👤</div><div><div class="offender-name">Alex***</div><div class="offender-status">수확 1/3 부족</div></div><button class="poke-btn">🔔 찌르기</button></div>
+      </div>
+      <div class="leaderboard-card">
+        <div class="lb-title">🏆 TOP7 순위 (TOP7만 배당)</div>
+        <div class="lb-item"><div class="lb-rank gold-rank">1</div><div class="lb-name">Boss***</div><div class="lb-pts">4,520점</div></div>
+        <div class="lb-item me"><div class="lb-rank gold-rank">2</div><div class="lb-name me-name">나</div><div class="lb-pts me-pts">3,800점</div></div>
+        <div class="lb-item" style="opacity:.5"><div class="lb-rank">3~7</div><div class="lb-name">...</div><div class="lb-pts">—</div></div>
+      </div>
+      <button class="btn btn-gold" onclick="switchTab('game')">🎮 게임 1판 더 해서 순위 올리기</button>
+    </div>
+  </div>
+
+  <!-- ═══ 지갑 ═══ -->
+  <div class="screen" id="s-wallet">
+    <div style="padding:12px 16px 4px;font-size:18px;font-weight:900;color:var(--white)">💰 지갑</div>
+    <div class="screen-body">
+      <div class="wallet-hero">
+        <div class="wallet-label">💵 현재 출금 가능</div>
+        <div class="wallet-amount"><div class="wallet-num">12.40</div><div class="wallet-unit">TON</div></div>
+        <div class="wallet-hold-row"><div><div class="wallet-hold-label">🔒 확정 대기: 1.10 TON</div><div class="wallet-hold-reason">비정상 광고 시청 패턴 감지 (D-2)</div></div></div>
+      </div>
+      <div class="countdown-card">
+        <div class="countdown-label">⏳ 다음 월간 출금까지</div>
+        <div class="countdown-time"><span id="cd-d">14</span>일 <span id="cd-h">05</span>시 <span id="cd-m">23</span>분 <span id="cd-s">10</span>초</div>
+        <div class="countdown-sub">매월 1회 출금 진행</div>
+      </div>
+      <div class="kyc-banner"><div class="kyc-banner-text"><div class="kyc-banner-title">KYC 인증 미완료</div><div class="kyc-banner-sub">출금 전 필수</div></div><button class="kyc-banner-btn">KYC 시작</button></div>
+      <div class="history-card">
+        <div class="sec-label">📅 주간 정산</div>
+        <div class="history-item"><div><div class="history-week">2월 3주차</div><div class="history-status">✅ 확정</div></div><div class="history-amt">+3.1 TON</div></div>
+        <div class="history-item"><div><div class="history-week">2월 2주차</div><div class="history-status">✅ 확정</div></div><div class="history-amt">+3.2 TON</div></div>
+        <div class="history-item"><div><div class="history-week">2월 1주차</div><div class="history-status">✅ 확정</div></div><div class="history-amt">+2.8 TON</div></div>
+      </div>
+      <div style="background:rgba(255,255,255,.02);border:1px solid var(--faint);border-radius:14px;padding:12px 14px;">
+        <div style="font-size:11px;color:var(--muted);line-height:1.7;">🔒 지갑 변경 시 14일 출금 제한<br>💳 최소 출금: 2 TON<br>📋 L1 KYC: 단건 20 · 월 50 TON</div>
+      </div>
+      <div class="wallet-actions">
+        <button class="wallet-action-btn wallet-action-secondary">💳 지갑 연결</button>
+        <button class="wallet-action-btn wallet-action-primary">📤 출금 신청</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 하단 탭 ── -->
+  <div class="bottom-tab" id="bottom-tab">
+    <div class="tab-item active" id="tab-home" onclick="switchTab('home')"><div class="tab-icon">🏠</div><div class="tab-label">홈</div></div>
+    <div class="tab-item" id="tab-game" onclick="switchTab('game')"><div class="tab-icon">🎮</div><div class="tab-label">게임</div></div>
+    <div class="tab-item" id="tab-guild" onclick="switchTab('guild')"><div class="tab-icon">🛡️</div><div class="tab-label">길드</div></div>
+    <div class="tab-item" id="tab-invite" onclick="switchTab('myguild')"><div class="tab-icon">👥</div><div class="tab-label">내길드</div></div>
+    <div class="tab-item" id="tab-wallet" onclick="switchTab('wallet')"><div class="tab-icon">💰</div><div class="tab-label">지갑</div></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════
+// Telegram Web App 초기화
+// ══════════════════════════════════
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready();
+  tg.expand();
+  tg.setHeaderColor('#07080F');
+  tg.setBackgroundColor('#07080F');
+
+  // 유저 이름 표시
+  const user = tg.initDataUnsafe?.user;
+  if (user) {
+    const name = user.first_name || 'Farmer';
+    document.getElementById('home-username').textContent = name;
+    document.getElementById('tg-user-name').textContent = name;
+  }
+
+  // 햅틱 피드백 헬퍼
+  window.haptic = (type) => {
+    try { tg.HapticFeedback?.impactOccurred(type || 'light'); } catch(e){}
+  };
+} else {
+  window.haptic = () => {};
+}
+
+// ══════════════════════════════════
+// 탭 전환
+// ══════════════════════════════════
+const tabMap = {
+  home:    {screen:'s-home',    tab:'tab-home'},
+  game:    {screen:'s-game',    tab:'tab-game'},
+  play:    {screen:'s-play',    tab:'tab-game'},
+  result:  {screen:'s-result',  tab:'tab-game'},
+  guild:   {screen:'s-guild',   tab:'tab-guild'},
+  myguild: {screen:'s-myguild', tab:'tab-invite'},
+  wallet:  {screen:'s-wallet',  tab:'tab-wallet'},
+};
+
+function switchTab(name) {
+  Object.values(tabMap).forEach(({screen, tab}) => {
+    document.getElementById(screen).classList.remove('active');
+    const t = document.getElementById(tab);
+    if(t) t.classList.remove('active');
+  });
+  const m = tabMap[name];
+  document.getElementById(m.screen).classList.add('active');
+  const t = document.getElementById(m.tab);
+  if(t) t.classList.add('active');
+
+  const bottomTab = document.getElementById('bottom-tab');
+  bottomTab.style.display = (name === 'play') ? 'none' : 'flex';
+
+  haptic('light');
+}
+
+// ══════════════════════════════════
+// 수확 버튼
+// ══════════════════════════════════
+function onHarvest(e) {
+  e.preventDefault();
+  const btn = document.getElementById('harvest-btn');
+  if (btn.classList.contains('disabled')) return;
+  haptic('heavy');
+  btn.textContent = '✅ 수확 완료!';
+  btn.classList.add('disabled');
+  btn.style.background='rgba(74,222,128,.15)';
+  btn.style.color='var(--green)';
+  btn.style.boxShadow='none';
+}
+
+// ══════════════════════════════════
+// 홈 타이머
+// ══════════════════════════════════
+let timerSec = 3*3600+12*60+45;
+function updateTimer(){
+  const h = String(Math.floor(timerSec/3600)).padStart(2,'0');
+  const m = String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
+  const s = String(timerSec%60).padStart(2,'0');
+  const el = document.getElementById('home-timer');
+  if(timerSec > 0) {
+    el.textContent = h+':'+m+':'+s;
+    el.classList.remove('ready');
+    timerSec--;
+  } else {
+    el.textContent = '수확 가능!';
+    el.classList.add('ready');
+    const btn = document.getElementById('harvest-btn');
+    btn.classList.remove('disabled');
+    btn.textContent = '수확하기';
+    btn.style.background='linear-gradient(135deg,#4ADE80,#22C55E)';
+    btn.style.color='#000';
+    btn.style.boxShadow='0 4px 16px rgba(74,222,128,.3)';
+  }
+}
+setInterval(updateTimer, 1000);
+
+let cdSec = 14*86400+5*3600+23*60+10;
+setInterval(()=>{
+  cdSec--;
+  const d = Math.floor(cdSec/86400);
+  const h = Math.floor((cdSec%86400)/3600);
+  const m = Math.floor((cdSec%3600)/60);
+  const s = cdSec%60;
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=String(v).padStart(2,'0'); };
+  set('cd-d',d); set('cd-h',h); set('cd-m',m); set('cd-s',s);
+}, 1000);
+
+const rewards = ['0.8~1.3','0.9~1.4','0.7~1.2','1.0~1.5'];
+let ri = 0;
+setInterval(()=>{
+  ri = (ri+1)%rewards.length;
+  const el = document.getElementById('rolling-num');
+  el.classList.remove('rolling');
+  void el.offsetWidth;
+  el.classList.add('rolling');
+  setTimeout(()=>{ el.textContent=rewards[ri]; },300);
+}, 4000);
+
+// ══════════════════════════════════
+// Potato Pang
+// ══════════════════════════════════
+const ROWS = 7, COLS = 7;
+const POTATO_CLASS = ['p0','p1','p2','p3','p4'];
+const POTATO_EMOJI = ['😄','😡','😢','😎','🥳'];
+
+let board = [], score = 0, timeLeft = 60;
+let selected = null, combo = 0, comboTimer = null;
+let gameTimer = null, adBoostOn = true, playsLeft = 7;
+let isFever = false, feverTimer = null, feverTimeLeft = 0;
+let isExtended = false;
+
+function toggleLobbyAd() {
+  adBoostOn = !adBoostOn;
+  const t = document.getElementById('lobby-toggle');
+  const hint = document.getElementById('lobby-ad-hint');
+  const card = document.getElementById('ad-card');
+  haptic('light');
+  if (adBoostOn) {
+    t.classList.add('on');
+    hint.textContent = '⚡ ON · 게임 시작 시 광고 → 이번 판 ×2';
+    hint.style.color = 'rgba(167,139,250,.8)';
+    card.classList.add('pulsing');
+  } else {
+    t.classList.remove('on');
+    hint.textContent = 'OFF · 광고 없이 바로 시작';
+    hint.style.color = 'var(--muted)';
+    card.classList.remove('pulsing');
+  }
+}
+
+function startGame() {
+  playsLeft--;
+  document.getElementById('lobby-plays').textContent = playsLeft;
+  score = 0; timeLeft = 60; combo = 0; isFever = false; isExtended = false;
+  document.getElementById('score-display').textContent = '0';
+  document.getElementById('timer-display').textContent = '60';
+  document.getElementById('timer-display').classList.remove('urgent');
+  document.getElementById('urgent-border').classList.remove('show');
+  switchTab('play');
+  initBoard();
+  renderBoard();
+  startGameTimer();
+  haptic('medium');
+}
+
+function initBoard() {
+  board = [];
+  for (let r = 0; r < ROWS; r++) {
+    board[r] = [];
+    for (let c = 0; c < COLS; c++) board[r][c] = randPotato();
+  }
+  for (let i = 0; i < 10; i++) resolveInitialMatches();
+}
+
+function randPotato() { return Math.floor(Math.random() * 5); }
+
+function resolveInitialMatches() {
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (c >= 2 && board[r][c] === board[r][c-1] && board[r][c] === board[r][c-2]) board[r][c] = (board[r][c] + 1) % 5;
+      if (r >= 2 && board[r][c] === board[r-1][c] && board[r][c] === board[r-2][c]) board[r][c] = (board[r][c] + 1) % 5;
+    }
+  }
+}
+
+function renderBoard() {
+  const el = document.getElementById('board');
+  el.innerHTML = '';
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell ' + POTATO_CLASS[board[r][c]];
+      cell.textContent = POTATO_EMOJI[board[r][c]];
+      cell.dataset.r = r; cell.dataset.c = c;
+      cell.addEventListener('click', () => onCellClick(r, c));
+      el.appendChild(cell);
+    }
+  }
+}
+
+function getCellEl(r, c) { return document.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`); }
+
+function updateCell(r, c) {
+  const el = getCellEl(r, c);
+  if (!el) return;
+  el.className = 'cell ' + POTATO_CLASS[board[r][c]];
+  el.textContent = POTATO_EMOJI[board[r][c]];
+}
+
+function onCellClick(r, c) {
+  if (timeLeft <= 0) return;
+  const el = getCellEl(r, c);
+  if (selected === null) {
+    selected = {r, c};
+    el.classList.add('selected');
+    haptic('light');
+  } else {
+    const prev = getCellEl(selected.r, selected.c);
+    if (prev) prev.classList.remove('selected');
+    if (isAdjacent(selected, {r, c})) trySwap(selected.r, selected.c, r, c);
+    selected = null;
+  }
+}
+
+function isAdjacent(a, b) { return (Math.abs(a.r - b.r) + Math.abs(a.c - b.c)) === 1; }
+
+function trySwap(r1, c1, r2, c2) {
+  [board[r1][c1], board[r2][c2]] = [board[r2][c2], board[r1][c1]];
+  const matches = findMatches();
+  if (matches.length > 0) {
+    updateCell(r1, c1); updateCell(r2, c2);
+    processMatches(matches);
+    haptic('medium');
+  } else {
+    [board[r1][c1], board[r2][c2]] = [board[r2][c2], board[r1][c1]];
+    const el1 = getCellEl(r1, c1), el2 = getCellEl(r2, c2);
+    if(el1){el1.style.animation='none';void el1.offsetWidth;el1.style.animation='hint-pulse .3s ease 1';}
+    if(el2){el2.style.animation='none';void el2.offsetWidth;el2.style.animation='hint-pulse .3s ease 1';}
+    combo = 0;
+    haptic('light');
+  }
+}
+
+function findMatches() {
+  const matched = new Set();
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS - 2; c++) {
+      if (board[r][c] === board[r][c+1] && board[r][c] === board[r][c+2] && board[r][c] < 5) {
+        let len = 3;
+        while (c + len < COLS && board[r][c] === board[r][c+len]) len++;
+        for (let i = 0; i < len; i++) matched.add(`${r},${c+i}`);
+      }
+    }
+  }
+  for (let c = 0; c < COLS; c++) {
+    for (let r = 0; r < ROWS - 2; r++) {
+      if (board[r][c] === board[r+1][c] && board[r][c] === board[r+2][c] && board[r][c] < 5) {
+        let len = 3;
+        while (r + len < ROWS && board[r][c] === board[r+len][c]) len++;
+        for (let i = 0; i < len; i++) matched.add(`${r+i},${c}`);
+      }
+    }
+  }
+  return [...matched].map(s => {const[r,c]=s.split(',');return{r:+r,c:+c};});
+}
+
+function processMatches(matches) {
+  combo++;
+  const pts = matches.length * 50 * combo * (isFever ? 1.5 : 1) * (adBoostOn ? 2 : 1);
+  addScore(Math.floor(pts));
+  showCombo(combo);
+  if (combo >= 5 && !isFever) startFever();
+
+  matches.slice(0, 5).forEach(({r, c}) => {
+    const el = getCellEl(r, c);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const appRect = document.querySelector('.app').getBoundingClientRect();
+      spawnParticle(rect.left - appRect.left + 20, rect.top - appRect.top + 20);
+    }
+    el && el.classList.add('matched');
+  });
+
+  setTimeout(() => {
+    matches.forEach(({r, c}) => { board[r][c] = -1; });
+    dropCells(); fillBoard(); renderBoard();
+    const newMatches = findMatches();
+    if (newMatches.length > 0) {
+      setTimeout(() => processMatches(newMatches), 300);
+    } else {
+      combo = 0;
+      clearTimeout(comboTimer);
+      setTimeout(() => document.getElementById('combo-area').classList.remove('show'), 1000);
+    }
+  }, 350);
+}
+
+function dropCells() {
+  for (let c = 0; c < COLS; c++) {
+    let w = ROWS - 1;
+    for (let r = ROWS - 1; r >= 0; r--) {
+      if (board[r][c] !== -1) { board[w][c] = board[r][c]; if(w!==r)board[r][c]=-1; w--; }
+    }
+    while(w>=0){board[w][c]=-1;w--;}
+  }
+}
+
+function fillBoard() {
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) if(board[r][c]===-1) board[r][c]=randPotato();
+}
+
+function addScore(pts) {
+  score += pts;
+  const el = document.getElementById('score-display');
+  el.textContent = score.toLocaleString();
+  el.classList.remove('up'); void el.offsetWidth; el.classList.add('up');
+}
+
+function showCombo(n) {
+  if (n < 2) return;
+  const el = document.getElementById('combo-area');
+  const msgs = ['','','DOUBLE! 🔥','TRIPLE! 🔥🔥','QUAD!! 💥','⚡FEVER READY⚡','🌟FEVER🌟','🌈ULTRA🌈'];
+  el.textContent = (msgs[n] || `COMBO ×${n}!! 🎆`);
+  el.classList.add('show');
+  clearTimeout(comboTimer);
+  comboTimer = setTimeout(() => el.classList.remove('show'), 1500);
+}
+
+function startFever() {
+  isFever = true; feverTimeLeft = 10;
+  document.getElementById('s-play').classList.add('fever');
+  document.getElementById('fever-banner').classList.add('active');
+  haptic('heavy');
+  clearInterval(feverTimer);
+  feverTimer = setInterval(() => {
+    feverTimeLeft--;
+    if (feverTimeLeft <= 0) {
+      isFever = false; clearInterval(feverTimer);
+      document.getElementById('s-play').classList.remove('fever');
+      document.getElementById('fever-banner').classList.remove('active');
+    }
+  }, 1000);
+}
+
+function startGameTimer() {
+  clearInterval(gameTimer);
+  gameTimer = setInterval(() => {
+    timeLeft--;
+    const el = document.getElementById('timer-display');
+    el.textContent = timeLeft;
+    const ub = document.getElementById('urgent-border');
+    if (timeLeft <= 5 && timeLeft > 0) { el.classList.add('urgent'); ub.classList.add('show'); haptic('light'); }
+    else { el.classList.remove('urgent'); ub.classList.remove('show'); }
+    if (timeLeft <= 0) { clearInterval(gameTimer); showExtendPopup(); }
+  }, 1000);
+}
+
+function showExtendPopup() { document.getElementById('extend-popup').classList.add('show'); haptic('heavy'); }
+
+function extendTime() {
+  document.getElementById('extend-popup').classList.remove('show');
+  document.getElementById('urgent-border').classList.remove('show');
+  document.getElementById('timer-display').classList.remove('urgent');
+  timeLeft = 10; isExtended = true; startGameTimer(); haptic('medium');
+}
+
+function endGame() {
+  clearInterval(gameTimer); clearInterval(feverTimer);
+  document.getElementById('extend-popup').classList.remove('show');
+  document.getElementById('s-play').classList.remove('fever');
+  showResult();
+}
+
+function showResult() {
+  switchTab('result');
+  const base = Math.floor(score / (adBoostOn ? 2 : 1));
+  document.getElementById('result-base').textContent = base.toLocaleString();
+  document.getElementById('result-final').textContent = '0';
+  document.getElementById('result-plays').textContent = playsLeft;
+  document.getElementById('result-buff').style.display = adBoostOn ? 'inline-flex' : 'none';
+
+  let count = 0;
+  const step = Math.ceil(score / 40);
+  const counter = setInterval(() => {
+    count = Math.min(count + step, score);
+    document.getElementById('result-final').textContent = count.toLocaleString();
+    if (count >= score) clearInterval(counter);
+  }, 25);
+
+  setTimeout(() => {
+    const pct = Math.min(62, 38 + Math.floor(score / 500));
+    document.getElementById('contrib-fill').style.width = pct + '%';
+    document.getElementById('contrib-sub').textContent = `실버 상위 42% → ${42 - Math.floor(score/300)}%`;
+    document.getElementById('contrib-improvement').textContent = `↑ ${Math.floor(score/300)}% 상승!`;
+  }, 500);
+}
+
+function spawnParticle(x, y) {
+  const app = document.querySelector('.app');
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.textContent = ['✨','💥','⭐','🌟','💫'][Math.floor(Math.random()*5)];
+  const dx = (Math.random() - .5) * 100;
+  const dy = -(Math.random() * 80 + 40);
+  p.style.cssText = `left:${x}px;top:${y}px;--dx:${dx}px;--dy:${dy}px;`;
+  app.appendChild(p);
+  setTimeout(() => p.remove(), 800);
+}
+
+function goLobby() {
+  document.getElementById('lobby-plays').textContent = playsLeft;
+  switchTab('game');
+}
+</script>
+</body>
+</html>
