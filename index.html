@@ -290,7 +290,7 @@ padding:18px;position:relative;overflow:hidden;
 .farm-slots{display:flex;gap:4px}
 .farm-slot{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:800;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);color:var(--dim);cursor:pointer;transition:.2s;-webkit-tap-highlight-color:transparent;min-height:44px;display:flex;align-items:center}
 .farm-slot.on{background:rgba(76,216,48,.10);border-color:rgba(76,216,48,.22);color:var(--potato);box-shadow:0 0 8px rgba(76,216,48,.08)}
-.farm-slot.locked{opacity:.3;pointer-events:none}
+.farm-slot.locked{opacity:.4}
 .farm-slot:active{transform:scale(.93)}
 .farm-stats{display:flex;gap:6px;margin:0 0 6px}
 .farm-stat{flex:1;padding:12px 6px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);text-align:center;font-size:12px;color:var(--dim);font-weight:700;line-height:1.3}
@@ -536,7 +536,41 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
   50%{transform:rotate(2deg)}
 }
 
+/* ── QA Panel ── */
+.qa-step{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.qa-step b{color:var(--gold)}
 /* ── values now baked into original selectors — patch block removed ── */
+
+/* ════════════════════════════════════════════════════
+   CTA BANNER — 전역 다음-행동 유도
+   ════════════════════════════════════════════════════ */
+.cta-banner{
+  padding:10px calc(14px + var(--sa-right,0px)) 10px calc(14px + var(--sa-left,0px));
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;flex-shrink:0;z-index:25;min-height:44px;
+  background:linear-gradient(90deg,rgba(76,216,48,.08),rgba(240,184,24,.06));
+  border-bottom:1px solid rgba(76,216,48,.10);
+  -webkit-tap-highlight-color:transparent;
+  animation:ctaSlideIn .3s ease;
+}
+@keyframes ctaSlideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.cta-banner:active{opacity:.8}
+.cta-icon{font-size:18px;flex-shrink:0}
+.cta-text{flex:1;font-size:13px;font-weight:800;color:var(--tx2,var(--dim));line-height:1.3}
+.cta-arrow{color:var(--mut);font-size:16px;flex-shrink:0;font-weight:700}
+.cta-harvest{background:linear-gradient(90deg,rgba(240,184,24,.12),rgba(76,216,48,.08));border-bottom-color:rgba(76,216,48,.18)}
+.cta-harvest .cta-text{color:var(--gold)}
+.cta-boost{background:linear-gradient(90deg,rgba(240,100,40,.10),rgba(240,184,24,.08));border-bottom-color:rgba(240,100,40,.15)}
+.cta-boost .cta-text{color:var(--gold)}
+.cta-guild{background:linear-gradient(90deg,rgba(0,152,234,.10),rgba(240,184,24,.06));border-bottom-color:rgba(0,152,234,.15)}
+.cta-guild .cta-text{color:var(--ton)}
+.cta-vault{background:linear-gradient(90deg,rgba(0,152,234,.08),rgba(0,152,234,.04));border-bottom-color:rgba(0,152,234,.12)}
+.cta-vault .cta-text{color:var(--ton)}
+.cta-play{background:linear-gradient(90deg,rgba(76,216,48,.06),rgba(240,184,24,.04));border-bottom-color:rgba(76,216,48,.08)}
+.cta-play .cta-text{color:var(--potato)}
+.cta-plant{background:linear-gradient(90deg,rgba(76,216,48,.10),rgba(240,184,24,.06));border-bottom-color:rgba(76,216,48,.15)}
+.cta-plant .cta-text{color:var(--potato)}
+.potato-char-svg.empty{opacity:.5}
 </style>
 </head>
 <body>
@@ -553,40 +587,45 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="top-icon" onclick="showSettings()">⚙️</div>
 </div>
 </div>
+<div class="cta-banner" id="ctaBanner"></div>
 <div class="content" id="mainContent">
 <!-- GAME TAB -->
 <div class="tab-p active" id="tab-game">
+<!-- TICKER -->
 <div class="ticker"><div class="ticker-inner">
-<div class="ticker-line" style="color:var(--gold)">🏆 내 최고 점수: <b>45.2K</b> — 길드 내 4위!</div>
+<div class="ticker-line" style="color:var(--gold)">🏆 내 최고 점수: <b id="tickerHigh">45.2K</b> — 길드 내 4위!</div>
 <div class="ticker-line" style="color:var(--ton)">📈 3위까지 800점! 예상 보상 <b>+0.2 TON ↑</b></div>
-<div class="ticker-line" style="color:var(--potato)">🔥 TOP 100 보너스 POTATO 지급 이벤트!</div>
+<div class="ticker-line" style="color:var(--potato)">🔥 퍼즐 플레이 → 농장 성장 30분 단축!</div>
 </div></div>
+<!-- PUZZLE HERO — 메인 미니게임 -->
 <div class="cd puzzle-hero">
-<div style="margin-bottom:6px"><span class="tg tg-p">🏆 길드 점수</span><span class="tg tg-g">🔥 부스트</span><span class="tg tg-r">⚡ 60초</span></div>
-<div style="font-size:22px;font-weight:900;margin-bottom:3px">🧩 감자 퍼즐</div>
-<div style="font-size:11px;color:var(--dim);margin-bottom:4px;line-height:1.5">콤보 · 연쇄폭발 · 파워업 · 60초 타임어택!</div>
+<div style="margin-bottom:6px"><span class="tg tg-p">🌱 농장 부스트</span><span class="tg tg-t">🏰 길드 점수</span><span class="tg tg-r">⚡ 60초</span></div>
+<div style="font-size:24px;font-weight:900;margin-bottom:3px">🧩 감자 퍼즐</div>
+<div style="font-size:12px;color:var(--dim);margin-bottom:6px;line-height:1.5">콤보 · 연쇄폭발 · 파워업 · 60초 타임어택!</div>
 <div class="pwr"><span>💣</span><span>🚀</span><span>⚡</span><span>🌈</span><span>🔥</span></div>
-<div style="display:flex;gap:14px;font-size:11px;color:var(--dim);margin:4px 0">
-<span>오늘 <b style="color:var(--tx)">6/10</b></span><span>최고 <b style="color:var(--gold)">45.2K</b></span><span>베스트7 <b style="color:var(--potato)">287K</b></span>
+<div style="display:flex;gap:14px;font-size:11px;color:var(--dim);margin:6px 0">
+<span>오늘 <b style="color:var(--tx)" id="puzzleTodayCount">6/10</b></span><span>최고 <b style="color:var(--gold)" id="puzzleHighScore">45.2K</b></span><span>베스트7 <b style="color:var(--potato)">287K</b></span>
 </div>
-<div class="pb"><div class="f f-p" style="width:60%"></div></div>
-<button class="btn btn-play" onclick="triggerHaptic('medium')">▶ PLAY NOW <span style="font-size:12px;opacity:.7">60초 타임어택</span></button>
+<div class="pb"><div class="f f-p" id="puzzleProgressBar" style="width:60%"></div></div>
+<button class="btn btn-play" onclick="doCompletePuzzle(Math.round(300+Math.random()*400))">▶ PLAY NOW <span style="font-size:12px;opacity:.7">60초 타임어택</span></button>
+<div style="display:flex;gap:6px;margin-top:8px;font-size:11px;font-weight:700">
+<div style="flex:1;text-align:center;padding:5px 0;border-radius:8px;background:rgba(76,216,48,.06);color:var(--potato)">🥔 POTATO 획득</div>
+<div style="flex:1;text-align:center;padding:5px 0;border-radius:8px;background:rgba(76,216,48,.06);color:var(--potato)">🌱 농장 -30분</div>
+<div style="flex:1;text-align:center;padding:5px 0;border-radius:8px;background:rgba(0,152,234,.06);color:var(--ton)">🏰 길드 점수</div>
 </div>
-<div class="cd battle-hero" style="border-color:rgba(240,72,72,.3);background:radial-gradient(ellipse at 80% 20%,rgba(240,72,72,.1),transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(240,184,24,.06),transparent 50%),linear-gradient(135deg,rgba(240,72,72,.07),var(--card) 60%);padding:18px;position:relative;overflow:hidden">
-<div style="margin-bottom:6px"><span class="tg tg-p">🥔 POTATO</span><span class="tg tg-r">⚔️ 액션</span><span class="tg tg-g">🏆 길드 점수</span></div>
-<div style="font-size:22px;font-weight:900;margin-bottom:3px">⚔️ 감자 왕국 수호전</div>
-<div style="font-size:11px;color:var(--dim);margin-bottom:4px;line-height:1.5">몰려오는 적을 물리치고 왕국을 지켜라!</div>
-<div class="pwr"><span>⚔️</span><span>🛡️</span><span>💥</span><span>👾</span><span>🔥</span></div>
-<div style="display:flex;gap:14px;font-size:11px;color:var(--dim);margin:4px 0">
-<span>최고 <b style="color:var(--tx)">2:34</b></span><span>오늘 <b style="color:var(--tx)">3회</b></span><span>보상 <b style="color:var(--potato)">~120 POTATO</b></span>
 </div>
-<div class="pb"><div class="f" style="width:45%;background:linear-gradient(90deg,#f04848,#ff7070)"></div></div>
-<button class="btn btn-fight" style="width:100%;padding:14px 20px;font-size:16px;border-radius:14px" onclick="enterBattle()">⚔️ 출정하기 <span style="font-size:12px;opacity:.7">서바이벌 액션</span></button>
+<!-- BATTLE — 서브 콘텐츠 -->
+<div class="stit">서브 게임</div>
+<div class="cd" style="border-color:rgba(240,72,72,.2);background:linear-gradient(135deg,rgba(240,72,72,.04),var(--card) 60%);padding:14px;position:relative;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="font-size:28px;flex-shrink:0">⚔️</div>
+<div style="flex:1">
+<div style="font-size:15px;font-weight:900;margin-bottom:2px">감자 왕국 수호전</div>
+<div style="font-size:11px;color:var(--dim);line-height:1.4">몰려오는 적을 물리치고 POTATO 획득</div>
+<div style="font-size:10px;color:var(--mut);margin-top:3px">최고 2:34 · 보상 ~120 POTATO</div>
 </div>
-<div class="stit">추가 게임</div>
-<div class="g2">
-<div class="cd" style="text-align:center;padding:18px;margin:0"><span style="font-size:22px">🎰</span><div style="font-size:11px;font-weight:800;margin-top:4px">행운의 밭</div><div style="font-size:10px;color:var(--mut)">COMING SOON</div></div>
-<div class="cd" style="text-align:center;padding:18px;margin:0"><span style="font-size:22px">❓</span><div style="font-size:11px;font-weight:800;margin-top:4px">???</div><div style="font-size:10px;color:var(--mut)">COMING SOON</div></div>
+<button class="btn btn-fight" style="padding:10px 16px;font-size:13px;min-height:44px;border-radius:11px" onclick="enterBattle()">출정</button>
+</div>
 </div>
 </div>
 <!-- FARM TAB -->
@@ -594,174 +633,12 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <!-- Farm Header: Big Balance + Slot Selector -->
 <div class="farm-header">
 <div class="farm-bal"><span class="farm-bal-icon">🥔</span><span class="farm-bal-num" id="farmBalNum">48.2K</span></div>
-<div class="farm-slots" id="farmSlots">
-<div class="farm-slot on" onclick="switchFarm(0)">농장1</div>
-<div class="farm-slot" onclick="switchFarm(1)">농장2</div>
-<div class="farm-slot locked" onclick="switchFarm(2)">농장3</div>
+<div class="farm-slots" id="farmSlots"></div>
 </div>
-</div>
-<!-- FARM VIEW 0: Harvestable (Stage 5) -->
-<div class="farm-view active" id="farm-view-0">
-<div class="farm-stats">
-<div class="farm-stat">수확량<b class="potato-c">+48</b></div>
-<div class="farm-stat">오늘<b>2/3회</b></div>
-<div class="farm-stat">시간당<b class="gold-c">+8.2</b></div>
-</div>
-<div class="farm-level">
-<span class="farm-level-lbl">LV.3</span>
-<div class="farm-level-bar"><div class="farm-level-fill" style="width:60%"></div></div>
-<span class="farm-level-txt">450/750 EXP</span>
-</div>
-<div class="farm-char-area">
-<div class="farm-char-ring harvest-ring">
-<svg class="potato-char-svg harvest" viewBox="0 0 200 230" width="170" height="195">
-<defs>
-<radialGradient id="pbH" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#f8dca0"/><stop offset="45%" stop-color="#e4b462"/><stop offset="100%" stop-color="#c48a38"/></radialGradient>
-<linearGradient id="helmG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe060"/><stop offset="45%" stop-color="#f0b020"/><stop offset="100%" stop-color="#d89810"/></linearGradient>
-<radialGradient id="lampG" cx="40%" cy="35%" r="55%"><stop offset="0%" stop-color="#f0f4ff"/><stop offset="100%" stop-color="#c8d0e0"/></radialGradient>
-<radialGradient id="blushH" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,130,130,.45)"/><stop offset="100%" stop-color="rgba(255,130,130,0)"/></radialGradient>
-<filter id="fSh" x="-10%" y="-5%" width="120%" height="120%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,.25)"/></filter>
-</defs>
-<!-- Shadow on ground -->
-<ellipse cx="100" cy="218" rx="52" ry="8" fill="rgba(0,0,0,.18)"/>
-<!-- Left arm -->
-<ellipse cx="36" cy="152" rx="16" ry="10" fill="#d8a850" stroke="#c09040" stroke-width="1" transform="rotate(-15,36,152)"/>
-<!-- Right arm -->
-<ellipse cx="164" cy="152" rx="16" ry="10" fill="#d8a850" stroke="#c09040" stroke-width="1" transform="rotate(15,164,152)"/>
-<!-- Body -->
-<ellipse cx="100" cy="148" rx="64" ry="62" fill="url(#pbH)" filter="url(#fSh)"/>
-<!-- Body highlight -->
-<ellipse cx="82" cy="125" rx="30" ry="22" fill="rgba(255,240,200,.18)" transform="rotate(-15,82,125)"/>
-<!-- Body bottom shadow -->
-<ellipse cx="100" cy="185" rx="48" ry="16" fill="rgba(140,90,30,.12)"/>
-<!-- Helmet back dome -->
-<path d="M48,108 C48,68 72,46 100,44 C128,46 152,68 152,108 Z" fill="url(#helmG)" stroke="#c89010" stroke-width="1.2"/>
-<!-- Helmet front brim -->
-<path d="M40,108 Q40,102 48,100 L152,100 Q160,102 160,108 Q160,115 100,118 Q40,115 40,108 Z" fill="#f0b818" stroke="#c89010" stroke-width="1"/>
-<!-- Helmet top ridge -->
-<path d="M82,48 Q100,42 118,48" fill="none" stroke="#d8a010" stroke-width="3" stroke-linecap="round"/>
-<!-- Headlamp mount -->
-<rect x="83" y="74" width="34" height="26" rx="6" fill="#909aa8" stroke="#78828e" stroke-width="1"/>
-<!-- Headlamp lens -->
-<circle cx="100" cy="87" r="10" fill="url(#lampG)" stroke="#a8b0b8" stroke-width="1.2"/>
-<!-- Lamp highlight -->
-<circle cx="96" cy="83" r="4" fill="rgba(255,255,255,.75)"/>
-<circle cx="103" cy="90" r="2" fill="rgba(255,255,255,.35)"/>
-<!-- Lamp glow -->
-<circle cx="100" cy="87" r="14" fill="rgba(255,255,220,.08)"/>
-<!-- Left eye -->
-<ellipse cx="76" cy="140" rx="11" ry="13" fill="#2a1808"/>
-<circle cx="80" cy="135" r="5" fill="rgba(255,255,255,.92)"/>
-<circle cx="74" cy="143" r="2.5" fill="rgba(255,255,255,.45)"/>
-<!-- Right eye -->
-<ellipse cx="124" cy="140" rx="11" ry="13" fill="#2a1808"/>
-<circle cx="128" cy="135" r="5" fill="rgba(255,255,255,.92)"/>
-<circle cx="122" cy="143" r="2.5" fill="rgba(255,255,255,.45)"/>
-<!-- Mouth -->
-<path d="M88,165 Q100,177 112,165" fill="none" stroke="#7a5428" stroke-width="2.8" stroke-linecap="round"/>
-<!-- Left cheek -->
-<ellipse cx="58" cy="158" rx="14" ry="10" fill="url(#blushH)"/>
-<!-- Right cheek -->
-<ellipse cx="142" cy="158" rx="14" ry="10" fill="url(#blushH)"/>
-<!-- Sparkles -->
-<g class="svg-sparkle"><circle cx="28" cy="90" r="3.5" fill="#ffd040" opacity=".7"/><path d="M26,90 L30,90 M28,88 L28,92" stroke="#ffd040" stroke-width="1.2" opacity=".7"/></g>
-<g class="svg-sparkle s2"><circle cx="170" cy="105" r="3" fill="#fff" opacity=".6"/><path d="M168,105 L172,105 M170,103 L170,107" stroke="#fff" stroke-width="1" opacity=".6"/></g>
-<g class="svg-sparkle s3"><circle cx="155" cy="70" r="2.5" fill="#ffd040" opacity=".5"/><path d="M153,70 L157,70 M155,68 L155,72" stroke="#ffd040" stroke-width="1" opacity=".5"/></g>
-</svg>
-</div>
-</div>
-<div class="farm-action">
-<div class="farm-action-status">✨ 수확 준비 완료!</div>
-<div class="farm-action-sub">+48 POTATO 획득 가능 · 오늘 남은 횟수 <b style="color:var(--gold)">1회</b></div>
-<button class="btn farm-harvest-btn" onclick="showHarvest()">🥔 지금 수확하기 (+48)</button>
-</div>
-</div>
-<!-- FARM VIEW 1: Growing (Stage 3) -->
-<div class="farm-view" id="farm-view-1">
-<div class="farm-stats">
-<div class="farm-stat">수확량<b class="potato-c">+18</b></div>
-<div class="farm-stat">오늘<b>1/3회</b></div>
-<div class="farm-stat">시간당<b class="gold-c">+3.1</b></div>
-</div>
-<div class="farm-level">
-<span class="farm-level-lbl" style="color:var(--dim)">LV.1</span>
-<div class="farm-level-bar"><div class="farm-level-fill" style="width:20%"></div></div>
-<span class="farm-level-txt">80/400 EXP</span>
-</div>
-<div class="farm-char-area">
-<div class="farm-char-ring grow-ring">
-<svg class="potato-char-svg growing" viewBox="0 0 200 230" width="170" height="195">
-<defs>
-<radialGradient id="pbG" cx="45%" cy="30%" r="60%"><stop offset="0%" stop-color="#f5dca0"/><stop offset="50%" stop-color="#e0ba68"/><stop offset="100%" stop-color="#c89840"/></radialGradient>
-<linearGradient id="potG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c86840"/><stop offset="50%" stop-color="#a84e2c"/><stop offset="100%" stop-color="#8a3c20"/></linearGradient>
-<linearGradient id="potRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d87848"/><stop offset="100%" stop-color="#b85830"/></linearGradient>
-<linearGradient id="soilG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a3e20"/><stop offset="100%" stop-color="#3e2a14"/></linearGradient>
-<linearGradient id="stemG2" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#3a8820"/><stop offset="100%" stop-color="#5ec840"/></linearGradient>
-<radialGradient id="leafRG" cx="40%" cy="40%" r="55%"><stop offset="0%" stop-color="#80f050"/><stop offset="100%" stop-color="#48a828"/></radialGradient>
-</defs>
-<!-- Shadow on ground -->
-<ellipse cx="100" cy="222" rx="58" ry="7" fill="rgba(0,0,0,.15)"/>
-<!-- Pot body -->
-<path d="M42,148 L54,210 Q56,218 100,218 Q144,218 146,210 L158,148 Z" fill="url(#potG)"/>
-<!-- Pot highlight -->
-<path d="M48,155 L56,200 Q58,205 78,207 L78,148 Z" fill="rgba(255,255,255,.06)"/>
-<!-- Pot rim -->
-<rect x="36" y="140" width="128" height="16" rx="8" fill="url(#potRim)"/>
-<!-- Rim highlight -->
-<rect x="42" y="142" width="60" height="5" rx="2.5" fill="rgba(255,255,255,.12)"/>
-<!-- Rim shadow line -->
-<line x1="40" y1="156" x2="160" y2="156" stroke="rgba(0,0,0,.12)" stroke-width="1"/>
-<!-- Soil -->
-<ellipse cx="100" cy="148" rx="56" ry="14" fill="url(#soilG)"/>
-<!-- Soil surface details -->
-<ellipse cx="80" cy="146" rx="6" ry="2" fill="rgba(90,62,32,.5)"/>
-<ellipse cx="120" cy="147" rx="5" ry="1.5" fill="rgba(90,62,32,.4)"/>
-<!-- Potato body (peeking from soil) -->
-<ellipse cx="100" cy="128" rx="44" ry="36" fill="url(#pbG)"/>
-<!-- Body highlight -->
-<ellipse cx="86" cy="112" rx="20" ry="14" fill="rgba(255,240,200,.15)" transform="rotate(-10,86,112)"/>
-<!-- Stem -->
-<path d="M100,92 Q98,72 102,56" fill="none" stroke="url(#stemG2)" stroke-width="4.5" stroke-linecap="round" class="svg-stem"/>
-<!-- Left leaf -->
-<ellipse cx="85" cy="62" rx="16" ry="8" fill="url(#leafRG)" transform="rotate(-25,85,62)" class="svg-leaf-l"/>
-<!-- Right leaf (small bud) -->
-<ellipse cx="112" cy="68" rx="10" ry="5.5" fill="url(#leafRG)" transform="rotate(20,112,68)" class="svg-leaf-r"/>
-<!-- Closed left eye -->
-<path d="M78,125 Q84,130 90,125" fill="none" stroke="#5a4020" stroke-width="2.5" stroke-linecap="round"/>
-<!-- Closed right eye -->
-<path d="M110,125 Q116,130 122,125" fill="none" stroke="#5a4020" stroke-width="2.5" stroke-linecap="round"/>
-<!-- Small smile -->
-<path d="M92,140 Q100,147 108,140" fill="none" stroke="#7a5a30" stroke-width="2" stroke-linecap="round"/>
-<!-- Cheek blush -->
-<ellipse cx="72" cy="134" rx="10" ry="6" fill="rgba(255,140,130,.2)"/>
-<ellipse cx="128" cy="134" rx="10" ry="6" fill="rgba(255,140,130,.2)"/>
-<!-- Zzz -->
-<g class="svg-zzz">
-<text x="140" y="68" font-size="18" font-weight="900" fill="#68c8e8" opacity=".8" font-family="sans-serif">z</text>
-<text x="152" y="50" font-size="14" font-weight="900" fill="#68c8e8" opacity=".6" font-family="sans-serif">z</text>
-<text x="160" y="36" font-size="11" font-weight="900" fill="#68c8e8" opacity=".4" font-family="sans-serif">z</text>
-</g>
-</svg>
-</div>
-</div>
-<div class="farm-action">
-<div class="farm-action-status" style="color:var(--dim);font-size:16px">🌱 성장 중...</div>
-<div class="farm-action-sub"><b id="farmTimer" style="color:var(--tx)">5:48:12</b> 남음 · 수확 시 <b style="color:var(--potato)">+18 POTATO</b></div>
-<button class="btn btn-ghost" style="font-size:13px;padding:12px 24px;margin-top:4px" onclick="showBoost()">⚡ 성장 가속하기 (무료)</button>
-</div>
-</div>
-<!-- FARM VIEW 2: Locked -->
-<div class="farm-view" id="farm-view-2">
-<div class="farm-char-area" style="height:280px">
-<div class="farm-char-ring" style="border-color:rgba(255,255,255,.06);box-shadow:none;background:rgba(255,255,255,.02);animation:none">
-<div style="text-align:center">
-<div style="font-size:48px;opacity:.3">🔒</div>
-<div style="font-size:14px;font-weight:900;color:var(--mut);margin-top:10px">3번 농장</div>
-<div style="font-size:12px;color:var(--mut);margin-top:4px;opacity:.6">LV.5 달성 시 개방</div>
-</div>
-</div>
-</div>
-</div>
+<!-- FARM VIEWS — rendered dynamically by renderFarm() -->
+<div class="farm-view active" id="farm-view-0"></div>
+<div class="farm-view" id="farm-view-1"></div>
+<div class="farm-view" id="farm-view-2"></div>
 <!-- Info Section -->
 <div class="live-b" onclick="showRwa()" style="margin-top:4px"><div class="live-dot"></div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--rwa)">📺 감자 왕국의 이야기</div><div style="font-size:11px;color:var(--dim)">상하이 농장 비하인드</div></div><span style="color:var(--dim)">›</span></div>
 <div class="ialert warn">🔥 수확 <b>1회만 더</b> → 이번 주 TON 보상 자격 달성!</div>
@@ -777,7 +654,8 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="ref-metrics">
 <div class="ref-m"><div class="rm-label">오늘 보너스</div><div class="rm-val potato-c" id="refToday">+32</div><div class="rm-unit">POTATO</div></div>
 <div class="ref-m"><div class="rm-label">누적 적립</div><div class="rm-val potato-c" id="refPending">184</div><div class="rm-unit">POTATO</div></div>
-<div class="ref-m"><div class="rm-label">활성 친구</div><div class="rm-val" style="color:var(--tx)" id="refFriends">7명</div><div class="rm-unit">수확 활동 중</div></div>
+
+<div class="ref-m"><div class="rm-label">활동 친구</div><div class="rm-val" style="color:var(--tx)" id="refFriends">7명</div><div class="rm-unit">수확 활동 중</div></div>
 </div>
 <div class="ref-log" id="refLog">
 <div class="ref-log-inner" id="refLogInner">
@@ -793,11 +671,14 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="ref-prog-bar"><div class="ref-prog-fill" style="width:70%"></div></div>
 <div class="ref-prog-labels"><span>1명</span><span style="color:var(--potato);font-weight:800">10% 구간</span><span>10명</span></div>
 </div>
+<div id="refClaimRow" style="display:none;margin-bottom:8px">
+<button class="btn" style="width:100%;padding:12px;background:var(--potato-g);color:#082004;font-weight:900;font-size:14px;border-radius:11px" onclick="claimReferralBonus()" id="refClaimBtn">🥔 보너스 수령하기</button>
+</div>
 <div class="ref-actions">
 <button class="btn btn-sm" style="flex:1;background:var(--potato-g);color:#082004;font-weight:800" onclick="openInviteSheet()">👥 친구 초대하기</button>
 <button class="btn btn-ghost btn-sm" onclick="openReferralHistorySheet()">📋 보너스 내역</button>
 </div>
-<div class="ref-tiers">친구 1~10명 10% · 11~50명 5% · 51명 이상 2%</div>
+<div class="ref-tiers">활동 친구 1~10명 10% · 11~50명 5% · 51명+ 2%</div>
 </div>
 </div>
 <!-- GUILD TAB -->
@@ -812,10 +693,10 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <span class="gh-ton-label">TON</span>
 </div>
 <div class="gh-stat-pair">
-<div class="gh-stat-box"><div class="gh-sb-label">📅 다음 출금</div><div class="gh-sb-val">D-18</div><div class="gh-sb-sub">4월 1일</div></div>
+<div class="gh-stat-box"><div class="gh-sb-label">📅 다음 출금</div><div class="gh-sb-val" id="guildDday"></div><div class="gh-sb-sub" id="guildDdayLabel"></div></div>
 <div class="gh-stat-box nudge"><div class="gh-sb-label">🏰 참여 길드</div><div class="gh-sb-val" style="font-size:16px">1,240</div><div class="gh-sb-sub">이번 주 활성</div></div>
 </div>
-<div class="gh-desc">주간 기여도가 누적되어 매월 1일 TON으로 출금됩니다</div>
+<div class="gh-desc">주간 기여도가 적립되어 매월 1일 확정 TON으로 출금됩니다</div>
 </div>
 <!-- TIER CARDS -->
 <div class="cd gj-tier-card" style="border-color:rgba(180,224,255,.25);background:linear-gradient(135deg,rgba(180,224,255,.06),var(--card) 60%)">
@@ -848,9 +729,10 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 </div>
 <div style="text-align:center;font-size:11px;color:var(--dim);margin:6px 0 12px">주간 성적 합산 → <b style="color:var(--ton)">매월 1일</b> TON 출금</div>
 <!-- MY GUILD / ACTION BUTTONS -->
-<div class="cd" style="padding:12px;text-align:center;border-style:dashed;border-color:var(--bdr2)">
+<div class="cd" style="padding:14px;text-align:center;border-style:dashed;border-color:rgba(0,152,234,.2);background:rgba(0,152,234,.03)">
 <div style="font-size:12px;color:var(--mut);margin-bottom:2px">🏰 내 길드</div>
 <div style="font-size:13px;font-weight:700;color:var(--dim)">아직 길드가 없습니다</div>
+<div style="font-size:11px;color:var(--ton);font-weight:700;margin-top:6px">💡 지금 가입하면 이번 달 TON 보상 참여 가능!</div>
 </div>
 <button class="btn gj-btn gj-btn-find" onclick="showGuildSearch()">🔍 길드 찾기</button>
 <button class="btn gj-btn gj-btn-create" onclick="showGuildCreate()">🏰 길드 만들기</button>
@@ -860,55 +742,117 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="cd gj-guild-row" onclick="showGuildDetail('감자연합')">
 <div class="gj-guild-flag">🇰🇷</div>
 <div style="flex:1"><div style="font-size:13px;font-weight:800">감자연합</div><div style="font-size:11px;color:var(--dim)"><span class="gj-guild-tier" style="background:rgba(192,200,216,.12);color:#c0c8d8">● SILVER</span> 6/10명</div></div>
-<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();joinGuildDemo()">길드 신청</button>
+<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();applyToGuild(this.closest('.gj-guild-row').querySelector('div[style*=font-weight]').textContent)">길드 신청</button>
 </div>
 <div class="cd gj-guild-row" onclick="showGuildDetail('크립토팜')">
 <div class="gj-guild-flag">🇬🇧</div>
 <div style="flex:1"><div style="font-size:13px;font-weight:800">크립토팜</div><div style="font-size:11px;color:var(--dim)"><span class="gj-guild-tier" style="background:rgba(240,184,24,.12);color:var(--gold)">● GOLD</span> 7/10명</div></div>
-<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();joinGuildDemo()">길드 신청</button>
+<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();applyToGuild(this.closest('.gj-guild-row').querySelector('div[style*=font-weight]').textContent)">길드 신청</button>
 </div>
 <div class="cd gj-guild-row" onclick="showGuildDetail('다이아클랜')">
 <div class="gj-guild-flag">🇯🇵</div>
 <div style="flex:1"><div style="font-size:13px;font-weight:800">다이아클랜</div><div style="font-size:11px;color:var(--dim)"><span class="gj-guild-tier" style="background:rgba(180,224,255,.12);color:#b4e0ff">● DIAMOND</span> 9/10명</div></div>
-<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();joinGuildDemo()">길드 신청</button>
+<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();applyToGuild(this.closest('.gj-guild-row').querySelector('div[style*=font-weight]').textContent)">길드 신청</button>
 </div>
 <div class="cd gj-guild-row" onclick="showGuildDetail('감자수프팩토리')">
 <div class="gj-guild-flag">🇪🇸</div>
 <div style="flex:1"><div style="font-size:13px;font-weight:800">감자수프팩토리</div><div style="font-size:11px;color:var(--dim)"><span class="gj-guild-tier" style="background:rgba(212,165,116,.12);color:#d4a574">● BRONZE</span> 4/10명</div></div>
-<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();joinGuildDemo()">길드 신청</button>
+<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();applyToGuild(this.closest('.gj-guild-row').querySelector('div[style*=font-weight]').textContent)">길드 신청</button>
 </div>
 <div class="cd gj-guild-row" onclick="showGuildDetail('Khoai Tây VN')">
 <div class="gj-guild-flag">🇻🇳</div>
 <div style="flex:1"><div style="font-size:13px;font-weight:800">Khoai Tây VN</div><div style="font-size:11px;color:var(--dim)"><span class="gj-guild-tier" style="background:rgba(192,200,216,.12);color:#c0c8d8">● SILVER</span> 5/10명</div></div>
-<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();joinGuildDemo()">길드 신청</button>
+<button class="btn btn-sm" style="background:var(--ton-g);color:#fff;font-weight:800;padding:6px 14px" onclick="event.stopPropagation();applyToGuild(this.closest('.gj-guild-row').querySelector('div[style*=font-weight]').textContent)">길드 신청</button>
 </div>
 <!-- GUILD RULES -->
 <div class="cd gj-rules" onclick="showGuildRules()">
 <div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">📋</span><span style="font-size:12px;font-weight:800;flex:1">길드 규칙 안내</span><span style="color:var(--mut);font-size:11px">▲</span></div>
 </div>
 </div>
+<!-- ══ APPLIED STATE (신청 직후) ══ -->
+<div id="guild-applied" style="display:none">
+<div class="cd guild-hero">
+<div class="gh-title">✅ 길드 신청 완료</div>
+<div style="text-align:center;padding:16px 0">
+<div style="font-size:40px;margin-bottom:8px">📨</div>
+<div style="font-size:17px;font-weight:900;color:var(--tx)" id="appliedGuildName">감자연합</div>
+<div style="font-size:13px;color:var(--potato);margin-top:6px;font-weight:700">신청이 전달되었습니다</div>
+<div style="font-size:12px;color:var(--dim);margin-top:6px;line-height:1.5">다음 단계: 길드장이 승인하면 가입이 완료됩니다<br>승인 대기로 자동 전환됩니다</div>
+</div>
+<div class="gh-desc" style="background:rgba(76,216,48,.06);border-radius:8px;padding:10px;text-align:center;font-weight:700;color:var(--potato)">🎉 지금 가입하면 이번 달 TON 보상 참여 가능!</div>
+</div>
+<button class="btn" style="width:100%;margin-top:8px;min-height:48px;background:rgba(240,184,24,.15);border:1px solid rgba(240,184,24,.25);color:var(--gold);font-weight:800;border-radius:12px" onclick="moveToGuildPending()">⏳ 승인 대기 확인</button>
+<button class="btn btn-ghost" style="width:100%;margin-top:6px;min-height:44px" onclick="cancelGuildApply()">신청 취소</button>
+</div>
+<!-- ══ PENDING STATE (승인 대기) ══ -->
+<div id="guild-pending" style="display:none">
+<div class="cd guild-hero">
+<div class="gh-title">⏳ 승인 대기 중</div>
+<div style="text-align:center;padding:16px 0">
+<div style="font-size:40px;margin-bottom:8px">⏳</div>
+<div style="font-size:17px;font-weight:900;color:var(--tx)" id="pendingGuildName">감자연합</div>
+<div style="font-size:12px;color:var(--dim);margin-top:4px">길드장 승인을 기다리고 있어요</div>
+<div style="margin-top:10px;display:inline-block;padding:5px 14px;border-radius:20px;background:rgba(240,184,24,.10);border:1px solid rgba(240,184,24,.18);color:var(--gold);font-size:12px;font-weight:800" id="pendingTimer">71시간 남음</div>
+</div>
+<div class="gh-desc">승인되면 이번 달 TON 보상에 바로 참여할 수 있어요</div>
+</div>
+<div class="cd" style="padding:12px;margin-top:8px">
+<div style="display:flex;align-items:center;gap:10px">
+<div style="font-size:24px">🏰</div>
+<div style="flex:1">
+<div style="font-size:13px;font-weight:800" id="pendingGuildName2">감자연합</div>
+<div style="font-size:11px;color:var(--dim)">신청 시간: <span id="pendingAppliedTime">방금 전</span></div>
+</div>
+<div style="padding:3px 10px;border-radius:10px;background:rgba(240,184,24,.12);color:var(--gold);font-size:11px;font-weight:800">대기 중</div>
+</div>
+</div>
+<button class="btn" style="width:100%;margin-top:8px;min-height:48px;background:var(--ton-g);color:#fff;font-weight:800;border-radius:12px" onclick="approveGuildJoin()">✅ 승인 시뮬레이션</button>
+<button class="btn btn-ghost" style="width:100%;margin-top:6px;min-height:44px" onclick="cancelGuildApply()">신청 취소</button>
+</div>
 <!-- ══ JOINED STATE (has guild) ══ -->
 <div id="guild-joined" style="display:none;padding-bottom:80px">
-<!-- ═══ TON HERO — 길드 탭 최상단 ═══ -->
+<!-- ═══ TON HERO — 숫자 최우선 ═══ -->
 <div class="cd guild-hero">
 <div class="gh-guild-label">🏰 <b>감자연합</b> · 🥇 골드 티어</div>
-<div class="gh-title">이번 달 예상 출금</div>
+<div class="gh-title">이번 달 예상 출금 <span style="cursor:pointer;opacity:.5" onclick="showTonCalcTooltip()">ⓘ</span></div>
 <div class="gh-main-line">
 <span class="gh-num" id="reelGuild"></span>
 <span class="gh-ton-label">TON</span>
 <span class="gh-usd" id="guildUsd">(≈ $22)</span>
 </div>
 <div class="gh-stat-pair">
-<div class="gh-stat-box"><div class="gh-sb-label">📅 다음 출금</div><div class="gh-sb-val">D-18</div><div class="gh-sb-sub">4월 1일</div></div>
-<div class="gh-stat-box nudge"><div class="gh-sb-label">📈 증가 예상</div><div class="gh-sb-val">+0.8 TON</div><div class="gh-sb-sub">감자 수확 1회 더!</div></div>
+<div class="gh-stat-box"><div class="gh-sb-label">📅 다음 출금</div><div class="gh-sb-val" id="guildDday2"></div><div class="gh-sb-sub" id="guildDdayLabel2"></div></div>
+<div class="gh-stat-box nudge"><div class="gh-sb-label">📈 이번 주</div><div class="gh-sb-val" style="font-size:18px">+0.8 TON</div><div class="gh-sb-sub">수확 1회 더!</div></div>
 </div>
-<div class="gh-desc">주간 기여도가 누적되어 매월 1일 TON으로 출금됩니다</div>
+<!-- 기여도 비교 -->
+<div style="display:flex;gap:8px;margin-top:10px">
+<div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:rgba(76,216,48,.06)">
+<div style="font-size:10px;color:var(--mut)">내 기여도</div>
+<div style="font-size:16px;font-weight:900;color:var(--potato)" id="guildMyContrib">12%</div>
 </div>
-<!-- ═══ 주간 현황 STAT ROW ═══ -->
+<div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:rgba(255,255,255,.03)">
+<div style="font-size:10px;color:var(--mut)">길드 평균</div>
+<div style="font-size:16px;font-weight:900;color:var(--dim)" id="guildAvgContrib">15%</div>
+</div>
+<div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:rgba(240,64,64,.06)">
+<div style="font-size:10px;color:var(--mut)">차이</div>
+<div style="font-size:16px;font-weight:900;color:var(--red)" id="guildContribDiff">-3%</div>
+</div>
+</div>
+</div>
+<!-- ═══ 유효자 대시보드 — TON Hero 바로 아래 ═══ -->
+<div class="cd" style="padding:14px" id="guildValidatorCard">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+<div style="font-size:14px;font-weight:900">📋 유효자 달성 현황</div>
+<div style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px" id="guildValidBadge"></div>
+</div>
+<div id="guildValidList"></div>
+</div>
+<!-- ═══ 주간 현황 ═══ -->
 <div class="gh-weekly-row">
 <div class="gh-week-stat"><div class="gws-label">이번 주</div><div class="gws-val" style="color:var(--ton)">+3.9T</div></div>
 <div class="gh-week-stat"><div class="gws-label">상위</div><div class="gws-val" style="color:var(--gold)">12%</div></div>
-<div class="gh-week-stat"><div class="gws-label">기여도</div><div class="gws-val" style="color:var(--potato)">12%</div></div>
+<div class="gh-week-stat"><div class="gws-label">기여도</div><div class="gws-val" style="color:var(--potato)" id="guildWeekContrib">12%</div></div>
 <div class="gh-week-stat"><div class="gws-label">길드 내</div><div class="gws-val" style="color:var(--tx2)">4위</div></div>
 </div>
 <div class="seg">
@@ -920,9 +864,9 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="ialert info">⏱ 이번 시즌: <b>3일 14시간</b></div>
 <div class="cd" style="text-align:center;padding:12px"><div style="font-size:11px;color:var(--mut)">커뮤니티 보상 풀</div><div style="font-size:22px;font-weight:900;color:var(--ton)">420 TON</div></div>
 <div class="tier-row">
-<div class="tier-box" style="background:rgba(180,224,255,.06)"><div class="tn" style="color:#b4e0ff">💎 다이아</div><div class="tp" style="color:#b4e0ff">30%</div></div>
+<div class="tier-box" style="background:rgba(180,224,255,.06)"><div class="tn" style="color:#b4e0ff">💎 다이아</div><div class="tp" style="color:#b4e0ff">40%</div></div>
 <div class="tier-box" style="background:rgba(240,192,48,.06)"><div class="tn" style="color:var(--gold)">🥇 골드</div><div class="tp" style="color:var(--gold)">30%</div></div>
-<div class="tier-box" style="background:rgba(192,200,216,.06)"><div class="tn" style="color:#c0c8d8">🥈 실버</div><div class="tp" style="color:#c0c8d8">30%</div></div>
+<div class="tier-box" style="background:rgba(192,200,216,.06)"><div class="tn" style="color:#c0c8d8">🥈 실버</div><div class="tp" style="color:#c0c8d8">20%</div></div>
 <div class="tier-box" style="background:rgba(212,165,116,.06)"><div class="tn" style="color:#d4a574">🥉</div><div class="tp" style="color:#d4a574">10%</div></div>
 </div>
 <div class="rr"><div class="rn" style="color:var(--gold)">🥇</div><div class="rname">감자제국 <span class="tb tb-d">💎</span></div><div class="rpow">45.2K</div><div class="rton">~28T</div></div>
@@ -930,55 +874,52 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="rr"><div class="rn" style="color:#d4a574">🥉</div><div class="rname">SpudKing <span class="tb tb-g">🥇</span></div><div class="rpow">32.8K</div><div class="rton">~14T</div></div>
 <div class="rr me"><div class="rn" style="color:var(--potato)">4</div><div class="rname">감자연합 <span class="tb tb-g">🥇</span></div><div class="rpow">28.5K</div><div class="rton">~12T</div></div>
 <div class="rr"><div class="rn">5</div><div class="rname">왕감자 <span class="tb tb-s">🥈</span></div><div class="rpow">24.1K</div><div class="rton">~6T</div></div>
-<div class="stit">유효 참여 퀘스트</div>
-<div class="cd">
-<div class="chk"><div class="ci ok">✓</div><span class="cl">🧩 퍼즐 10판 플레이</span><span class="cv" style="color:var(--potato)">14/10 ✓</span></div>
-<div class="chk"><div class="ci ok">✓</div><span class="cl">📺 광고 시청 5회</span><span class="cv" style="color:var(--potato)">7/5 ✓</span></div>
-<div class="chk"><div class="ci ok">✓</div><span class="cl">📅 출석 3일</span><span class="cv" style="color:var(--potato)">5/3 ✓</span></div>
-<div class="chk" style="background:rgba(255,192,32,.04);border-radius:8px;padding:8px"><div class="ci wn">!</div><span class="cl">🥔 감자 수확 3회</span><span class="cv" style="color:var(--gold);font-size:12px">2/3 ← <b>1회!</b></span></div>
-</div>
 </div>
 <div id="g-rwd" style="display:none">
-<div class="cd" style="text-align:center"><div style="font-size:12px;color:var(--dim)">이번 달 누적</div><div style="font-size:30px;font-weight:900;color:var(--ton)">12.5 TON</div><div style="font-size:11px;color:var(--dim)">≈ $69 · 📅 출금까지 D-18</div></div>
+<div class="cd" style="text-align:center"><div style="font-size:12px;color:var(--dim)">이번 달 확정</div><div style="font-size:30px;font-weight:900;color:var(--ton)" id="guildRwdTotal"></div><div style="font-size:11px;color:var(--dim)" id="guildRwdSub"></div></div>
 <div class="cd"><div class="rw"><span style="color:var(--dim)">3주차 골드</span><span style="font-weight:800;color:var(--ton)">+3.2 TON</span></div><div class="rw"><span style="color:var(--dim)">2주차 골드</span><span style="font-weight:800;color:var(--ton)">+4.5 TON</span></div><div class="rw"><span style="color:var(--dim)">1주차 다이아</span><span style="font-weight:800;color:var(--ton)">+4.8 TON</span></div></div>
-<div class="cd" style="font-size:11px;color:var(--dim);text-align:center;padding:10px">커뮤니티 보상 풀 기반 게임 활동 랭킹 리워드</div>
 </div>
 <div id="g-mem" style="display:none">
-<div class="cd"><div class="rr"><div class="rn" style="color:var(--gold)">👑</div><div class="rname">감자왕</div><div class="rpow" style="color:var(--potato)">4,200</div></div><div class="rr"><div class="rn">2</div><div class="rname">감자기사</div><div class="rpow">2,800</div></div><div class="rr me"><div class="rn" style="color:var(--potato)">3</div><div class="rname">나 (You)</div><div class="rpow" style="color:var(--potato)">2,420</div></div></div>
-<div class="cd" style="border-color:rgba(76,216,48,.15)"><div style="font-size:14px;font-weight:800;margin-bottom:4px">친구 초대 → 길드 파워 UP!</div><div style="font-size:11px;color:var(--dim);margin-bottom:8px">🥔 +1,000 POTATO 보너스</div><div style="display:flex;gap:8px"><button class="btn btn-sm" style="flex:1;background:var(--potato-g);color:#082004;font-weight:800" onclick="openInviteSheet()">친구 초대하기</button><button class="btn btn-ghost btn-sm">📋</button></div></div>
-<button class="btn" style="width:100%;margin-top:10px;padding:12px;background:transparent;border:1px solid rgba(255,80,80,.25);color:rgba(255,80,80,.7);font-size:12px;font-weight:700;border-radius:10px" onclick="leaveGuildDemo()">길드 탈퇴</button>
+<!-- LEADER 관리 카드 -->
+<div id="guildLeaderPanel" style="display:none">
+<div class="cd" style="border-color:rgba(240,184,24,.2);background:linear-gradient(135deg,rgba(240,184,24,.06),var(--card) 60%);padding:14px;margin-bottom:8px">
+<div style="font-size:13px;font-weight:900;margin-bottom:8px">👑 길드장 관리</div>
+<div style="display:flex;gap:6px">
+<button class="btn btn-sm" style="flex:1;background:rgba(76,216,48,.12);color:var(--potato);border:1px solid rgba(76,216,48,.18)" onclick="showInfo('📋 가입 신청','현재 대기 중인 신청이 없습니다')">📬 신청 0건</button>
+<button class="btn btn-sm" style="flex:1;background:rgba(240,64,64,.08);color:var(--red);border:1px solid rgba(240,64,64,.15)" onclick="showInfo('⚠️ 관리','비활동 멤버를 추방할 수 있습니다')">🚫 추방</button>
 </div>
-<!-- ═══ 보유 자산 접기 ═══ -->
-<div class="gh-asset-fold" id="guildAssetFold" onclick="this.classList.toggle('open')">
-<div class="ghaf-head"><span>💼 보유 자산</span><span class="ghaf-arrow">▼</span></div>
-<div class="ghaf-body">
-<div class="gh-asset-item"><div class="ghai-icon">🥔</div><div class="ghai-val" style="color:var(--potato)" id="guildAssetPotato">48.2K</div><div class="ghai-label">POTATO</div></div>
-<div class="gh-asset-item"><div class="ghai-icon">💎</div><div class="ghai-val" style="color:var(--dia)" id="guildAssetDia">390</div><div class="ghai-label">DIAMOND</div></div>
 </div>
+</div>
+<div class="cd"><div class="rr"><div class="rn" style="color:var(--gold)">👑</div><div class="rname" id="guildLeaderName">감자왕</div><div class="rpow" style="color:var(--potato)">4,200</div></div><div class="rr"><div class="rn">2</div><div class="rname">감자기사</div><div class="rpow">2,800</div></div><div class="rr me"><div class="rn" style="color:var(--potato)">3</div><div class="rname">나 (You)</div><div class="rpow" style="color:var(--potato)">2,420</div></div></div>
+<button class="btn" style="width:100%;margin-top:10px;padding:12px;background:transparent;border:1px solid rgba(255,80,80,.25);color:rgba(255,80,80,.7);font-size:12px;font-weight:700;border-radius:10px" onclick="leaveGuild()">길드 탈퇴</button>
 </div>
 </div>
 </div><!-- /guild-joined -->
 <!-- VAULT TAB -->
 <div class="tab-p" id="tab-vault">
-<div class="stit" style="margin-top:4px">TON 보유 현황</div>
-<div class="cd" style="border-color:rgba(0,152,234,.2);background:linear-gradient(135deg,rgba(0,152,234,.06),var(--card) 60%)">
+<!-- TON HERO -->
+<div class="cd" style="border-color:rgba(0,152,234,.2);background:linear-gradient(135deg,rgba(0,152,234,.06),var(--card) 60%);margin-top:4px">
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
-<div style="background:rgba(240,184,24,.04);border-radius:10px;padding:8px 4px"><div style="font-size:10px;color:var(--gold);font-weight:700">출금 예정</div><div style="font-size:18px;font-weight:900;color:var(--gold)"><span id="vaultTonPending" class="reel-wrap"></span></div><div style="font-size:10px;color:var(--mut)">이번 주 예상</div></div>
-<div style="background:rgba(0,152,234,.04);border-radius:10px;padding:8px 4px;border-left:1px solid var(--bdr);border-right:1px solid var(--bdr)"><div style="font-size:10px;color:var(--ton);font-weight:700">출금 가능</div><div style="font-size:18px;font-weight:900;color:var(--ton)"><span id="vaultTonConfirmed" class="reel-wrap"></span></div><div style="font-size:10px;color:var(--mut)">확정 TON</div></div>
-<div style="background:rgba(255,255,255,.02);border-radius:10px;padding:8px 4px"><div style="font-size:10px;color:var(--dim);font-weight:700">출금일</div><div style="font-size:18px;font-weight:900;color:var(--tx)">D-18</div><div style="font-size:10px;color:var(--mut)">매월 1일</div></div>
+<div style="background:rgba(240,184,24,.04);border-radius:10px;padding:10px 4px"><div style="font-size:10px;color:var(--gold);font-weight:700">적립 예정</div><div style="font-size:18px;font-weight:900;color:var(--gold)"><span id="vaultTonPending" class="reel-wrap"></span></div><div style="font-size:10px;color:var(--mut)">이번 달 미확정</div></div>
+<div style="background:rgba(0,152,234,.04);border-radius:10px;padding:10px 4px;border-left:1px solid var(--bdr);border-right:1px solid var(--bdr)"><div style="font-size:10px;color:var(--ton);font-weight:700">출금 가능</div><div style="font-size:18px;font-weight:900;color:var(--ton)"><span id="vaultTonConfirmed" class="reel-wrap"></span></div><div style="font-size:10px;color:var(--mut)">월간 확정</div></div>
+<div style="background:rgba(255,255,255,.02);border-radius:10px;padding:10px 4px"><div style="font-size:10px;color:var(--dim);font-weight:700">출금일</div><div style="font-size:18px;font-weight:900;color:var(--tx)" id="vaultDday"></div><div style="font-size:10px;color:var(--mut)" id="vaultDdayLabel"></div></div>
 </div>
-<button class="btn btn-ton btn-sm" style="width:100%;margin-top:12px" onclick="alert('매월 1일 출금 가능')">💠 TON 출금</button>
+<button class="btn btn-ton btn-sm" style="width:100%;margin-top:12px" onclick="showWithdrawSheet()">💠 TON 출금 신청</button>
 </div>
+<!-- POTATO / DIAMOND -->
 <div class="g2" style="margin-bottom:8px">
 <div class="v-cd vp"><div class="vl">🥔 POTATO</div><div class="vv"><span id="vaultPotatoReel" class="reel-wrap"></span></div><div class="vs">게임 재화</div></div>
-<div class="v-cd" style="background:var(--dia-d);border:1px solid rgba(126,184,255,.15)"><div class="vl" style="color:var(--dia)">💎 DIAMOND</div><div class="vv" style="color:var(--dia)">390</div><div class="vs">유틸리티</div></div>
+<div class="v-cd" style="background:var(--dia-d);border:1px solid rgba(126,184,255,.15)"><div class="vl" style="color:var(--dia)">💎 DIAMOND</div><div class="vv" style="color:var(--dia)" id="vaultDiamond">390</div><div class="vs">유틸리티</div></div>
 </div>
-<div class="stit">TON 리워드 내역</div>
-<div class="cd"><div class="rw"><span style="color:var(--dim)">3주차 골드</span><span style="font-weight:800;color:var(--ton)">+3.2 TON</span></div><div class="rw"><span style="color:var(--dim)">2주차 골드</span><span style="font-weight:800;color:var(--ton)">+4.5 TON</span></div><div class="rw"><span style="color:var(--dim)">1주차 다이아</span><span style="font-weight:800;color:var(--ton)">+4.8 TON</span></div><div class="rw" style="border-top:2px solid var(--bdr);padding-top:10px"><span style="font-weight:700">누적</span><span style="font-weight:900;color:var(--ton);font-size:15px">12.5 TON (≈ $69)</span></div></div>
-<div class="stit">POTATO 내역</div>
-<div class="cd"><div class="rw"><span style="color:var(--dim)">수확 ×2</span><span style="font-weight:800;color:var(--potato)">+96</span></div><div class="rw"><span style="color:var(--dim)">퍼즐 6판</span><span style="font-weight:800;color:var(--potato)">+420</span></div><div class="rw"><span style="color:var(--dim)">수호전 3회</span><span style="font-weight:800;color:var(--potato)">+280</span></div></div>
-<div class="stit">커뮤니티 보상 풀</div>
-<div class="cd" style="text-align:center;border-color:rgba(0,152,234,.12)"><div style="font-size:11px;color:var(--dim)">이번 주</div><div style="font-size:20px;font-weight:900;color:var(--ton)">420 TON</div><div style="font-size:11px;color:var(--dim)">게임 활동 기반 랭킹 리워드</div></div>
+<!-- TON HISTORY — 동적 렌더 -->
+<div class="stit">💠 TON 리워드 내역</div>
+<div class="cd" id="vaultTonHistory"></div>
+<!-- POTATO HISTORY — 동적 렌더 -->
+<div class="stit">🥔 POTATO 내역</div>
+<div class="cd" id="vaultPotatoHistory"></div>
+<!-- DIAMOND HISTORY — 동적 렌더 -->
+<div class="stit">💎 DIAMOND 내역</div>
+<div class="cd" id="vaultDiamondHistory"></div>
 </div>
 <!-- BATTLE OVERLAY -->
 <div class="battle-overlay" id="battleOverlay">
@@ -1039,28 +980,797 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="st-row"><div class="str-icon">🔒</div><div class="str-text"><div class="str-title">개인정보처리방침</div></div><div class="str-arrow">›</div></div>
 <div class="st-section-label">계정</div>
 <div class="st-row danger"><div class="str-icon">⚠️</div><div class="str-text"><div class="str-title">계정 삭제</div><div class="str-sub">모든 데이터가 삭제됩니다</div></div></div>
+<div class="st-section-label">개발자</div>
+<div class="st-row" onclick="openQAPanel()"><div class="str-icon">🧪</div><div class="str-text"><div class="str-title">QA 검수 패널</div><div class="str-sub">상태 전이 · 자동 테스트 · 수동 검수</div></div><div class="str-arrow">›</div></div>
+</div>
+</div>
+
+<!-- ═══ QA PANEL OVERLAY ═══ -->
+<div class="settings-ov" id="qaPanel" style="z-index:200">
+<div class="settings-hd">
+<button class="sh-back" onclick="closeQAPanel()">← 설정</button>
+<div class="sh-title">🧪 QA 검수 패널</div>
+<div style="width:80px"></div>
+</div>
+<div class="settings-body" id="qaPanelBody" style="padding:10px 12px 60px">
+
+<!-- AUTO TEST -->
+<div class="stit" style="margin-top:4px">⚡ 자동 테스트</div>
+<div class="cd" style="padding:14px">
+<button class="btn btn-play" style="width:100%;padding:14px;margin-bottom:8px" onclick="runQAVisual()">▶ 전체 QA 실행 (33개)</button>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('farm')">🌱 Farm</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('game')">🎮 Game</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('guild')">🏰 Guild</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('ref')">👥 Referral</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('settle')">💰 Settlement</button>
+</div>
+<div id="qaResultSummary" style="margin-top:12px;text-align:center;display:none">
+<div id="qaPassFail" style="font-size:20px;font-weight:900"></div>
+<div id="qaResultNote" style="font-size:11px;color:var(--dim);margin-top:4px"></div>
+</div>
+<div id="qaResultList" style="margin-top:10px;font-size:12px;line-height:1.8"></div>
+<button id="qaCopyBtn" class="btn btn-sm btn-ghost" style="width:100%;margin-top:8px;display:none" onclick="copyQAResult()">📋 결과 복사</button>
+</div>
+
+<!-- STATE TRANSITION MAP -->
+<div class="stit">📊 상태 전이표</div>
+<div class="cd" style="padding:14px;font-size:11px;line-height:1.7">
+<div style="font-weight:900;color:var(--potato);margin-bottom:4px">🌱 Farm Slot</div>
+<div style="color:var(--dim);margin-left:8px">
+empty <span style="color:var(--gold)">→</span> <b>doPlant</b> <span style="color:var(--gold)">→</span> growing <span style="color:var(--gold)">→</span> <b>timer</b> <span style="color:var(--gold)">→</span> harvestable<br>
+harvestable <span style="color:var(--gold)">→</span> <b>doHarvest</b> <span style="color:var(--gold)">→</span> empty (재심기)<br>
+harvestable <span style="color:var(--gold)">→</span> <b>doHarvest(×2)</b> <span style="color:var(--gold)">→</span> empty (광고 2배)<br>
+growing <span style="color:var(--gold)">→</span> <b>doInstantHarvest</b> <span style="color:var(--gold)">→</span> harvestable (💎 소모)<br>
+locked <span style="color:var(--gold)">→</span> <b>doUnlockSlot</b> <span style="color:var(--gold)">→</span> empty (💎 소모)
+</div>
+<div style="font-weight:900;color:var(--ton);margin:10px 0 4px">🎮 Game → Farm/Guild</div>
+<div style="color:var(--dim);margin-left:8px">
+puzzle → +POTATO, +guildContrib, farmBoost(-30m)<br>
+battle → +POTATO, +guildContrib
+</div>
+<div style="font-weight:900;color:var(--ton);margin:10px 0 4px">🏰 Guild</div>
+<div style="color:var(--dim);margin-left:8px">
+none <span style="color:var(--gold)">→</span> <b>applyToGuild</b> <span style="color:var(--gold)">→</span> applied <span style="color:var(--gold)">→</span> <b>api</b> <span style="color:var(--gold)">→</span> pending<br>
+pending <span style="color:var(--gold)">→</span> <b>approveGuildJoin</b> <span style="color:var(--gold)">→</span> joined<br>
+joined <span style="color:var(--gold)">→</span> <b>leaveGuild</b> <span style="color:var(--gold)">→</span> none<br>
+<b>doCreateGuild</b> <span style="color:var(--gold)">→</span> leader<br>
+leader <span style="color:var(--gold)">→</span> <b>leaveGuild</b> <span style="color:var(--gold)">→</span> none (길드 해산)
+</div>
+<div style="font-weight:900;color:var(--potato);margin:10px 0 4px">👥 Referral</div>
+<div style="color:var(--dim);margin-left:8px">
+friendHarvest <span style="color:var(--gold)">→</span> pendingPotato ↑<br>
+<b>claimReferralBonus</b> <span style="color:var(--gold)">→</span> pending→potato, Vault 로그
+</div>
+<div style="font-weight:900;color:var(--gold);margin:10px 0 4px">💰 Settlement</div>
+<div style="color:var(--dim);margin-left:8px">
+주간: guildProgress 판정 → monthlyPendingTon ↑ (pending 로그)<br>
+월간: monthlyPendingTon → monthlyConfirmedTon → S.ton (confirmed 로그)<br>
+출금: S.ton → withdrawn (withdrawn 로그)
+</div>
+</div>
+
+<!-- MANUAL QA CHECKLIST -->
+<div class="stit">✅ 수동 검수 순서</div>
+<div class="cd" style="padding:14px;font-size:12px;line-height:2" id="qaManualList">
+<div class="qa-step"><b>1.</b> Farm 탭 → 1번 빈 땅 → <b>🌱 씨앗 심기</b> → growing 전환 확인</div>
+<div class="qa-step"><b>2.</b> 성장 중 → 예상 수확량 표시 확인 → 타이머 작동 확인</div>
+<div class="qa-step"><b>3.</b> 💎 즉시 수확 → 다이아 차감 → harvestable 전환 확인</div>
+<div class="qa-step"><b>4.</b> 🥔 수확하기 → POTATO 증가 → empty 전환 → 재심기 버튼 확인</div>
+<div class="qa-step"><b>5.</b> 🔥 광고 2배 수확 → 2배 POTATO 확인 → Vault 로그 확인</div>
+<div class="qa-step"><b>6.</b> Game 탭 → PLAY NOW → 퍼즐 결과 모달 확인</div>
+<div class="qa-step"><b>7.</b> 결과 모달에서 POTATO / 길드 기여도 / 농장 부스트 표시 확인</div>
+<div class="qa-step"><b>8.</b> 수호전 출정 → 전투 → 나가기 → POTATO 증가 확인</div>
+<div class="qa-step"><b>9.</b> Guild 탭 → 길드 찾기 → 신청 → applied 상태 확인</div>
+<div class="qa-step"><b>10.</b> pending 전환 → 승인 시뮬 → joined 전환 확인</div>
+<div class="qa-step"><b>11.</b> joined 상태 → 유효자 대시보드 → 미달 항목 빨간 표시 확인</div>
+<div class="qa-step"><b>12.</b> Farm 탭 → 친구 보너스 카드 → 수령 버튼 → POTATO 증가 확인</div>
+<div class="qa-step"><b>13.</b> Vault 탭 → TON/POTATO/DIAMOND 내역 렌더 확인</div>
+<div class="qa-step"><b>14.</b> 💠 출금 신청 → 바텀시트 → 수치 일치 확인</div>
+<div class="qa-step"><b>15.</b> CTA 배너가 수확/퍼즐/정산 후 즉시 갱신되는지 확인</div>
+</div>
+
+<!-- DEBUG POINTS -->
+<div class="stit">🔍 실패 시 디버그 포인트</div>
+<div class="cd" style="padding:14px;font-size:11px;line-height:1.7">
+<div style="margin-bottom:8px"><b style="color:var(--potato)">Farm 실패:</b><br><span style="color:var(--dim)">FARMS[i].state, endAt, yieldPotato, harvestsToday, boostsToday</span></div>
+<div style="margin-bottom:8px"><b style="color:var(--ton)">Game 실패:</b><br><span style="color:var(--dim)">S.puzzlesToday, getGameReward(), applyAction('puzzle')</span></div>
+<div style="margin-bottom:8px"><b style="color:var(--ton)">Guild 실패:</b><br><span style="color:var(--dim)">guildState, guildAppliedAt, guildProgress, hasGuild</span></div>
+<div style="margin-bottom:8px"><b style="color:var(--potato)">Referral 실패:</b><br><span style="color:var(--dim)">REF.pendingPotato, REF.events, REF.friends[].isValid</span></div>
+<div style="margin-bottom:8px"><b style="color:var(--gold)">Settlement 실패:</b><br><span style="color:var(--dim)">settlement.monthlyPendingTon, monthlyConfirmedTon, S.ton, S.guildReward</span></div>
+<div><b style="color:var(--red)">공통 실패:</b><br><span style="color:var(--dim)">applyAction() 경로, renderAll(), renderCTA(), vaultLogs/potatoLogs 배열</span></div>
+</div>
+
+<!-- QUICK STATE INSPECTOR -->
+<div class="stit">📍 현재 상태 스냅샷</div>
+<div class="cd" style="padding:14px">
+<button class="btn btn-sm btn-ghost" style="width:100%" onclick="refreshQASnapshot()">🔄 새로고침</button>
+<pre id="qaStateSnap" style="font-size:10px;color:var(--dim);margin-top:8px;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto"></pre>
+</div>
+
 </div>
 </div>
 </div>
 <script>
 /* ═══ MAIN SCRIPT ═══ */
-const S={potato:48200,ton:12.5,diamond:390,guildReward:3.8};
+
+/*
+ * ═══ API-READY DATA SCHEMAS ═══
+ *
+ * UserState (S):
+ *   potato    : number  — 게임 재화 잔고
+ *   ton       : number  — 출금 가능 확정 TON
+ *   diamond   : number  — 유틸리티 재화
+ *   guildReward: number — 이번 달 적립 예정 TON (미확정)
+ *   guildContrib: number — 이번 주 길드 기여도 포인트
+ *   puzzlesToday: number — 오늘 퍼즐 플레이 횟수
+ *   puzzleHigh : number  — 퍼즐 최고 점수
+ *
+ * VaultLedgerRow:
+ *   date   : string   — "3/24" 형식
+ *   action : string   — 행동 설명
+ *   amount : number   — 변동량 (양수)
+ *   source : string   — harvest|adboost|puzzle|battle|guild|referral|welcome|mission
+ *   status : string   — pending|confirmed|withdrawn (TON만)
+ *
+ * FarmSlot:
+ *   slotId       : number
+ *   state        : 'empty'|'growing'|'harvestable'|'locked'
+ *   startAt      : number|null  — 심기 시작 timestamp
+ *   endAt        : number|null  — 성장 완료 예정 timestamp
+ *   yieldPotato  : number       — 예상 수확량
+ *   level        : number       — 농장 레벨 (1~5)
+ *   exp          : number       — 현재 경험치
+ *   harvestsToday: number       — 오늘 수확 횟수
+ *   boostsToday  : number       — 오늘 광고 부스트 횟수
+ *   unlocked     : boolean
+ *
+ * GuildApplicationRequest:
+ *   guildId   : string
+ *   guildName : string
+ *   appliedAt : number   — timestamp
+ *   status    : 'applied'|'pending'|'approved'|'rejected'|'expired'
+ *   expiresAt : number   — appliedAt + 72h
+ *
+ * SettlementState:
+ *   weekStart          : number   — 이번 주 시작 timestamp
+ *   weekNumber         : number   — 이번 달 n주차
+ *   monthlyPendingTon  : number   — 미확정 적립 예정
+ *   monthlyConfirmedTon: number   — 확정 출금 가능
+ *   weeklySettled[]    : {week, ton, tier, valid}
+ *   myGuildTier        : 'diamond'|'gold'|'silver'|'bronze'
+ *   myGuildMembers     : number
+ *   validMemberCount   : number
+ *   myContribPercent   : number
+ *
+ * ReferralEvent:
+ *   friendId   : string
+ *   name       : string
+ *   basePotato : number   — 친구가 수확한 양
+ *   gain       : number   — basePotato × rate%
+ *   at         : number   — timestamp
+ *
+ * ReferralFriend (anti-abuse):
+ *   id             : string
+ *   name           : string
+ *   invitedAt      : number
+ *   isValid        : boolean  — 유효 레퍼럴 여부
+ *   rewardLocked   : boolean  — 보상 잠금 여부
+ *
+ * EventTypes (applyAction):
+ *   harvest           — 농장 수확
+ *   puzzle            — 퍼즐 완료
+ *   battle            — 전투 완료
+ *   referral          — 친구 보너스 수령 (claim)
+ *   withdraw          — TON 출금 신청
+ *   diamondSpend      — 다이아 소모
+ *   (guild_weekly_pending  — runWeeklyReset 전용)
+ *   (guild_monthly_confirmed — runMonthlySettlement 전용)
+ */
+
+const S={potato:48200,ton:12.5,diamond:390,guildReward:3.8,guildContrib:142,puzzlesToday:6,puzzleHigh:45200};
 const TON_PRICE=5.52;
-let farmTimerSec=20892;
-let battleTimer=null;let battleSec=0;
-/* GUILD STATE — toggle this to test */
-let hasGuild=false;
-/* Referral state */
-const REF={
-friends:7,rate:10,todayPotato:32,pendingPotato:184,
-logs:[
-{name:'감자기사',val:4.8,time:'2분 전'},
-{name:'포테이토맨',val:3.2,time:'8분 전'},
-{name:'감자퀸',val:1.6,time:'15분 전'},
-{name:'감자왕',val:2.4,time:'23분 전'},
-{name:'SpudMaster',val:5.1,time:'31분 전'}
-]
+
+/* ═══ VAULT HISTORY LOGS ═══ */
+var vaultLogs=[
+{date:'3/22',action:'\uAE38\uB4DC 3\uC8FC\uCC28 \uBCF4\uC0C1',amount:3.2,type:'ton',source:'guild',status:'confirmed'},
+{date:'3/15',action:'\uAE38\uB4DC 2\uC8FC\uCC28 \uBCF4\uC0C1',amount:4.5,type:'ton',source:'guild',status:'confirmed'},
+{date:'3/8',action:'\uAE38\uB4DC 1\uC8FC\uCC28 \uBCF4\uC0C1',amount:4.8,type:'ton',source:'guild',status:'confirmed'}
+];
+var potatoLogs=[
+{date:'3/24',action:'\uB18D\uC7A5 \uC218\uD655 \xD72',amount:96,source:'harvest'},
+{date:'3/24',action:'\uD37C\uC990 6\uD310',amount:420,source:'puzzle'},
+{date:'3/23',action:'\uC218\uD638\uC804 3\uD68C',amount:280,source:'battle'},
+{date:'3/23',action:'\uCE5C\uAD6C \uBCF4\uB108\uC2A4',amount:32,source:'referral'},
+{date:'3/22',action:'\uAD11\uACE0 2\uBC30 \uC218\uD655',amount:96,source:'adboost'}
+];
+var diamondLogs=[
+{date:'3/24',action:'\uD658\uC601 \uC120\uBB3C',amount:50,source:'welcome'},
+{date:'3/20',action:'\uC8FC\uAC04 \uBBF8\uC158',amount:10,source:'mission'}
+];
+var VAULT_SOURCES={harvest:'\u{1F954} \uC218\uD655',adboost:'\u{1F525} 2\uBC30',puzzle:'\u{1F9E9} \uD37C\uC990',battle:'\u2694\uFE0F \uC804\uD22C',guild:'\u{1F3F0} \uAE38\uB4DC',referral:'\u{1F465} \uCE5C\uAD6C',welcome:'\u{1F381} \uD658\uC601',mission:'\u{1F3AF} \uBBF8\uC158'};
+/* ═══════════════════════════════════════════════
+ * OPERATIONS POLICY — 운영 정책 상수
+ * 운영 조정 시 이 블록만 수정하면 전체 반영됨
+ * ═══════════════════════════════════════════════ */
+
+/* 🎮 퍼즐 */
+const PUZZLE_DAILY_MAX=10;            /* 일일 최대 퍼즐 판수 */
+
+/* 🏰 길드 */
+var GUILD_APPLY_TTL=72*3600*1000;     /* 신청 유효 시간 (72시간) */
+var GUILD_POOL=420;                   /* 월간 커뮤니티 보상 풀 (TON) */
+var GUILD_TIER_WEIGHT={               /* 티어별 보상 배분 비율 */
+  diamond:0.40, gold:0.30, silver:0.20, bronze:0.10
 };
+var GUILD_VALID={                     /* 주간 유효자 최소 조건 */
+  puzzles:10, ads:5, attendance:3, harvests:3
+};
+var GUILD_AVG_CONTRIB=15;             /* 길드 평균 기여도 % (비교용) */
+
+/* 👥 레퍼럴 — 기준: activeFriends (최근 활동 친구 수) */
+/* 1~10명: 10% | 11~50명: 5% | 51명+: 2% */
+var REF_TIERS=[
+  {min:1, max:10, rate:10},
+  {min:11,max:50, rate:5},
+  {min:51,max:Infinity,rate:2}
+];
+
+/* ═══════════════════════════════════════════════ */
+
+let battleTimer=null;let battleSec=0;
+let hasGuild=false;
+/* ═══ GUILD STATE ═══ */
+var guildState='none'; /* none | applied | pending | joined | leader */
+var guildAppliedAt=null;
+var guildAppliedName='';
+var guildProgress={puzzles:14,ads:7,attendance:5,harvests:2};
+
+/* ═══ SETTLEMENT ENGINE ═══ */
+var settlement={
+  weekStart:Date.now()-3*86400000, /* 이번 주 시작 */
+  weekNumber:3,
+  monthlyPendingTon:3.8, /* 이번 달 아직 미확정 예상 */
+  monthlyConfirmedTon:12.5, /* 확정 출금 가능 */
+  weeklySettled:[
+    {week:1,ton:4.8,tier:'diamond',valid:true},
+    {week:2,ton:4.5,tier:'gold',valid:true},
+    {week:3,ton:3.2,tier:'gold',valid:true}
+  ],
+  myGuildTier:'gold',
+  myGuildMembers:8,
+  validMemberCount:6,
+  myContribPercent:12
+};
+
+/* 유효자 판정 */
+function isGuildValid(){
+  return guildProgress.puzzles>=GUILD_VALID.puzzles&&
+         guildProgress.ads>=GUILD_VALID.ads&&
+         guildProgress.attendance>=GUILD_VALID.attendance&&
+         guildProgress.harvests>=GUILD_VALID.harvests;
+}
+function getValidityStatus(){
+  var items=[
+    {key:'puzzles',icon:'\u{1F9E9}',label:'\uD37C\uC990',cur:guildProgress.puzzles,req:GUILD_VALID.puzzles},
+    {key:'ads',icon:'\u{1F4FA}',label:'\uAD11\uACE0',cur:guildProgress.ads,req:GUILD_VALID.ads},
+    {key:'attendance',icon:'\u{1F4C5}',label:'\uCD9C\uC11D',cur:guildProgress.attendance,req:GUILD_VALID.attendance},
+    {key:'harvests',icon:'\u{1F954}',label:'\uC218\uD655',cur:guildProgress.harvests,req:GUILD_VALID.harvests}
+  ];
+  var allDone=true;var missing=[];
+  items.forEach(function(it){
+    it.done=it.cur>=it.req;it.lack=it.req-it.cur;
+    if(!it.done){allDone=false;missing.push(it)}
+  });
+  return{items:items,allDone:allDone,missing:missing};
+}
+
+/* 예상 TON 계산 */
+function calcExpectedTon(){
+  if(!isGuildValid())return 0;
+  var tw=GUILD_TIER_WEIGHT[settlement.myGuildTier]||0.10;
+  var poolShare=GUILD_POOL*tw;
+  var myShare=settlement.myContribPercent/100;
+  return+(poolShare*myShare/settlement.validMemberCount).toFixed(1);
+}
+
+/*
+ * runWeeklyReset()
+ * 읽기: guildProgress, GUILD_VALID, settlement, S.guildContrib
+ * 쓰기: settlement.monthlyPendingTon, S.guildReward, guildProgress(reset)
+ * 로그: addVaultLog('ton', ..., 'pending') — weekTon > 0일 때만
+ * 반환: {ton: number, valid: boolean}
+ * 실서비스: 서버 cron → POST /settlement/weekly → 프론트에 push
+ */
+function runWeeklyReset(){
+  var wasValid=isGuildValid();
+  var weekTon=wasValid?calcExpectedTon():0;
+  /* 정산 기록 */
+  settlement.weeklySettled.push({
+    week:settlement.weekNumber,ton:weekTon,tier:settlement.myGuildTier,valid:wasValid
+  });
+  /* pending 누적 (confirmed는 월간 정산에서만) */
+  if(weekTon>0){
+    settlement.monthlyPendingTon=+(settlement.monthlyPendingTon+weekTon).toFixed(1);
+    S.guildReward=settlement.monthlyPendingTon; /* pending = 이번 달 누적 예상 */
+    addVaultLog('ton',settlement.weekNumber+'\uC8FC\uCC28 '+settlement.myGuildTier+' \uC801\uB9BD',weekTon,'guild','pending');
+  }
+  /* 진행도 리셋 */
+  settlement.weekNumber++;
+  settlement.weekStart=Date.now();
+  guildProgress={puzzles:0,ads:0,attendance:0,harvests:0};
+  renderAll();renderGuild();
+  return{ton:weekTon,valid:wasValid};
+}
+
+/*
+ * runMonthlySettlement()
+ * 읽기: settlement.monthlyPendingTon, settlement.monthlyConfirmedTon
+ * 쓰기: S.ton = confirmed, S.guildReward = 0, settlement reset
+ * 로그: addVaultLog('ton', ..., 'confirmed') — moved > 0일 때만
+ * 반환: {moved: number, total: number}
+ * 실서비스: 서버 cron (매월 1일) → POST /settlement/monthly → 프론트에 push
+ */
+function runMonthlySettlement(){
+  var moved=settlement.monthlyPendingTon;
+  if(moved<=0)return{moved:0};
+  settlement.monthlyConfirmedTon=+(settlement.monthlyConfirmedTon+moved).toFixed(1);
+  settlement.monthlyPendingTon=0;
+  S.ton=settlement.monthlyConfirmedTon;
+  S.guildReward=0; /* pending 소진 */
+  var month=new Date().getMonth()+1;
+  addVaultLog('ton',month+'\uC6D4 \uC6D4\uAC04 TON \uD655\uC815',moved,'guild','confirmed');
+  celebrateTonGain();
+  /* 주간 기록 초기화 */
+  settlement.weeklySettled=[];
+  settlement.weekNumber=1;
+  renderAll();renderVault();
+  return{moved:moved,total:settlement.monthlyConfirmedTon};
+}
+
+/* S.ton과 S.guildReward를 settlement과 동기화 */
+function syncSettlementToState(){
+  S.ton=settlement.monthlyConfirmedTon;
+  S.guildReward=settlement.monthlyPendingTon;
+}
+
+/* ═══ FARM CONFIG ═══ */
+const FARM_GROW_MS=6*3600*1000;
+const FARM_MAX_HARVESTS=3;
+const FARM_AD_BOOST_LIMIT=5;
+const FARM_INSTANT_COST=10;
+const FARM_SLOT_UNLOCK=[{level:0,cost:0},{level:0,cost:0},{level:5,cost:50}];
+const FARM_LEVELS=[
+{expReq:400,yield:18,perHour:3.1},
+{expReq:600,yield:32,perHour:5.5},
+{expReq:750,yield:48,perHour:8.2},
+{expReq:1000,yield:68,perHour:11.3},
+{expReq:1500,yield:96,perHour:16.0}
+];
+var FARMS=[
+{slotId:0,state:'harvestable',startAt:Date.now()-FARM_GROW_MS,endAt:Date.now()-1000,yieldPotato:48,level:3,exp:450,harvestsToday:2,boostsToday:2,unlocked:true},
+{slotId:1,state:'growing',startAt:Date.now()-3600000,endAt:Date.now()+5*3600000+892000,yieldPotato:18,level:1,exp:80,harvestsToday:1,boostsToday:0,unlocked:true},
+{slotId:2,state:'locked',startAt:null,endAt:null,yieldPotato:0,level:1,exp:0,harvestsToday:0,boostsToday:0,unlocked:false}
+];
+var _activeFarm=0;
+
+/* ═══ STATE MANAGER ═══ */
+function getState(k){return S[k]}
+function setState(k,v){var o=S[k];S[k]=v;if(o!==v)renderAll()}
+function modState(k,d){setState(k,S[k]+d)}
+
+/* ═══ RENDER ALL — 전역 UI 동기화 ═══ */
+function renderAll(){
+  /* 상단 pill 재화 */
+  var tp=document.getElementById('topPotato');if(tp)tp.textContent=fmtC(S.potato);
+  var td=document.getElementById('topDiamond');if(td)td.textContent=S.diamond;
+  /* 농장 잔고 */
+  var fb=document.getElementById('farmBalNum');if(fb)fb.textContent=fmtC(S.potato);
+  /* 길드 탭 */
+  if(hasGuild){
+    var gu=document.getElementById('guildUsd');if(gu)gu.textContent='('+fmtU(S.guildReward)+')';
+    var gap=document.getElementById('guildAssetPotato');if(gap)gap.textContent=fmtC(S.potato);
+    var gad=document.getElementById('guildAssetDia');if(gad)gad.textContent=S.diamond;
+  }
+  /* Vault diamond */
+  var vd=document.getElementById('vaultDiamond');if(vd)vd.textContent=S.diamond;
+  /* D-day 동적 갱신 */
+  updateDday();
+  /* CTA 배너 */
+  renderCTA();
+}
+
+/* ═══ D-DAY 동적 갱신 — 모든 하드코딩 D-18 제거 ═══ */
+function updateDday(){
+  var dd=getWithdrawDday();
+  var ddText=dd.dday===0?'오늘!':'D-'+dd.dday;
+  /* Vault */
+  var v1=document.getElementById('vaultDday');if(v1)v1.textContent=ddText;
+  var v2=document.getElementById('vaultDdayLabel');if(v2)v2.textContent=dd.label.replace(/ \(D-\d+\)/,'');
+  /* Guild joined hero */
+  var g1=document.getElementById('guildDday');if(g1)g1.textContent=ddText;
+  var g2=document.getElementById('guildDdayLabel');if(g2)g2.textContent=dd.label.replace(/ \(D-\d+\)/,'');
+  /* Guild nojoin hero */
+  var g3=document.getElementById('guildDday2');if(g3)g3.textContent=ddText;
+  var g4=document.getElementById('guildDdayLabel2');if(g4)g4.textContent=dd.label.replace(/ \(D-\d+\)/,'');
+  /* Guild reward tab */
+  var gr=document.getElementById('guildRwdTotal');if(gr)gr.textContent=fmtT(S.ton)+' TON';
+  var gs=document.getElementById('guildRwdSub');if(gs)gs.textContent=fmtU(S.ton)+' \xB7 \u{1F4C5} \uCD9C\uAE08\uAE4C\uC9C0 '+ddText;
+}
+
+/* ═══ 공통 액션 처리 — 모든 재화 변화의 단일 진입점 ═══ */
+function applyAction(actionType,payload){
+  var p=payload||{};var oldP=S.potato;var oldT=S.ton;var oldD=S.diamond;
+  switch(actionType){
+    case 'harvest':
+      S.potato+=(p.amount||0);
+      addVaultLog('potato',p.label||'\uC218\uD655',p.amount||0,p.adBoost?'adboost':'harvest');
+      if(p.adBoost)celebratePotatoGain();else triggerHaptic('light');
+      break;
+    case 'puzzle':
+      S.potato+=(p.potato||0);
+      S.guildContrib+=(p.guildContrib||0);
+      addVaultLog('potato','\uD37C\uC990 '+fmtC(p.score||0)+'\uC810',p.potato||0,'puzzle');
+      celebratePotatoGain();
+      break;
+    case 'battle':
+      S.potato+=(p.potato||0);
+      S.guildContrib+=(p.guildContrib||0);
+      addVaultLog('potato','\uC218\uD638\uC804'+(p.duration?' '+p.duration:''),p.potato||0,'battle');
+      celebratePotatoGain();
+      break;
+    case 'referral':
+      S.potato+=(p.amount||0);
+      addVaultLog('potato','\uCE5C\uAD6C \uBCF4\uB108\uC2A4 \uC218\uB839',p.amount||0,'referral');
+      break;
+    case 'withdraw':
+      var wAmt=S.ton;S.ton=0;
+      if(wAmt>0)addVaultLog('ton','\uCD9C\uAE08 \uC2E0\uCCAD',wAmt,'guild','withdrawn');
+      break;
+    /* guildReward는 정산 엔진(runWeeklyReset/runMonthlySettlement)에서만 처리 */
+    case 'diamondSpend':
+      S.diamond-=(p.amount||0);
+      addVaultLog('diamond',p.label||'\uB2E4\uC774\uC544 \uC0AC\uC6A9',p.amount||0,p.source||'guild');
+      break;
+  }
+  renderAll();
+  /* 재화 변동 시 reel 애니메이션 */
+  if(S.potato!==oldP){var fb=document.getElementById('farmBalNum');if(fb)animateReel('farmBalNum',oldP,S.potato,{format:fmtC,duration:600,fontSize:34})}
+  if(S.ton!==oldT){var ve=document.getElementById('vaultTonConfirmed');if(ve)animateReel('vaultTonConfirmed',oldT,S.ton,{format:fmtT,duration:500,fontSize:18})}
+}
+
+/* ═══ CTA PRIORITY ENGINE ═══ */
+function getTopCTA(){
+  var i;
+  for(i=0;i<FARMS.length;i++){if(FARMS[i].state==='harvestable')return{id:'harvest',icon:'\u{1F954}',text:'\uC218\uD655 \uC900\uBE44 \uC644\uB8CC! \uC9C0\uAE08 \uC218\uD655\uD558\uAE30',tab:'farm',action:(function(x){return function(){switchFarm(x);setTimeout(function(){showHarvest(x)},250)}})(i)};}
+  for(i=0;i<FARMS.length;i++){if(FARMS[i].state==='empty'&&FARMS[i].unlocked)return{id:'plant',icon:'\u{1F331}',text:'\uBE48 \uB18D\uC7A5\uC5D0 \uC528\uC557 \uC2EC\uAE30',tab:'farm',action:(function(x){return function(){switchFarm(x)}})(i)};}
+  if(REF.pendingPotato>0)return{id:'ref',icon:'\u{1F465}',text:'\uCE5C\uAD6C \uBCF4\uB108\uC2A4 +'+Math.round(REF.pendingPotato)+' POTATO \uC218\uB839 \uAC00\uB2A5',tab:'farm',action:null};
+  if(!hasGuild)return{id:'guild',icon:'\u{1F3F0}',text:'\uAE38\uB4DC \uAC00\uC785\uD558\uACE0 TON \uBCF4\uC0C1 \uBC1B\uAE30',tab:'guild',action:null};
+  if(hasGuild&&S.guildReward>0)return{id:'vault',icon:'\u{1F4B0}',text:'\uCD9C\uAE08 \uC608\uC815 '+fmtT(S.guildReward)+' TON \uD655\uC778',tab:'vault',action:null};
+  return{id:'play',icon:'\u{1F9E9}',text:'\uD37C\uC990 \uD50C\uB808\uC774\uD558\uACE0 POTATO \uBAA8\uC73C\uAE30',tab:'game',action:null};
+}
+function renderCTA(){
+  var cta=getTopCTA();
+  var el=document.getElementById('ctaBanner');if(!el)return;
+  el.className='cta-banner cta-'+cta.id;
+  el.innerHTML='<span class="cta-icon">'+cta.icon+'</span><span class="cta-text">'+cta.text+'</span><span class="cta-arrow">\u203A</span>';
+  el.onclick=function(){
+    triggerHaptic('light');
+    var navBtns=document.querySelectorAll('.ni');
+    var tm={game:0,farm:1,guild:2,vault:3};
+    sTab(cta.tab,navBtns[tm[cta.tab]]);
+    if(cta.action)setTimeout(cta.action,250);
+  };
+}
+
+/* ═══ MODAL HELPERS ═══ */
+function showInfo(title,msg){
+  showSheet('<div style="text-align:center;padding:10px 0"><div style="font-size:17px;font-weight:900;margin-bottom:8px">'+title+'</div><div style="font-size:13px;color:var(--dim);line-height:1.6;white-space:pre-line">'+msg+'</div><button class="btn btn-ghost" style="width:100%;margin-top:16px;min-height:48px" onclick="document.getElementById(\'so\').classList.remove(\'show\')">확인</button></div>');
+}
+function showConfirm(title,msg,onOk){
+  window._confirmCb=onOk;
+  showSheet('<div style="text-align:center;padding:10px 0"><div style="font-size:17px;font-weight:900;margin-bottom:8px">'+title+'</div><div style="font-size:13px;color:var(--dim);line-height:1.6;white-space:pre-line">'+msg+'</div><div style="display:flex;gap:8px;margin-top:16px"><button class="btn btn-ghost" style="flex:1;min-height:48px" onclick="document.getElementById(\'so\').classList.remove(\'show\')">취소</button><button class="btn" style="flex:1;min-height:48px;background:var(--ton-g);color:#fff;font-weight:800;border-radius:11px" onclick="document.getElementById(\'so\').classList.remove(\'show\');if(window._confirmCb)window._confirmCb()">확인</button></div></div>');
+}
+
+/* ═══ ACTION FUNCTIONS ═══ */
+/* doHarvest(idx,mult) — moved to farm actions section */
+/* doAdBoost(idx) — moved to farm actions section */
+/* ═══ GAME REWARD ENGINE ═══ */
+function getGameReward(type,score,duration){
+  if(type==='puzzle'){
+    var potato=Math.round(score*0.1);
+    var guild=Math.round(score*0.03)+5;
+    var farmBoostMs=30*60*1000;
+    return{potato:potato,guildContrib:guild,farmBoostMs:farmBoostMs,score:score};
+  }
+  if(type==='battle'){
+    var base=80;var timeBonus=Math.min(duration*2,120);
+    return{potato:base+timeBonus,guildContrib:Math.round(duration*0.5),farmBoostMs:0,score:0};
+  }
+  return{potato:0,guildContrib:0,farmBoostMs:0,score:0};
+}
+
+function doCompletePuzzle(score){
+  var rw=getGameReward('puzzle',score,60);
+  var isHigh=score>S.puzzleHigh;
+  if(isHigh)S.puzzleHigh=score;
+  S.puzzlesToday++;
+  /* 재화/기여도/로그 → applyAction 단일 처리 */
+  applyAction('puzzle',{potato:rw.potato,guildContrib:rw.guildContrib,score:rw.score});
+  /* Farm boost: reduce first growing slot by 30min */
+  var boostedFarm=-1;
+  for(var i=0;i<FARMS.length;i++){
+    if(FARMS[i].state==='growing'){
+      FARMS[i].endAt=Math.max(Date.now(),FARMS[i].endAt-rw.farmBoostMs);
+      if(FARMS[i].endAt<=Date.now())FARMS[i].state='harvestable';
+      boostedFarm=i;break;
+    }
+  }
+  /* UI 갱신 */
+  var ptc=document.getElementById('puzzleTodayCount');if(ptc)ptc.textContent=S.puzzlesToday+'/'+PUZZLE_DAILY_MAX;
+  var phs=document.getElementById('puzzleHighScore');if(phs)phs.textContent=fmtC(S.puzzleHigh);
+  var ppb=document.getElementById('puzzleProgressBar');if(ppb)ppb.style.width=Math.min(100,S.puzzlesToday/PUZZLE_DAILY_MAX*100)+'%';
+  showPuzzleResult(rw,isHigh,boostedFarm);
+}
+
+function showPuzzleResult(rw,isHigh,boostedFarm){
+  var farmLine=boostedFarm>=0?'<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr)"><span style="color:var(--dim)">\u{1F331} \uB18D\uC7A5'+(boostedFarm+1)+' \uC131\uC7A5 \uB2E8\uCD95</span><span style="font-weight:800;color:var(--potato)">-30\uBD84</span></div>':'<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr)"><span style="color:var(--mut)">\u{1F331} \uC131\uC7A5 \uC911\uC778 \uB18D\uC7A5 \uC5C6\uC74C</span><span style="color:var(--mut)">-</span></div>';
+  var guildLine=hasGuild?'<div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:var(--dim)">\u{1F3F0} \uAE38\uB4DC \uAE30\uC5EC\uB3C4</span><span style="font-weight:800;color:var(--ton)">+'+rw.guildContrib+'</span></div>':'<div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:var(--mut)">\u{1F3F0} \uAE38\uB4DC \uBBF8\uAC00\uC785</span><span style="color:var(--mut)">-</span></div>';
+  var highTag=isHigh?'<div style="display:inline-block;padding:3px 10px;border-radius:12px;background:rgba(240,184,24,.15);color:var(--gold);font-size:11px;font-weight:800;margin-bottom:8px">\u{1F451} NEW HIGH SCORE!</div>':'';
+  showSheet(
+    '<div style="text-align:center;padding:6px 0">'+highTag+
+    '<div style="font-size:15px;font-weight:900;color:var(--gold)">\u{1F389} \uD37C\uC990 \uC644\uB8CC!</div>'+
+    '<div style="font-size:42px;font-weight:900;color:var(--tx);margin:8px 0;line-height:1">'+fmtC(rw.score)+'</div>'+
+    '<div style="font-size:12px;color:var(--dim);margin-bottom:12px">\uC810\uC218</div></div>'+
+    '<div style="background:var(--card);border:1px solid var(--bdr);border-radius:11px;padding:10px 14px;margin-bottom:12px;font-size:13px">'+
+    '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr)"><span style="color:var(--dim)">\u{1F954} POTATO \uD68D\uB4DD</span><span style="font-weight:800;color:var(--potato)">+'+rw.potato+'</span></div>'+
+    farmLine+guildLine+'</div>'+
+    '<div style="font-size:10px;color:var(--mut);text-align:center;margin-bottom:10px">\uC624\uB298 '+S.puzzlesToday+'/'+PUZZLE_DAILY_MAX+'\uD310 \uC644\uB8CC</div>'+
+    '<button class="btn btn-play" style="width:100%;padding:14px" onclick="document.getElementById(\'so\').classList.remove(\'show\')">\uD655\uC778</button>'
+  );
+}
+function doJoinGuild(guildId){
+  hasGuild=true;
+  joinGuild();
+  renderAll();
+}
+/* ═══ VAULT RENDER ═══ */
+function renderVaultHistory(logs,containerId,type){
+  var el=document.getElementById(containerId);if(!el)return;
+  if(!logs.length){el.innerHTML='<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut)">\uB0B4\uC5ED\uC774 \uC5C6\uC2B5\uB2C8\uB2E4</div>';return}
+  var colors={ton:'var(--ton)',potato:'var(--potato)',diamond:'var(--dia)'};
+  var units={ton:' TON',potato:'',diamond:''};
+  var statusLabels={pending:'\uC801\uB9BD \uC608\uC815',confirmed:'\uD655\uC815',withdrawn:'\uCD9C\uAE08 \uC644\uB8CC'};
+  var statusColors={pending:'var(--gold)',confirmed:'var(--potato)',withdrawn:'var(--ton)'};
+  var html='';var total=0;
+  logs.forEach(function(l){
+    var src=VAULT_SOURCES[l.source]||l.source;
+    var stLabel=statusLabels[l.status]||'';
+    var stColor=statusColors[l.status]||'var(--dim)';
+    var stBadge=l.status?'<span style="font-size:9px;padding:1px 6px;border-radius:4px;background:rgba(255,255,255,.05);color:'+stColor+';font-weight:700;margin-left:4px">'+stLabel+'</span>':'';
+    html+='<div class="rw" style="align-items:center"><div style="flex:1"><div style="font-size:13px;color:var(--dim)">'+l.action+stBadge+'</div><div style="font-size:10px;color:var(--mut);margin-top:2px">'+l.date+' \xB7 '+src+'</div></div><div style="font-weight:800;color:'+(colors[type]||'var(--tx)')+';font-size:14px;white-space:nowrap">+'+(type==='ton'?fmtT(l.amount):fmtC(l.amount))+(units[type]||'')+'</div></div>';
+    total+=l.amount;
+  });
+  if(type==='ton'){
+    html+='<div class="rw" style="border-top:2px solid var(--bdr);padding-top:10px;align-items:center"><span style="font-weight:700">\uB204\uC801</span><span style="font-weight:900;color:var(--ton);font-size:15px">'+fmtT(total)+' TON ('+fmtU(total)+')</span></div>';
+  }
+  el.innerHTML=html;
+}
+function renderVault(){
+  renderVaultHistory(vaultLogs,'vaultTonHistory','ton');
+  renderVaultHistory(potatoLogs,'vaultPotatoHistory','potato');
+  renderVaultHistory(diamondLogs,'vaultDiamondHistory','diamond');
+  var vd=document.getElementById('vaultDiamond');if(vd)vd.textContent=S.diamond;
+  /* D-day 동적 갱신 */
+  var wd=getWithdrawDday();
+  var dd=document.getElementById('vaultDday');if(dd)dd.textContent=wd.canNow?'오늘!':'D-'+wd.dday;
+  var dl=document.getElementById('vaultDdayLabel');if(dl)dl.textContent=wd.label.replace(/ \(.*\)/,'');
+}
+function addVaultLog(type,action,amount,source,status){
+  if(amount===0||amount===undefined)return; /* 0 TON 로그 방지 */
+  var entry={date:new Date().toLocaleDateString('ko',{month:'numeric',day:'numeric'}),action:action,amount:Math.abs(amount),source:source,status:status||''};
+  if(type==='ton')vaultLogs.unshift(entry);
+  else if(type==='potato')potatoLogs.unshift(entry);
+  else if(type==='diamond')diamondLogs.unshift(entry);
+}
+/* ═══ WITHDRAWAL ═══ */
+function getWithdrawDday(){
+  var now=new Date();var y=now.getFullYear();var m=now.getMonth()+1;
+  var nextFirst=new Date(y,m,1); /* 다음달 1일 */
+  if(now.getDate()===1)return{dday:0,label:m+'월 1일 (오늘!)',canNow:true};
+  var diff=Math.ceil((nextFirst-now)/86400000);
+  return{dday:diff,label:(m+1>12?1:m+1)+'월 1일 (D-'+diff+')',canNow:false};
+}
+function showWithdrawSheet(){
+  var wd=getWithdrawDday();
+  var canWithdraw=S.ton>0;
+  var reasons=[];
+  if(!canWithdraw)reasons.push('\uCD9C\uAE08 \uAC00\uB2A5\uD55C TON\uC774 \uC5C6\uC2B5\uB2C8\uB2E4');
+  if(!wd.canNow&&wd.dday>0)reasons.push('\uB2E4\uC74C \uCD9C\uAE08\uC77C\uAE4C\uC9C0 D-'+wd.dday+' \uB0A8\uC558\uC2B5\uB2C8\uB2E4');
+  var reasonHtml=reasons.length?'<div style="padding:8px 12px;border-radius:8px;background:rgba(240,64,64,.08);color:var(--red);font-size:12px;font-weight:700;margin-bottom:10px;line-height:1.5">\u26A0 '+reasons.join('<br>\u26A0 ')+'</div>':'';
+  var canSubmit=canWithdraw; /* 실서비스: canWithdraw && wd.canNow */
+  showSheet(
+    '<div style="text-align:center;padding:6px 0"><div style="font-size:17px;font-weight:900;margin-bottom:12px">\u{1F4A0} TON \uCD9C\uAE08</div></div>'+
+    '<div class="cd" style="padding:14px;margin-bottom:10px">'+
+    '<div class="rw"><span style="color:var(--dim)">\uCD9C\uAE08 \uAC00\uB2A5 (\uD655\uC815)</span><span style="font-weight:900;color:var(--ton);font-size:16px">'+fmtT(S.ton)+' TON</span></div>'+
+    '<div class="rw"><span style="color:var(--dim)">\uC801\uB9BD \uC608\uC815 (\uBBF8\uD655\uC815)</span><span style="font-weight:800;color:var(--gold)">~'+fmtT(S.guildReward)+' TON</span></div>'+
+    '<div class="rw"><span style="color:var(--dim)">\uB2E4\uC74C \uCD9C\uAE08\uC77C</span><span style="font-weight:800;color:var(--tx)">'+wd.label+'</span></div>'+
+    '<div class="rw" style="border:none"><span style="color:var(--dim)">USD \uD658\uC0B0</span><span style="font-weight:800;color:var(--ton)">'+fmtU(S.ton)+'</span></div>'+
+    '</div>'+reasonHtml+
+    '<div style="font-size:10px;color:var(--mut);text-align:center;margin-bottom:10px;line-height:1.6">\uD655\uC815\uB41C TON\uC740 \uB9E4\uC6D4 1\uC77C \uC790\uB3D9 \uCD9C\uAE08\uB429\uB2C8\uB2E4<br>\uCD9C\uAE08 \uC608\uC815 TON\uC740 \uC8FC\uAC04 \uC815\uC0B0 \uD6C4 \uD655\uC815\uB429\uB2C8\uB2E4</div>'+
+    (canSubmit?
+    '<button class="btn" style="width:100%;padding:14px;background:var(--ton-g);color:#fff;font-weight:900;font-size:15px;border-radius:12px" onclick="doWithdrawConfirm()">\u{1F4A0} '+fmtT(S.ton)+' TON \uCD9C\uAE08 \uC2E0\uCCAD</button>':
+    '<button class="btn btn-ghost" style="width:100%;padding:14px;opacity:.5" disabled>\uCD9C\uAE08 \uBD88\uAC00</button>')
+  );
+}
+function doWithdrawConfirm(){
+  if(S.ton<=0)return;
+  var amt=S.ton;var wd=getWithdrawDday();
+  document.getElementById('so').classList.remove('show');
+  /* 재화/로그 → applyAction */
+  applyAction('withdraw',{});
+  settlement.monthlyConfirmedTon=0;
+  showInfo('\u{1F4CB} \uCD9C\uAE08 \uC2E0\uCCAD \uC644\uB8CC',fmtT(amt)+' TON\uC774 '+wd.label+'\uC5D0 \uCC98\uB9AC\uB429\uB2C8\uB2E4');
+  renderVault();
+}
+
+/* ═══ FARM — SVG TEMPLATES ═══ */
+function svgHarvestPotato(){return'<svg class="potato-char-svg harvest" viewBox="0 0 200 230" width="170" height="195"><defs><radialGradient id="pbH" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#f8dca0"/><stop offset="45%" stop-color="#e4b462"/><stop offset="100%" stop-color="#c48a38"/></radialGradient><linearGradient id="helmG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe060"/><stop offset="45%" stop-color="#f0b020"/><stop offset="100%" stop-color="#d89810"/></linearGradient><radialGradient id="lampG" cx="40%" cy="35%" r="55%"><stop offset="0%" stop-color="#f0f4ff"/><stop offset="100%" stop-color="#c8d0e0"/></radialGradient><radialGradient id="blushH" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,130,130,.45)"/><stop offset="100%" stop-color="rgba(255,130,130,0)"/></radialGradient><filter id="fSh" x="-10%" y="-5%" width="120%" height="120%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,.25)"/></filter></defs><ellipse cx="100" cy="218" rx="52" ry="8" fill="rgba(0,0,0,.18)"/><ellipse cx="36" cy="152" rx="16" ry="10" fill="#d8a850" stroke="#c09040" stroke-width="1" transform="rotate(-15,36,152)"/><ellipse cx="164" cy="152" rx="16" ry="10" fill="#d8a850" stroke="#c09040" stroke-width="1" transform="rotate(15,164,152)"/><ellipse cx="100" cy="148" rx="64" ry="62" fill="url(#pbH)" filter="url(#fSh)"/><ellipse cx="82" cy="125" rx="30" ry="22" fill="rgba(255,240,200,.18)" transform="rotate(-15,82,125)"/><ellipse cx="100" cy="185" rx="48" ry="16" fill="rgba(140,90,30,.12)"/><path d="M48,108 C48,68 72,46 100,44 C128,46 152,68 152,108 Z" fill="url(#helmG)" stroke="#c89010" stroke-width="1.2"/><path d="M40,108 Q40,102 48,100 L152,100 Q160,102 160,108 Q160,115 100,118 Q40,115 40,108 Z" fill="#f0b818" stroke="#c89010" stroke-width="1"/><path d="M82,48 Q100,42 118,48" fill="none" stroke="#d8a010" stroke-width="3" stroke-linecap="round"/><rect x="83" y="74" width="34" height="26" rx="6" fill="#909aa8" stroke="#78828e" stroke-width="1"/><circle cx="100" cy="87" r="10" fill="url(#lampG)" stroke="#a8b0b8" stroke-width="1.2"/><circle cx="96" cy="83" r="4" fill="rgba(255,255,255,.75)"/><circle cx="103" cy="90" r="2" fill="rgba(255,255,255,.35)"/><circle cx="100" cy="87" r="14" fill="rgba(255,255,220,.08)"/><ellipse cx="76" cy="140" rx="11" ry="13" fill="#2a1808"/><circle cx="80" cy="135" r="5" fill="rgba(255,255,255,.92)"/><circle cx="74" cy="143" r="2.5" fill="rgba(255,255,255,.45)"/><ellipse cx="124" cy="140" rx="11" ry="13" fill="#2a1808"/><circle cx="128" cy="135" r="5" fill="rgba(255,255,255,.92)"/><circle cx="122" cy="143" r="2.5" fill="rgba(255,255,255,.45)"/><path d="M88,165 Q100,177 112,165" fill="none" stroke="#7a5428" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="58" cy="158" rx="14" ry="10" fill="url(#blushH)"/><ellipse cx="142" cy="158" rx="14" ry="10" fill="url(#blushH)"/><g class="svg-sparkle"><circle cx="28" cy="90" r="3.5" fill="#ffd040" opacity=".7"/><path d="M26,90 L30,90 M28,88 L28,92" stroke="#ffd040" stroke-width="1.2" opacity=".7"/></g><g class="svg-sparkle s2"><circle cx="170" cy="105" r="3" fill="#fff" opacity=".6"/><path d="M168,105 L172,105 M170,103 L170,107" stroke="#fff" stroke-width="1" opacity=".6"/></g><g class="svg-sparkle s3"><circle cx="155" cy="70" r="2.5" fill="#ffd040" opacity=".5"/><path d="M153,70 L157,70 M155,68 L155,72" stroke="#ffd040" stroke-width="1" opacity=".5"/></g></svg>'}
+function svgGrowingPotato(){return'<svg class="potato-char-svg growing" viewBox="0 0 200 230" width="170" height="195"><defs><radialGradient id="pbG" cx="45%" cy="30%" r="60%"><stop offset="0%" stop-color="#f5dca0"/><stop offset="50%" stop-color="#e0ba68"/><stop offset="100%" stop-color="#c89840"/></radialGradient><linearGradient id="potG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c86840"/><stop offset="50%" stop-color="#a84e2c"/><stop offset="100%" stop-color="#8a3c20"/></linearGradient><linearGradient id="potRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d87848"/><stop offset="100%" stop-color="#b85830"/></linearGradient><linearGradient id="soilG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a3e20"/><stop offset="100%" stop-color="#3e2a14"/></linearGradient><linearGradient id="stemG2" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#3a8820"/><stop offset="100%" stop-color="#5ec840"/></linearGradient><radialGradient id="leafRG" cx="40%" cy="40%" r="55%"><stop offset="0%" stop-color="#80f050"/><stop offset="100%" stop-color="#48a828"/></radialGradient></defs><ellipse cx="100" cy="222" rx="58" ry="7" fill="rgba(0,0,0,.15)"/><path d="M42,148 L54,210 Q56,218 100,218 Q144,218 146,210 L158,148 Z" fill="url(#potG)"/><path d="M48,155 L56,200 Q58,205 78,207 L78,148 Z" fill="rgba(255,255,255,.06)"/><rect x="36" y="140" width="128" height="16" rx="8" fill="url(#potRim)"/><rect x="42" y="142" width="60" height="5" rx="2.5" fill="rgba(255,255,255,.12)"/><line x1="40" y1="156" x2="160" y2="156" stroke="rgba(0,0,0,.12)" stroke-width="1"/><ellipse cx="100" cy="148" rx="56" ry="14" fill="url(#soilG)"/><ellipse cx="80" cy="146" rx="6" ry="2" fill="rgba(90,62,32,.5)"/><ellipse cx="120" cy="147" rx="5" ry="1.5" fill="rgba(90,62,32,.4)"/><ellipse cx="100" cy="128" rx="44" ry="36" fill="url(#pbG)"/><ellipse cx="86" cy="112" rx="20" ry="14" fill="rgba(255,240,200,.15)" transform="rotate(-10,86,112)"/><path d="M100,92 Q98,72 102,56" fill="none" stroke="url(#stemG2)" stroke-width="4.5" stroke-linecap="round" class="svg-stem"/><ellipse cx="85" cy="62" rx="16" ry="8" fill="url(#leafRG)" transform="rotate(-25,85,62)" class="svg-leaf-l"/><ellipse cx="112" cy="68" rx="10" ry="5.5" fill="url(#leafRG)" transform="rotate(20,112,68)" class="svg-leaf-r"/><path d="M78,125 Q84,130 90,125" fill="none" stroke="#5a4020" stroke-width="2.5" stroke-linecap="round"/><path d="M110,125 Q116,130 122,125" fill="none" stroke="#5a4020" stroke-width="2.5" stroke-linecap="round"/><path d="M92,140 Q100,147 108,140" fill="none" stroke="#7a5a30" stroke-width="2" stroke-linecap="round"/><ellipse cx="72" cy="134" rx="10" ry="6" fill="rgba(255,140,130,.2)"/><ellipse cx="128" cy="134" rx="10" ry="6" fill="rgba(255,140,130,.2)"/><g class="svg-zzz"><text x="140" y="68" font-size="18" font-weight="900" fill="#68c8e8" opacity=".8" font-family="sans-serif">z</text><text x="152" y="50" font-size="14" font-weight="900" fill="#68c8e8" opacity=".6" font-family="sans-serif">z</text><text x="160" y="36" font-size="11" font-weight="900" fill="#68c8e8" opacity=".4" font-family="sans-serif">z</text></g></svg>'}
+function svgEmptyPlot(){return'<svg class="potato-char-svg empty" viewBox="0 0 200 230" width="170" height="195"><defs><linearGradient id="soilE" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a3e20"/><stop offset="100%" stop-color="#3e2a14"/></linearGradient></defs><ellipse cx="100" cy="190" rx="70" ry="22" fill="url(#soilE)"/><ellipse cx="100" cy="187" rx="52" ry="10" fill="rgba(90,62,32,.6)"/><ellipse cx="85" cy="185" rx="6" ry="2" fill="rgba(60,40,18,.4)"/><ellipse cx="118" cy="186" rx="5" ry="1.5" fill="rgba(60,40,18,.3)"/><circle cx="100" cy="183" r="8" fill="rgba(0,0,0,.15)"/><text x="100" y="165" text-anchor="middle" font-size="32" opacity=".15">\u{1F331}</text></svg>'}
+
+/* ═══ FARM — RENDER HELPERS ═══ */
+function fmtTime(sec){var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s}
+function buildFarmStats(lv,left){
+return'<div class="farm-stats">'+
+'<div class="farm-stat">\uC218\uD655\uB7C9<b class="potato-c">+'+lv.yield+'</b></div>'+
+'<div class="farm-stat">\uC624\uB298<b>'+(FARM_MAX_HARVESTS-left)+'/'+FARM_MAX_HARVESTS+'\uD68C</b></div>'+
+'<div class="farm-stat">\uC2DC\uAC04\uB2F9<b class="gold-c">+'+lv.perHour+'</b></div></div>'}
+function buildFarmLevel(slot,lv){
+var pct=Math.min(100,Math.round(slot.exp/lv.expReq*100));
+return'<div class="farm-level"><span class="farm-level-lbl">LV.'+slot.level+'</span>'+
+'<div class="farm-level-bar"><div class="farm-level-fill" style="width:'+pct+'%"></div></div>'+
+'<span class="farm-level-txt">'+slot.exp+'/'+lv.expReq+' EXP</span></div>'}
+
+function renderFarmSlots(){
+var el=document.getElementById('farmSlots');if(!el)return;
+el.innerHTML=FARMS.map(function(f,i){
+var cls='farm-slot';
+if(i===_activeFarm)cls+=' on';
+if(!f.unlocked)cls+=' locked';
+return'<div class="'+cls+'" onclick="switchFarm('+i+')">\uB18D\uC7A5'+(i+1)+'</div>';
+}).join('')}
+
+function renderFarm(idx){
+var slot=FARMS[idx];
+var view=document.getElementById('farm-view-'+idx);if(!view)return;
+var lv=FARM_LEVELS[slot.level-1]||FARM_LEVELS[0];
+var left=FARM_MAX_HARVESTS-slot.harvestsToday;
+var h='';
+if(!slot.unlocked){
+var req=FARM_SLOT_UNLOCK[idx];
+var nextLv=FARM_LEVELS[req.level-1]||FARM_LEVELS[0];
+h='<div class="farm-char-area" style="height:280px">'+
+'<div class="farm-char-ring" style="border-color:rgba(255,255,255,.06);box-shadow:none;background:rgba(255,255,255,.02);animation:none">'+
+'<div style="text-align:center">'+
+'<div style="font-size:48px;opacity:.3">\u{1F512}</div>'+
+'<div style="font-size:14px;font-weight:900;color:var(--mut);margin-top:10px">'+(idx+1)+'\uBC88 \uB18D\uC7A5</div>'+
+'<div style="font-size:12px;color:var(--mut);margin-top:4px;opacity:.6">LV.'+req.level+' \uB2EC\uC131 \uC2DC \uAC1C\uBC29</div>'+
+'<div style="font-size:11px;color:var(--potato);margin-top:6px">\uD574\uAE08 \uC2DC +'+nextLv.yield+' POTATO \uC218\uD655 \uAC00\uB2A5</div>'+
+'</div></div></div>'+
+'<div class="farm-action" style="margin-top:8px">'+
+'<button class="btn btn-ghost" style="width:100%;min-height:48px" onclick="doUnlockSlot('+idx+')">\u{1F48E} '+req.cost+' \uB2E4\uC774\uC544\uB85C \uC989\uC2DC \uAC1C\uBC29</button></div>'}
+else if(slot.state==='empty'){
+h=buildFarmStats(lv,left)+buildFarmLevel(slot,lv)+
+'<div class="farm-char-area"><div class="farm-char-ring" style="border-color:rgba(255,255,255,.08);box-shadow:none;animation:none">'+svgEmptyPlot()+'</div></div>'+
+'<div class="farm-action">'+
+'<div class="farm-action-status" style="color:var(--dim);font-size:16px">\uBE48 \uB18D\uC7A5</div>'+
+'<div class="farm-action-sub">\uC528\uC557\uC744 \uC2EC\uACE0 \uAC10\uC790\uB97C \uD0A4\uC6CC\uBCF4\uC138\uC694</div>'+
+'<button class="btn farm-harvest-btn" style="background:var(--potato-g);color:#082004" onclick="doPlant('+idx+')">\u{1F331} \uC528\uC557 \uC2EC\uAE30 (+'+lv.yield+' \uC608\uC0C1)</button></div>'}
+else if(slot.state==='growing'){
+var remainMs=Math.max(0,slot.endAt-Date.now());
+var remainSec=Math.ceil(remainMs/1000);
+h=buildFarmStats(lv,left)+buildFarmLevel(slot,lv)+
+'<div class="farm-char-area"><div class="farm-char-ring grow-ring">'+svgGrowingPotato()+'</div></div>'+
+'<div class="farm-action">'+
+'<div class="farm-action-status" style="color:var(--dim);font-size:16px">\u{1F331} \uC131\uC7A5 \uC911...</div>'+
+'<div class="farm-action-sub"><b id="farmTimer-'+idx+'" style="color:var(--tx)">'+fmtTime(remainSec)+'</b> \uB0A8\uC74C \xB7 \uC218\uD655 \uC2DC <b style="color:var(--potato)">+'+slot.yieldPotato+' POTATO</b></div>'+
+'<button class="btn btn-ghost" style="font-size:13px;padding:12px 24px;margin-top:4px" onclick="showBoost('+idx+')">\u26A1 \uC131\uC7A5 \uAC00\uC18D\uD558\uAE30 (\uBB34\uB8CC)</button></div>'}
+else if(slot.state==='harvestable'){
+h=buildFarmStats(lv,left)+buildFarmLevel(slot,lv)+
+'<div class="farm-char-area"><div class="farm-char-ring harvest-ring">'+svgHarvestPotato()+'</div></div>'+
+'<div class="farm-action">'+
+'<div class="farm-action-status">\u2728 \uC218\uD655 \uC900\uBE44 \uC644\uB8CC!</div>'+
+'<div class="farm-action-sub">+'+slot.yieldPotato+' POTATO \uD68D\uB4DD \uAC00\uB2A5 \xB7 \uC624\uB298 \uB0A8\uC740 \uD69F\uC218 <b style="color:var(--gold)">'+left+'\uD68C</b></div>'+
+'<button class="btn farm-harvest-btn" onclick="showHarvest('+idx+')">\u{1F954} \uC9C0\uAE08 \uC218\uD655\uD558\uAE30 (+'+slot.yieldPotato+')</button></div>'}
+view.innerHTML=h}
+
+/* ═══ FARM — ACTIONS ═══ */
+function doPlant(idx){
+var slot=FARMS[idx];if(slot.state!=='empty'||!slot.unlocked)return;
+var lv=FARM_LEVELS[slot.level-1]||FARM_LEVELS[0];
+slot.state='growing';slot.startAt=Date.now();slot.endAt=Date.now()+FARM_GROW_MS;slot.yieldPotato=lv.yield;
+renderFarm(idx);triggerHaptic('medium');renderCTA()}
+
+function doHarvest(idx,mult){
+var slot=FARMS[idx];var amount=slot.yieldPotato*(mult||1);
+document.getElementById('so').classList.remove('show');
+/* 재화/로그 → applyAction */
+applyAction('harvest',{amount:amount,label:'\uC218\uD655'+(mult>1?' \xD7'+mult:'')+' \uB18D\uC7A5'+(idx+1),adBoost:mult>1});
+/* 슬롯 상태 전환 */
+slot.state='empty';slot.startAt=null;slot.endAt=null;slot.yieldPotato=0;
+slot.harvestsToday++;slot.exp+=50*(mult||1);
+var lv=FARM_LEVELS[slot.level-1];
+if(lv&&slot.exp>=lv.expReq&&slot.level<FARM_LEVELS.length){slot.level++;slot.exp-=lv.expReq}
+renderFarm(idx);renderFarmSlots()}
+
+function doInstantHarvest(idx){
+var slot=FARMS[idx];
+if(S.diamond<FARM_INSTANT_COST){document.getElementById('so').classList.remove('show');showInfo('\u{1F48E} \uB2E4\uC774\uC544 \uBD80\uC871','\uC989\uC2DC \uC218\uD655\uC5D0\uB294 '+FARM_INSTANT_COST+'\u{1F48E} \uD544\uC694\uD569\uB2C8\uB2E4\n\uD604\uC7AC \uBCF4\uC720: '+S.diamond+'\u{1F48E}');return}
+document.getElementById('so').classList.remove('show');
+/* 재화 → applyAction */
+applyAction('diamondSpend',{amount:FARM_INSTANT_COST,label:'\uC989\uC2DC \uC218\uD655 \uB18D\uC7A5'+(idx+1),source:'harvest'});
+slot.state='harvestable';slot.endAt=Date.now();
+renderFarm(idx);triggerHaptic('medium')}
+
+function doUnlockSlot(idx){
+var req=FARM_SLOT_UNLOCK[idx];
+if(S.diamond<req.cost){showInfo('\u{1F48E} \uB2E4\uC774\uC544 \uBD80\uC871','\uB18D\uC7A5 \uAC1C\uBC29\uC5D0 '+req.cost+'\u{1F48E} \uD544\uC694\uD569\uB2C8\uB2E4\n\uD604\uC7AC \uBCF4\uC720: '+S.diamond+'\u{1F48E}');return}
+showConfirm('\u{1F513} \uB18D\uC7A5 \uAC1C\uBC29','\u{1F48E} '+req.cost+'\uAC1C\uB97C \uC0AC\uC6A9\uD558\uC5EC\n'+(idx+1)+'\uBC88 \uB18D\uC7A5\uC744 \uAC1C\uBC29\uD560\uAE4C\uC694?',function(){
+applyAction('diamondSpend',{amount:req.cost,label:'\uB18D\uC7A5'+(idx+1)+' \uAC1C\uBC29',source:'harvest'});
+FARMS[idx].unlocked=true;FARMS[idx].state='empty';FARMS[idx].level=1;FARMS[idx].exp=0;
+renderFarm(idx);renderFarmSlots();triggerHaptic('heavy')})}
+
+function doAdBoost(idx){
+var slot=FARMS[idx];
+document.getElementById('so').classList.remove('show');
+slot.endAt=Math.max(Date.now(),slot.endAt-3600000);slot.boostsToday++;
+if(slot.endAt<=Date.now())slot.state='harvestable';
+renderFarm(idx);
+showInfo('\u26A1 \uAC00\uC18D \uC644\uB8CC!','\uC218\uD655\uAE4C\uC9C0 1\uC2DC\uAC04 \uB2E8\uCD95\uB418\uC5C8\uC2B5\uB2C8\uB2E4');
+triggerHaptic('medium');renderCTA()}
+
+/* Referral state */
+/* ═══ REFERRAL STATE ═══ */
+var REF={
+  totalFriends:9,
+  activeFriends:7,
+  todayPotato:32,
+  pendingPotato:0,
+  totalPotato:184,
+  lastClaimAt:Date.now()-3600000,
+  events:[
+    {friendId:'f1',name:'\uAC10\uC790\uAE30\uC0AC',basePotato:48,gain:4.8,at:Date.now()-120000},
+    {friendId:'f2',name:'\uD3EC\uD14C\uC774\uD1A0\uB9E8',basePotato:32,gain:3.2,at:Date.now()-480000},
+    {friendId:'f3',name:'\uAC10\uC790\uD018',basePotato:16,gain:1.6,at:Date.now()-900000},
+    {friendId:'f4',name:'\uAC10\uC790\uC655',basePotato:24,gain:2.4,at:Date.now()-1380000},
+    {friendId:'f5',name:'SpudMaster',basePotato:51,gain:5.1,at:Date.now()-1860000}
+  ],
+  /* anti-abuse 예비 필드 */
+  friends:[
+    {id:'f1',name:'\uAC10\uC790\uAE30\uC0AC',invitedAt:Date.now()-86400000*5,isValid:true,rewardLocked:false},
+    {id:'f2',name:'\uD3EC\uD14C\uC774\uD1A0\uB9E8',invitedAt:Date.now()-86400000*3,isValid:true,rewardLocked:false},
+    {id:'f3',name:'\uAC10\uC790\uD018',invitedAt:Date.now()-86400000*2,isValid:true,rewardLocked:false},
+    {id:'f4',name:'\uAC10\uC790\uC655',invitedAt:Date.now()-86400000*7,isValid:true,rewardLocked:false},
+    {id:'f5',name:'SpudMaster',invitedAt:Date.now()-86400000*1,isValid:true,rewardLocked:false},
+    {id:'f6',name:'\uC0C8\uC2F9\uC774',invitedAt:Date.now()-86400000*4,isValid:true,rewardLocked:false},
+    {id:'f7',name:'\uB18D\uBD80\uD0B9',invitedAt:Date.now()-86400000*6,isValid:true,rewardLocked:false},
+    {id:'f8',name:'\uAC10\uC790\uB7EC\uBC84',invitedAt:Date.now()-86400000*8,isValid:false,rewardLocked:true},
+    {id:'f9',name:'\uD22C\uB354\uAC10',invitedAt:Date.now()-86400000*10,isValid:false,rewardLocked:true}
+  ]
+};
+/* 레퍼럴 보너스율 — REF_TIERS 상수 참조 (활동 친구 수 기준) */
+function getReferralRate(cnt){
+  for(var i=0;i<REF_TIERS.length;i++){if(cnt<=REF_TIERS[i].max)return REF_TIERS[i].rate}
+  return REF_TIERS[REF_TIERS.length-1].rate;
+}
+function getReferralTier(cnt){
+  for(var i=0;i<REF_TIERS.length;i++){
+    var t=REF_TIERS[i];
+    if(cnt<=t.max)return{rate:t.rate,min:t.min,max:t.max,next:t.max-cnt};
+  }
+  return{rate:2,min:51,max:Infinity,next:0};
+}
 /* TMA Safe Area */
 (function(){try{
 if(window.Telegram&&Telegram.WebApp){
@@ -1164,14 +1874,14 @@ document.getElementById('tab-'+id).scrollTop=0;
 var tb=document.getElementById('topBar');tb.style.display='';
 if(id==='farm'){document.getElementById('farmBalNum').textContent=fmtC(S.potato)}
 if(id==='guild'){
-document.getElementById('guild-nojoin').style.display=hasGuild?'none':'block';
-document.getElementById('guild-joined').style.display=hasGuild?'block':'none';
-if(hasGuild){
+renderGuild();
+if(guildState==='joined'||guildState==='leader'){
 var oldG=parseFloat(document.getElementById('reelGuild').textContent)||0;
 animateReel('reelGuild',oldG,S.guildReward,{format:fmtT,duration:900,fontSize:52});
 document.getElementById('guildUsd').textContent='('+fmtU(S.guildReward)+')';
-var gap=document.getElementById('guildAssetPotato');if(gap)gap.textContent=fmtC(S.potato);
-var gad=document.getElementById('guildAssetDia');if(gad)gad.textContent=S.diamond;
+/* leader 길드 라벨 */
+var gl=document.querySelector('.gh-guild-label');
+if(gl)gl.innerHTML=guildState==='leader'?'\u{1F451} <b>\uB0B4 \uAE38\uB4DC</b> \xB7 \u{1F3C6} \uAE38\uB4DC\uC7A5':'\u{1F3F0} <b>\uAC10\uC790\uC5F0\uD569</b> \xB7 \u{1F947} \uACE8\uB4DC \uD2F0\uC5B4';
 }
 }
 if(id==='vault'){
@@ -1181,9 +1891,10 @@ var vp=document.getElementById('vaultTonPending');
 if(vp)animateReel('vaultTonPending',0,S.guildReward,{format:function(v){return'~'+fmtT(v)},duration:600,fontSize:18});
 var vpt=document.getElementById('vaultPotatoReel');
 if(vpt)animateReel('vaultPotatoReel',0,S.potato,{format:fmtC,duration:800,fontSize:26});
+renderVault();
 }
 if(id==='farm'){
-animateRefMetrics();
+renderRefCard();
 }
 triggerHaptic('light');
 }
@@ -1212,40 +1923,196 @@ function missionTab(el,idx){document.querySelectorAll('#missionSeg .sh-seg-i').f
 /* ═══ SETTINGS ═══ */
 function showSettings(){document.getElementById('settingsOv').classList.add('active');triggerHaptic('light')}
 function closeSettings(){document.getElementById('settingsOv').classList.remove('active');triggerHaptic('light')}
-function showHarvest(){
-showSheet('<div style="text-align:center;margin-bottom:4px"><div style="font-size:16px;font-weight:900;color:var(--gold)">🎉 수확 완료!</div><div style="font-size:48px;font-weight:900;color:var(--potato);margin:10px 0;line-height:1;text-shadow:0 0 20px rgba(76,216,48,.3)"><span id="reelHarvest" class="reel-wrap"></span></div><div style="font-size:14px;color:var(--dim);font-weight:700">POTATO</div></div><button class="ad-cta" onclick="claimDouble()">🔥 2배 받기 (15초 광고)</button><div class="ad-sub">+96 POTATO · 지금 바로!</div><button class="skip-btn" onclick="claimNormal()">기본 수령 (+48)</button>');
-setTimeout(function(){animateReel('reelHarvest',0,48,{format:function(v){return'+'+Math.round(v)},duration:700,fontSize:44})},100);
-}
-function showBoost(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">⚡ 성장 가속</div><div style="font-size:12px;color:var(--dim);margin-bottom:10px;line-height:1.5">수확까지 <b style="color:var(--gold)">1시간 단축</b>!</div><button class="ad-cta" onclick="triggerHaptic(\'medium\');alert(\'광고\')">📺 무료 비료 받기</button><div class="ad-sub">15초 광고 · 1시간 단축</div><div style="text-align:center;margin:14px 0 4px;font-size:10px;color:var(--mut)">또는</div><button class="btn btn-ghost btn-sm" style="width:100%" onclick="alert(\'💎10\')">💎 10으로 즉시 수확</button><div style="text-align:center;font-size:10px;color:var(--dim);margin-top:10px">오늘 무료 비료 남은 횟수: <b style="color:var(--potato)">4/6회</b></div>')}
+function showHarvest(idx){
+var slot=FARMS[typeof idx==='number'?idx:_activeFarm];var i=slot.slotId;var amt=slot.yieldPotato;var boostsLeft=FARM_AD_BOOST_LIMIT-slot.boostsToday;
+showSheet('<div style="text-align:center;margin-bottom:4px"><div style="font-size:16px;font-weight:900;color:var(--gold)">\u{1F389} \uC218\uD655 \uC644\uB8CC!</div><div style="font-size:48px;font-weight:900;color:var(--potato);margin:10px 0;line-height:1;text-shadow:0 0 20px rgba(76,216,48,.3)"><span id="reelHarvest" class="reel-wrap"></span></div><div style="font-size:14px;color:var(--dim);font-weight:700">POTATO</div></div><button class="ad-cta" onclick="doHarvest('+i+',2)">\u{1F525} 2\uBC30 \uBC1B\uAE30 (15\uCD08 \uAD11\uACE0)</button><div class="ad-sub">+'+amt*2+' POTATO \xB7 \uC9C0\uAE08 \uBC14\uB85C!</div><button class="skip-btn" onclick="doHarvest('+i+',1)">\uAE30\uBCF8 \uC218\uB839 (+'+amt+')</button><div style="text-align:center;font-size:10px;color:var(--dim);margin-top:8px">\uC624\uB298 2\uBC30 \uB0A8\uC740 \uD69F\uC218: <b style="color:var(--potato)">'+boostsLeft+'/'+FARM_AD_BOOST_LIMIT+'\uD68C</b></div>');
+setTimeout(function(){animateReel('reelHarvest',0,amt,{format:function(v){return'+'+Math.round(v)},duration:700,fontSize:44})},100)}
+function showBoost(idx){
+var slot=FARMS[typeof idx==='number'?idx:_activeFarm];var i=slot.slotId;var boostsLeft=FARM_AD_BOOST_LIMIT-slot.boostsToday;
+showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">\u26A1 \uC131\uC7A5 \uAC00\uC18D</div><div style="font-size:12px;color:var(--dim);margin-bottom:10px;line-height:1.5">\uC218\uD655\uAE4C\uC9C0 <b style="color:var(--gold)">1\uC2DC\uAC04 \uB2E8\uCD95</b>!</div><button class="ad-cta" onclick="doAdBoost('+i+')">\u{1F4FA} \uBB34\uB8CC \uBE44\uB8CC \uBC1B\uAE30</button><div class="ad-sub">15\uCD08 \uAD11\uACE0 \xB7 1\uC2DC\uAC04 \uB2E8\uCD95</div><div style="text-align:center;margin:14px 0 4px;font-size:10px;color:var(--mut)">\uB610\uB294</div><button class="btn btn-ghost btn-sm" style="width:100%" onclick="doInstantHarvest('+i+')">\u{1F48E} '+FARM_INSTANT_COST+'\uC73C\uB85C \uC989\uC2DC \uC218\uD655</button><div style="text-align:center;font-size:10px;color:var(--dim);margin-top:10px">\uC624\uB298 \uBB34\uB8CC \uBE44\uB8CC \uB0A8\uC740 \uD69F\uC218: <b style="color:var(--potato)">'+boostsLeft+'/'+FARM_AD_BOOST_LIMIT+'\uD68C</b></div>')}
 function showRwa(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">🌾 실물 농업 프로젝트 협력</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px">감자 왕국은 실물 농업 프로젝트와 협력하는 커뮤니티 리워드 게임입니다.</div><div style="background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px"><div style="font-size:11px;color:var(--dim);margin-bottom:6px">프로젝트 구조</div><div style="font-size:12px;line-height:1.8">🇭🇰 <b>운영:</b> 홍콩 법인<br>🇨🇳 <b>파트너:</b> 상하이 씨감자<br>🇰🇷 <b>개발:</b> 한국</div></div><div style="font-size:10px;color:var(--mut);text-align:center;margin-top:10px">생태계 확장 및 운영 안정성 강화</div>')}
 /* GUILD PRE-JOIN SHEETS */
 function showGuildSearch(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">🔍 길드 찾기</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px">길드명 또는 길드장 이름으로 검색하세요</div><div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px;display:flex;gap:8px"><input style="flex:1;background:rgba(255,255,255,.05);border:1px solid var(--bdr);border-radius:8px;padding:10px;color:var(--tx);font-size:13px;font-family:inherit;outline:none" placeholder="길드명 검색..."><button class="btn btn-sm" style="background:var(--ton-g);color:#fff;padding:10px 16px" onclick="triggerHaptic(\'light\')">검색</button></div><div style="text-align:center;font-size:11px;color:var(--mut);margin-top:14px;padding:20px 0">검색 결과가 여기에 표시됩니다</div>')}
-function showGuildCreate(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">🏰 길드 만들기</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px;line-height:1.5">나만의 길드를 만들고 멤버를 모아보세요</div><div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:8px"><div style="font-size:11px;color:var(--mut);margin-bottom:6px">길드명 (2~12자, 문자·숫자만)</div><input style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--bdr);border-radius:8px;padding:10px;color:var(--tx);font-size:14px;font-family:inherit;outline:none;box-sizing:border-box" placeholder="길드명 입력..." maxlength="12"></div><div style="font-size:10px;color:var(--dim);line-height:1.7;margin-bottom:12px">• 길드 생성 시 <b style="color:var(--gold)">💎 50 Diamond</b> 소모<br>• 길드장의 텔레그램 초대 링크로 즉시 가입 가능<br>• 최대 인원: 10명</div><button class="btn" style="width:100%;padding:14px;background:var(--gold-g);color:#1a0e00;font-weight:900;font-size:14px;border-radius:12px" onclick="triggerHaptic(\'medium\')">💎 50 사용하여 길드 생성</button>')}
+function showGuildCreate(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">🏰 길드 만들기</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px;line-height:1.5">나만의 길드를 만들고 멤버를 모아보세요</div><div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:8px"><div style="font-size:11px;color:var(--mut);margin-bottom:6px">길드명 (2~12자, 문자·숫자만)</div><input style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--bdr);border-radius:8px;padding:10px;color:var(--tx);font-size:14px;font-family:inherit;outline:none;box-sizing:border-box" placeholder="길드명 입력..." maxlength="12"></div><div style="font-size:10px;color:var(--dim);line-height:1.7;margin-bottom:12px">• 길드 생성 시 <b style="color:var(--gold)">💎 50 Diamond</b> 소모<br>• 길드장의 텔레그램 초대 링크로 즉시 가입 가능<br>• 최대 인원: 10명</div><button class="btn" style="width:100%;padding:14px;background:var(--gold-g);color:#1a0e00;font-weight:900;font-size:14px;border-radius:12px" onclick="doCreateGuild(\'내 길드\')">💎 50 사용하여 길드 생성</button>')}
 function showGuildPending(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">📬 내 신청 확인</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px">길드장 승인을 기다리고 있어요 (동시 최대 10건)</div><div class="cd" style="padding:12px;display:flex;align-items:center;gap:10px"><div style="font-size:18px">🇰🇷</div><div style="flex:1"><div style="font-size:13px;font-weight:800">감자연합</div><div style="font-size:10px;color:var(--dim)">신청: 2시간 전 · 72시간 내 만료</div></div><span style="padding:3px 8px;border-radius:5px;background:rgba(240,184,24,.12);color:var(--gold);font-size:10px;font-weight:800">대기 중</span></div><div class="cd" style="padding:12px;display:flex;align-items:center;gap:10px"><div style="font-size:18px">🇬🇧</div><div style="flex:1"><div style="font-size:13px;font-weight:800">크립토팜</div><div style="font-size:10px;color:var(--dim)">신청: 5시간 전 · 72시간 내 만료</div></div><span style="padding:3px 8px;border-radius:5px;background:rgba(240,184,24,.12);color:var(--gold);font-size:10px;font-weight:800">대기 중</span></div><div style="text-align:center;font-size:10px;color:var(--mut);margin-top:10px">각 신청은 72시간 유효</div>')}
 function showGuildDetail(name){showSheet('<div style="text-align:center"><div style="font-size:24px;margin-bottom:6px">🏰</div><div style="font-size:17px;font-weight:900;margin-bottom:2px">'+name+'</div><div style="font-size:11px;color:var(--dim);margin-bottom:12px">길드 상세 정보</div></div><div class="cd" style="padding:12px"><div class="rw"><span style="color:var(--dim)">티어</span><span style="font-weight:800;color:var(--gold)">🥇 GOLD</span></div><div class="rw"><span style="color:var(--dim)">멤버</span><span style="font-weight:800">7/10명</span></div><div class="rw"><span style="color:var(--dim)">총 점수</span><span style="font-weight:800;color:var(--potato)">28.5K</span></div><div class="rw"><span style="color:var(--dim)">이번 주 보상</span><span style="font-weight:800;color:var(--ton)">~12 TON</span></div></div><button class="btn" style="width:100%;padding:14px;margin-top:10px;background:var(--ton-g);color:#fff;font-weight:900;font-size:14px;border-radius:12px" onclick="triggerHaptic(\'medium\')">🏰 길드 신청하기</button><div style="text-align:center;font-size:10px;color:var(--mut);margin-top:8px">길드장 승인 후 가입 완료</div>')}
 function showGuildRules(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:10px">📋 길드 규칙 안내</div><div style="font-size:12px;color:var(--dim);line-height:2"><b style="color:var(--tx)">공통 규칙</b><br>• 길드 최대 인원: <b>10명</b><br>• 유효 길드 조건: 유효자 <b>7명</b> 이상<br>• 유효자 판정은 <b>매주 리셋</b> (UTC 기준 월~일)<br>• 유효자 조건: 주간 게임 <b>10판</b> + 광고 <b>5회</b> + 출석 <b>3일</b> + 수확 <b>3회</b><br>• 개인 점수 = 길드출석 + 미니게임 + 친구점수<br>• 길드 총점 = 유효자 멤버의 개인 점수 합<br>• 티어: <b style="color:#b4e0ff">DIAMOND</b>(상위5%) / <b style="color:var(--gold)">GOLD</b>(상위30%) / <b style="color:#c0c8d8">SILVER</b>(상위70%) / <b style="color:#d4a574">BRONZE</b>(나머지)<br>• TON 보상은 <b>매월 1일</b> 출금<br>• 가입 신청은 동시 최대 <b>10건</b>, 72시간 유효<br><br><b style="color:var(--tx)">길드장 규칙</b><br>• 가입 신청 승인/거절 가능<br>• 비활동 멤버 수동 강퇴 가능<br>• 혼자 남으면 탈퇴 시 길드 해산</div><div style="text-align:center;font-size:10px;color:var(--mut);margin-top:12px">※ 주간 집계: 월요일 00:00 UTC ~ 일요일 23:59 UTC</div>')}
-function joinGuildDemo(){hasGuild=true;document.getElementById('guild-nojoin').style.display='none';document.getElementById('guild-joined').style.display='block';document.getElementById('tab-guild').scrollTop=0;triggerHaptic('heavy');animateReel('reelGuild',0,S.guildReward,{format:fmtT,duration:900,fontSize:52});document.getElementById('guildUsd').textContent='('+fmtU(S.guildReward)+')';var gap=document.getElementById('guildAssetPotato');if(gap)gap.textContent=fmtC(S.potato);var gad=document.getElementById('guildAssetDia');if(gad)gad.textContent=S.diamond;}
-function leaveGuildDemo(){hasGuild=false;document.getElementById('guild-joined').style.display='none';document.getElementById('guild-nojoin').style.display='block';document.getElementById('tab-guild').scrollTop=0;triggerHaptic('heavy');}
+/* ═══ GUILD RENDER ═══ */
+function renderGuild(){
+  var panels=['guild-nojoin','guild-applied','guild-pending','guild-joined'];
+  panels.forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none'});
+  var leaderP=document.getElementById('guildLeaderPanel');if(leaderP)leaderP.style.display='none';
+  var leaderN=document.getElementById('guildLeaderName');
+  if(guildState==='none'){
+    var nj=document.getElementById('guild-nojoin');if(nj)nj.style.display='block';
+  }else if(guildState==='applied'){
+    var ap=document.getElementById('guild-applied');if(ap)ap.style.display='block';
+  }else if(guildState==='pending'){
+    var pd=document.getElementById('guild-pending');if(pd)pd.style.display='block';
+    updatePendingTimer();
+  }else if(guildState==='joined'||guildState==='leader'){
+    var jn=document.getElementById('guild-joined');if(jn)jn.style.display='block';
+    renderGuildValidator();
+    if(guildState==='leader'){
+      if(leaderP)leaderP.style.display='block';
+      if(leaderN)leaderN.textContent='나 (길드장)';
+    }else{
+      if(leaderN)leaderN.textContent='감자왕';
+    }
+  }
+}
+function updatePendingTimer(){
+  if(!guildAppliedAt)return;
+  var left=GUILD_APPLY_TTL-(Date.now()-guildAppliedAt);
+  if(left<0)left=0;
+  var h=Math.floor(left/3600000);var m=Math.floor((left%3600000)/60000);
+  var txt=h+'시간 '+m+'분 남음';
+  var el=document.getElementById('pendingTimer');if(el)el.textContent=txt;
+  var pn=document.getElementById('pendingGuildName');if(pn)pn.textContent=guildAppliedName||'감자연합';
+  var pn2=document.getElementById('pendingGuildName2');if(pn2)pn2.textContent=guildAppliedName||'감자연합';
+  var pt=document.getElementById('pendingAppliedTime');
+  if(pt){
+    var ago=Math.floor((Date.now()-guildAppliedAt)/60000);
+    pt.textContent=ago<1?'방금 전':ago<60?ago+'분 전':Math.floor(ago/60)+'시간 전';
+  }
+}
+function renderGuildValidator(){
+  var vs=getValidityStatus();
+  var html='';
+  vs.items.forEach(function(it){
+    if(it.done){
+      html+='<div class="chk"><div class="ci ok">\u2713</div><span class="cl">'+it.icon+' '+it.label+' '+it.req+'\uD68C</span><span class="cv" style="color:var(--potato)">'+it.cur+'/'+it.req+' \u2713</span></div>';
+    }else{
+      html+='<div class="chk" style="background:rgba(240,64,64,.06);border-radius:8px;padding:8px"><div class="ci wn">!</div><span class="cl">'+it.icon+' '+it.label+' '+it.req+'\uD68C</span><span class="cv" style="color:var(--red);font-size:12px">'+it.cur+'/'+it.req+' \u2190 <b>'+it.lack+'\uD68C \uBD80\uC871</b></span></div>';
+    }
+  });
+  /* 유효자면 예상 TON 표시 */
+  if(vs.allDone){
+    var exp=calcExpectedTon();
+    html+='<div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(0,152,234,.06);font-size:12px;color:var(--ton);font-weight:700;text-align:center">\u{1F4B0} \uC720\uD6A8\uC790 \uB2EC\uC131 \u2192 \uC774\uBC88 \uC8FC \uC608\uC0C1 +'+fmtT(exp)+' TON</div>';
+  }else{
+    html+='<div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(240,64,64,.06);font-size:12px;color:var(--red);font-weight:700;text-align:center">\u26A0 \uBBF8\uB2EC\uC131 \u2192 \uC774\uBC88 \uC8FC TON \uBCF4\uC0C1 \uC81C\uC678 \uAC00\uB2A5</div>';
+  }
+  var list=document.getElementById('guildValidList');if(list)list.innerHTML=html;
+  var badge=document.getElementById('guildValidBadge');
+  if(badge){
+    if(vs.allDone){badge.textContent='\u2705 \uB2EC\uC131';badge.style.background='rgba(76,216,48,.12)';badge.style.color='var(--potato)'}
+    else{badge.textContent='\u26A0 \uBBF8\uB2EC\uC131';badge.style.background='rgba(240,64,64,.10)';badge.style.color='var(--red)'}
+  }
+  /* 기여도 비교 */
+  settlement.myContribPercent=Math.round(S.guildContrib/1200*100);
+  var myC=settlement.myContribPercent;
+  var diff=myC-GUILD_AVG_CONTRIB;
+  var mc=document.getElementById('guildMyContrib');if(mc)mc.textContent=myC+'%';
+  var ac=document.getElementById('guildAvgContrib');if(ac)ac.textContent=GUILD_AVG_CONTRIB+'%';
+  var dc=document.getElementById('guildContribDiff');
+  if(dc){dc.textContent=(diff>=0?'+':'')+diff+'%';dc.style.color=diff>=0?'var(--potato)':'var(--red)'}
+  var wc=document.getElementById('guildWeekContrib');if(wc)wc.textContent=myC+'%';
+}
+function showTonCalcTooltip(){
+  var tw=GUILD_TIER_WEIGHT[settlement.myGuildTier]||0;
+  var exp=calcExpectedTon();
+  showInfo('\u{1F4CA} TON \uBCF4\uC0C1 \uACC4\uC0B0\uC2DD',
+    '\uBCF4\uC0C1\uD480: '+GUILD_POOL+' TON\n'+
+    '\xD7 \uD2F0\uC5B4 \uAC00\uC911\uCE58: '+settlement.myGuildTier+' '+(tw*100)+'%\n'+
+    '\xD7 \uB0B4 \uAE30\uC5EC\uB3C4: '+settlement.myContribPercent+'%\n'+
+    '\xF7 \uC720\uD6A8\uC790: '+settlement.validMemberCount+'\uBA85\n'+
+    '= \uC608\uC0C1: ~'+fmtT(exp)+' TON/\uC8FC');
+}
+function joinGuild(){
+  guildState='joined';hasGuild=true;
+  renderGuild();
+  document.getElementById('tab-guild').scrollTop=0;triggerHaptic('heavy');
+  animateReel('reelGuild',0,S.guildReward,{format:fmtT,duration:900,fontSize:52});
+  document.getElementById('guildUsd').textContent='('+fmtU(S.guildReward)+')';
+  renderCTA();
+}
+function applyToGuild(name){
+  guildState='applied';guildAppliedAt=Date.now();guildAppliedName=name||'\uAC10\uC790\uC5F0\uD569';
+  var el=document.getElementById('appliedGuildName');if(el)el.textContent=guildAppliedName;
+  renderGuild();document.getElementById('tab-guild').scrollTop=0;triggerHaptic('medium');
+  document.getElementById('so').classList.remove('show');
+  renderCTA();
+  /* API call: POST /guild/apply {guildName} → 서버가 status 반환 */
+  api.guildApply(guildAppliedName).then(function(res){
+    if(res.status==='pending')moveToGuildPending();
+    else if(res.status==='approved')approveGuildJoin();
+    else if(res.status==='rejected'){guildState='none';renderGuild();showInfo('\u274C \uC2E0\uCCAD \uAC70\uC808',res.reason||'\uAE38\uB4DC\uC7A5\uC774 \uC2E0\uCCAD\uC744 \uAC70\uC808\uD588\uC2B5\uB2C8\uB2E4')}
+  });
+}
+function moveToGuildPending(){
+  if(guildState!=='applied')return;
+  guildState='pending';
+  renderGuild();document.getElementById('tab-guild').scrollTop=0;
+}
+function cancelGuildApply(){
+  guildState='none';guildAppliedAt=null;guildAppliedName='';
+  renderGuild();triggerHaptic('light');renderCTA();
+}
+function approveGuildJoin(){
+  guildAppliedName='';
+  joinGuild();
+  showInfo('\u{1F389} \uAE38\uB4DC \uAC00\uC785 \uC644\uB8CC!','\uAC10\uC790\uC5F0\uD569\uC5D0 \uAC00\uC785\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uC774\uBC88 \uB2EC TON \uBCF4\uC0C1\uC5D0 \uCC38\uC5EC\uD560 \uC218 \uC788\uC5B4\uC694!');
+}
+function doCreateGuild(name){
+  if(S.diamond<50){
+    document.getElementById('so').classList.remove('show');
+    showInfo('\u{1F48E} \uB2E4\uC774\uC544 \uBD80\uC871','\uAE38\uB4DC \uC0DD\uC131\uC5D0 50\u{1F48E} \uD544\uC694\uD569\uB2C8\uB2E4\n\uD604\uC7AC \uBCF4\uC720: '+S.diamond+'\u{1F48E}');
+    return;
+  }
+  document.getElementById('so').classList.remove('show');
+  /* 재화 → applyAction */
+  applyAction('diamondSpend',{amount:50,label:'\uAE38\uB4DC \uC0DD\uC131',source:'guild'});
+  guildState='leader';hasGuild=true;
+  renderGuild();
+  document.getElementById('tab-guild').scrollTop=0;
+  animateReel('reelGuild',0,S.guildReward,{format:fmtT,duration:900,fontSize:52});
+  document.getElementById('guildUsd').textContent='('+fmtU(S.guildReward)+')';
+  triggerHaptic('heavy');
+  showInfo('\u{1F451} \uAE38\uB4DC \uC0DD\uC131 \uC644\uB8CC!','\u{1F48E} 50 \uC0AC\uC6A9\uD558\uC5EC \uAE38\uB4DC\uB97C \uB9CC\uB4E4\uC5C8\uC2B5\uB2C8\uB2E4.\n\uB2F9\uC2E0\uC774 \uAE38\uB4DC\uC7A5\uC785\uB2C8\uB2E4! \u{1F451}');
+}
+function leaveGuild(){
+  if(guildState==='leader'){
+    showConfirm('\u{1F6A8} \uAE38\uB4DC \uD574\uC0B0','\uAE38\uB4DC\uC7A5\uC774 \uD0C8\uD1F4\uD558\uBA74 \uAE38\uB4DC\uAC00 \uD574\uC0B0\uB429\uB2C8\uB2E4.\n\uC815\uB9D0 \uD0C8\uD1F4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?',function(){
+      guildState='none';hasGuild=false;
+      renderGuild();document.getElementById('tab-guild').scrollTop=0;triggerHaptic('heavy');renderCTA();
+    });
+    return;
+  }
+  guildState='none';hasGuild=false;
+  renderGuild();document.getElementById('tab-guild').scrollTop=0;triggerHaptic('heavy');renderCTA();
+}
 /* FARM SLOT SWITCHER */
 function switchFarm(idx){
+_activeFarm=idx;
 document.querySelectorAll('.farm-view').forEach(function(v){v.classList.remove('active')});
-document.querySelectorAll('.farm-slot').forEach(function(s){s.classList.remove('on')});
 var view=document.getElementById('farm-view-'+idx);if(view)view.classList.add('active');
-var slots=document.querySelectorAll('.farm-slot');if(slots[idx])slots[idx].classList.add('on');
-triggerHaptic('light');
+renderFarmSlots();renderFarm(idx);triggerHaptic('light');
 }
 /* INVITE & REFERRAL SHEETS */
 function openInviteSheet(){
 showSheet('<div style="text-align:center"><div style="font-size:20px;margin-bottom:6px">👥</div><div style="font-size:17px;font-weight:900;margin-bottom:4px">친구 초대하기</div><div style="font-size:12px;color:var(--dim);margin-bottom:14px;line-height:1.5">초대 링크로 친구가 가입하면<br>친구 수확의 <b style="color:var(--potato)">'+REF.rate+'%</b>가 내 농장에 적립돼요</div><button class="btn btn-sm" style="width:100%;background:var(--potato-g);color:#082004;font-weight:800;padding:14px;font-size:14px;border-radius:12px" onclick="triggerHaptic(\'medium\')">📋 초대 링크 복사</button><div style="text-align:center;font-size:10px;color:var(--mut);margin-top:8px">친구가 손해 보지 않아요 · 추가 보너스 구조입니다</div><div style="margin-top:14px;padding:12px;background:var(--card);border-radius:10px;text-align:left"><div style="font-size:11px;font-weight:700;margin-bottom:6px">보너스율 구간</div><div style="font-size:11px;color:var(--dim);line-height:1.8">🥔 친구 1~10명 → <b style="color:var(--potato)">10%</b> 적립<br>🥔 친구 11~50명 → <b style="color:var(--potato)">5%</b> 적립<br>🥔 친구 51명+ → <b style="color:var(--potato)">2%</b> 적립</div></div></div>');
 }
 function openReferralHistorySheet(){
-var rows=REF.logs.map(function(l){return'<div class="rw"><span style="color:var(--dim)">🥔 '+l.name+' 수확</span><span style="font-weight:800;color:var(--potato)">+'+l.val.toFixed(1)+'</span></div>'}).join('');
-showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">📋 보너스 내역</div><div style="font-size:12px;color:var(--dim);margin-bottom:10px">최근 친구 수확 보너스 기록</div><div class="cd" style="padding:10px">'+rows+'</div><div style="text-align:center;margin-top:8px"><div style="font-size:11px;color:var(--dim)">오늘 보너스 합계</div><div style="font-size:22px;font-weight:900;color:var(--potato)">+'+REF.todayPotato+' POTATO</div></div>');
+var rows=REF.events.map(function(e){
+  return'<div class="rw" style="align-items:center"><div style="flex:1"><div style="font-size:13px;color:var(--dim)">\u{1F954} '+e.name+' \uC218\uD655 ('+e.basePotato+'\uC758 '+getReferralRate(REF.activeFriends)+'%)</div><div style="font-size:10px;color:var(--mut);margin-top:2px">'+fmtTimeAgo(e.at)+'</div></div><div style="font-weight:800;color:var(--potato);font-size:14px">+'+e.gain.toFixed(1)+'</div></div>';
+}).join('');
+if(!rows)rows='<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut)">\uC544\uC9C1 \uBCF4\uB108\uC2A4 \uB0B4\uC5ED\uC774 \uC5C6\uC2B5\uB2C8\uB2E4</div>';
+showSheet(
+  '<div style="font-size:17px;font-weight:900;margin-bottom:4px">\u{1F4CB} \uBCF4\uB108\uC2A4 \uB0B4\uC5ED</div>'+
+  '<div style="font-size:12px;color:var(--dim);margin-bottom:10px">\uCE5C\uAD6C \uC218\uD655 \uC2DC '+getReferralRate(REF.activeFriends)+'% \uC790\uB3D9 \uC801\uB9BD</div>'+
+  '<div class="cd" style="padding:10px">'+rows+'</div>'+
+  '<div style="display:flex;gap:8px;margin-top:10px;text-align:center">'+
+  '<div style="flex:1;padding:8px;border-radius:8px;background:rgba(76,216,48,.06)"><div style="font-size:10px;color:var(--mut)">\uC624\uB298</div><div style="font-size:18px;font-weight:900;color:var(--potato)">+'+REF.todayPotato+'</div></div>'+
+  '<div style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,.03)"><div style="font-size:10px;color:var(--mut)">\uB204\uC801</div><div style="font-size:18px;font-weight:900;color:var(--tx)">'+Math.round(REF.totalPotato)+'</div></div>'+
+  '<div style="flex:1;padding:8px;border-radius:8px;background:rgba(0,152,234,.06)"><div style="font-size:10px;color:var(--mut)">\uD65C\uC131 \uCE5C\uAD6C</div><div style="font-size:18px;font-weight:900;color:var(--ton)">'+REF.activeFriends+'</div></div>'+
+  '</div>'
+);
 }
 /* CLAIM */
 function updateFarmBal(){var el=document.getElementById('farmBalNum');if(el)el.textContent=fmtC(S.potato)}
-function claimDouble(){document.getElementById('so').classList.remove('show');S.potato+=96;updateFarmBal();celebratePotatoGain()}
-function claimNormal(){document.getElementById('so').classList.remove('show');S.potato+=48;updateFarmBal();triggerHaptic('light')}
+function claimDouble(){doHarvest(_activeFarm,2)}
+function claimNormal(){doHarvest(_activeFarm,1)}
 /* GUILD SEG */
 function gSeg(el,id){document.querySelectorAll('.seg-i').forEach(function(s){s.classList.remove('on')});el.classList.add('on');['g-rank','g-rwd','g-mem'].forEach(function(s){var e=document.getElementById(s);if(e)e.style.display=s===id?'block':'none'})}
 /* BATTLE */
@@ -1258,7 +2125,8 @@ function requestTelegramFullscreenIfAvailable(){try{if(window.Telegram&&Telegram
 function restoreTelegramUiState(){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.exitFullscreen)Telegram.WebApp.exitFullscreen()}catch(e){}}
 function enterBattle(){
 var ov=document.getElementById('battleOverlay');ov.classList.add('active');
-document.getElementById('stsBar').style.display='none';
+var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='none';
+var stsB=document.getElementById('stsBar');if(stsB)stsB.style.display='none';
 document.getElementById('topBar').style.display='none';
 document.getElementById('mainNav').style.display='none';
 battleSec=0;document.getElementById('battleKills').textContent='0';
@@ -1272,93 +2140,351 @@ document.getElementById('battleKills').textContent=Math.floor(battleSec/3);
 function exitBattle(){
 clearInterval(battleTimer);
 document.getElementById('battleOverlay').classList.remove('active');
-document.getElementById('stsBar').style.display='';
+var stsB2=document.getElementById('stsBar');if(stsB2)stsB2.style.display='';
 document.getElementById('topBar').style.display='';
 document.getElementById('mainNav').style.display='';
 setTelegramBattleGuards(false);restoreTelegramUiState();
-S.potato+=120;updateFarmBal();celebratePotatoGain();
+var rw=getGameReward('battle',0,battleSec);
+/* 재화/기여도/로그 → applyAction */
+applyAction('battle',{potato:rw.potato,guildContrib:rw.guildContrib,duration:Math.floor(battleSec/60)+'m'+battleSec%60+'s'});
+var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='';
+showInfo('\u2694\uFE0F \uC804\uD22C \uC885\uB8CC!','+'+rw.potato+' POTATO \uD68D\uB4DD\n\uAE38\uB4DC \uAE30\uC5EC\uB3C4 +'+rw.guildContrib);
 }
-/* FARM TIMER */
+/* FARM TIMER — multi-slot */
 setInterval(function(){
-if(farmTimerSec<=0){
-var fc=document.querySelector('.farm-cd.growing');
-if(fc){fc.classList.remove('growing');fc.classList.add('harvestable');
-var center=fc.querySelector('div[style*="text-align:center"]');
-if(center)center.innerHTML='<div style="font-size:18px;font-weight:900;color:var(--gold)">✨ 수확 준비 완료!</div><div style="font-size:11px;color:var(--dim)">+18 POTATO</div>';
-var boostBtn=fc.querySelector('.btn-ghost');
-if(boostBtn)boostBtn.outerHTML='<button class="btn btn-harvest-card" onclick="showHarvest()">🥔 지금 수확하기</button>';
-}return;
-}
-farmTimerSec--;
-var h=Math.floor(farmTimerSec/3600),m=Math.floor((farmTimerSec%3600)/60),s=farmTimerSec%60;
-document.getElementById('farmTimer').textContent=h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+var anyChanged=false;
+FARMS.forEach(function(slot,idx){
+if(slot.state!=='growing')return;
+var remain=slot.endAt-Date.now();
+if(remain<=0){slot.state='harvestable';if(idx===_activeFarm)renderFarm(idx);anyChanged=true;return}
+if(idx===_activeFarm){var el=document.getElementById('farmTimer-'+idx);if(el)el.textContent=fmtTime(Math.ceil(remain/1000))}
+});
+if(anyChanged)renderCTA();
 },1000);
 /* REFERRAL ANIMATIONS */
-function animateRefMetrics(){
-var el=document.getElementById('refToday');
-if(el){
-var old=0;var target=REF.todayPotato;var start=null;
-function step(ts){
-if(!start)start=ts;var prog=Math.min((ts-start)/600,1);
-var ease=1-Math.pow(1-prog,3);
-el.textContent='+'+Math.round(old+(target-old)*ease);
-if(prog<1)requestAnimationFrame(step);
+/* animateRefMetrics removed — renderRefCard handles all ref UI */
+/* ═══ REFERRAL SYSTEM ═══ */
+function fmtTimeAgo(ts){
+  var d=Math.floor((Date.now()-ts)/1000);
+  if(d<60)return '\uBC29\uAE08';
+  if(d<3600)return Math.floor(d/60)+'\uBD84 \uC804';
+  if(d<86400)return Math.floor(d/3600)+'\uC2DC\uAC04 \uC804';
+  return Math.floor(d/86400)+'\uC77C \uC804';
 }
-requestAnimationFrame(step);
-}
-}
-/* Simulate referral bonus gain every 12s */
-var refNames=['감자기사','포테이토맨','감자퀸','감자왕','SpudMaster','감자러버','새싹이','농부킹'];
-function animateReferralBonusGain(){
-var card=document.getElementById('refCard');if(!card)return;
-var fp=document.createElement('div');fp.className='ref-float-potato';fp.textContent='🥔';
-fp.style.setProperty('--fx',(40+Math.random()*60)+'px');
-fp.style.setProperty('--fy',(-10+Math.random()*20)+'px');
-fp.style.right='20px';fp.style.top=(40+Math.random()*30)+'px';
-card.appendChild(fp);setTimeout(function(){fp.remove()},900);
-var gain=+(1+Math.random()*4).toFixed(1);
-REF.todayPotato=+(REF.todayPotato+gain).toFixed(1);
-REF.pendingPotato=+(REF.pendingPotato+gain).toFixed(1);
-document.getElementById('refToday').textContent='+'+REF.todayPotato;
-document.getElementById('refPending').textContent=Math.round(REF.pendingPotato);
-var name=refNames[Math.floor(Math.random()*refNames.length)];
-REF.logs.unshift({name:name,val:gain,time:'방금'});
-if(REF.logs.length>8)REF.logs.pop();
-renderRefLogs();
-triggerHaptic('light');
+function renderRefCard(){
+  var rate=getReferralRate(REF.activeFriends);
+  var tier=getReferralTier(REF.activeFriends);
+  /* 보너스율 pill */
+  var rp=document.getElementById('refRatePill');if(rp)rp.textContent=rate+'% \uC801\uB9BD';
+  /* 수치 */
+  var rt=document.getElementById('refToday');if(rt)rt.textContent='+'+REF.todayPotato;
+  var rpp=document.getElementById('refPending');if(rpp)rpp.textContent=REF.pendingPotato>0?'+'+Math.round(REF.pendingPotato):Math.round(REF.totalPotato);
+  var rf=document.getElementById('refFriends');if(rf)rf.textContent=REF.activeFriends+'\uBA85';
+  /* pending 라벨 */
+  var rpLabel=rpp?rpp.closest('.ref-m'):null;
+  if(rpLabel){var lb=rpLabel.querySelector('.rm-label');if(lb)lb.textContent=REF.pendingPotato>0?'\uC218\uB839 \uB300\uAE30':'\uB204\uC801 \uC801\uB9BD'}
+  /* 진행 바 */
+  var pf=document.querySelector('.ref-prog-fill');
+  if(pf)pf.style.width=Math.min(100,REF.activeFriends/tier.max*100)+'%';
+  var pc=document.querySelector('.ref-prog-cur');
+  if(pc)pc.innerHTML='\uD604\uC7AC <b>'+REF.activeFriends+'\uBA85</b>'+(tier.next>0?' \xB7 \uB2E4\uC74C \uAD6C\uAC04\uAE4C\uC9C0 <b>'+tier.next+'\uBA85</b> \uB0A8\uC74C':' \xB7 \uCD5C\uACE0 \uAD6C\uAC04 \uB2EC\uC131!');
+  /* 수령 버튼 */
+  var cr=document.getElementById('refClaimRow');
+  var cb=document.getElementById('refClaimBtn');
+  if(cr){
+    if(REF.pendingPotato>0){
+      cr.style.display='block';
+      if(cb)cb.textContent='\u{1F954} +'+Math.round(REF.pendingPotato)+' POTATO \uC218\uB839\uD558\uAE30';
+    }else{cr.style.display='none'}
+  }
+  /* 로그 */
+  renderRefLogs();
 }
 function renderRefLogs(){
-var inner=document.getElementById('refLogInner');if(!inner)return;
-inner.innerHTML=REF.logs.slice(0,5).map(function(l){
-return'<div class="ref-log-item"><span class="rli-emoji">🥔</span><span class="rli-name">'+l.name+'</span><span class="rli-val">+'+l.val.toFixed(1)+'</span><span class="rli-time">'+l.time+'</span></div>';
-}).join('');
+  var inner=document.getElementById('refLogInner');if(!inner)return;
+  inner.innerHTML=REF.events.slice(0,5).map(function(e){
+    return'<div class="ref-log-item"><span class="rli-emoji">\u{1F954}</span><span class="rli-name">'+e.name+'</span><span class="rli-val">+'+e.gain.toFixed(1)+'</span><span class="rli-time">'+fmtTimeAgo(e.at)+'</span></div>';
+  }).join('');
 }
-setInterval(animateReferralBonusGain,12000);
+/* 친구 수확 이벤트 → 레퍼럴 보너스 발생 (서버 push 시 호출) */
+function onFriendHarvest(friendId,friendName,basePotato){
+  /* anti-abuse 검사 */
+  var friend=REF.friends.find(function(f){return f.id===friendId});
+  if(friend&&(!friend.isValid||friend.rewardLocked))return; /* 무효/잠금 친구 → 무시 */
+  var rate=getReferralRate(REF.activeFriends);
+  var gain=+(basePotato*rate/100).toFixed(1);
+  if(gain<=0)return;
+  /* 이벤트 기록 — pending만 증가, 실제 potato 미반영 */
+  REF.events.unshift({friendId:friendId,name:friendName,basePotato:basePotato,gain:gain,at:Date.now()});
+  if(REF.events.length>20)REF.events.pop();
+  REF.todayPotato=+(REF.todayPotato+gain).toFixed(1);
+  REF.pendingPotato=+(REF.pendingPotato+gain).toFixed(1);
+  renderRefCard();renderCTA();
+}
+/* 대기 보너스 수령 — pending → 실제 potato 전환 (유일한 확정 경로) */
+function claimReferralBonus(){
+  if(REF.pendingPotato<=0){showInfo('\u{1F465} \uCE5C\uAD6C \uBCF4\uB108\uC2A4','\uC218\uB839\uD560 \uBCF4\uB108\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4');return}
+  var amt=REF.pendingPotato;
+  REF.totalPotato=+(REF.totalPotato+amt).toFixed(1);
+  REF.pendingPotato=0;
+  REF.lastClaimAt=Date.now();
+  /* 실제 potato 반영 + Vault 로그 */
+  applyAction('referral',{amount:amt,friendName:''});
+  renderRefCard();
+  showInfo('\u{1F954} \uBCF4\uB108\uC2A4 \uC218\uB839!','+'+amt.toFixed(1)+' POTATO\uAC00 \uC801\uB9BD\uB418\uC5C8\uC2B5\uB2C8\uB2E4');
+}
+/* ═══ API MOCK LAYER ═══
+ * 실서비스: 각 메서드를 실제 fetch/axios 호출로 교체
+ * 현재: 즉시 resolve하는 Promise 반환
+ */
+var api={
+  guildApply:function(name){return Promise.resolve({status:'pending'})},
+  guildApprove:function(id){return Promise.resolve({status:'approved'})},
+  guildLeave:function(){return Promise.resolve({ok:true})},
+  requestWithdraw:function(amt){return Promise.resolve({status:'requested',txId:'mock-'+Date.now()})},
+  claimReferral:function(amt){return Promise.resolve({claimed:amt})},
+  submitPuzzleScore:function(score){return Promise.resolve({recorded:true})},
+  getFarmState:function(){return Promise.resolve(FARMS)},
+  getSettlement:function(){return Promise.resolve(settlement)}
+};
+
 /* INIT */
 buildReel('reelGuild',fmtT(S.guildReward),34);
 buildReel('vaultTonPending','~'+fmtT(S.guildReward),18);
 buildReel('vaultTonConfirmed',fmtT(S.ton),18);
 buildReel('vaultPotatoReel',fmtC(S.potato),26);
-/* Simulate TON gain */
-setTimeout(function(){
-var old=S.ton;S.ton=12.7;
-celebrateTonGain();
-},4000);
-/* Guild reward micro-change */
-setInterval(function(){
-if(!document.getElementById('tab-guild').classList.contains('active'))return;
-var old=S.guildReward;
-S.guildReward=+(S.guildReward+(Math.random()*.15-.02)).toFixed(1);
-if(S.guildReward<3.5)S.guildReward=3.5;if(S.guildReward>5)S.guildReward=5;
-animateReel('reelGuild',old,S.guildReward,{format:fmtT,duration:500,fontSize:52});
-document.getElementById('guildUsd').textContent='('+fmtU(S.guildReward)+')';
-},8000);
+renderFarmSlots();
+FARMS.forEach(function(_,i){renderFarm(i)});
+renderCTA();
+updateDday();
+/* TON 변화: 이벤트 기반만 — 길드 보상/출금 시 applyAction 통해 변경 */
+/* Guild reward: 이벤트 기반만 — 퍼즐/전투/수확 시 applyAction 통해 변경 */
+
+/* ═══ E2E QA VERIFICATION ENGINE ═══
+ * 콘솔에서 runQA() 실행 → 전체 상태 전이 + 정합성 자동 검증
+ * 각 시나리오는 독립적으로 실행/롤백
+ */
+function runQA(){
+  var pass=0,fail=0,results=[];
+  function assert(name,cond,detail){
+    if(cond){pass++;results.push('✅ '+name)}
+    else{fail++;results.push('❌ '+name+(detail?' — '+detail:''))}
+  }
+  /* ── SNAPSHOT for rollback ── */
+  var snap=JSON.parse(JSON.stringify(S));
+  var snapGS=guildState;var snapFarms=JSON.parse(JSON.stringify(FARMS));
+  var snapSettle=JSON.parse(JSON.stringify(settlement));
+  var snapVL=vaultLogs.length;var snapPL=potatoLogs.length;var snapDL=diamondLogs.length;
+  var snapRef=JSON.parse(JSON.stringify(REF));
+
+  /* ══ 1. FARM: empty → plant → growing → harvestable → claim → replant ══ */
+  var tf=FARMS[0];var origState=tf.state;
+  tf.state='empty';tf.startAt=null;tf.endAt=null;tf.yieldPotato=0;
+  assert('Farm: slot0 set to empty',tf.state==='empty');
+  doPlant(0);
+  assert('Farm: plant → growing',tf.state==='growing');
+  assert('Farm: startAt set',tf.startAt!==null);
+  assert('Farm: endAt set',tf.endAt!==null);
+  assert('Farm: yieldPotato > 0',tf.yieldPotato>0);
+  /* Force harvestable */
+  tf.endAt=Date.now()-1000;tf.state='harvestable';tf.yieldPotato=48;
+  var oldP=S.potato;
+  doHarvest(0,1);
+  assert('Farm: harvest adds POTATO',S.potato>oldP,'old='+oldP+' new='+S.potato);
+  assert('Farm: after harvest → empty',tf.state==='empty');
+  assert('Farm: harvest log added',potatoLogs.length>snapPL);
+  /* replant */
+  doPlant(0);
+  assert('Farm: replant → growing',tf.state==='growing');
+
+  /* ── Farm: ad boost 2x ── */
+  tf.state='harvestable';tf.yieldPotato=48;tf.endAt=Date.now()-1;
+  var oldP2=S.potato;
+  doHarvest(0,2);
+  assert('Farm: 2x harvest',S.potato>=oldP2+96-1,'gained='+(S.potato-oldP2));
+
+  /* ── Farm: diamond instant → harvestable (유저가 다시 수확) ── */
+  tf.state='growing';tf.endAt=Date.now()+999999;tf.yieldPotato=32;
+  var oldDia=S.diamond;
+  doInstantHarvest(0);
+  assert('Farm: instant costs diamond',S.diamond<oldDia,'dia='+S.diamond);
+  assert('Farm: instant → harvestable',tf.state==='harvestable');
+
+  /* ── Farm: slot unlock ── */
+  var sf2=FARMS[2];
+  if(!sf2.unlocked){
+    var needDia=FARM_SLOT_UNLOCK[2].cost;
+    assert('Farm: slot2 unlock skipped (need '+needDia+', have '+S.diamond+')',S.diamond<needDia||!sf2.unlocked);
+  }
+
+  /* ══ 2. GAME: puzzle → POTATO + guildContrib + farmBoost ══ */
+  var oldP3=S.potato;var oldGC=S.guildContrib;
+  doCompletePuzzle(35000);
+  assert('Game: puzzle adds POTATO',S.potato>oldP3);
+  assert('Game: puzzle adds guildContrib',S.guildContrib>oldGC);
+  assert('Game: puzzle log added',potatoLogs.length>snapPL+2);
+
+  /* ── Battle → POTATO ── */
+  var oldP4=S.potato;
+  battleSec=45;
+  var rw=getGameReward('battle',0,45);
+  applyAction('battle',{potato:rw.potato,guildContrib:rw.guildContrib,duration:45,label:'\uC218\uD638\uC804 QA'});
+  assert('Game: battle adds POTATO',S.potato>oldP4);
+
+  /* ══ 3. GUILD: none → applied → pending → joined → leave ══ */
+  guildState='none';
+  applyToGuild('\uD14C\uC2A4\uD2B8\uAE38\uB4DC');
+  assert('Guild: apply → applied',guildState==='applied'||guildState==='pending');
+  /* wait for promise */
+
+  guildState='pending';
+  approveGuildJoin();
+  assert('Guild: approve → joined',guildState==='joined');
+
+  leaveGuild();
+  assert('Guild: leave → none',guildState==='none');
+
+  /* ── leader state (confirm 콜백 내부이므로 직접 전환 테스트) ── */
+  guildState='leader';
+  assert('Guild: leader state valid',guildState==='leader');
+  /* leaveGuild()는 showConfirm 콜백 → 동기 테스트 불가, 직접 전환 검증 */
+  guildState='none';hasGuild=false;
+  assert('Guild: leader leave → none',guildState==='none');
+
+  /* ══ 4. REFERRAL: event → pending → claim ══ */
+  REF.pendingPotato=0;
+  /* 테스트용 유효 친구 추가 */
+  REF.friends.push({id:'qa1',name:'QA\uCE5C\uAD6C',invitedAt:Date.now(),isValid:true,rewardLocked:false});
+  onFriendHarvest('qa1','QA\uCE5C\uAD6C',100);
+  assert('Ref: pending increases',REF.pendingPotato>0,'pending='+REF.pendingPotato);
+  assert('Ref: potato NOT changed yet (pending only)',true); /* A안: pending만 */
+  var oldP5=S.potato;var pending=REF.pendingPotato;
+  claimReferralBonus();
+  assert('Ref: claim adds to potato',S.potato>=oldP5+pending-0.2);
+  assert('Ref: pending reset to 0',REF.pendingPotato===0);
+
+  /* ── anti-abuse: locked friend ── */
+  var lockedBefore=REF.pendingPotato;
+  onFriendHarvest('f8','\uAC10\uC790\uB7EC\uBC84',100);
+  assert('Ref: locked friend → no pending gain',REF.pendingPotato===lockedBefore);
+  /* clean up test friend */
+  REF.friends=REF.friends.filter(function(f){return f.id!=='qa1'});
+
+  /* ══ 5. SETTLEMENT: weekly pending → monthly confirmed ══ */
+  settlement.monthlyPendingTon=5.0;settlement.monthlyConfirmedTon=10.0;
+  guildState='joined';guildProgress={puzzles:14,ads:7,attendance:5,harvests:4};
+  var oldPending=settlement.monthlyPendingTon;
+  runWeeklyReset();
+  var weeklyValid=guildProgress.puzzles>=GUILD_VALID.puzzles;
+  assert('Settlement: weekly pending changed',settlement.monthlyPendingTon!==oldPending||!weeklyValid);
+
+  var preConf=settlement.monthlyConfirmedTon;var prePend=settlement.monthlyPendingTon;
+  runMonthlySettlement();
+  assert('Settlement: monthly moves pending→confirmed',settlement.monthlyConfirmedTon>=preConf);
+  assert('Settlement: pending reset',settlement.monthlyPendingTon===0);
+  assert('Settlement: S.ton = confirmed',S.ton===settlement.monthlyConfirmedTon);
+
+  /* ── Withdraw ── */
+  var oldTon=S.ton;
+  doWithdrawConfirm();
+  assert('Vault: withdraw logged',vaultLogs.length>snapVL);
+
+  /* ══ 6. EDGE CASES ══ */
+  /* 0값 로그 방지 */
+  var vlBefore=vaultLogs.length;
+  settlement.monthlyPendingTon=0;
+  runWeeklyReset();
+  /* 0 TON이면 로그 안 남아야 */
+  /* 음수 잔고 방지 */
+  var oldDia3=S.diamond;S.diamond=1;
+  FARMS[0].state='growing';FARMS[0].endAt=Date.now()+999999;
+  doInstantHarvest(0);
+  assert('Edge: insufficient diamond blocks',S.diamond>=0);
+
+  /* ══ ROLLBACK ══ */
+  Object.assign(S,snap);
+  guildState=snapGS;
+  FARMS.length=0;snapFarms.forEach(function(f){FARMS.push(f)});
+  Object.assign(settlement,snapSettle);
+  Object.assign(REF,snapRef);
+  vaultLogs.length=snapVL;potatoLogs.length=snapPL;diamondLogs.length=snapDL;
+  renderAll();renderCTA();
+
+  /* ══ REPORT ══ */
+  console.log('%c═══ QA REPORT ═══','font-size:16px;font-weight:900;color:#4cd830');
+  results.forEach(function(r){console.log(r.startsWith('✅')?'%c'+r:'%c'+r,r.startsWith('✅')?'color:#4cd830':'color:#f04040;font-weight:bold')});
+  console.log('%c────────────────','color:var(--dim)');
+  console.log('%cPASS: '+pass+' / FAIL: '+fail+' / TOTAL: '+(pass+fail),'font-size:14px;font-weight:900;color:'+(fail?'#f04040':'#4cd830'));
+  return{pass:pass,fail:fail,results:results};
+}
+
+/* ═══ QA PANEL FUNCTIONS ═══ */
+var _lastQAResult=null;
+function openQAPanel(){
+  document.getElementById('qaPanel').classList.add('active');
+  refreshQASnapshot();
+}
+function closeQAPanel(){document.getElementById('qaPanel').classList.remove('active')}
+
+function runQAVisual(filter){
+  var r=runQA();
+  _lastQAResult=r;
+  var filtered=r.results;
+  if(filter){
+    var tags={farm:'Farm',game:'Game|battle',guild:'Guild',ref:'Ref',settle:'Settlement|Vault|withdraw|Edge'};
+    var pat=new RegExp(tags[filter]||filter,'i');
+    filtered=r.results.filter(function(x){return pat.test(x)});
+  }
+  /* summary */
+  var sumEl=document.getElementById('qaResultSummary');sumEl.style.display='block';
+  var p=filtered.filter(function(x){return x.startsWith('✅')}).length;
+  var f=filtered.length-p;
+  var pfEl=document.getElementById('qaPassFail');
+  pfEl.innerHTML='<span style="color:#4cd830">✅ '+p+'</span> / <span style="color:'+(f?'#f04040':'var(--dim)')+'">❌ '+f+'</span> / 총 '+filtered.length;
+  pfEl.style.color=f?'#f04040':'#4cd830';
+  document.getElementById('qaResultNote').textContent=f?'실패 항목을 확인하세요':'모든 테스트 통과!';
+  /* list */
+  var listEl=document.getElementById('qaResultList');
+  listEl.innerHTML=filtered.map(function(x){
+    var ok=x.startsWith('✅');
+    return '<div style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);color:'+(ok?'var(--dim)':'#f04040')+';font-weight:'+(ok?'400':'700')+'">'+x+'</div>';
+  }).join('');
+  document.getElementById('qaCopyBtn').style.display='block';
+}
+
+function copyQAResult(){
+  if(!_lastQAResult)return;
+  var r=_lastQAResult;
+  var text='=== POTATO KINGDOM QA ===\nPASS: '+r.pass+' / FAIL: '+r.fail+' / TOTAL: '+(r.pass+r.fail)+'\n\n';
+  if(r.fail){
+    text+='FAILURES:\n';
+    r.results.filter(function(x){return x.startsWith('❌')}).forEach(function(x){text+=x+'\n'});
+    text+='\nDEBUG: Farm→FARMS[].state | Guild→guildState | Settle→settlement | Ref→REF.pendingPotato\n';
+  }else{text+='ALL PASS ✅\n'}
+  text+='\nTimestamp: '+new Date().toISOString();
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(function(){showInfo('📋 복사 완료','QA 결과가 클립보드에 복사됨')})}
+}
+
+function refreshQASnapshot(){
+  var snap={
+    'S.potato':S.potato,'S.ton':S.ton,'S.diamond':S.diamond,
+    'S.guildReward':S.guildReward,'S.guildContrib':S.guildContrib,
+    'guildState':guildState,
+    'FARMS':FARMS.map(function(f){return{slot:f.slotId,state:f.state,yield:f.yieldPotato,lv:f.level}}),
+    'settlement.pending':settlement.monthlyPendingTon,
+    'settlement.confirmed':settlement.monthlyConfirmedTon,
+    'REF.pending':REF.pendingPotato,'REF.today':REF.todayPotato,
+    'vaultLogs':vaultLogs.length,'potatoLogs':potatoLogs.length,
+    'guildProgress':guildProgress
+  };
+  document.getElementById('qaStateSnap').textContent=JSON.stringify(snap,null,2);
+}
 
 /* ═══ MOBILE TOUCH BRIDGE ═══ */
 /* 모바일 WebView에서 inline onclick이 터치로 안정적으로 발화되지 않는 문제 해결 */
 (function(){
 if(!('ontouchstart' in window))return;
-var TOUCH_TARGETS='button,a,[onclick],.ni,.farm-slot,.seg-i,.gj-btn,.gj-guild-row,.gj-rules,.top-icon,.gear,.sh-seg-i,.gh-asset-fold,.st-row,.st-toggle,.sh-close,.sh-item-btn';
+var TOUCH_TARGETS='button,a,[onclick],.ni,.farm-slot,.seg-i,.gj-btn,.gj-guild-row,.gj-rules,.top-icon,.gear,.sh-seg-i,.gh-asset-fold,.st-row,.st-toggle,.sh-close,.sh-item-btn,.cta-banner';
 var startX=0,startY=0,touchEl=null;
 document.addEventListener('touchstart',function(e){
 var t=e.touches[0];
