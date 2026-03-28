@@ -621,6 +621,99 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 .rw{word-break:break-word}
 .str-title,.str-sub{word-break:break-word}
 .st-section-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ═══ TUTORIAL ═══ */
+/* ═══ TUTORIAL — PREMIUM SHOWCASE ═══ */
+.tut-overlay{position:fixed;inset:0;z-index:500;background:radial-gradient(ellipse at 50% 25%,rgba(240,184,24,.06),rgba(76,216,48,.04) 30%,rgba(0,152,234,.03) 50%,rgba(0,0,0,.94) 75%);display:flex;align-items:center;justify-content:center;padding:14px;animation:tutFadeIn .5s ease-out}
+@keyframes tutFadeIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.tut-card{background:linear-gradient(170deg,rgba(22,28,48,.96) 0%,rgba(10,14,24,.98) 100%);border-radius:26px;padding:0;max-width:370px;width:100%;text-align:center;border:1px solid rgba(240,184,24,.10);box-shadow:0 16px 80px rgba(0,0,0,.7),0 0 60px rgba(76,216,48,.04),0 0 30px rgba(0,152,234,.03);overflow:hidden;position:relative}
+.tut-card::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(240,184,24,.03),transparent);pointer-events:none;border-radius:26px 26px 0 0}
+.tut-card h2{font-size:22px;font-weight:900;margin:8px 0 4px}
+.tut-card p{font-size:13px;color:var(--dim);line-height:1.6;margin:6px 0}
+/* ── hero composition ── */
+.tut-hero{padding:32px 20px 18px;position:relative;overflow:hidden}
+.tut-hero::before{content:'';position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:260px;height:180px;background:radial-gradient(ellipse,rgba(240,184,24,.10),rgba(76,216,48,.05) 40%,rgba(0,152,234,.04) 60%,transparent 80%);pointer-events:none;border-radius:50%}
+.tut-hero::after{content:'';position:absolute;bottom:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(240,184,24,.12),rgba(76,216,48,.10),rgba(0,152,234,.08),transparent)}
+.tut-hero-comp{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;position:relative;z-index:1}
+.tut-hero-icon{font-size:52px;filter:drop-shadow(0 6px 20px rgba(240,184,24,.35));animation:tutFloat 3.5s ease-in-out infinite}
+@keyframes tutFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-7px) rotate(-1deg)}70%{transform:translateY(-3px) rotate(.5deg)}}
+.tut-hero-pills{display:flex;flex-direction:column;gap:4px}
+.tut-hero-pill{padding:3px 10px;border-radius:12px;font-size:9px;font-weight:800;letter-spacing:.5px;display:flex;align-items:center;gap:4px}
+.tut-hero-pill.ton{background:rgba(0,152,234,.12);border:1px solid rgba(0,152,234,.20);color:var(--ton)}
+.tut-hero-pill.guild{background:rgba(240,184,24,.10);border:1px solid rgba(240,184,24,.18);color:var(--gold)}
+.tut-hero-pill.rwa{background:rgba(76,216,48,.08);border:1px solid rgba(76,216,48,.15);color:var(--potato)}
+.tut-hero-badge{display:inline-block;padding:4px 14px;border-radius:20px;background:linear-gradient(135deg,rgba(240,184,24,.15),rgba(76,216,48,.08));border:1px solid rgba(240,184,24,.22);color:var(--gold);font-size:10px;font-weight:800;letter-spacing:1.8px;margin-top:10px;position:relative;overflow:hidden;z-index:1}
+.tut-hero-badge::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:tutShimmer 3s ease-in-out infinite;pointer-events:none}
+@keyframes tutShimmer{0%{left:-100%}50%,100%{left:150%}}
+.tut-hero-title{font-size:24px;font-weight:900;margin:12px 0 4px;background:linear-gradient(135deg,#ffffff,#f0e8d0,#e8dcc0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1;line-height:1.3;letter-spacing:-.3px}
+.tut-hero-sub{font-size:12px;color:var(--dim);font-weight:600;line-height:1.6;position:relative;z-index:1;white-space:pre-line}
+/* ── structure cards ── */
+.tut-cards{display:flex;gap:8px;padding:14px 16px 10px}
+.tut-card-item{flex:1;padding:14px 8px 12px;border-radius:14px;text-align:center;position:relative;overflow:hidden;animation:tutCardUp .6s ease-out both}
+.tut-card-item:nth-child(1){background:linear-gradient(160deg,rgba(76,216,48,.06),rgba(76,216,48,.02));border:1px solid rgba(76,216,48,.15);animation-delay:.1s}
+.tut-card-item:nth-child(2){background:linear-gradient(160deg,rgba(240,184,24,.06),rgba(240,184,24,.02));border:1px solid rgba(240,184,24,.15);animation-delay:.2s}
+.tut-card-item:nth-child(3){background:linear-gradient(160deg,rgba(0,152,234,.06),rgba(0,152,234,.02));border:1px solid rgba(0,152,234,.15);animation-delay:.3s}
+@keyframes tutCardUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.tut-card-item::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);border-radius:14px 14px 0 0;pointer-events:none}
+.tut-card-icon{font-size:26px;margin-bottom:5px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.tut-card-name{font-size:12px;font-weight:900;margin-bottom:3px;letter-spacing:.3px}
+.tut-card-item:nth-child(1) .tut-card-name{color:var(--potato)}
+.tut-card-item:nth-child(2) .tut-card-name{color:var(--gold)}
+.tut-card-item:nth-child(3) .tut-card-name{color:var(--ton)}
+.tut-card-desc{font-size:10px;color:var(--dim);line-height:1.4;font-weight:600}
+/* ── bottom ── */
+.tut-bottom{padding:10px 20px 24px}
+.tut-fomo{font-size:10px;color:var(--dim);margin-top:10px;font-weight:600;opacity:.65;letter-spacing:.2px}
+.tut-card ul{text-align:left;font-size:13px;color:var(--dim);line-height:1.8;margin:10px 0;padding-left:6px;list-style:none}
+.tut-card ul li::before{content:'•';color:var(--potato);margin-right:6px}
+.tut-btn{width:100%;padding:15px;border-radius:14px;font-size:16px;font-weight:900;border:none;cursor:pointer;font-family:inherit;margin-top:10px;position:relative;overflow:hidden}
+.tut-btn-main{background:linear-gradient(135deg,#80e858 0%,#4cd830 40%,#3ab820 100%);color:#062000;box-shadow:0 4px 20px rgba(76,216,48,.35),inset 0 1px 0 rgba(255,255,255,.25);text-shadow:0 1px 0 rgba(255,255,255,.2);letter-spacing:.3px}
+.tut-btn-main::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);animation:tutShimmer 2.5s ease-in-out infinite;pointer-events:none}
+.tut-btn-main:active{transform:scale(.97);box-shadow:0 2px 10px rgba(76,216,48,.25)}
+.tut-skip{background:none;border:none;color:var(--mut);font-size:12px;cursor:pointer;padding:10px;margin-top:6px;font-family:inherit;opacity:.6}
+.tut-coach{position:fixed;z-index:490;pointer-events:none}
+.tut-coach-bg{position:fixed;inset:0;z-index:480;background:rgba(0,0,0,.7);pointer-events:none}
+.tut-bubble{position:fixed;z-index:495;background:var(--bg2);border:1px solid rgba(76,216,48,.2);border-radius:14px;padding:14px 16px;max-width:280px;font-size:13px;font-weight:700;color:var(--tx);box-shadow:0 4px 20px rgba(0,0,0,.4);pointer-events:auto}
+.tut-bubble::after{content:'';position:absolute;width:12px;height:12px;background:var(--bg2);border-right:1px solid rgba(76,216,48,.2);border-bottom:1px solid rgba(76,216,48,.2);transform:rotate(45deg)}
+.tut-bubble.above::after{bottom:-7px;left:50%;margin-left:-6px}
+.tut-bubble.below::after{top:-7px;left:50%;margin-left:-6px;transform:rotate(-135deg)}
+.tut-highlight{position:relative!important;z-index:9999!important;box-shadow:0 0 0 4px rgba(76,216,48,.4),0 0 20px rgba(76,216,48,.2)!important;border-radius:14px!important;pointer-events:auto!important;cursor:pointer!important}
+.tut-next{display:inline-block;margin-top:8px;padding:6px 16px;background:var(--potato-g);color:#082004;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.tut-banner{display:flex;align-items:center;gap:8px;padding:10px 14px;margin:6px 12px;border-radius:12px;background:rgba(76,216,48,.08);border:1px solid rgba(76,216,48,.15);cursor:pointer;font-size:12px;font-weight:700;color:var(--potato)}
+.tut-banner:active{opacity:.7}
+/* ── tutorial step cards ── */
+.tut-step-pad{padding:24px 20px 0;text-align:center}
+.tut-step-icon{font-size:46px;display:block;margin-bottom:8px;filter:drop-shadow(0 4px 14px rgba(0,0,0,.4))}
+.tut-step-h1{font-size:20px;font-weight:900;margin:0 0 6px;line-height:1.3;letter-spacing:-.3px}
+.tut-step-sub{font-size:12px;color:var(--dim);font-weight:600;line-height:1.6;margin:0 0 12px;padding:0 8px;white-space:pre-line}
+.tut-hl{margin:0 16px 14px;border-radius:16px;padding:14px 12px;text-align:center}
+.tut-hl.green{background:rgba(76,216,48,.07);border:1px solid rgba(76,216,48,.18)}
+.tut-hl.gold{background:rgba(240,184,24,.07);border:1px solid rgba(240,184,24,.18)}
+.tut-hl.blue{background:rgba(0,152,234,.07);border:1px solid rgba(0,152,234,.18)}
+.tut-hl.red{background:rgba(240,72,72,.07);border:1px solid rgba(240,72,72,.18)}
+.tut-hl-icon{font-size:24px;margin-bottom:5px}
+.tut-hl-val{font-size:19px;font-weight:900;margin-bottom:2px}
+.tut-hl-val.green{color:var(--potato)}
+.tut-hl-val.gold{color:var(--gold)}
+.tut-hl-val.blue{color:var(--ton)}
+.tut-hl-val.red{color:#ff6060}
+.tut-hl-lbl{font-size:11px;color:var(--dim);font-weight:600}
+.tut-2col{display:flex;gap:8px;margin:0 16px 12px}
+.tut-2col-item{flex:1;border-radius:13px;padding:13px 8px;text-align:center}
+.tut-2col-item.green{background:rgba(76,216,48,.07);border:1px solid rgba(76,216,48,.18)}
+.tut-2col-item.blue{background:rgba(0,152,234,.07);border:1px solid rgba(0,152,234,.18)}
+.tut-2col-icon{font-size:20px;margin-bottom:4px}
+.tut-2col-name{font-size:12px;font-weight:900;margin-bottom:2px}
+.tut-2col-name.green{color:var(--potato)}
+.tut-2col-name.blue{color:var(--ton)}
+.tut-2col-desc{font-size:10px;color:var(--dim);font-weight:600;line-height:1.4}
+.tut-dots{display:flex;justify-content:center;gap:5px;padding:10px 0 4px}
+.tut-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.12);transition:all .3s}
+.tut-dot.act{width:14px;border-radius:3px;background:var(--potato);box-shadow:0 0 6px rgba(76,216,48,.5)}
+.tut-dot.dn{background:rgba(76,216,48,.35)}
+.tut-guild-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--dim)}
+.tut-guild-row.potato{background:rgba(76,216,48,.06);border:1px solid rgba(76,216,48,.15)}
+.tut-guild-row.ton{background:rgba(0,152,234,.06);border:1px solid rgba(0,152,234,.15)}
+.tut-guild-row.gold{background:rgba(240,184,24,.06);border:1px solid rgba(240,184,24,.15)}
 </style>
 </head>
 <body>
@@ -1040,6 +1133,7 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="st-row"><div class="str-icon">🔒</div><div class="str-text"><div class="str-title" data-i18n="set_privacy">개인정보처리방침</div></div><div class="str-arrow">›</div></div>
 <div class="st-section-label" data-i18n="set_account">계정</div>
 <div class="st-row danger"><div class="str-icon">⚠️</div><div class="str-text"><div class="str-title" data-i18n="set_delete">계정 삭제</div><div class="str-sub" data-i18n="set_delete_sub">모든 데이터가 삭제됩니다</div></div></div>
+<div class="st-row" onclick="closeSettings();tutReset()" style="cursor:pointer"><div class="str-icon">📚</div><div class="str-text"><div class="str-title" data-i18n="set_tutorial">Tutorial</div><div class="str-sub" data-i18n="set_tutorial_sub">Restart tutorial</div></div><div class="str-arrow">›</div></div>
 <div class="st-section-label" data-i18n="set_dev">Dev</div>
 <div class="st-row" onclick="openQAPanel()"><div class="str-icon">🧪</div><div class="str-text"><div class="str-title" data-i18n="set_qa_title">QA Panel</div><div class="str-sub" data-i18n="set_qa_sub">Tests · State · QA</div></div><div class="str-arrow">›</div></div>
 </div>
@@ -1055,26 +1149,26 @@ border:1px solid rgba(76,216,48,.14);border-radius:var(--r);padding:16px;margin-
 <div class="settings-body" id="qaPanelBody" style="padding:10px 12px 60px">
 
 <!-- AUTO TEST -->
-<div class="stit" style="margin-top:4px">⚡ Auto Test</div>
+<div class="stit" style="margin-top:4px" data-i18n="qa_autotest">⚡ 자동 테스트</div>
 <div class="cd" style="padding:14px">
-<button class="btn btn-play" style="width:100%;padding:14px;margin-bottom:8px" onclick="runQAVisual()">▶ Run All (33)</button>
+<button class="btn btn-play" style="width:100%;padding:14px;margin-bottom:8px" onclick="runQAVisual()" data-i18n="qa_run_all">▶ 전체 실행 (33)</button>
 <div style="display:flex;gap:6px;flex-wrap:wrap">
-<button class="btn btn-sm btn-ghost" onclick="runQAVisual('farm')">🌱 Farm</button>
-<button class="btn btn-sm btn-ghost" onclick="runQAVisual('game')">🎮 Game</button>
-<button class="btn btn-sm btn-ghost" onclick="runQAVisual('guild')">🏰 Guild</button>
-<button class="btn btn-sm btn-ghost" onclick="runQAVisual('ref')">👥 Referral</button>
-<button class="btn btn-sm btn-ghost" onclick="runQAVisual('settle')">💰 Settlement</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('farm')" data-i18n="qa_farm">🌱 농장</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('game')" data-i18n="qa_game">🎮 게임</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('guild')" data-i18n="qa_guild">🏰 길드</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('ref')" data-i18n="qa_ref">👥 추천인</button>
+<button class="btn btn-sm btn-ghost" onclick="runQAVisual('settle')" data-i18n="qa_settle">💰 정산</button>
 </div>
 <div id="qaResultSummary" style="margin-top:12px;text-align:center;display:none">
 <div id="qaPassFail" style="font-size:20px;font-weight:900"></div>
 <div id="qaResultNote" style="font-size:11px;color:var(--dim);margin-top:4px"></div>
 </div>
 <div id="qaResultList" style="margin-top:10px;font-size:12px;line-height:1.8"></div>
-<button id="qaCopyBtn" class="btn btn-sm btn-ghost" style="width:100%;margin-top:8px;display:none" onclick="copyQAResult()">📋 Copy Result</button>
+<button id="qaCopyBtn" class="btn btn-sm btn-ghost" style="width:100%;margin-top:8px;display:none" onclick="copyQAResult()" data-i18n="qa_copy">📋 결과 복사</button>
 </div>
 
 <!-- STATE TRANSITION MAP -->
-<div class="stit">📊 State Machine</div>
+<div class="stit" data-i18n="qa_state">📊 상태 머신</div>
 <div class="cd" style="padding:14px;font-size:11px;line-height:1.7">
 <div style="font-weight:900;color:var(--potato);margin-bottom:4px">🌱 Farm Slot</div>
 <div style="color:var(--dim);margin-left:8px">
@@ -1427,7 +1521,8 @@ function runMonthlySettlement(){
 /**/
 const FARM_GROW_MS=8*3600*1000;       /* 8h per harvest cycle */
 const FARM_MAX_HARVESTS=3;
-const FARM_AD_BOOST_LIMIT=5;
+const FARM_AD_BOOST_LIMIT=1;          /* 1 ad boost per cycle (not per day) */
+const FARM_DIA_BOOST_LIMIT=1;         /* 1 diamond boost per cycle */
 const FARM_DIA_PER_HOUR=10;           /* 10 diamond = 1hr shortcut */
 const FARM_SLOT_UNLOCK=[{level:0,cost:0},{level:0,cost:0},{level:5,cost:50}];
 const FARM_LEVELS=[
@@ -1438,7 +1533,7 @@ const FARM_LEVELS=[
 {expReq:1500,yield:96,perHour:16.0}
 ];
 var FARMS=[
-{slotId:0,state:'harvestable',startAt:Date.now()-FARM_GROW_MS,endAt:Date.now()-1000,yieldPotato:48,level:3,exp:450,harvestsToday:2,boostsToday:2,unlocked:true},
+{slotId:0,state:'harvestable',startAt:Date.now()-FARM_GROW_MS,endAt:Date.now()-1000,yieldPotato:100,level:3,exp:450,harvestsToday:2,boostsToday:2,unlocked:true},
 {slotId:1,state:'growing',startAt:Date.now()-3600000,endAt:Date.now()+5*3600000+892000,yieldPotato:18,level:1,exp:80,harvestsToday:1,boostsToday:0,unlocked:true},
 {slotId:2,state:'locked',startAt:null,endAt:null,yieldPotato:0,level:1,exp:0,harvestsToday:0,boostsToday:0,unlocked:false}
 ];
@@ -1617,10 +1712,9 @@ function showPuzzleResult(rw,isHigh,boostedFarm){
     '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr)"><span style="color:var(--dim)">'+t('puzzle_result_potato')+'</span><span style="font-weight:800;color:var(--potato)">+'+rw.potato+'</span></div>'+
     farmLine+guildLine+'</div>'+
     '<div style="font-size:10px;color:var(--mut);text-align:center;margin-bottom:10px">'+t('puzzle_result_today',{done:S.puzzlesToday,max:PUZZLE_DAILY_MAX})+'</div>'+
-    '<button class="btn btn-play" style="width:100%;padding:14px" onclick="document.getElementById(\'so\').classList.remove(\'show\')">'+t('confirm')+'</button>'
+    '<button class="btn btn-play" style="width:100%;padding:14px" onclick="document.getElementById(\'so\').classList.remove(\'show\');if(TUT.step===3)setTimeout(tutAfterPuzzle,300)">'+t('confirm')+'</button>'
   );
 }
-/**/
 function renderVaultHistory(logs,containerId,type){
   var el=document.getElementById(containerId);if(!el)return;
   if(!logs.length){el.innerHTML='<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut)">'+t('vault_no_history')+'</div>';return}
@@ -1778,6 +1872,7 @@ function doPlant(idx){
 var slot=FARMS[idx];if(slot.state!=='empty'||!slot.unlocked)return;
 var lv=FARM_LEVELS[slot.level-1]||FARM_LEVELS[0];
 slot.state='growing';slot.startAt=Date.now();slot.endAt=Date.now()+FARM_GROW_MS;slot.yieldPotato=lv.yield;
+slot.boostsToday=0;slot.diaUsed=false;
 renderFarm(idx);triggerHaptic('medium');renderCTA()}
 
 function doHarvest(idx,mult){
@@ -1790,20 +1885,18 @@ slot.state='empty';slot.startAt=null;slot.endAt=null;slot.yieldPotato=0;
 slot.harvestsToday++;slot.exp+=50*(mult||1);
 var lv=FARM_LEVELS[slot.level-1];
 if(lv&&slot.exp>=lv.expReq&&slot.level<FARM_LEVELS.length){slot.level++;slot.exp-=lv.expReq}
-renderFarm(idx);renderFarmSlots()}
+renderFarm(idx);renderFarmSlots();if(TUT.step===1)setTimeout(tutAfterHarvest,300)}
 
 function doInstantHarvest(idx){
 var slot=FARMS[idx];
 if(slot.state!=='growing')return;
-var remain=Math.max(0,slot.endAt-Date.now());
-var hoursLeft=Math.ceil(remain/3600000);
-var cost=hoursLeft*FARM_DIA_PER_HOUR;
-if(cost<=0){slot.state='harvestable';slot.endAt=Date.now();renderFarm(idx);return}
-if(S.diamond<FARM_DIA_PER_HOUR){document.getElementById('so').classList.remove('show');showInfo('💎','💎 '+FARM_DIA_PER_HOUR+' = -1h ('+S.diamond+'💎)');return}
+/* 1 diamond boost per cycle */
+if(slot.diaUsed){document.getElementById('so').classList.remove('show');showInfo('💎','Already used 💎 boost this cycle');return}
+if(S.diamond<FARM_DIA_PER_HOUR){document.getElementById('so').classList.remove('show');showInfo('💎','💎 '+FARM_DIA_PER_HOUR+' ('+S.diamond+'💎)');return}
 document.getElementById('so').classList.remove('show');
-/* 1h shortcut per 10 diamond */
 applyAction('diamondSpend',{amount:FARM_DIA_PER_HOUR,label:'-1h F'+(idx+1),source:'harvest'});
 slot.endAt=Math.max(Date.now(),slot.endAt-3600000);
+slot.diaUsed=true;
 if(slot.endAt<=Date.now()){slot.state='harvestable'}
 renderFarm(idx);triggerHaptic('medium')}
 
@@ -1817,11 +1910,12 @@ renderFarm(idx);renderFarmSlots();triggerHaptic('heavy')})}
 
 function doAdBoost(idx){
 var slot=FARMS[idx];
+if(slot.boostsToday>=FARM_AD_BOOST_LIMIT){document.getElementById('so').classList.remove('show');showInfo('📺','Ad boost already used');return}
 document.getElementById('so').classList.remove('show');
 slot.endAt=Math.max(Date.now(),slot.endAt-3600000);slot.boostsToday++;
 if(slot.endAt<=Date.now())slot.state='harvestable';
 renderFarm(idx);
-showInfo(t('modal_boost_title'),t('modal_boost_desc'));
+showInfo('⚡','-1h!');
 triggerHaptic('medium');renderCTA()}
 
 /* Referral state */
@@ -2173,6 +2267,7 @@ function claimAttendance(){
   celebratePotatoGain();
   showInfo(t('toast_att_done'),t('toast_att_reward',{icon:rw.icon,label:rw.label}));
   renderCTA();
+  if(TUT.step===2)setTimeout(tutAfterAttendance,1000);
 }
 function showMilestoneSheet(){
   document.getElementById('so').classList.remove('show');
@@ -2205,8 +2300,21 @@ var slot=FARMS[typeof idx==='number'?idx:_activeFarm];var i=slot.slotId;var amt=
 showSheet('<div style="text-align:center;margin-bottom:4px"><div style="font-size:16px;font-weight:900;color:var(--gold)">🎉 '+t('farm_harvestable')+'</div><div style="font-size:48px;font-weight:900;color:var(--potato);margin:10px 0;line-height:1;text-shadow:0 0 20px rgba(76,216,48,.3)"><span id="reelHarvest" class="reel-wrap"></span></div><div style="font-size:14px;color:var(--dim);font-weight:700">POTATO</div></div><button class="ad-cta" onclick="doHarvest('+i+',2)">'+t('modal_harvest_ad')+'</button><div class="ad-sub">+'+amt*2+' POTATO</div><button class="skip-btn" onclick="doHarvest('+i+',1)">'+t('modal_harvest_normal')+' (+'+amt+')</button><div style="text-align:center;font-size:10px;color:var(--dim);margin-top:8px">×2: <b style="color:var(--potato)">'+boostsLeft+'/'+FARM_AD_BOOST_LIMIT+'</b></div>');
 setTimeout(function(){animateReel('reelHarvest',0,amt,{format:function(v){return'+'+Math.round(v)},duration:700,fontSize:44})},100)}
 function showBoost(idx){
-var slot=FARMS[typeof idx==='number'?idx:_activeFarm];var i=slot.slotId;var boostsLeft=FARM_AD_BOOST_LIMIT-slot.boostsToday;
-showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">'+t('modal_boost_title')+'</div><div style="font-size:12px;color:var(--dim);margin-bottom:10px;line-height:1.5">'+t('modal_boost_desc')+'</div><button class="ad-cta" onclick="doAdBoost('+i+')">'+t('modal_boost_btn')+'</button><div class="ad-sub">-1hr</div><div style="text-align:center;margin:14px 0 4px;font-size:10px;color:var(--mut)">or</div><button class="btn btn-ghost btn-sm" style="width:100%" onclick="doInstantHarvest('+i+')">'+t('modal_harvest_instant',{cost:FARM_INSTANT_COST})+'</button><div style="text-align:center;font-size:10px;color:var(--dim);margin-top:10px"><b style="color:var(--potato)">'+boostsLeft+'/'+FARM_AD_BOOST_LIMIT+'</b></div>')}
+var slot=FARMS[typeof idx==='number'?idx:_activeFarm];var i=slot.slotId;
+var remain=Math.max(0,slot.endAt-Date.now());var hoursLeft=Math.ceil(remain/3600000);
+var adUsed=slot.boostsToday>=FARM_AD_BOOST_LIMIT;
+var diaUsed=!!slot.diaUsed;
+showSheet(
+  '<div style="font-size:17px;font-weight:900;margin-bottom:4px">'+t('modal_boost_title')+'</div>'+
+  '<div style="font-size:12px;color:var(--dim);margin-bottom:10px;line-height:1.5">'+hoursLeft+'h left · max 2h boost per cycle</div>'+
+  (adUsed?
+    '<button class="btn btn-ghost" style="width:100%;padding:14px;opacity:.5" disabled>📺 Ad -1h ✅ Used</button>':
+    '<button class="ad-cta" onclick="doAdBoost('+i+')">📺 Ad -1h (Free)</button>')+
+  '<div style="text-align:center;margin:10px 0 4px;font-size:10px;color:var(--mut)">or</div>'+
+  (diaUsed?
+    '<button class="btn btn-ghost" style="width:100%;padding:14px;opacity:.5" disabled>💎 '+FARM_DIA_PER_HOUR+' -1h ✅ Used</button>':
+    '<button class="btn btn-ghost btn-sm" style="width:100%" onclick="doInstantHarvest('+i+')">💎 '+FARM_DIA_PER_HOUR+' = -1h</button>')
+)}
 function showRwa(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">'+t('rwa_title')+'</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px">Potato Kingdom: Community reward game backed by real agriculture.</div><div style="background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px"><div style="font-size:12px;line-height:1.8">🇭🇰 HK Entity<br>🇨🇳 Shanghai Partner<br>🇰🇷 Korea Dev</div></div>')}
 /* GUILD PRE-JOIN SHEETS */
 function showGuildSearch(){showSheet('<div style="font-size:17px;font-weight:900;margin-bottom:4px">'+t('guild_search')+'</div><div style="font-size:12px;color:var(--dim);margin-bottom:12px">Search by name</div><div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px;display:flex;gap:8px"><input style="flex:1;background:rgba(255,255,255,.05);border:1px solid var(--bdr);border-radius:8px;padding:10px;color:var(--tx);font-size:13px;font-family:inherit;outline:none" placeholder="Search..."><button class="btn btn-sm" style="background:var(--ton-g);color:#fff;padding:10px 16px" onclick="triggerHaptic(\'light\')">🔍</button></div>')}
@@ -2428,6 +2536,7 @@ var rw=getGameReward('battle',0,battleSec);
 applyAction('battle',{potato:rw.potato,guildContrib:rw.guildContrib,duration:Math.floor(battleSec/60)+'m'+battleSec%60+'s'});
 var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='';
 showInfo(t('battle_result_title'),t('battle_result_potato',{amount:rw.potato})+'\n'+t('battle_result_guild',{contrib:rw.guildContrib}));
+if(TUT.step===4)setTimeout(tutAfterBattle,1000);
 }
 /**/
 setInterval(function(){
@@ -2617,6 +2726,10 @@ const translations = {
     set_cs_sub: '문의 및 버그 신고',
     set_legal: '법적', set_terms: '이용약관', set_privacy: '개인정보처리방침',
     set_account: '계정', set_delete: '계정 삭제', set_delete_sub: '모든 데이터가 삭제됩니다',
+    set_qa_title: '🧪 QA 패널', set_qa_sub: '테스트 · 상태 · QA',
+    qa_autotest: '⚡ 자동 테스트', qa_run_all: '▶ 전체 실행 (33)',
+    qa_farm: '🌱 농장', qa_game: '🎮 게임', qa_guild: '🏰 길드', qa_ref: '👥 추천인', qa_settle: '💰 정산',
+    qa_copy: '📋 결과 복사', qa_state: '📊 상태 머신',
     // profile
     prof_title: '내 프로필', prof_streak: '{days}일 연속 출석',
     prof_streak_sub: '매일 접속해서 기록을 이어가세요',
@@ -2650,6 +2763,49 @@ const translations = {
     // misc
     confirm: '확인', close: '닫기', cancel: '취소',
     coming_soon: 'COMING SOON',
+    // tutorial
+    tut_title: '감자 농장에 오신걸 환영합니다',
+    tut_sub: '기존에 있던 P2E 게임은 잊으세요\n실물 사업 기반 RWA + P2E 게임\n참여만해도 매주 TON COIN 보상',
+    tut_c1: '실물 경제 자산', tut_c2_name: '길드전', tut_c2: '누구나 쉽게 참여', tut_c3: '매주 TON 지급',
+    tut_fomo: '랭킹은 매주 초기화 — 지금 시작해도 늦지 않습니다',
+    tut_start: '🌱 첫 감자 수확하러 가기',
+    tut_later: '나중에 하기',
+    tut_harvest: '첫 감자를 수확하세요! 🥔',
+    tut_harvest_done: 'POTATO는 계속 쌓이는 자산입니다.\n수확한 감자도 길드 성장에 연결됩니다.',
+    tut_puzzle: '퍼즐 플레이 → 길드 점수 + POTATO! 🧩',
+    tut_puzzle_done: '수호전도 해볼까요?\n퍼즐과 같은 보상이에요!',
+    tut_battle: '취향대로 플레이! 퍼즐과 같은 길드 기여 ⚔️',
+    tut_battle_done: '게임 기록은 길드 랭킹에 반영됩니다.\n이제 보상 구조의 핵심인 길드를 확인해볼까요?',
+    tut_guild_title: '길드 = 핵심 보상',
+    tut_guild_1: '수확 + 출석 + 게임 → 길드 점수',
+    tut_guild_2: '길드 랭킹에 따라 매주 TON 정산',
+    tut_guild_3: '랭킹은 매주 초기화 — 지금 시작해도 OK',
+    tut_guild_join: '🏰 길드 가입하기',
+    tut_guild_joined: '길드에 합류했습니다!\n이제 길드 랭킹 경쟁에 참여할 수 있어요.',
+    tut_guild_choose: '길드를 선택하세요', tut_guild_join_later: '나중에 가입하기', tut_guild_join_browse: '둘러보기',
+    tut_badge: 'REAL WORLD ASSET', tut_pill_guild: '길드',
+    tut_vault_potato: '장기 기대 자산',
+    tut_vault_ton: '길드 랭킹 기반 주간 정산',
+    tut_vault_status: '확정 / 미확정 / 출금 가능 = TON 정산 상태',
+    tut_vault_done: '🎉 시작하기!',
+    tut_complete: '튜토리얼 완료!\n매일 수확 · 출석 · 게임으로 길드 보상을 키워보세요.',
+    tut_reward_title: '튜토리얼 완료 보상 지급!', tut_reward_label: '튜토리얼 완료 보상', tut_reward_cta: '보상 받고 계속하기',
+    tut_resume: '튜토리얼 이어하기 →',
+    // tutorial step overlays
+    tut_s2_title: 'POTATO는 실물 사업 기반 코인입니다',
+    tut_s2_msg: '초기 보유량을 빨리 수확하세요',
+    tut_s2_card_label: '첫 수확 보상', tut_s2_cta: '🥔 첫 수확하기', tut_s2_next: '🎁 출석 보상 받기',
+    tut_harvest_result: '수확 완료!', tut_harvest_result_msg: 'POTATO는 길드 기여도로 이어집니다',
+    tut_s3_title: '출석만해도 보상이 있습니다',
+    tut_s3_msg: 'POTATO와 다이아를 받아가세요',
+    tut_s3_hl_val: '매일 보상 지급', tut_s3_hl_label: '', tut_s3_cta: '🎁 출석 보상 받기',
+    tut_s4_title: '퍼즐이 길드 점수입니다',
+    tut_s4_msg: '60초 플레이 → 길드 기여도 + POTATO 적립',
+    tut_s4_hl_val: '길드 기여 UP', tut_s4_hl_label: '퍼즐 플레이 보상', tut_s4_cta: '🧩 퍼즐 시작',
+    tut_s5_title: '수호전도 같은 보상입니다',
+    tut_s5_msg: '퍼즐과 동급 메인 콘텐츠\n취향대로 선택하세요',
+    tut_s5_hl_val: '길드 기여 UP', tut_s5_hl_label: '수호전 플레이 보상', tut_s5_cta: '⚔️ 출정하기',
+    tut_s7_title: 'POTATO ≠ TON', tut_s7_msg: '두 자산은 역할이 다릅니다',
     // farm render
     farm_stat_yield: '수확량', farm_stat_speed: '성장속도', farm_stat_exp: '경험치',
     farm_progress: '{done}/{total}', farm_today_harvest: '오늘 수확 {done}/{max}',
@@ -2800,6 +2956,10 @@ const translations = {
     set_cs_sub: 'Inquiries & bug reports',
     set_legal: 'Legal', set_terms: 'Terms of Service', set_privacy: 'Privacy Policy',
     set_account: 'Account', set_delete: 'Delete Account', set_delete_sub: 'All data will be permanently deleted',
+    set_qa_title: '🧪 QA Panel', set_qa_sub: 'Tests · State · QA',
+    qa_autotest: '⚡ Auto Test', qa_run_all: '▶ Run All (33)',
+    qa_farm: '🌱 Farm', qa_game: '🎮 Game', qa_guild: '🏰 Guild', qa_ref: '👥 Referral', qa_settle: '💰 Settlement',
+    qa_copy: '📋 Copy Result', qa_state: '📊 State Machine',
     prof_title: 'My Profile', prof_streak: '{days}-day streak',
     prof_streak_sub: 'Keep logging in every day!',
     prof_streak_done: 'Checked in today', prof_streak_tap: 'Tap for daily reward',
@@ -2828,6 +2988,47 @@ const translations = {
     battle_reward: 'Current: ~{amount} POTATO',
     confirm: 'OK', close: 'Close', cancel: 'Cancel',
     coming_soon: 'COMING SOON',
+    tut_title: 'Not Just Game Points',
+    tut_sub: 'Real World Asset Structure\nGuild Ranking → Weekly TON Payout',
+    tut_c1: 'Long-term Asset', tut_c2_name: 'Guild Ranking', tut_c2: 'Compete with Harvest · Check-in · Games', tut_c3: 'Weekly Payout',
+    tut_fomo: 'Rankings reset weekly — never too late to start',
+    tut_start: '🌱 Harvest Your First Potato',
+    tut_later: 'Later',
+    tut_harvest: 'Harvest your first potato! 🥔',
+    tut_harvest_done: 'POTATO is an ever-growing asset.\nYour harvest feeds guild growth too.',
+    tut_puzzle: 'Play puzzle → Guild Score + POTATO! 🧩',
+    tut_puzzle_done: 'Try the battle too!\nSame rewards as puzzle.',
+    tut_battle: 'Play your way! Same guild rewards ⚔️',
+    tut_battle_done: 'Game scores boost guild rankings.\nLet\'s check the core reward system!',
+    tut_guild_title: 'Guild = Core Rewards',
+    tut_guild_1: 'Harvest + Check-in + Game → Guild Score',
+    tut_guild_2: 'Guild Ranking → Weekly TON Payout',
+    tut_guild_3: 'Rankings reset weekly — never too late!',
+    tut_guild_join: '🏰 Join Guild',
+    tut_guild_joined: 'You\'re in a guild!\nReady for ranking competition.',
+    tut_guild_choose: 'Choose Your Guild', tut_guild_join_later: 'Join Later', tut_guild_join_browse: 'Browse',
+    tut_badge: 'REAL WORLD ASSET', tut_pill_guild: 'GUILD',
+    tut_vault_potato: 'Long-term asset',
+    tut_vault_ton: 'Weekly guild payout',
+    tut_vault_status: 'Confirmed / Pending / Withdrawable = TON status',
+    tut_vault_done: '🎉 Let\'s go!',
+    tut_complete: 'Tutorial done!\nHarvest · Check-in · Play daily to grow guild rewards.',
+    tut_reward_title: 'Tutorial Reward!', tut_reward_label: 'Tutorial Completion Reward', tut_reward_cta: 'Claim & Continue',
+    tut_resume: 'Continue tutorial →',
+    tut_s2_title: 'POTATO is a growing asset',
+    tut_s2_msg: 'Every harvest increases your guild contribution',
+    tut_s2_card_label: 'First harvest reward', tut_s2_cta: '🥔 Harvest Now', tut_s2_next: '🎁 Claim Attendance',
+    tut_harvest_result: 'Harvest complete!', tut_harvest_result_msg: 'POTATO builds your guild contribution',
+    tut_s3_title: 'A reason to come back daily',
+    tut_s3_msg: 'Daily check-in boosts guild contribution',
+    tut_s3_hl_val: 'Daily reward', tut_s3_hl_label: "Today's attendance bonus", tut_s3_cta: '🎁 Claim Bonus',
+    tut_s4_title: 'Puzzle = Guild Score',
+    tut_s4_msg: '60s play → guild points + POTATO',
+    tut_s4_hl_val: 'Guild Contribution UP', tut_s4_hl_label: 'Puzzle reward', tut_s4_cta: '🧩 Play Puzzle',
+    tut_s5_title: 'Battle has the same rewards',
+    tut_s5_msg: 'Equal main content — choose your style',
+    tut_s5_hl_val: 'Guild Contribution UP', tut_s5_hl_label: 'Battle reward', tut_s5_cta: '⚔️ Enter Battle',
+    tut_s7_title: 'POTATO ≠ TON', tut_s7_msg: 'Two assets, two different roles',
     farm_stat_yield: 'Yield', farm_stat_speed: 'Speed', farm_stat_exp: 'EXP',
     farm_progress: '{done}/{total}', farm_today_harvest: 'Today {done}/{max}',
     farm_slot_title: 'Farm {n}', farm_diamond_cost: '💎 {cost} to unlock',
@@ -2969,6 +3170,10 @@ const translations = {
     set_cs_sub: 'Вопросы и баги',
     set_legal: 'Правовое', set_terms: 'Условия', set_privacy: 'Конфиденциальность',
     set_account: 'Аккаунт', set_delete: 'Удалить аккаунт', set_delete_sub: 'Все данные будут удалены',
+    set_qa_title: '🧪 QA Panel', set_qa_sub: 'Tests · State · QA',
+    qa_autotest: '⚡ Auto Test', qa_run_all: '▶ Run All (33)',
+    qa_farm: '🌱 Farm', qa_game: '🎮 Game', qa_guild: '🏰 Guild', qa_ref: '👥 Referral', qa_settle: '💰 Settlement',
+    qa_copy: '📋 Copy Result', qa_state: '📊 State Machine',
     prof_title: 'Мой профиль', prof_streak: '{days} дней подряд',
     prof_streak_sub: 'Заходи каждый день!',
     prof_streak_done: 'Сегодня отмечено', prof_streak_tap: 'Нажми за награду',
@@ -3044,6 +3249,48 @@ const translations = {
     mail_tab_reward: 'Награды', mail_tab_event: 'События', mail_tab_notice: 'Новости',
     mission_tab_daily: 'Ежедневные', mission_tab_weekly: 'Недельные',
     extra_lucky: '🎰 Поле удачи', extra_unknown: '❓ ???',
+    // tutorial
+    tut_title: 'Это не игровые очки',
+    tut_sub: 'Структура RWA на реальном бизнесе\nЕженедельные выплаты TON по рейтингу гильдий',
+    tut_c1: 'Долгосрочный актив', tut_c2_name: 'Рейтинг гильдий', tut_c2: 'Урожай · Посещения · Игры', tut_c3: 'Еженедельные выплаты',
+    tut_fomo: 'Рейтинг сбрасывается каждую неделю — начать никогда не поздно',
+    tut_start: '🌱 Собрать первый урожай',
+    tut_later: 'Позже',
+    tut_harvest: 'Соберите первый картофель! 🥔',
+    tut_harvest_done: 'POTATO — накопительный актив.\nУрожай помогает росту гильдии.',
+    tut_puzzle: 'Пазл → Очки гильдии + POTATO! 🧩',
+    tut_puzzle_done: 'Попробуйте битву!\nТе же награды, что и за пазл.',
+    tut_battle: 'Играйте как нравится! Те же очки гильдии ⚔️',
+    tut_battle_done: 'Результаты идут в рейтинг гильдии.\nДавайте посмотрим систему наград!',
+    tut_guild_title: 'Гильдия = Главные награды',
+    tut_guild_1: 'Урожай + Посещения + Игры → Очки гильдии',
+    tut_guild_2: 'Рейтинг гильдии → Еженедельные TON',
+    tut_guild_3: 'Рейтинг сбрасывается каждую неделю — начните сейчас!',
+    tut_guild_join: '🏰 Вступить в гильдию',
+    tut_guild_joined: 'Вы в гильдии!\nГотовы к рейтинговому соревнованию.',
+    tut_guild_choose: 'Выберите гильдию', tut_guild_join_later: 'Присоединиться позже', tut_guild_join_browse: 'Посмотреть',
+    tut_badge: 'REAL WORLD ASSET', tut_pill_guild: 'ГИЛЬДИЯ',
+    tut_vault_potato: 'Долгосрочный актив',
+    tut_vault_ton: 'Еженедельные выплаты по рейтингу',
+    tut_vault_status: 'Подтверждено / Ожидание / Доступно = статус TON',
+    tut_vault_done: '🎉 Начнём!',
+    tut_complete: 'Обучение завершено!\nСобирайте · Заходите · Играйте каждый день для наград гильдии.',
+    tut_reward_title: 'Награда за обучение!', tut_reward_label: 'Награда за завершение', tut_reward_cta: 'Получить и продолжить',
+    tut_resume: 'Продолжить обучение →',
+    tut_s2_title: 'POTATO — накапливаемый актив',
+    tut_s2_msg: 'Каждый сбор урожая повышает вклад в гильдию',
+    tut_s2_card_label: 'Награда за первый сбор', tut_s2_cta: '🥔 Собрать урожай', tut_s2_next: '🎁 Получить посещаемость',
+    tut_harvest_result: 'Урожай собран!', tut_harvest_result_msg: 'POTATO увеличивает вклад в гильдию',
+    tut_s3_title: 'Повод возвращаться ежедневно',
+    tut_s3_msg: 'Ежедневный вход повышает вклад в гильдию',
+    tut_s3_hl_val: 'Ежедневная награда', tut_s3_hl_label: 'Бонус за посещение', tut_s3_cta: '🎁 Получить бонус',
+    tut_s4_title: 'Головоломка = очки гильдии',
+    tut_s4_msg: '60с игры → очки гильдии + POTATO',
+    tut_s4_hl_val: 'Вклад в гильдию UP', tut_s4_hl_label: 'Награда за головоломку', tut_s4_cta: '🧩 Играть',
+    tut_s5_title: 'Бой даёт те же награды',
+    tut_s5_msg: 'Равноценный контент — выбирай стиль',
+    tut_s5_hl_val: 'Вклад в гильдию UP', tut_s5_hl_label: 'Награда за бой', tut_s5_cta: '⚔️ В бой',
+    tut_s7_title: 'POTATO ≠ TON', tut_s7_msg: 'Два актива — два разных назначения',
   },
   vi: {
     nav_game: 'Game', nav_farm: 'Nông trại', nav_guild: 'Guild', nav_vault: 'Két',
@@ -3124,6 +3371,10 @@ const translations = {
     set_cs_sub: 'Hỏi đáp & báo lỗi',
     set_legal: 'Pháp lý', set_terms: 'Điều khoản', set_privacy: 'Bảo mật',
     set_account: 'Tài khoản', set_delete: 'Xóa tài khoản', set_delete_sub: 'Tất cả dữ liệu sẽ bị xóa',
+    set_qa_title: '🧪 QA Panel', set_qa_sub: 'Tests · State · QA',
+    qa_autotest: '⚡ Auto Test', qa_run_all: '▶ Run All (33)',
+    qa_farm: '🌱 Farm', qa_game: '🎮 Game', qa_guild: '🏰 Guild', qa_ref: '👥 Referral', qa_settle: '💰 Settlement',
+    qa_copy: '📋 Copy Result', qa_state: '📊 State Machine',
     prof_title: 'Hồ sơ', prof_streak: '{days} ngày liên tiếp',
     prof_streak_sub: 'Đăng nhập mỗi ngày nhé!',
     prof_streak_done: 'Đã điểm danh', prof_streak_tap: 'Nhấn để nhận thưởng',
@@ -3199,6 +3450,48 @@ const translations = {
     mail_tab_reward: 'Thưởng', mail_tab_event: 'Sự kiện', mail_tab_notice: 'TB',
     mission_tab_daily: 'Hàng ngày', mission_tab_weekly: 'Hàng tuần',
     extra_lucky: '🎰 Ruộng may', extra_unknown: '❓ ???',
+    // tutorial
+    tut_title: 'Không phải điểm game',
+    tut_sub: 'Cấu trúc RWA dựa trên kinh doanh thực\nThanh toán TON hàng tuần theo xếp hạng Guild',
+    tut_c1: 'Tài sản dài hạn', tut_c2_name: 'Xếp hạng Guild', tut_c2: 'Thu hoạch · Điểm danh · Game', tut_c3: 'Thanh toán hàng tuần',
+    tut_fomo: 'Xếp hạng reset mỗi tuần — bắt đầu ngay không muộn',
+    tut_start: '🌱 Thu hoạch khoai đầu tiên',
+    tut_later: 'Để sau',
+    tut_harvest: 'Thu hoạch khoai đầu tiên! 🥔',
+    tut_harvest_done: 'POTATO là tài sản tích lũy.\nThu hoạch cũng giúp guild phát triển.',
+    tut_puzzle: 'Chơi puzzle → Điểm Guild + POTATO! 🧩',
+    tut_puzzle_done: 'Thử chế độ chiến đấu!\nPhần thưởng tương tự puzzle.',
+    tut_battle: 'Chơi theo sở thích! Cùng phần thưởng guild ⚔️',
+    tut_battle_done: 'Kết quả game tính vào xếp hạng guild.\nCùng xem hệ thống phần thưởng!',
+    tut_guild_title: 'Guild = Phần thưởng chính',
+    tut_guild_1: 'Thu hoạch + Điểm danh + Game → Điểm Guild',
+    tut_guild_2: 'Xếp hạng Guild → Thanh toán TON hàng tuần',
+    tut_guild_3: 'Xếp hạng reset mỗi tuần — bắt đầu ngay!',
+    tut_guild_join: '🏰 Gia nhập Guild',
+    tut_guild_joined: 'Đã vào guild!\nSẵn sàng thi đấu xếp hạng.',
+    tut_guild_choose: 'Chọn Guild của bạn', tut_guild_join_later: 'Gia nhập sau', tut_guild_join_browse: 'Xem thêm',
+    tut_badge: 'REAL WORLD ASSET', tut_pill_guild: 'GUILD',
+    tut_vault_potato: 'Tài sản dài hạn',
+    tut_vault_ton: 'Thanh toán hàng tuần theo xếp hạng',
+    tut_vault_status: 'Xác nhận / Chờ / Rút được = trạng thái TON',
+    tut_vault_done: '🎉 Bắt đầu!',
+    tut_complete: 'Hoàn tất hướng dẫn!\nThu hoạch · Điểm danh · Chơi mỗi ngày để tăng phần thưởng guild.',
+    tut_reward_title: 'Phần thưởng hoàn thành!', tut_reward_label: 'Phần thưởng hướng dẫn', tut_reward_cta: 'Nhận & Tiếp tục',
+    tut_resume: 'Tiếp tục hướng dẫn →',
+    tut_s2_title: 'POTATO là tài sản tích lũy',
+    tut_s2_msg: 'Mỗi lần thu hoạch tăng đóng góp guild',
+    tut_s2_card_label: 'Phần thưởng thu hoạch đầu', tut_s2_cta: '🥔 Thu hoạch ngay', tut_s2_next: '🎁 Nhận điểm danh',
+    tut_harvest_result: 'Thu hoạch xong!', tut_harvest_result_msg: 'POTATO tăng đóng góp guild',
+    tut_s3_title: 'Lý do để quay lại mỗi ngày',
+    tut_s3_msg: 'Điểm danh hàng ngày tăng đóng góp guild',
+    tut_s3_hl_val: 'Thưởng hằng ngày', tut_s3_hl_label: 'Phần thưởng điểm danh hôm nay', tut_s3_cta: '🎁 Nhận thưởng',
+    tut_s4_title: 'Puzzle = Điểm guild',
+    tut_s4_msg: '60 giây chơi → điểm guild + POTATO',
+    tut_s4_hl_val: 'Đóng góp Guild UP', tut_s4_hl_label: 'Thưởng puzzle', tut_s4_cta: '🧩 Chơi puzzle',
+    tut_s5_title: 'Chiến đấu cũng được thưởng như vậy',
+    tut_s5_msg: 'Nội dung chính cùng cấp — chọn theo sở thích',
+    tut_s5_hl_val: 'Đóng góp Guild UP', tut_s5_hl_label: 'Thưởng chiến đấu', tut_s5_cta: '⚔️ Vào chiến',
+    tut_s7_title: 'POTATO ≠ TON', tut_s7_msg: 'Hai tài sản, hai vai trò khác nhau',
   },
   es: {
     nav_game: 'Juego', nav_farm: 'Granja', nav_guild: 'Gremio', nav_vault: 'Bóveda',
@@ -3279,6 +3572,10 @@ const translations = {
     set_cs_sub: 'Consultas y reportes',
     set_legal: 'Legal', set_terms: 'Términos', set_privacy: 'Privacidad',
     set_account: 'Cuenta', set_delete: 'Eliminar cuenta', set_delete_sub: 'Todos los datos se borrarán',
+    set_qa_title: '🧪 QA Panel', set_qa_sub: 'Tests · State · QA',
+    qa_autotest: '⚡ Auto Test', qa_run_all: '▶ Run All (33)',
+    qa_farm: '🌱 Farm', qa_game: '🎮 Game', qa_guild: '🏰 Guild', qa_ref: '👥 Referral', qa_settle: '💰 Settlement',
+    qa_copy: '📋 Copy Result', qa_state: '📊 State Machine',
     prof_title: 'Mi Perfil', prof_streak: '{days} días seguidos',
     prof_streak_sub: '¡Entra cada día!',
     prof_streak_done: 'Registrado hoy', prof_streak_tap: 'Toca para recompensa',
@@ -3354,6 +3651,48 @@ const translations = {
     mail_tab_reward: 'Premios', mail_tab_event: 'Eventos', mail_tab_notice: 'Noticias',
     mission_tab_daily: 'Diarias', mission_tab_weekly: 'Semanales',
     extra_lucky: '🎰 Campo suerte', extra_unknown: '❓ ???',
+    // tutorial
+    tut_title: 'No son puntos de juego',
+    tut_sub: 'Estructura RWA basada en negocio real\nPago semanal de TON según ranking de gremio',
+    tut_c1: 'Activo a largo plazo', tut_c2_name: 'Ranking de Gremio', tut_c2: 'Cosecha · Asistencia · Juegos', tut_c3: 'Pago semanal',
+    tut_fomo: 'El ranking se reinicia cada semana — nunca es tarde para empezar',
+    tut_start: '🌱 Cosecha tu primera patata',
+    tut_later: 'Más tarde',
+    tut_harvest: '¡Cosecha tu primera patata! 🥔',
+    tut_harvest_done: 'POTATO es un activo acumulativo.\nTu cosecha impulsa al gremio.',
+    tut_puzzle: 'Puzzle → Puntos de Gremio + POTATO! 🧩',
+    tut_puzzle_done: '¡Prueba la batalla!\nMismas recompensas que el puzzle.',
+    tut_battle: '¡Juega como quieras! Mismos puntos de gremio ⚔️',
+    tut_battle_done: 'Los resultados cuentan para el ranking.\n¡Veamos el sistema de recompensas!',
+    tut_guild_title: 'Gremio = Recompensas clave',
+    tut_guild_1: 'Cosecha + Asistencia + Juegos → Puntos de Gremio',
+    tut_guild_2: 'Ranking de Gremio → Pago semanal TON',
+    tut_guild_3: 'El ranking se reinicia cada semana — ¡empieza ya!',
+    tut_guild_join: '🏰 Unirse al Gremio',
+    tut_guild_joined: '¡Estás en un gremio!\nListo para la competencia de ranking.',
+    tut_guild_choose: 'Elige tu Gremio', tut_guild_join_later: 'Unirse después', tut_guild_join_browse: 'Explorar',
+    tut_badge: 'REAL WORLD ASSET', tut_pill_guild: 'GREMIO',
+    tut_vault_potato: 'Activo a largo plazo',
+    tut_vault_ton: 'Pago semanal por ranking',
+    tut_vault_status: 'Confirmado / Pendiente / Retirable = estado TON',
+    tut_vault_done: '🎉 ¡Vamos!',
+    tut_complete: '¡Tutorial completado!\nCosecha · Asiste · Juega diario para premios del gremio.',
+    tut_reward_title: '¡Recompensa del tutorial!', tut_reward_label: 'Recompensa de finalización', tut_reward_cta: 'Reclamar y continuar',
+    tut_resume: 'Continuar tutorial →',
+    tut_s2_title: 'POTATO es un activo acumulativo',
+    tut_s2_msg: 'Cada cosecha aumenta tu contribución al gremio',
+    tut_s2_card_label: 'Recompensa primera cosecha', tut_s2_cta: '🥔 Cosechar', tut_s2_next: '🎁 Asistencia diaria',
+    tut_harvest_result: '¡Cosecha completa!', tut_harvest_result_msg: 'POTATO aumenta la contribución al gremio',
+    tut_s3_title: 'Un motivo para volver cada día',
+    tut_s3_msg: 'La asistencia diaria aumenta la contribución',
+    tut_s3_hl_val: 'Recompensa diaria', tut_s3_hl_label: 'Bono de asistencia de hoy', tut_s3_cta: '🎁 Reclamar bono',
+    tut_s4_title: 'Puzzle = Puntos de gremio',
+    tut_s4_msg: '60s de juego → puntos de gremio + POTATO',
+    tut_s4_hl_val: 'Contribución al gremio UP', tut_s4_hl_label: 'Recompensa puzzle', tut_s4_cta: '🧩 Jugar puzzle',
+    tut_s5_title: 'La batalla da las mismas recompensas',
+    tut_s5_msg: 'Contenido principal equivalente — elige tu estilo',
+    tut_s5_hl_val: 'Contribución al gremio UP', tut_s5_hl_label: 'Recompensa de batalla', tut_s5_cta: '⚔️ Entrar en batalla',
+    tut_s7_title: 'POTATO ≠ TON', tut_s7_msg: 'Dos activos, dos roles diferentes',
   },
   id: {
     nav_game: 'Game', nav_farm: 'Kebun', nav_guild: 'Guild', nav_vault: 'Brankas',
@@ -3434,6 +3773,10 @@ const translations = {
     set_cs_sub: 'Pertanyaan & laporan bug',
     set_legal: 'Hukum', set_terms: 'Ketentuan', set_privacy: 'Privasi',
     set_account: 'Akun', set_delete: 'Hapus Akun', set_delete_sub: 'Semua data akan dihapus',
+    set_qa_title: '🧪 QA Panel', set_qa_sub: 'Tests · State · QA',
+    qa_autotest: '⚡ Auto Test', qa_run_all: '▶ Run All (33)',
+    qa_farm: '🌱 Farm', qa_game: '🎮 Game', qa_guild: '🏰 Guild', qa_ref: '👥 Referral', qa_settle: '💰 Settlement',
+    qa_copy: '📋 Copy Result', qa_state: '📊 State Machine',
     prof_title: 'Profil', prof_streak: '{days} hari berturut-turut',
     prof_streak_sub: 'Login setiap hari ya!',
     prof_streak_done: 'Sudah absen', prof_streak_tap: 'Ketuk untuk hadiah',
@@ -3509,6 +3852,48 @@ const translations = {
     mail_tab_reward: 'Hadiah', mail_tab_event: 'Event', mail_tab_notice: 'Info',
     mission_tab_daily: 'Harian', mission_tab_weekly: 'Mingguan',
     extra_lucky: '🎰 Ladang hoki', extra_unknown: '❓ ???',
+    // tutorial
+    tut_title: 'Ini bukan poin game',
+    tut_sub: 'Struktur RWA berbasis bisnis nyata\nPembayaran TON mingguan sesuai ranking guild',
+    tut_c1: 'Aset jangka panjang', tut_c2_name: 'Ranking Guild', tut_c2: 'Panen · Absen · Game', tut_c3: 'Pembayaran mingguan',
+    tut_fomo: 'Ranking direset tiap minggu — mulai sekarang tidak terlambat',
+    tut_start: '🌱 Panen kentang pertamamu',
+    tut_later: 'Nanti saja',
+    tut_harvest: 'Panen kentang pertamamu! 🥔',
+    tut_harvest_done: 'POTATO adalah aset yang terus bertambah.\nHasil panen membantu pertumbuhan guild.',
+    tut_puzzle: 'Main puzzle → Poin Guild + POTATO! 🧩',
+    tut_puzzle_done: 'Coba mode pertempuran!\nHadiah sama seperti puzzle.',
+    tut_battle: 'Main sesukamu! Poin guild yang sama ⚔️',
+    tut_battle_done: 'Hasil game masuk ranking guild.\nAyo lihat sistem hadiahnya!',
+    tut_guild_title: 'Guild = Hadiah Utama',
+    tut_guild_1: 'Panen + Absen + Game → Poin Guild',
+    tut_guild_2: 'Ranking Guild → Pembayaran TON mingguan',
+    tut_guild_3: 'Ranking direset tiap minggu — mulai sekarang!',
+    tut_guild_join: '🏰 Gabung Guild',
+    tut_guild_joined: 'Kamu di guild!\nSiap untuk kompetisi ranking.',
+    tut_guild_choose: 'Pilih Guild Anda', tut_guild_join_later: 'Gabung nanti', tut_guild_join_browse: 'Lihat-lihat',
+    tut_badge: 'REAL WORLD ASSET', tut_pill_guild: 'GUILD',
+    tut_vault_potato: 'Aset jangka panjang',
+    tut_vault_ton: 'Pembayaran mingguan per ranking',
+    tut_vault_status: 'Dikonfirmasi / Tertunda / Bisa ditarik = status TON',
+    tut_vault_done: '🎉 Mulai!',
+    tut_complete: 'Tutorial selesai!\nPanen · Absen · Main tiap hari untuk hadiah guild.',
+    tut_reward_title: 'Hadiah tutorial!', tut_reward_label: 'Hadiah penyelesaian', tut_reward_cta: 'Klaim & Lanjutkan',
+    tut_resume: 'Lanjutkan tutorial →',
+    tut_s2_title: 'POTATO adalah aset yang terus tumbuh',
+    tut_s2_msg: 'Setiap panen meningkatkan kontribusi guild',
+    tut_s2_card_label: 'Hadiah panen pertama', tut_s2_cta: '🥔 Panen Sekarang', tut_s2_next: '🎁 Klaim Absensi',
+    tut_harvest_result: 'Panen selesai!', tut_harvest_result_msg: 'POTATO meningkatkan kontribusi guild',
+    tut_s3_title: 'Alasan untuk kembali setiap hari',
+    tut_s3_msg: 'Absensi harian meningkatkan kontribusi guild',
+    tut_s3_hl_val: 'Hadiah harian', tut_s3_hl_label: 'Bonus absensi hari ini', tut_s3_cta: '🎁 Klaim bonus',
+    tut_s4_title: 'Puzzle = Poin guild',
+    tut_s4_msg: '60 detik main → poin guild + POTATO',
+    tut_s4_hl_val: 'Kontribusi Guild UP', tut_s4_hl_label: 'Hadiah puzzle', tut_s4_cta: '🧩 Main Puzzle',
+    tut_s5_title: 'Battle memberikan hadiah yang sama',
+    tut_s5_msg: 'Konten utama setara — pilih sesuai selera',
+    tut_s5_hl_val: 'Kontribusi Guild UP', tut_s5_hl_label: 'Hadiah battle', tut_s5_cta: '⚔️ Masuk Battle',
+    tut_s7_title: 'POTATO ≠ TON', tut_s7_msg: 'Dua aset, dua peran berbeda',
   },
 };
 
@@ -3613,6 +3998,421 @@ function closeLangPanel() {
   if (titleEl) titleEl.textContent = t('set_title');
 }
 
+/* ═══ TUTORIAL SYSTEM ═══ */
+var TUT={step:0,completed:false,dismissed:false};
+try{var _ts=localStorage.getItem('pk_tutorial');if(_ts)TUT=JSON.parse(_ts)}catch(e){}
+function saveTut(){localStorage.setItem('pk_tutorial',JSON.stringify(TUT))}
+function tutStep(n){TUT.step=n;saveTut()}
+
+/* cleanup helpers */
+function tutClearOverlay(){var o=document.getElementById('tutOverlay');if(o)o.remove()}
+function tutClearCoach(){
+  document.querySelectorAll('.tut-coach-bg,.tut-bubble,.tut-banner').forEach(function(e){e.remove()});
+  document.querySelectorAll('.tut-highlight').forEach(function(e){e.classList.remove('tut-highlight')});
+}
+
+/* ── 코치마크 공통 헬퍼 ── */
+/* 요소가 실제로 화면에 보이는지 확인 */
+function tutEnsureVisible(el){
+  if(!el)return false;
+  var r=el.getBoundingClientRect();
+  return r.width>0&&r.height>0&&r.bottom>0&&r.top<window.innerHeight;
+}
+/* dim bg + bubble 배치 — top 기반 계산으로 off-screen 버그 방지 */
+function placeTutBubble(el,html,pos){
+  pos=pos||'above';
+  var app=document.getElementById('app');
+  var appR=app.getBoundingClientRect();
+  var r=el.getBoundingClientRect();
+  var bg=document.createElement('div');bg.className='tut-coach-bg';app.appendChild(bg);
+  var bb=document.createElement('div');
+  var topVal,finalPos=pos;
+  if(pos==='above'){
+    topVal=r.top-100-12; /* 버블 높이 ~100px + 간격 12px */
+    if(topVal<appR.top+10){finalPos='below';topVal=r.bottom+12;}
+  }else{
+    topVal=r.bottom+12;
+    if(topVal+100>appR.bottom-10){finalPos='above';topVal=r.top-100-12;}
+  }
+  /* viewport 내부로 clamp */
+  topVal=Math.max(appR.top+10,Math.min(appR.bottom-110,topVal));
+  bb.className='tut-bubble '+finalPos;
+  bb.style.cssText='top:'+topVal+'px;left:50%;transform:translateX(-50%)';
+  bb.innerHTML=html;
+  app.appendChild(bb);
+  return bb;
+}
+
+/* ── 단계 진행 점 표시 (cur=1~7, cur=8이면 전부 완료) ── */
+function tutProgressDots(cur){
+  var h='<div class="tut-dots">';
+  for(var i=1;i<=7;i++){var c=i<cur?'dn':i===cur?'act':'';h+='<div class="tut-dot '+c+'"></div>';}
+  return h+'</div>';
+}
+
+/* ── 화면1: 웰컴 오버레이 ── */
+function tutWelcome(){
+  tutClearOverlay();tutClearCoach();
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(1)+
+    /* ── HERO ── */
+    '<div class="tut-hero">'+
+      '<div class="tut-hero-comp">'+
+        '<div class="tut-hero-icon">🥔</div>'+
+        '<div class="tut-hero-pills">'+
+          '<span class="tut-hero-pill ton">💎 TON</span>'+
+          '<span class="tut-hero-pill guild">🏰 '+t('tut_pill_guild')+'</span>'+
+          '<span class="tut-hero-pill rwa">🌍 RWA</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="tut-hero-badge">'+t('tut_badge')+'</div>'+
+      '<div class="tut-hero-title">'+t('tut_title')+'</div>'+
+      '<div class="tut-hero-sub">'+t('tut_sub')+'</div>'+
+    '</div>'+
+    /* ── CARDS ── */
+    '<div class="tut-cards">'+
+      '<div class="tut-card-item"><div class="tut-card-icon">🥔</div><div class="tut-card-name">POTATO</div><div class="tut-card-desc">'+t('tut_c1')+'</div></div>'+
+      '<div class="tut-card-item"><div class="tut-card-icon">🏰</div><div class="tut-card-name">'+t('tut_c2_name')+'</div><div class="tut-card-desc">'+t('tut_c2')+'</div></div>'+
+      '<div class="tut-card-item"><div class="tut-card-icon">💎</div><div class="tut-card-name">TON</div><div class="tut-card-desc">'+t('tut_c3')+'</div></div>'+
+    '</div>'+
+    /* ── BOTTOM ── */
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutStartStep1()">'+t('tut_start')+'</button>'+
+      '<button class="tut-skip" onclick="tutDismiss()">'+t('tut_later')+'</button>'+
+      '<div class="tut-fomo">'+t('tut_fomo')+'</div>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+
+function tutStartStep1(){
+  tutClearOverlay();tutStep(1);
+  var ns=document.querySelectorAll('.ni');sTab('farm',ns[1]);
+  setTimeout(tutHarvest,400);
+}
+
+function tutDismiss(){
+  tutClearOverlay();tutClearCoach();
+  TUT.dismissed=true;saveTut();
+}
+
+/* ── 화면2: 첫 수확 — 오버레이 카드 ── */
+function tutHarvest(){
+  if(TUT.step!==1)return;
+  tutClearOverlay();tutClearCoach();
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(2)+
+    '<div class="tut-step-pad">'+
+      '<span class="tut-step-icon">🥔</span>'+
+      '<div class="tut-step-h1">'+t('tut_s2_title')+'</div>'+
+      '<div class="tut-step-sub">'+t('tut_s2_msg')+'</div>'+
+    '</div>'+
+    '<div class="tut-hl green">'+
+      '<div class="tut-hl-icon">🥔</div>'+
+      '<div class="tut-hl-val green">+100 POTATO</div>'+
+      '<div class="tut-hl-lbl">'+t('tut_s2_card_label')+'</div>'+
+    '</div>'+
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutDoHarvest()">'+t('tut_s2_cta')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+function tutDoHarvest(){
+  tutClearOverlay();
+  /* 수확 전에 yield 저장 — doHarvest 후 slot이 리셋되어 0이 되기 때문 */
+  window._tutHarvestAmt=(FARMS&&FARMS[0]&&FARMS[0].yieldPotato>0)?FARMS[0].yieldPotato:100;
+  var ns=document.querySelectorAll('.ni');sTab('farm',ns[1]);
+  setTimeout(function(){doHarvest(0,1);},250);
+}
+
+/* harvest 성공 후 호출 — 보상 카드 */
+function tutAfterHarvest(){
+  if(TUT.step!==1)return;tutStep(2);
+  var earned=window._tutHarvestAmt||100;
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(2)+
+    '<div class="tut-step-pad">'+
+      '<span class="tut-step-icon">🎉</span>'+
+      '<div class="tut-step-h1">'+t('tut_harvest_result')+'</div>'+
+    '</div>'+
+    '<div class="tut-hl green">'+
+      '<div class="tut-hl-icon">🥔</div>'+
+      '<div class="tut-hl-val green">+'+earned+' POTATO</div>'+
+      '<div class="tut-hl-lbl">'+t('tut_s2_card_label')+'</div>'+
+    '</div>'+
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutClearOverlay();tutAttendance()">'+t('tut_s2_next')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+
+/* ── 화면3: 출석 — 오버레이 카드 ── */
+function tutAttendance(){
+  if(TUT.step!==2)return;
+  tutClearOverlay();
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(3)+
+    '<div class="tut-step-pad">'+
+      '<span class="tut-step-icon">📅</span>'+
+      '<div class="tut-step-h1">'+t('tut_s3_title')+'</div>'+
+      '<div class="tut-step-sub">'+t('tut_s3_msg')+'</div>'+
+    '</div>'+
+    '<div class="tut-hl gold">'+
+      '<div class="tut-hl-icon">🎁</div>'+
+      '<div class="tut-hl-val gold">'+t('tut_s3_hl_val')+'</div>'+
+      '<div class="tut-hl-lbl">'+t('tut_s3_hl_label')+'</div>'+
+    '</div>'+
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutClearOverlay();showAttendancePopup()">'+t('tut_s3_cta')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+function tutAfterAttendance(){
+  if(TUT.step!==2)return;tutStep(3);
+  var ns=document.querySelectorAll('.ni');sTab('game',ns[0]);
+  setTimeout(tutPuzzle,400);
+}
+
+/* ── 화면4: 퍼즐 — 오버레이 카드 ── */
+function tutPuzzle(){
+  if(TUT.step!==3)return;
+  tutClearOverlay();tutClearCoach();
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(4)+
+    '<div class="tut-step-pad">'+
+      '<span class="tut-step-icon">🧩</span>'+
+      '<div class="tut-step-h1">'+t('tut_s4_title')+'</div>'+
+      '<div class="tut-step-sub">'+t('tut_s4_msg')+'</div>'+
+    '</div>'+
+    '<div class="tut-hl gold">'+
+      '<div class="tut-hl-icon">🏰</div>'+
+      '<div class="tut-hl-val gold">'+t('tut_s4_hl_val')+'</div>'+
+      '<div class="tut-hl-lbl">'+t('tut_s4_hl_label')+'</div>'+
+    '</div>'+
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutDoPuzzle()">'+t('tut_s4_cta')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+function tutDoPuzzle(){
+  tutClearOverlay();
+  setTimeout(function(){doCompletePuzzle(Math.round(400+Math.random()*200));},200);
+}
+function tutAfterPuzzle(){
+  if(TUT.step!==3)return;tutClearCoach();tutStep(4);
+  setTimeout(tutBattle,300);
+}
+
+/* ── 화면5: 수호전 — 오버레이 카드 ── */
+function tutBattle(){
+  if(TUT.step!==4)return;
+  tutClearOverlay();tutClearCoach();
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(5)+
+    '<div class="tut-step-pad">'+
+      '<span class="tut-step-icon">⚔️</span>'+
+      '<div class="tut-step-h1">'+t('tut_s5_title')+'</div>'+
+      '<div class="tut-step-sub">'+t('tut_s5_msg')+'</div>'+
+    '</div>'+
+    '<div class="tut-hl red">'+
+      '<div class="tut-hl-icon">⚔️</div>'+
+      '<div class="tut-hl-val red">'+t('tut_s5_hl_val')+'</div>'+
+      '<div class="tut-hl-lbl">'+t('tut_s5_hl_label')+'</div>'+
+    '</div>'+
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" style="background:linear-gradient(135deg,#ff7060,#e03030,#c02020);box-shadow:0 4px 20px rgba(220,48,48,.35)" onclick="tutDoBattle()">'+t('tut_s5_cta')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+function tutDoBattle(){
+  tutClearOverlay();
+  setTimeout(function(){enterBattle();},200);
+}
+function tutAfterBattle(){
+  if(TUT.step!==4)return;tutClearCoach();tutStep(5);
+  setTimeout(tutGuild,300);
+}
+
+/* ── 화면6a: 길드 구조 — 오버레이 카드 ── */
+function tutGuild(){
+  if(TUT.step!==5)return;
+  tutClearOverlay();
+  var ns=document.querySelectorAll('.ni');sTab('guild',ns[2]);
+  setTimeout(function(){
+    var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+    ov.innerHTML='<div class="tut-card">'+
+      tutProgressDots(6)+
+      '<div class="tut-step-pad" style="padding-bottom:12px">'+
+        '<span class="tut-step-icon">🏰</span>'+
+        '<div class="tut-step-h1">'+t('tut_guild_title')+'</div>'+
+      '</div>'+
+      '<div style="padding:0 16px 12px">'+
+        '<div class="tut-guild-row potato"><span style="font-size:18px">🥔</span><span>'+t('tut_guild_1')+'</span></div>'+
+        '<div class="tut-guild-row ton"><span style="font-size:18px">💎</span><span>'+t('tut_guild_2')+'</span></div>'+
+        '<div class="tut-guild-row gold"><span style="font-size:18px">🔄</span><span>'+t('tut_guild_3')+'</span></div>'+
+      '</div>'+
+      '<div class="tut-bottom">'+
+        '<button class="tut-btn tut-btn-main" onclick="tutGuildJoin()">'+t('tut_guild_join')+'</button>'+
+      '</div>'+
+    '</div>';
+    document.getElementById('app').appendChild(ov);
+  },300);
+}
+
+/* 화면6b: 길드 가입 3선택지 */
+function tutGuildJoin(){
+  tutClearOverlay();
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(6)+
+    '<div class="tut-step-pad" style="padding-bottom:14px">'+
+      '<span class="tut-step-icon">🏰</span>'+
+      '<div class="tut-step-h1">'+t('tut_guild_choose')+'</div>'+
+    '</div>'+
+    '<div style="padding:0 16px 20px;display:flex;flex-direction:column;gap:8px">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutGuildDoJoin()">'+t('tut_guild_join')+'</button>'+
+      '<button class="tut-btn" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--tx);font-size:14px;font-weight:700;margin-top:0" onclick="tutClearOverlay();tutVault()">'+t('tut_guild_join_later')+'</button>'+
+      '<button class="tut-skip" style="margin-top:0;padding:8px" onclick="tutClearOverlay();tutVault()">'+t('tut_guild_join_browse')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+
+function tutGuildDoJoin(){
+  tutClearOverlay();
+  var firstBtn=document.querySelector('.gj-guild-row .btn');
+  if(firstBtn){
+    firstBtn.click();
+    setTimeout(function(){
+      showInfo('🎉',t('tut_guild_joined'));
+      setTimeout(tutVault,1500);
+    },500);
+  }else{
+    tutVault();
+  }
+}
+
+/* 화면6c: 금고 — POTATO ≠ TON 오버레이 카드 */
+function tutVault(){
+  tutStep(6);
+  tutClearOverlay();tutClearCoach();
+  var ns=document.querySelectorAll('.ni');sTab('vault',ns[3]);
+  var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+  ov.innerHTML='<div class="tut-card">'+
+    tutProgressDots(7)+
+    '<div class="tut-step-pad">'+
+      '<span class="tut-step-icon">💰</span>'+
+      '<div class="tut-step-h1">'+t('tut_s7_title')+'</div>'+
+      '<div class="tut-step-sub">'+t('tut_s7_msg')+'</div>'+
+    '</div>'+
+    '<div class="tut-2col">'+
+      '<div class="tut-2col-item green">'+
+        '<div class="tut-2col-icon">🥔</div>'+
+        '<div class="tut-2col-name green">POTATO</div>'+
+        '<div class="tut-2col-desc">'+t('tut_vault_potato')+'</div>'+
+      '</div>'+
+      '<div class="tut-2col-item blue">'+
+        '<div class="tut-2col-icon">💎</div>'+
+        '<div class="tut-2col-name blue">TON</div>'+
+        '<div class="tut-2col-desc">'+t('tut_vault_ton')+'</div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="text-align:center;font-size:10px;color:var(--dim);padding:0 16px 6px;line-height:1.5">'+t('tut_vault_status')+'</div>'+
+    '<div class="tut-bottom">'+
+      '<button class="tut-btn tut-btn-main" onclick="tutComplete()">'+t('tut_vault_done')+'</button>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('app').appendChild(ov);
+}
+
+/* 완료 */
+function tutComplete(){
+  tutClearOverlay();tutClearCoach();
+  TUT.step=7;TUT.completed=true;TUT.dismissed=false;saveTut();
+  var ns=document.querySelectorAll('.ni');sTab('farm',ns[1]);
+  /* 완료 보상 — 최초 1회만 지급 */
+  if(!TUT.rewardClaimed){
+    TUT.rewardClaimed=true;saveTut();
+    S.potato+=48;S.diamond+=30;
+    addVaultLog('potato',t('tut_reward_label'),48,'tutorial');
+    addVaultLog('diamond',t('tut_reward_label'),30,'tutorial');
+    renderAll();
+    /* 보상 팝업 */
+    var ov=document.createElement('div');ov.id='tutOverlay';ov.className='tut-overlay';
+    ov.innerHTML='<div class="tut-card" style="text-align:center">'+
+      tutProgressDots(8)+
+      '<div style="padding:16px 20px 0">'+
+      '<div style="font-size:40px;margin-bottom:8px">🎉</div>'+
+      '<h2 style="font-size:20px;margin:0 0 12px;font-weight:900">'+t('tut_reward_title')+'</h2>'+
+      '<div style="display:flex;justify-content:center;gap:14px;margin-bottom:16px">'+
+        '<div style="background:rgba(76,216,48,.08);border:1px solid rgba(76,216,48,.2);border-radius:12px;padding:12px 18px">'+
+          '<div style="font-size:22px">🥔</div>'+
+          '<div style="font-size:18px;font-weight:900;color:var(--potato)">+48</div>'+
+          '<div style="font-size:10px;color:var(--dim)">POTATO</div>'+
+        '</div>'+
+        '<div style="background:rgba(0,152,234,.08);border:1px solid rgba(0,152,234,.2);border-radius:12px;padding:12px 18px">'+
+          '<div style="font-size:22px">💎</div>'+
+          '<div style="font-size:18px;font-weight:900;color:var(--dia)">+30</div>'+
+          '<div style="font-size:10px;color:var(--dim)">DIAMOND</div>'+
+        '</div>'+
+      '</div>'+
+      '<div style="font-size:11px;color:var(--dim);margin-bottom:16px;line-height:1.6;white-space:pre-line">'+t('tut_complete')+'</div>'+
+      '<button class="tut-btn tut-btn-main" onclick="tutClearOverlay()">'+t('tut_reward_cta')+'</button>'+
+      '</div>'+  /* padding wrapper close */
+    '</div>';
+    document.getElementById('app').appendChild(ov);
+  }else{
+    showInfo('🎉',t('tut_complete'));
+  }
+}
+
+/* 이어하기 배너 */
+function tutShowBanner(){
+  if(TUT.completed||TUT.step===0)return;
+  var existing=document.querySelector('.tut-banner');if(existing)return;
+  var b=document.createElement('div');b.className='tut-banner';
+  b.innerHTML='📚 '+t('tut_resume');
+  b.onclick=function(){b.remove();tutResume()};
+  var ct=document.getElementById('ctaBanner');
+  if(ct)ct.parentNode.insertBefore(b,ct.nextSibling);
+}
+
+function tutResume(){
+  if(TUT.step<1||TUT.step>6)return;
+  var ns=document.querySelectorAll('.ni');
+  /* step별 탭 전환 — getBoundingClientRect()가 정상 작동하려면 반드시 탭이 먼저 활성화되어야 함 */
+  var stepTab={
+    1:function(){sTab('farm',ns[1]);},
+    3:function(){sTab('game',ns[0]);},
+    4:function(){sTab('game',ns[0]);},
+    5:function(){sTab('guild',ns[2]);},
+    6:function(){sTab('vault',ns[3]);}
+  };
+  var fns=[null,tutHarvest,tutAttendance,tutPuzzle,tutBattle,tutGuild,tutVault];
+  if(stepTab[TUT.step])stepTab[TUT.step]();
+  /* 오버레이 기반으로 전환 — 탭 애니메이션 후 바로 오버레이 표시 */
+  var delay=(TUT.step===2)?0:200;
+  if(fns[TUT.step])setTimeout(fns[TUT.step],delay);
+}
+
+/* 설정에서 다시 보기 — 학습용 재실행, 완료 보상은 재지급 금지 */
+function tutReset(){
+  var rc=TUT.rewardClaimed||false;
+  TUT={step:0,completed:false,dismissed:false,rewardClaimed:rc};saveTut();
+  tutWelcome();
+}
+
 /* INIT */
 buildReel('reelGuild',fmtT(S.guildReward),34);
 buildReel('vaultTonPending','~'+fmtT(S.guildReward),18);
@@ -3622,11 +4422,17 @@ renderFarmSlots();
 FARMS.forEach(function(_,i){renderFarm(i)});
 renderCTA();
 updateDday();
-applyLang(currentLang); /**/
-/**/
-if(ATT.lastClaimDate!==getTodayStr()){ATT.todayClaimed=false;setTimeout(showAttendancePopup,800)}
-/**/
-/**/
+applyLang(currentLang);
+/* 첫 탭 = 농장 */
+var _initNs=document.querySelectorAll('.ni');sTab('farm',_initNs[1]);
+/* 튜토리얼 / 출석 분기 */
+if(!TUT.completed&&!TUT.dismissed&&TUT.step===0){
+  setTimeout(tutWelcome,500);
+}else if(!TUT.completed&&TUT.step>0&&TUT.step<7){
+  tutShowBanner();
+}else{
+  if(ATT.lastClaimDate!==getTodayStr()){ATT.todayClaimed=false;setTimeout(showAttendancePopup,800)}
+}
 
 /* ═══ E2E QA VERIFICATION ENGINE ═══
  * 콘솔에서 runQA() 실행 → 전체 상태 전이 + 정합성 자동 검증
