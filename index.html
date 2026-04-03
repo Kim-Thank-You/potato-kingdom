@@ -527,7 +527,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .farm-harvest-btn:active{animation:none;transform:translateY(3px) scale(.98);box-shadow:0 1px 0 rgba(160,100,0,.4)}
 .farm-view{display:none}.farm-view.active{display:block}
 /* Farm scroll-down chevron */
-.farm-scroll-btn{position:absolute;bottom:min(42px,5.2vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
+.farm-scroll-btn{position:absolute;bottom:var(--scroll-btn-bottom,60px);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
 .farm-scroll-btn svg{width:28px;height:28px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
 .farm-scroll-btn:active{transform:translateX(-50%) scale(.9);animation:none}
 .farm-scroll-btn.hidden{opacity:0;pointer-events:none;visibility:hidden}
@@ -547,7 +547,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:var(--gap) 0;margin:0 !important;height:var(--content-h);box-sizing:border-box}
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
-#tab-game{padding-bottom:600px}
+#tab-game{padding-top:0;padding-bottom:600px}
 .game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;gap:var(--gap);box-sizing:border-box}
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
@@ -2473,6 +2473,9 @@ function updateContentH(){
   var ctaRect=ctaBanner.getBoundingClientRect();
   var contentH=navRect.top-ctaRect.bottom;
   document.documentElement.style.setProperty('--content-h',contentH+'px');
+  // 스크롤 버튼을 네비 상단선에 중앙 걸치게
+  var navTopFromBottom=window.innerHeight-navRect.top;
+  document.documentElement.style.setProperty('--scroll-btn-bottom',(navTopFromBottom-15)+'px');
 }
 setTimeout(updateContentH,100);
 setTimeout(updateContentH,500);
