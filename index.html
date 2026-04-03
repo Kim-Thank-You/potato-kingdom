@@ -527,12 +527,11 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .farm-harvest-btn:active{animation:none;transform:translateY(3px) scale(.98);box-shadow:0 1px 0 rgba(160,100,0,.4)}
 .farm-view{display:none}.farm-view.active{display:block}
 /* Farm scroll-down chevron */
-.farm-scroll-btn{position:absolute;bottom:min(76px,9.5vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
+.farm-scroll-btn{position:absolute;bottom:min(56px,7vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
 .farm-scroll-btn svg{width:28px;height:28px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
 .farm-scroll-btn:active{transform:translateX(-50%) scale(.9);animation:none}
 .farm-scroll-btn.hidden{opacity:0;pointer-events:none;visibility:hidden}
 @keyframes farmChevBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(4px)}}
-@keyframes waveTransition{0%{filter:blur(0);transform:scale(1)}15%{filter:blur(3px);transform:scale(0.98) skewX(1deg)}30%{filter:blur(2px);transform:scale(1.01) skewX(-0.5deg)}50%{filter:blur(1.5px);transform:scale(0.995) skewY(0.5deg)}70%{filter:blur(0.5px);transform:scale(1.005) skewX(0.3deg)}100%{filter:blur(0);transform:scale(1)}}
 /* Farm tab: snap scrolling */
 #tab-farm{padding-bottom:600px}
 .farm-fold{height:calc(var(--content-h) - var(--gap)*2);display:flex;flex-direction:column;padding-bottom:0;margin-top:var(--gap)}
@@ -543,8 +542,8 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-guild{padding-top:0;padding-bottom:300px}
 #guild-nojoin{min-height:100%;padding-top:0}
 .guild-fold{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0;height:calc(var(--content-h) - var(--gap)*2)}
-.guild-fold .gs-banner{flex:1;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important}
-.guild-fold .gs-entry{flex:2;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important}
+.guild-fold .gs-banner{flex:1;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important;overflow:hidden}
+.guild-fold .gs-entry{flex:2;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important;overflow:hidden}
 #tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0 !important;height:calc(var(--content-h) - var(--gap)*2)}
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
@@ -553,8 +552,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:calc(var(--content-h) - var(--gap)*2);margin-top:var(--gap)}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
-.game-card-compact{padding:20px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px}
-.game-card-compact+.game-card-compact{margin-top:6px}
+.game-card-compact{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;margin:0 !important}
 .game-card-compact .t-hero{font-size:20px;margin-bottom:0}
 .game-card-compact .t-desc{margin-bottom:0}
 .game-card-compact .btn-play,.game-card-compact .btn-fight{padding:14px 20px;min-height:var(--h-xl);margin-top:auto}
@@ -2288,59 +2286,15 @@ function getPageHeight(){
   if(!nav||!cta)return 600;
   return nav.getBoundingClientRect().top-cta.getBoundingClientRect().bottom;
 }
-function elasticScrollTo(el,target,duration,cb){
-  duration=duration||800;
-  var start=el.scrollTop;
-  var diff=target-start;
-  var startTime=null;
-  function ease(t){
-    if(t===0||t===1)return t;
-    return Math.pow(2,-10*t)*Math.sin((t-0.075)*2*Math.PI/0.3)+1;
-  }
-  function step(ts){
-    if(!startTime)startTime=ts;
-    var progress=Math.min((ts-startTime)/duration,1);
-    el.scrollTop=start+diff*ease(progress);
-    if(progress<1){requestAnimationFrame(step)}else{if(cb)cb()}
-  }
-  requestAnimationFrame(step);
-}
 function pageScroll(tabId){
   var container=document.getElementById(tabId);
   if(!container)return;
   var h=getPageHeight();
-  spawnScrollParticles();
-  // snap 임시 해제
-  var hadSnap=container.style.scrollSnapType||getComputedStyle(container).scrollSnapType;
-  container.style.scrollSnapType='none';
   if(container.scrollTop>50){
-    elasticScrollTo(container,0,800,function(){container.style.scrollSnapType=''});
+    container.scrollTo({top:0,behavior:'smooth'});
   }else{
     var maxScroll=container.scrollHeight-container.clientHeight;
-    elasticScrollTo(container,Math.min(container.scrollTop+h,maxScroll),800,function(){container.style.scrollSnapType=''});
-  }
-}
-function spawnScrollParticles(){
-  var emojis=['🥔','🥔','🌱','✨','💎','🥔'];
-  var btn=document.querySelector('.farm-scroll-btn:not(.hidden)');
-  if(!btn)return;
-  var rect=btn.getBoundingClientRect();
-  var cx=rect.left+rect.width/2;
-  var cy=rect.top+rect.height/2;
-  for(var i=0;i<12;i++){
-    var p=document.createElement('div');
-    p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    p.style.cssText='position:fixed;z-index:9999;font-size:'+(22+Math.random()*14)+'px;pointer-events:none;left:'+cx+'px;top:'+cy+'px;transition:all 1.5s cubic-bezier(.34,1.56,.64,1);opacity:1';
-    document.body.appendChild(p);
-    var angle=Math.random()*Math.PI*2;
-    var dist=60+Math.random()*80;
-    var dx=Math.cos(angle)*dist;
-    var dy=Math.sin(angle)*dist;
-    requestAnimationFrame(function(el,dx,dy){return function(){
-      el.style.transform='translate('+dx+'px,'+dy+'px) scale(0.3) rotate('+(Math.random()*360)+'deg)';
-      el.style.opacity='0';
-    }}(p,dx,dy));
-    setTimeout(function(el){return function(){el.remove()}}(p),1500);
+    container.scrollTo({top:Math.min(container.scrollTop+h,maxScroll),behavior:'smooth'});
   }
 }
 function farmScrollNext(){pageScroll('tab-farm')}
