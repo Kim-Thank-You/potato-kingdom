@@ -38,7 +38,7 @@
 --sa-left:env(safe-area-inset-left,0px);--sa-right:env(safe-area-inset-right,0px);
 --tma-top:var(--sa-top);--tma-bot:var(--sa-bot);
 --gap:20px;
---content-h:calc(100dvh - var(--tma-top) - var(--tma-bot) - 57px - 60px - 96px);
+--content-h:100vh;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 button,a,[onclick]{cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0)}
@@ -2514,6 +2514,20 @@ applyTmaSafeArea();
 Telegram.WebApp.onEvent('safeAreaChanged',applyTmaSafeArea);
 Telegram.WebApp.onEvent('contentSafeAreaChanged',applyTmaSafeArea);
 }}catch(e){}})();
+/* 실측 기반 --content-h 계산 */
+function updateContentH(){
+  var topBar=document.getElementById('topBar');
+  var ctaBanner=document.getElementById('ctaBanner');
+  var nav=document.getElementById('mainNav');
+  if(!topBar||!ctaBanner||!nav)return;
+  var navRect=nav.getBoundingClientRect();
+  var ctaRect=ctaBanner.getBoundingClientRect();
+  var contentH=navRect.top-ctaRect.bottom;
+  document.documentElement.style.setProperty('--content-h',contentH+'px');
+}
+setTimeout(updateContentH,100);
+setTimeout(updateContentH,500);
+window.addEventListener('resize',updateContentH);
 function fmtC(v){if(v>=1e6)return(v/1e6).toFixed(1)+'M';if(v>=1e3)return(v/1e3).toFixed(1)+'K';return v%1===0?''+v:v.toFixed(1)}
 function fmtFull(v){return Math.floor(v).toLocaleString()}
 function farmBalSize(s){var l=s.length;if(l<=5)return 56;if(l<=6)return 48;if(l<=7)return 40;if(l<=9)return 34;if(l<=11)return 28;return 22}
