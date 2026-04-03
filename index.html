@@ -527,7 +527,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .farm-harvest-btn:active{animation:none;transform:translateY(3px) scale(.98);box-shadow:0 1px 0 rgba(160,100,0,.4)}
 .farm-view{display:none}.farm-view.active{display:block}
 /* Farm scroll-down chevron */
-.farm-scroll-btn{position:absolute;bottom:min(56px,7vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
+.farm-scroll-btn{position:absolute;bottom:min(72px,9vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
 .farm-scroll-btn svg{width:28px;height:28px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
 .farm-scroll-btn:active{transform:translateX(-50%) scale(.9);animation:none}
 .farm-scroll-btn.hidden{opacity:0;pointer-events:none;visibility:hidden}
@@ -544,7 +544,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .guild-fold{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0;height:calc(var(--content-h) - var(--gap)*2)}
 .guild-fold .gs-banner{flex:1;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important;overflow:hidden}
 .guild-fold .gs-entry{flex:2;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important;overflow:hidden}
-#tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0 !important;height:calc(var(--content-h) - var(--gap)*2)}
+#tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:var(--gap) 0;margin:0 !important;height:var(--content-h);box-sizing:border-box}
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-bottom:600px}
@@ -1132,12 +1132,6 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 <!-- Game 2nd Fold: Next Game -->
 <div data-game-section="1">
-<!-- TICKER (duplicate) -->
-<div class="ticker"><div class="ticker-inner">
-<div class="ticker-line" style="color:var(--gold)" data-i18n="game_ticker1">🏆 내 최고 점수: 45.2K!</div>
-<div class="ticker-line" style="color:var(--ton)" data-i18n="game_ticker2">📈 3위까지 800점! 예상 보상 +0.2 TON ↑</div>
-<div class="ticker-line" style="color:var(--potato)" data-i18n="game_ticker3">🔥 퍼즐 플레이 → 농장 성장 30분 단축!</div>
-</div></div>
 <!-- NEXT GAME — COMING SOON -->
 <div class="cd" style="margin-top:4px;border:.5px dashed rgba(255,255,255,.06);background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(76,216,48,.02));position:relative;overflow:hidden;opacity:.85">
   <!-- glimmer bg -->
