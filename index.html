@@ -548,14 +548,14 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-top:0;padding-bottom:600px}
-.game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;gap:var(--gap);box-sizing:border-box}
+.game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:4px 0 var(--gap) 0;gap:4px;box-sizing:border-box}
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
-.game-card-compact{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;margin:0 !important}
+.game-card-compact{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px;margin:0 !important}
 .game-card-compact .t-hero{font-size:20px;margin-bottom:0}
 .game-card-compact .t-desc{margin-bottom:0}
-.game-card-compact .btn-play,.game-card-compact .btn-fight{padding:14px 20px;min-height:var(--h-xl);margin-top:auto}
+.game-card-compact .btn-play,.game-card-compact .btn-fight{padding:14px 20px;min-height:var(--h-xl);margin-top:auto;width:100%}
 /**/
 .potato-grow{display:flex;justify-content:center;align-items:flex-end;height:130px;margin:10px 0;position:relative}
 .potato-grow::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:140px;height:100px;background:radial-gradient(ellipse,rgba(240,184,24,.12),rgba(76,216,48,.04) 50%,transparent 75%);border-radius:50%;pointer-events:none;animation:potatoHalo 3s ease-in-out infinite;z-index:0}
