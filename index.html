@@ -2500,14 +2500,19 @@ if(window.Telegram&&Telegram.WebApp){
 try{Telegram.WebApp.ready();Telegram.WebApp.expand();Telegram.WebApp.disableVerticalSwipes();Telegram.WebApp.enableClosingConfirmation();if(Telegram.WebApp.requestFullscreen)Telegram.WebApp.requestFullscreen();}catch(e){}
 var sa=Telegram.WebApp.safeAreaInset;
 var csa=Telegram.WebApp.contentSafeAreaInset;
-var saTop=sa?sa.top||0:0;
-var saBot=sa?sa.bottom||0:0;
-var csaTop=csa?csa.top||0:0;
-var totalTop=saTop+csaTop;
-document.documentElement.style.setProperty('--tma-top',totalTop+'px');
-document.documentElement.style.setProperty('--tma-bot',saBot+'px');
-document.documentElement.style.setProperty('--sa-left',(sa&&sa.left?sa.left:0)+'px');
-document.documentElement.style.setProperty('--sa-right',(sa&&sa.right?sa.right:0)+'px');
+function applyTmaSafeArea(){
+  var sa=Telegram.WebApp.safeAreaInset||{};
+  var csa=Telegram.WebApp.contentSafeAreaInset||{};
+  var totalTop=(sa.top||0)+(csa.top||0);
+  if(totalTop<10)totalTop=Math.round(window.innerHeight*0.06);
+  document.documentElement.style.setProperty('--tma-top',totalTop+'px');
+  document.documentElement.style.setProperty('--tma-bot',(sa.bottom||0)+'px');
+  document.documentElement.style.setProperty('--sa-left',(sa.left||0)+'px');
+  document.documentElement.style.setProperty('--sa-right',(sa.right||0)+'px');
+}
+applyTmaSafeArea();
+Telegram.WebApp.onEvent('safeAreaChanged',applyTmaSafeArea);
+Telegram.WebApp.onEvent('contentSafeAreaChanged',applyTmaSafeArea);
 }}catch(e){}})();
 function fmtC(v){if(v>=1e6)return(v/1e6).toFixed(1)+'M';if(v>=1e3)return(v/1e3).toFixed(1)+'K';return v%1===0?''+v:v.toFixed(1)}
 function fmtFull(v){return Math.floor(v).toLocaleString()}
