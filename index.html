@@ -2495,9 +2495,7 @@ function getReferralTier(cnt){
 /* TMA Safe Area */
 (function(){try{
 if(window.Telegram&&Telegram.WebApp){
-try{Telegram.WebApp.expand()}catch(e){}
-try{Telegram.WebApp.isVerticalSwipesEnabled=false}catch(e){}
-try{if(Telegram.WebApp.requestFullscreen)Telegram.WebApp.requestFullscreen()}catch(e){}
+try{Telegram.WebApp.expand();Telegram.WebApp.disableVerticalSwipes();}catch(e){}
 var sa=Telegram.WebApp.safeAreaInset;
 var csa=Telegram.WebApp.contentSafeAreaInset;
 if(sa){
