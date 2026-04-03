@@ -241,7 +241,7 @@ transition:all .12s var(--apple);
 @keyframes megaPulse{0%,100%{box-shadow:0 2px 14px rgba(240,184,24,.35);transform:scale(1)}50%{box-shadow:0 2px 20px rgba(240,184,24,.5);transform:scale(1.01)}}
 .pb{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin:6px 0}
 .pb .f{height:100%;border-radius:3px;transition:width .4s}.f-p{background:var(--potato-g)}.f-t{background:var(--ton-g)}.f-g{background:var(--gold-g)}
-.ticker{height:20px;overflow:hidden;margin-bottom:8px}
+.ticker{height:18px;overflow:hidden;margin-bottom:2px}
 .ticker-inner{animation:tickScroll 9s linear infinite}
 @keyframes tickScroll{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-20px)}66%,94%{transform:translateY(-40px)}100%{transform:translateY(0)}}
 .ticker-line{height:20px;line-height:20px;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:2px}
@@ -527,7 +527,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .farm-harvest-btn:active{animation:none;transform:translateY(3px) scale(.98);box-shadow:0 1px 0 rgba(160,100,0,.4)}
 .farm-view{display:none}.farm-view.active{display:block}
 /* Farm scroll-down chevron */
-.farm-scroll-btn{position:absolute;bottom:min(72px,9vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
+.farm-scroll-btn{position:absolute;bottom:min(55px,6.8vh);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
 .farm-scroll-btn svg{width:28px;height:28px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
 .farm-scroll-btn:active{transform:translateX(-50%) scale(.9);animation:none}
 .farm-scroll-btn.hidden{opacity:0;pointer-events:none;visibility:hidden}
@@ -544,7 +544,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .guild-fold{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0;height:calc(var(--content-h) - var(--gap)*2)}
 .guild-fold .gs-banner{flex:1;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important;overflow:hidden}
 .guild-fold .gs-entry{flex:2;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important;overflow:hidden}
-#tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:var(--gap) 0;margin:0 !important;height:var(--content-h);box-sizing:border-box}
+#tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:calc(var(--gap)*3) 0 0 0 !important;height:calc(var(--content-h) - var(--gap)*2)}
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-bottom:600px}
