@@ -37,7 +37,7 @@
 --sa-top:env(safe-area-inset-top,0px);--sa-bot:env(safe-area-inset-bottom,0px);
 --sa-left:env(safe-area-inset-left,0px);--sa-right:env(safe-area-inset-right,0px);
 --tma-top:var(--sa-top);--tma-bot:var(--sa-bot);
---gap:20px;
+--gap:min(20px,2.5vh);
 --content-h:100vh;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -284,7 +284,7 @@ transition:all .12s var(--apple);
 .vt{background:var(--ton-d);border:.5px solid rgba(0,152,234,.04)}.vt .vl,.vt .vv{color:var(--ton)}
 .vp{background:var(--potato-d);border:.5px solid rgba(76,216,48,.04)}.vp .vl,.vp .vv{color:var(--potato)}
 /**/
-.vault-ton-hero{position:relative;text-align:center;padding:0 0 2vh;overflow:visible;margin-top:var(--gap)}
+.vault-ton-hero{position:relative;text-align:center;padding:0 0 1vh;overflow:visible;margin-top:var(--gap)}
 #tab-vault{padding-top:0;padding-bottom:600px}
 #vaultPage2Start{margin-top:36px}
 .vault-ton-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(0,152,234,.03) 0%,rgba(0,152,234,.01) 35%,transparent 65%);animation:vaultGlowPulse 12s ease-in-out infinite;pointer-events:none}
@@ -297,7 +297,7 @@ transition:all .12s var(--apple);
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
 .vault-ton-usd{font-size:12px;color:rgba(140,200,240,.48);margin-top:8px;font-weight:500;letter-spacing:.3px;text-shadow:none}
-.vault-potato-hero{text-align:center;padding:24px 0 16px;position:relative;overflow:hidden}
+.vault-potato-hero{text-align:center;padding:1vh 0;position:relative;overflow:hidden}
 .vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
 .vault-potato-ring{position:relative;z-index:2;width:min(172px,21vh);height:min(172px,21vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
 .vault-potato-label{font-size:9px;font-weight:600;color:rgba(100,230,60,.30);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:none}
@@ -534,24 +534,23 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 @keyframes farmChevBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(4px)}}
 @keyframes waveTransition{0%{filter:blur(0);transform:scale(1)}15%{filter:blur(3px);transform:scale(0.98) skewX(1deg)}30%{filter:blur(2px);transform:scale(1.01) skewX(-0.5deg)}50%{filter:blur(1.5px);transform:scale(0.995) skewY(0.5deg)}70%{filter:blur(0.5px);transform:scale(1.005) skewX(0.3deg)}100%{filter:blur(0);transform:scale(1)}}
 /* Farm tab: snap scrolling */
-#tab-farm{scroll-snap-type:y mandatory;padding-bottom:80px}
-#tab-farm [data-farm-section]{scroll-snap-align:start}
-.farm-fold{min-height:100%;display:flex;flex-direction:column;padding-bottom:0}
+#tab-farm{padding-bottom:600px}
+.farm-fold{height:calc(var(--content-h) - var(--gap)*2);display:flex;flex-direction:column;padding-bottom:0;margin-top:var(--gap)}
 .farm-fold .farm-view.active{display:flex;flex-direction:column;flex:1}
-#refCard{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between}
+#refCard{height:calc(var(--content-h) - var(--gap)*2);box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;margin-top:var(--gap)}
 /* Guild tab: snap scrolling */
 /* Guild tab: scroll with pageScroll */
 #tab-guild{padding-top:0;padding-bottom:300px}
 #guild-nojoin{min-height:100%;padding-top:0}
-.guild-fold{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0}
-.guild-fold .gs-banner{height:calc((var(--content-h) - var(--gap)*3) / 3);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important}
-.guild-fold .gs-entry{height:calc((var(--content-h) - var(--gap)*3) * 2 / 3);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important}
-#tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0 !important}
-#tab-guild [data-guild-section="1"] .gs-tier-row{height:calc((var(--content-h) - var(--gap)*5) / 4);display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
+.guild-fold{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0;height:calc(var(--content-h) - var(--gap)*2)}
+.guild-fold .gs-banner{flex:1;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important}
+.guild-fold .gs-entry{flex:2;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;margin:0 !important}
+#tab-guild [data-guild-section="1"]{display:flex;flex-direction:column;gap:var(--gap);padding:0;margin:var(--gap) 0 0 0 !important;height:calc(var(--content-h) - var(--gap)*2)}
+#tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-bottom:600px}
-.game-fold{display:flex;flex-direction:column;height:var(--content-h)}
-#tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);margin-top:var(--gap)}
+.game-fold{display:flex;flex-direction:column;height:calc(var(--content-h) - var(--gap)*2);margin-top:var(--gap);gap:var(--gap)}
+#tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:calc(var(--content-h) - var(--gap)*2);margin-top:var(--gap)}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
 .game-card-compact{padding:20px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px}
