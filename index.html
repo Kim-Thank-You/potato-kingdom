@@ -9,7 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
 :root{
 /**/
---bg:#0b0e16;--bg2:#10141e;--card:#171c2c;--card2:#1c2236;
+--bg:#050505;--bg2:#0a0a0a;--card:#111111;--card2:#161616;
 --bdr:#252d46;--bdr2:#344058;
 /**/
 --tx:#e8ecf8;--tx2:#c8d0e4;--dim:#8a96b8;--mut:#586484;
@@ -42,8 +42,8 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 button,a,[onclick]{cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-html{height:100%;overflow:hidden;background:#080b12}
-body{height:100%;overflow:hidden;background:#080b12;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--tx);display:flex;justify-content:center;align-items:center;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-top:var(--tma-top);padding-bottom:var(--tma-bot)}
+html{height:100%;overflow:hidden;background:#050505}
+body{height:100%;overflow:hidden;background:#050505;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--tx);display:flex;justify-content:center;align-items:center;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-top:var(--tma-top);padding-bottom:var(--tma-bot)}
 .phone{width:390px;height:780px;background:var(--bg);border-radius:36px;border:2.5px solid #252830;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.7)}
 /* ambient glow applied as background on .phone instead of ::before to avoid mobile touch issues */
 @media(max-width:500px){
@@ -468,9 +468,9 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .particle.potato-p{animation:pBurst .9s ease-out forwards}
 @keyframes pBurst{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0)}}
 .puzzle-hero{
-border-color:rgba(76,216,48,.22);
-background:radial-gradient(ellipse at 80% 20%,rgba(240,184,24,.06),transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(76,216,48,.05),transparent 50%),linear-gradient(135deg,rgba(76,216,48,.05),var(--card) 60%);
-box-shadow:0 4px 16px rgba(76,216,48,.05),inset 0 1px 0 rgba(255,255,255,.04);
+border:none;
+background:rgba(8,8,8,.8);
+box-shadow:none;
 padding:18px;position:relative;overflow:hidden;text-align:center;
 }
 #tab-game>.cd{text-align:center}
@@ -552,7 +552,14 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
-.game-card-compact{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px;margin:0 !important}
+/* Game card spinning border + noise */
+@property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes gcBorderSpin{to{--gcAngle:360deg}}
+.game-card-compact{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px;margin:0 !important;background:rgba(8,8,8,.8) !important;border:none !important;position:relative;isolation:isolate}
+.game-card-compact::before{content:'';position:absolute;inset:-1.5px;border-radius:17px;z-index:-2;pointer-events:none;animation:gcBorderSpin 5s linear infinite}
+.game-card-compact.puzzle-hero::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(76,216,48,.5) 45%,rgba(76,216,48,.7) 50%,rgba(76,216,48,.5) 55%,transparent 70%)}
+.game-card-compact:not(.puzzle-hero)::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(240,72,72,.5) 45%,rgba(240,72,72,.7) 50%,rgba(240,72,72,.5) 55%,transparent 70%)}
+.game-card-compact::after{content:'';position:absolute;inset:0;border-radius:inherit;opacity:.12;pointer-events:none;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
 .game-card-compact .t-hero{font-size:20px;margin-bottom:0}
 .game-card-compact .t-desc{margin-bottom:0}
 .game-card-compact .btn-play,.game-card-compact .btn-fight{padding:14px 20px;min-height:var(--h-xl);margin-top:auto;width:100%}
