@@ -1317,8 +1317,10 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 <!-- ══ JOINED STATE (has guild) ══ -->
 <div id="guild-joined" style="display:none;padding-bottom:600px">
+<!-- GUILD JOINED PAGE 1 -->
+<div class="page guild-joined-p1" style="gap:var(--gap)">
 <!-- ═══ TON HERO — numbers first ═══ -->
-<div class="cd guild-hero">
+<div class="cd guild-hero" style="flex:1">
 <div class="gh-guild-label" id="guildHeroLabel">🏰 <b>PotatoUnion</b> · 🥇 GOLD</div>
 <div class="gh-title"><span data-i18n="guild_expected_ton">이번 달 예상 출금</span> <span style="cursor:pointer;opacity:.5" onclick="showTonCalcTooltip()">ⓘ</span></div>
 <div class="gh-main-line">
@@ -1347,13 +1349,16 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 </div>
 <!-- ═══ 유효자 대시보드 — TON Hero 바로 아래 ═══ -->
-<div class="cd" style="padding:14px" id="guildValidatorCard">
+<div class="cd" style="padding:14px;flex:1" id="guildValidatorCard">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
 <div style="font-size:14px;font-weight:900" data-i18n="guild_valid_title">📋 유효자 달성 현황</div>
 <div style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px" id="guildValidBadge"></div>
 </div>
 <div id="guildValidList"></div>
 </div>
+</div><!-- /guild joined page 1 -->
+<!-- GUILD JOINED PAGE 2 -->
+<div class="page guild-joined-p2" style="gap:var(--gap)">
 <!-- ═══ 주간 현황 ═══ -->
 <div class="gh-weekly-row">
 <div class="gh-week-stat"><div class="gws-label" data-i18n="guild_stat_weekly">This Week</div><div class="gws-val" style="color:var(--ton)">+3.9T</div></div>
@@ -1400,6 +1405,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <button class="btn" style="width:100%;margin-top:10px;padding:12px;background:transparent;border:.5px solid rgba(255,80,80,.12);color:rgba(255,80,80,.55);font-size:12px;font-weight:700;border-radius:10px" onclick="leaveGuild()" data-i18n="guild_leave">길드 탈퇴</button>
 </div>
 </div>
+</div><!-- /guild joined page 2 -->
 </div><!-- /guild-joined -->
 <!-- VAULT TAB -->
 <div class="tab-p" id="tab-vault">
