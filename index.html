@@ -284,12 +284,12 @@ transition:all .12s var(--apple);
 .vt{background:var(--ton-d);border:.5px solid rgba(0,152,234,.04)}.vt .vl,.vt .vv{color:var(--ton)}
 .vp{background:var(--potato-d);border:.5px solid rgba(76,216,48,.04)}.vp .vl,.vp .vv{color:var(--potato)}
 /**/
-.vault-ton-hero{position:relative;text-align:center;padding:0 0 1vh;overflow:visible;margin-top:var(--gap)}
+.vault-ton-hero{position:relative;text-align:center;padding:0;overflow:visible;margin-top:min(10px,1.2vh)}
 #tab-vault{padding-top:0;padding-bottom:600px}
 #vaultPage2Start{margin-top:0}
 .vault-ton-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(0,152,234,.03) 0%,rgba(0,152,234,.01) 35%,transparent 65%);animation:vaultGlowPulse 12s ease-in-out infinite;pointer-events:none}
 @keyframes vaultGlowPulse{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:.48;transform:translate(-50%,-50%) scale(1.02)}}
-.vault-ton-ring{position:relative;z-index:2;width:min(172px,21vh);height:min(172px,21vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(0,152,234,.025),rgba(0,80,160,.008) 50%,rgba(0,152,234,.02));border:.5px solid rgba(0,152,234,.06);box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);animation:vaultRingRotate 30s linear infinite}
+.vault-ton-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(0,152,234,.025),rgba(0,80,160,.008) 50%,rgba(0,152,234,.02));border:.5px solid rgba(0,152,234,.06);box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);animation:vaultRingRotate 30s linear infinite}
 @keyframes vaultRingRotate{0%,100%{box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);border-color:rgba(0,152,234,.06)}50%{box-shadow:0 0 14px rgba(0,152,234,.08),0 0 32px rgba(0,152,234,.025),inset 0 0 10px rgba(0,152,234,.01);border-color:rgba(0,152,234,.08)}}
 .vault-ton-inner{text-align:center}
 .vault-ton-label{font-size:9.5px;font-weight:600;color:rgba(100,210,255,.40);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:none}
@@ -297,9 +297,9 @@ transition:all .12s var(--apple);
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
 .vault-ton-usd{font-size:12px;color:rgba(140,200,240,.48);margin-top:8px;font-weight:500;letter-spacing:.3px;text-shadow:none}
-.vault-potato-hero{text-align:center;padding:1vh 0;position:relative;overflow:hidden}
+.vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden}
 .vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
-.vault-potato-ring{position:relative;z-index:2;width:min(172px,21vh);height:min(172px,21vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
+.vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
 .vault-potato-label{font-size:9px;font-weight:600;color:rgba(100,230,60,.30);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:none}
 .vault-potato-amount{font-size:44px;font-weight:900;letter-spacing:-1.5px;filter:drop-shadow(0 0 8px rgba(240,192,48,.12)) drop-shadow(0 0 16px rgba(240,192,48,.04))}
 .vault-potato-amount,.vault-potato-amount .reel-digit,.vault-potato-amount .reel-col,.vault-potato-amount .reel-col span,.vault-potato-amount .reel-suffix{background:linear-gradient(175deg,#ffe890 0%,#f0c838 40%,#e0a818 70%,#f0d060 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -1052,7 +1052,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 .friend-pill{display:inline-block;padding:8px 20px;border-radius:20px;background:rgba(20,24,40,.95);border:.5px solid rgba(255,255,255,.06);font-size:15px;font-weight:900;color:var(--tx)}
 .friend-highlight{padding:16px;margin-bottom:10px;border-radius:14px;background:linear-gradient(135deg,rgba(240,184,24,.12),rgba(240,184,24,.04));border:.5px solid rgba(240,184,24,.10)}
 /* ── touch ripple ── */
-.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.06);transform:scale(0);animation:ripOut .5s var(--apple) forwards;pointer-events:none}
+.ripple{display:none}
 @keyframes ripOut{to{transform:scale(4);opacity:0}}
 /* ── animated enter classes ── */
 .tut-anim-up{animation:tutFadeUp .5s cubic-bezier(.22,1,.36,1) both}
@@ -1411,6 +1411,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <div class="vault-ton-usd" id="vaultTonUsd">≈ $69</div>
 </div>
 </div>
+<div class="vault-trend">📈 오늘 +0.5 · 이번 주 +2.1</div>
 </div>
 <!-- TON HERO -->
 <button class="btn btn-ton" style="width:100%;margin-top:4px;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden" onclick="showWithdrawSheet()" data-i18n="vault_withdraw_btn">💠 TON 출금 신청</button>
@@ -1428,7 +1429,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 <div class="vault-trend">📈 오늘 +320 · 이번 주 +2,140</div>
 </div>
-<button class="btn btn-play" style="width:100%;margin:12px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
+<button class="btn btn-play" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
 <!-- vault page 2 spacer -->
 <div id="vaultPage2Start"></div>
 <div class="cd" style="padding:14px;display:flex;align-items:center;gap:12px"><div style="font-size:22px">💎</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--dia)">DIAMOND</div><div style="font-size:10px;color:var(--dim)" data-i18n="vault_diamond_label">유틸리티</div></div><div style="font-size:20px;font-weight:800;color:var(--dia)" id="vaultDiamond">390</div></div>
@@ -2291,10 +2292,34 @@ function getPageHeight(){
   if(!nav||!cta)return 600;
   return nav.getBoundingClientRect().top-cta.getBoundingClientRect().bottom;
 }
+function spawnScrollParticles(){
+  var emojis=['🥔','🥔','🌱','✨','💎','🥔'];
+  var btn=document.querySelector('.farm-scroll-btn:not(.hidden)');
+  if(!btn)return;
+  var rect=btn.getBoundingClientRect();
+  var cx=rect.left+rect.width/2;
+  var cy=rect.top+rect.height/2;
+  for(var i=0;i<12;i++){
+    var p=document.createElement('div');
+    p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.cssText='position:fixed;z-index:9999;font-size:'+(22+Math.random()*14)+'px;pointer-events:none;left:'+cx+'px;top:'+cy+'px;transition:all 1.5s cubic-bezier(.34,1.56,.64,1);opacity:1';
+    document.body.appendChild(p);
+    var angle=Math.random()*Math.PI*2;
+    var dist=60+Math.random()*80;
+    var dx=Math.cos(angle)*dist;
+    var dy=Math.sin(angle)*dist;
+    requestAnimationFrame(function(el,dx,dy){return function(){
+      el.style.transform='translate('+dx+'px,'+dy+'px) scale(0.3) rotate('+(Math.random()*360)+'deg)';
+      el.style.opacity='0';
+    }}(p,dx,dy));
+    setTimeout(function(el){return function(){el.remove()}}(p),1500);
+  }
+}
 function pageScroll(tabId){
   var container=document.getElementById(tabId);
   if(!container)return;
   var h=getPageHeight();
+  spawnScrollParticles();
   if(container.scrollTop>50){
     container.scrollTo({top:0,behavior:'smooth'});
   }else{
