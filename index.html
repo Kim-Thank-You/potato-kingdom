@@ -297,7 +297,7 @@ transition:all .12s var(--apple);
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
 .vault-ton-usd{font-size:12px;color:rgba(140,200,240,.48);margin-top:8px;font-weight:500;letter-spacing:.3px;text-shadow:none}
-.vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden}
+.vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center}
 .vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
 .vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
 .vault-potato-label{font-size:9px;font-weight:600;color:rgba(100,230,60,.30);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:none}
@@ -552,6 +552,10 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
+/* ═══ UNIVERSAL PAGE SYSTEM ═══ */
+.page{height:var(--content-h);display:flex;flex-direction:column;padding:var(--gap) 0;box-sizing:border-box;overflow:hidden}
+.page>*{position:relative;z-index:1}
+
 /* Game card spinning border + noise */
 @property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes gcBorderSpin{to{--gcAngle:360deg}}
@@ -1111,7 +1115,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <!-- GAME TAB -->
 <div class="tab-p" id="tab-game">
 <!-- Game 1st Fold: Puzzle + Battle -->
-<div data-game-section="0" class="game-fold">
+<div data-game-section="0" class="game-fold page">
 <!-- TICKER -->
 <div class="ticker"><div class="ticker-inner">
 <div class="ticker-line" style="color:var(--gold)" data-i18n="game_ticker1">🏆 내 최고 점수: 45.2K!</div>
@@ -1140,7 +1144,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 </div>
 <!-- Game 2nd Fold: Next Game -->
-<div data-game-section="1">
+<div data-game-section="1" class="page">
 <!-- NEXT GAME — COMING SOON -->
 <div class="cd" style="margin-top:4px;border:.5px dashed rgba(255,255,255,.06);background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(76,216,48,.02));position:relative;overflow:hidden;opacity:.85">
   <!-- glimmer bg -->
@@ -1167,7 +1171,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <!-- FARM TAB -->
 <div class="tab-p active" id="tab-farm">
 <!-- Farm 1st Fold: Balance + Character + Action -->
-<div data-farm-section="0" class="farm-fold">
+<div data-farm-section="0" class="farm-fold page">
 <div class="farm-header">
 <div class="farm-bal"><span class="farm-bal-icon">🥔</span><span class="farm-bal-num" id="farmBalNum">48.2K</span></div>
 <div class="farm-slots" id="farmSlots"></div>
@@ -1178,7 +1182,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <div class="farm-view" id="farm-view-2"></div>
 </div>
 <!-- FRIEND FARM BONUS CARD V2 -->
-<div data-farm-section="1" class="cd ref-card" id="refCard">
+<div data-farm-section="1" class="cd ref-card page" id="refCard">
 <div class="ref-header">
 <h4 data-i18n="ref_title">👥 친구 초대로 감자 보너스!</h4>
 <span class="ref-rate" id="refRatePill">10%</span>
@@ -1221,7 +1225,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <!-- ══ PRE-JOIN STATE (no guild) ══ -->
 <div id="guild-nojoin">
 <!-- Guild 1st Fold: Season Banner + CTA -->
-<div data-guild-section="0" class="guild-fold">
+<div data-guild-section="0" class="guild-fold page">
 <!-- ═══ GUILD SEASON ENTRY ═══ -->
 <div class="gs-banner">
 <div class="gs-banner-tag">POTATO KINGDOM · GUILD SEASON</div>
@@ -1248,7 +1252,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 </div><!-- /guild 1st fold -->
 <!-- Guild 2nd Fold: Tier Guide -->
-<div data-guild-section="1" class="guild-fold">
+<div data-guild-section="1" class="guild-fold page">
 <div class="gs-tier-row">
 <div class="gs-tier-icon dia">💎</div>
 <div class="gs-tier-info"><div class="gs-tier-name dia" data-i18n="tier_dia_name">DIAMOND</div><div class="gs-tier-desc" data-i18n="tier_dia_detail">상위 5% · 최고 보상 구간</div></div>
@@ -1312,7 +1316,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <button class="btn btn-ghost" style="width:100%;margin-top:6px;min-height:44px" onclick="cancelGuildApply()" data-i18n="guild_cancel">신청 취소</button>
 </div>
 <!-- ══ JOINED STATE (has guild) ══ -->
-<div id="guild-joined" style="display:none;padding-bottom:80px">
+<div id="guild-joined" style="display:none;padding-bottom:600px">
 <!-- ═══ TON HERO — numbers first ═══ -->
 <div class="cd guild-hero">
 <div class="gh-guild-label" id="guildHeroLabel">🏰 <b>PotatoUnion</b> · 🥇 GOLD</div>
@@ -1399,8 +1403,10 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div><!-- /guild-joined -->
 <!-- VAULT TAB -->
 <div class="tab-p" id="tab-vault">
+<!-- VAULT PAGE 1 -->
+<div class="page vault-page1">
 <!-- TON BIG BALANCE -->
-<div class="vault-ton-hero">
+<div class="vault-ton-hero" style="flex:1;display:flex;flex-direction:column;justify-content:center">
 <div class="vault-ton-glow"></div>
 <div class="vault-ton-ring">
 <div class="breathe" style="inset:-6px;border:.5px solid rgba(16,168,255,.06);--bd:5s;--bs1:0 0 18px rgba(16,168,255,.04),0 0 40px rgba(16,168,255,.02);--bs2:0 0 30px rgba(16,168,255,.08),0 0 60px rgba(16,168,255,.035)"></div>
@@ -1430,8 +1436,9 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <div class="vault-trend">📈 오늘 +320 · 이번 주 +2,140</div>
 </div>
 <button class="btn btn-play" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
-<!-- vault page 2 spacer -->
-<div id="vaultPage2Start"></div>
+</div><!-- /vault page 1 -->
+<!-- VAULT PAGE 2 -->
+<div class="page vault-page2">
 <div class="cd" style="padding:14px;display:flex;align-items:center;gap:12px"><div style="font-size:22px">💎</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--dia)">DIAMOND</div><div style="font-size:10px;color:var(--dim)" data-i18n="vault_diamond_label">유틸리티</div></div><div style="font-size:20px;font-weight:800;color:var(--dia)" id="vaultDiamond">390</div></div>
 <!-- TON HISTORY-->
 <div class="vault-fold" onclick="toggleVaultFold(this)">
@@ -1451,6 +1458,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <span class="vault-fold-arrow">›</span>
 </div>
 <div class="vault-fold-body" id="vaultDiamondHistory"></div>
+</div><!-- /vault page 2 -->
 </div>
 <!-- BATTLE OVERLAY -->
 <div class="battle-overlay" id="battleOverlay" style="position:absolute">
