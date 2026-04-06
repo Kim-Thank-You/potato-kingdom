@@ -355,13 +355,13 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-fomo{text-align:center;padding:12px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
 .gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden}
 .gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.15) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 10s ease-in-out infinite}
-.guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(16px,2vh) 14px min(14px,1.8vh);text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3)}
+.guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(20px,2.5vh) 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3);display:flex;flex-direction:column;justify-content:center}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
 @keyframes auroraRot{to{transform:rotate(360deg)}}
 .guild-hero::after{content:none}
 @keyframes guildShimmer{0%{left:-100%}50%,100%{left:150%}}
-.gh-title{font-size:9px;font-weight:600;color:rgba(0,152,234,.45);margin-bottom:min(4px,.5vh);text-transform:uppercase;letter-spacing:2px}
-.gh-main-line{font-size:min(42px,5.5vh);font-weight:900;color:var(--ton);line-height:1;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;letter-spacing:-1.5px;text-shadow:0 0 20px rgba(0,152,234,.10);position:relative}
+.gh-title{font-size:10px;font-weight:600;color:rgba(0,152,234,.45);margin-bottom:min(8px,1vh);text-transform:uppercase;letter-spacing:2px}
+.gh-main-line{font-size:min(52px,6.5vh);font-weight:900;color:var(--ton);line-height:1;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;letter-spacing:-1.5px;text-shadow:0 0 20px rgba(0,152,234,.10);position:relative}
 .gh-main-line::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:240px;height:90px;background:radial-gradient(ellipse,rgba(0,152,234,.08),rgba(240,184,24,.02),transparent 70%);pointer-events:none;border-radius:50%}
 .gh-main-line .gh-num{display:inline-flex;letter-spacing:-.5px;position:relative;z-index:1}.gh-main-line .gh-ton-label{font-size:18px;opacity:.35;letter-spacing:0;font-weight:700;position:relative;z-index:1}.gh-main-line .gh-usd{font-size:14px;color:rgba(0,152,234,.35);font-weight:600;letter-spacing:0;position:relative;z-index:1}
 .gh-badges{display:flex;justify-content:center;gap:7px;margin-top:16px;flex-wrap:wrap}
@@ -436,13 +436,13 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .vault-fold-body .rw{padding:12px 0;font-size:13px}
 .vault-fold-body .rw:last-child{border-bottom:none}
 /**/
-.gh-guild-label{font-size:11px;color:rgba(255,255,255,.30);font-weight:600;margin-bottom:min(6px,.8vh);letter-spacing:.3px}
+.gh-guild-label{font-size:12px;color:rgba(255,255,255,.30);font-weight:600;margin-bottom:min(12px,1.5vh);letter-spacing:.3px}
 .gh-guild-label b{color:var(--tx2);font-weight:800}
-.gh-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:min(10px,1.2vh)}
-.gh-stat-box{padding:min(8px,1vh) 8px;border-radius:10px;background:rgba(0,152,234,.04);border:.5px solid rgba(0,152,234,.06);text-align:center}
-.gh-stat-box .gh-sb-label{font-size:9px;color:rgba(255,255,255,.28);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
-.gh-stat-box .gh-sb-val{font-size:min(16px,2vh);font-weight:900;color:var(--ton);letter-spacing:-.3px}
-.gh-stat-box .gh-sb-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;font-weight:500}
+.gh-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:min(14px,1.8vh)}
+.gh-stat-box{padding:min(12px,1.5vh) 10px;border-radius:10px;background:rgba(0,152,234,.04);border:.5px solid rgba(0,152,234,.06);text-align:center}
+.gh-stat-box .gh-sb-label{font-size:10px;color:rgba(255,255,255,.28);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.gh-stat-box .gh-sb-val{font-size:min(18px,2.2vh);font-weight:900;color:var(--ton);letter-spacing:-.3px}
+.gh-stat-box .gh-sb-sub{font-size:11px;color:rgba(255,255,255,.25);margin-top:3px;font-weight:500}
 .gh-stat-box.nudge{background:rgba(240,184,24,.04);border-color:rgba(240,184,24,.06)}
 .gh-stat-box.nudge .gh-sb-label{color:var(--mut)}
 .gh-stat-box.nudge .gh-sb-val{color:var(--gold);font-size:18px}
@@ -1333,18 +1333,18 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <div class="gh-stat-box nudge"><div class="gh-sb-label" data-i18n="guild_stat_contrib_label">📈 이번 주</div><div class="gh-sb-val" style="font-size:18px">+0.8 TON</div><div class="gh-sb-sub" data-i18n="guild_valid_missing_hint">수확 1회 더!</div></div>
 </div>
 <!-- contrib compare -->
-<div style="display:flex;gap:6px;margin-top:min(8px,1vh)">
-<div style="flex:1;text-align:center;padding:4px;border-radius:8px;background:rgba(76,216,48,.06)">
-<div style="font-size:9px;color:var(--mut)" data-i18n="guild_my_contrib">내 기여도</div>
-<div style="font-size:14px;font-weight:900;color:var(--potato)" id="guildMyContrib">12%</div>
+<div style="display:flex;gap:8px;margin-top:min(12px,1.5vh)">
+<div style="flex:1;text-align:center;padding:8px;border-radius:10px;background:rgba(76,216,48,.06)">
+<div style="font-size:10px;color:var(--mut)" data-i18n="guild_my_contrib">내 기여도</div>
+<div style="font-size:16px;font-weight:900;color:var(--potato)" id="guildMyContrib">12%</div>
 </div>
-<div style="flex:1;text-align:center;padding:4px;border-radius:8px;background:rgba(255,255,255,.03)">
-<div style="font-size:9px;color:var(--mut)" data-i18n="guild_avg">길드 평균</div>
-<div style="font-size:14px;font-weight:900;color:var(--dim)" id="guildAvgContrib">15%</div>
+<div style="flex:1;text-align:center;padding:8px;border-radius:10px;background:rgba(255,255,255,.03)">
+<div style="font-size:10px;color:var(--mut)" data-i18n="guild_avg">길드 평균</div>
+<div style="font-size:16px;font-weight:900;color:var(--dim)" id="guildAvgContrib">15%</div>
 </div>
-<div style="flex:1;text-align:center;padding:4px;border-radius:8px;background:rgba(240,64,64,.06)">
-<div style="font-size:9px;color:var(--mut)" data-i18n="guild_diff">차이</div>
-<div style="font-size:14px;font-weight:900;color:var(--red)" id="guildContribDiff">-3%</div>
+<div style="flex:1;text-align:center;padding:8px;border-radius:10px;background:rgba(240,64,64,.06)">
+<div style="font-size:10px;color:var(--mut)" data-i18n="guild_diff">차이</div>
+<div style="font-size:16px;font-weight:900;color:var(--red)" id="guildContribDiff">-3%</div>
 </div>
 </div>
 </div>
@@ -2336,11 +2336,12 @@ function pageScroll(tabId){
   var container=document.getElementById(tabId);
   if(!container)return;
   var h=getPageHeight();
+  var maxScroll=container.scrollHeight-container.clientHeight;
   spawnScrollParticles();
-  if(container.scrollTop>50){
+  // 마지막 페이지 근처면 위로, 아니면 아래로
+  if(container.scrollTop+h>=maxScroll-10){
     container.scrollTo({top:0,behavior:'smooth'});
   }else{
-    var maxScroll=container.scrollHeight-container.clientHeight;
     container.scrollTo({top:Math.min(container.scrollTop+h,maxScroll),behavior:'smooth'});
   }
 }
@@ -2357,7 +2358,7 @@ function vaultScrollNext(){pageScroll('tab-vault')}
     if(!container||!btn)return;
     var svg=btn.querySelector('svg');
     container.addEventListener('scroll',function(){
-      if(container.scrollTop>50){svg.style.transform='rotate(180deg)';}else{svg.style.transform='';}
+      var maxS=container.scrollHeight-container.clientHeight;var h=getPageHeight();if(container.scrollTop+h>=maxS-10){svg.style.transform='rotate(180deg)';}else{svg.style.transform='';}
     });
   });
 })();
