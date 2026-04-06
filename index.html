@@ -284,7 +284,7 @@ transition:all .12s var(--apple);
 .vt{background:var(--ton-d);border:.5px solid rgba(0,152,234,.04)}.vt .vl,.vt .vv{color:var(--ton)}
 .vp{background:var(--potato-d);border:.5px solid rgba(76,216,48,.04)}.vp .vl,.vp .vv{color:var(--potato)}
 /**/
-.vault-ton-hero{position:relative;text-align:center;padding:0;overflow:visible;margin-top:min(10px,1.2vh)}
+.vault-ton-hero{position:relative;text-align:center;padding:0;overflow:visible;margin:0;flex:1;display:flex;flex-direction:column;justify-content:center}
 #tab-vault{padding-top:0;padding-bottom:600px}
 #vaultPage2Start{margin-top:0}
 .vault-ton-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(0,152,234,.03) 0%,rgba(0,152,234,.01) 35%,transparent 65%);animation:vaultGlowPulse 12s ease-in-out infinite;pointer-events:none}
@@ -292,20 +292,20 @@ transition:all .12s var(--apple);
 .vault-ton-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(0,152,234,.025),rgba(0,80,160,.008) 50%,rgba(0,152,234,.02));border:.5px solid rgba(0,152,234,.06);box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);animation:vaultRingRotate 30s linear infinite}
 @keyframes vaultRingRotate{0%,100%{box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);border-color:rgba(0,152,234,.06)}50%{box-shadow:0 0 14px rgba(0,152,234,.08),0 0 32px rgba(0,152,234,.025),inset 0 0 10px rgba(0,152,234,.01);border-color:rgba(0,152,234,.08)}}
 .vault-ton-inner{text-align:center}
-.vault-ton-label{font-size:9.5px;font-weight:600;color:rgba(100,210,255,.40);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:none}
-.vault-ton-amount{font-size:56px;font-weight:900;letter-spacing:-1px;line-height:1.05;background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);background-size:100% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));animation:vaultAmountShine 7s ease-in-out infinite}
+.vault-ton-label{font-size:9px;font-weight:600;color:rgba(100,210,255,.40);letter-spacing:4px;text-transform:uppercase;margin-bottom:min(4px,.5vh);text-shadow:none}
+.vault-ton-amount{font-size:min(44px,5.5vh);font-weight:900;letter-spacing:-1px;line-height:1.05;background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);background-size:100% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));animation:vaultAmountShine 7s ease-in-out infinite}
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
 .vault-ton-usd{font-size:12px;color:rgba(140,200,240,.48);margin-top:8px;font-weight:500;letter-spacing:.3px;text-shadow:none}
 .vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center}
 .vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
 .vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
-.vault-potato-label{font-size:9px;font-weight:600;color:rgba(100,230,60,.30);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:none}
-.vault-potato-amount{font-size:44px;font-weight:900;letter-spacing:-1.5px;filter:drop-shadow(0 0 8px rgba(240,192,48,.12)) drop-shadow(0 0 16px rgba(240,192,48,.04))}
+.vault-potato-label{font-size:9px;font-weight:600;color:rgba(100,230,60,.30);letter-spacing:4px;text-transform:uppercase;margin-bottom:min(4px,.5vh);text-shadow:none}
+.vault-potato-amount{font-size:min(36px,4.5vh);font-weight:900;letter-spacing:-1.5px;filter:drop-shadow(0 0 8px rgba(240,192,48,.12)) drop-shadow(0 0 16px rgba(240,192,48,.04))}
 .vault-potato-amount,.vault-potato-amount .reel-digit,.vault-potato-amount .reel-col,.vault-potato-amount .reel-col span,.vault-potato-amount .reel-suffix{background:linear-gradient(175deg,#ffe890 0%,#f0c838 40%,#e0a818 70%,#f0d060 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .vault-potato-amount .reel-suffix{opacity:1;font-weight:900}
 .vault-potato-sub{font-size:11px;color:rgba(255,255,255,.28);margin-top:4px;font-weight:500}
-.vault-trend{font-size:11px;color:var(--potato);font-weight:600;margin-top:8px;opacity:.45;text-shadow:none}
+.vault-trend{font-size:10px;color:var(--potato);font-weight:600;margin-top:min(4px,.5vh);opacity:.45;text-shadow:none}
 .v3g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
 .vc{padding:14px 6px;border-radius:var(--r3);text-align:center;border:.5px solid rgba(255,255,255,.02)}
 .vc .vl{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;color:rgba(255,255,255,.28)}
@@ -355,13 +355,13 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-fomo{text-align:center;padding:12px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
 .gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden}
 .gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.15) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 10s ease-in-out infinite}
-.guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:24px 18px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3)}
+.guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(16px,2vh) 14px min(14px,1.8vh);text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3)}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
 @keyframes auroraRot{to{transform:rotate(360deg)}}
 .guild-hero::after{content:none}
 @keyframes guildShimmer{0%{left:-100%}50%,100%{left:150%}}
-.gh-title{font-size:10px;font-weight:600;color:rgba(0,152,234,.45);margin-bottom:6px;text-transform:uppercase;letter-spacing:2px}
-.gh-main-line{font-size:52px;font-weight:900;color:var(--ton);line-height:1;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;letter-spacing:-1.5px;text-shadow:0 0 20px rgba(0,152,234,.10);position:relative}
+.gh-title{font-size:9px;font-weight:600;color:rgba(0,152,234,.45);margin-bottom:min(4px,.5vh);text-transform:uppercase;letter-spacing:2px}
+.gh-main-line{font-size:min(42px,5.5vh);font-weight:900;color:var(--ton);line-height:1;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;letter-spacing:-1.5px;text-shadow:0 0 20px rgba(0,152,234,.10);position:relative}
 .gh-main-line::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:240px;height:90px;background:radial-gradient(ellipse,rgba(0,152,234,.08),rgba(240,184,24,.02),transparent 70%);pointer-events:none;border-radius:50%}
 .gh-main-line .gh-num{display:inline-flex;letter-spacing:-.5px;position:relative;z-index:1}.gh-main-line .gh-ton-label{font-size:18px;opacity:.35;letter-spacing:0;font-weight:700;position:relative;z-index:1}.gh-main-line .gh-usd{font-size:14px;color:rgba(0,152,234,.35);font-weight:600;letter-spacing:0;position:relative;z-index:1}
 .gh-badges{display:flex;justify-content:center;gap:7px;margin-top:16px;flex-wrap:wrap}
@@ -436,13 +436,13 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .vault-fold-body .rw{padding:12px 0;font-size:13px}
 .vault-fold-body .rw:last-child{border-bottom:none}
 /**/
-.gh-guild-label{font-size:12px;color:rgba(255,255,255,.30);font-weight:600;margin-bottom:8px;letter-spacing:.3px}
+.gh-guild-label{font-size:11px;color:rgba(255,255,255,.30);font-weight:600;margin-bottom:min(6px,.8vh);letter-spacing:.3px}
 .gh-guild-label b{color:var(--tx2);font-weight:800}
-.gh-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.gh-stat-box{padding:12px 10px;border-radius:10px;background:rgba(0,152,234,.04);border:.5px solid rgba(0,152,234,.06);text-align:center}
-.gh-stat-box .gh-sb-label{font-size:9.5px;color:rgba(255,255,255,.28);font-weight:600;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px}
-.gh-stat-box .gh-sb-val{font-size:18px;font-weight:900;color:var(--ton);letter-spacing:-.3px}
-.gh-stat-box .gh-sb-sub{font-size:11px;color:rgba(255,255,255,.25);margin-top:4px;font-weight:500}
+.gh-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:min(10px,1.2vh)}
+.gh-stat-box{padding:min(8px,1vh) 8px;border-radius:10px;background:rgba(0,152,234,.04);border:.5px solid rgba(0,152,234,.06);text-align:center}
+.gh-stat-box .gh-sb-label{font-size:9px;color:rgba(255,255,255,.28);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.gh-stat-box .gh-sb-val{font-size:min(16px,2vh);font-weight:900;color:var(--ton);letter-spacing:-.3px}
+.gh-stat-box .gh-sb-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;font-weight:500}
 .gh-stat-box.nudge{background:rgba(240,184,24,.04);border-color:rgba(240,184,24,.06)}
 .gh-stat-box.nudge .gh-sb-label{color:var(--mut)}
 .gh-stat-box.nudge .gh-sb-val{color:var(--gold);font-size:18px}
@@ -1333,18 +1333,18 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 <div class="gh-stat-box nudge"><div class="gh-sb-label" data-i18n="guild_stat_contrib_label">📈 이번 주</div><div class="gh-sb-val" style="font-size:18px">+0.8 TON</div><div class="gh-sb-sub" data-i18n="guild_valid_missing_hint">수확 1회 더!</div></div>
 </div>
 <!-- contrib compare -->
-<div style="display:flex;gap:8px;margin-top:10px">
-<div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:rgba(76,216,48,.06)">
-<div style="font-size:10px;color:var(--mut)" data-i18n="guild_my_contrib">내 기여도</div>
-<div style="font-size:16px;font-weight:900;color:var(--potato)" id="guildMyContrib">12%</div>
+<div style="display:flex;gap:6px;margin-top:min(8px,1vh)">
+<div style="flex:1;text-align:center;padding:4px;border-radius:8px;background:rgba(76,216,48,.06)">
+<div style="font-size:9px;color:var(--mut)" data-i18n="guild_my_contrib">내 기여도</div>
+<div style="font-size:14px;font-weight:900;color:var(--potato)" id="guildMyContrib">12%</div>
 </div>
-<div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:rgba(255,255,255,.03)">
-<div style="font-size:10px;color:var(--mut)" data-i18n="guild_avg">길드 평균</div>
-<div style="font-size:16px;font-weight:900;color:var(--dim)" id="guildAvgContrib">15%</div>
+<div style="flex:1;text-align:center;padding:4px;border-radius:8px;background:rgba(255,255,255,.03)">
+<div style="font-size:9px;color:var(--mut)" data-i18n="guild_avg">길드 평균</div>
+<div style="font-size:14px;font-weight:900;color:var(--dim)" id="guildAvgContrib">15%</div>
 </div>
-<div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:rgba(240,64,64,.06)">
-<div style="font-size:10px;color:var(--mut)" data-i18n="guild_diff">차이</div>
-<div style="font-size:16px;font-weight:900;color:var(--red)" id="guildContribDiff">-3%</div>
+<div style="flex:1;text-align:center;padding:4px;border-radius:8px;background:rgba(240,64,64,.06)">
+<div style="font-size:9px;color:var(--mut)" data-i18n="guild_diff">차이</div>
+<div style="font-size:14px;font-weight:900;color:var(--red)" id="guildContribDiff">-3%</div>
 </div>
 </div>
 </div>
