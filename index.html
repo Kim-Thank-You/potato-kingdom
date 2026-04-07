@@ -559,7 +559,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 /* Game card spinning border + noise */
 @property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes gcBorderSpin{to{--gcAngle:360deg}}
-.game-card-compact{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px;margin:0 !important;background:rgba(14,14,14,.7) !important;border:none !important;position:relative;overflow:visible !important;box-shadow:none !important}
+.game-card-compact{padding:12px 18px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:4px;margin:0 !important;background:rgba(14,14,14,.7) !important;border:none !important;position:relative;overflow:visible !important;box-shadow:none !important}
 .game-card-compact.puzzle-hero{background:radial-gradient(ellipse at 50% 50%,rgba(76,216,48,.06),rgba(14,14,14,.7) 70%) !important}
 .game-card-compact:not(.puzzle-hero){background:radial-gradient(ellipse at 50% 50%,rgba(240,72,72,.06),rgba(14,14,14,.7) 70%) !important}
 .game-card-compact::before{content:'';position:absolute;inset:0;border-radius:15px;z-index:-2;pointer-events:none;animation:gcBorderSpin 5s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px}
