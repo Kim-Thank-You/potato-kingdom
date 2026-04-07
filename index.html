@@ -561,9 +561,9 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 @property --ir{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes innerRefraction{to{--ir:360deg}}
 /* Inner Refraction layer */
-.game-card-compact::after{content:'';position:absolute;inset:0;border-radius:inherit;animation:innerRefraction 18s linear infinite;pointer-events:none;z-index:0;mix-blend-mode:screen;filter:blur(28px)}
-.game-card-compact.puzzle-hero::after{background:conic-gradient(from var(--ir),rgba(76,216,48,.35),transparent 20%,rgba(127,255,160,.25) 40%,transparent 60%,rgba(0,200,100,.3) 80%,rgba(76,216,48,.35))}
-.game-card-compact:not(.puzzle-hero)::after{background:conic-gradient(from var(--ir),rgba(240,72,72,.35),transparent 20%,rgba(255,96,128,.25) 40%,transparent 60%,rgba(255,140,0,.3) 80%,rgba(240,72,72,.35))}
+.game-card-compact::after{content:'';position:absolute;inset:0;border-radius:inherit;animation:innerRefraction 14s linear infinite;pointer-events:none;z-index:0;filter:blur(18px);opacity:.7}
+.game-card-compact.puzzle-hero::after{background:conic-gradient(from var(--ir),#4cd830,transparent 25%,#00c864 50%,transparent 75%,#7fffa0,#4cd830)}
+.game-card-compact:not(.puzzle-hero)::after{background:conic-gradient(from var(--ir),#f04040,transparent 25%,#ff6080 50%,transparent 75%,#ff8c00,#f04040)}
 .game-card-compact>*{position:relative;z-index:1}
 /* Title */
 .game-card-compact .t-hero{font-family:'Russo One',sans-serif !important;letter-spacing:.5px}
