@@ -557,21 +557,31 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 .page>*{position:relative;z-index:1}
 
 /* Game card inner styling */
-.game-card-compact .t-hero{font-family:'Russo One',sans-serif !important;letter-spacing:.5px;text-shadow:0 0 12px currentColor}
-.game-card-compact.puzzle-hero .t-hero{background:linear-gradient(135deg,#7fffa0,#4cd830,#00ff88) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;filter:drop-shadow(0 0 8px rgba(76,216,48,.4))}
-.game-card-compact:not(.puzzle-hero) .t-hero{background:linear-gradient(135deg,#ff6080,#f04040,#ff3366) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;filter:drop-shadow(0 0 8px rgba(240,64,64,.4))}
-.game-card-compact b{font-family:'JetBrains Mono',monospace;font-weight:700;text-shadow:0 0 8px currentColor}
-/* Card corner decorations */
-.game-card-compact>.gc-corner{position:absolute;width:14px;height:14px;pointer-events:none;z-index:1}
-.game-card-compact .gc-corner.tl{top:6px;left:6px;border-top:1.5px solid currentColor;border-left:1.5px solid currentColor;border-radius:3px 0 0 0}
-.game-card-compact .gc-corner.tr{top:6px;right:6px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;border-radius:0 3px 0 0}
-.game-card-compact .gc-corner.bl{bottom:6px;left:6px;border-bottom:1.5px solid currentColor;border-left:1.5px solid currentColor;border-radius:0 0 0 3px}
-.game-card-compact .gc-corner.br{bottom:6px;right:6px;border-bottom:1.5px solid currentColor;border-right:1.5px solid currentColor;border-radius:0 0 3px 0}
-.game-card-compact.puzzle-hero{color:rgba(76,216,48,.5)}
-.game-card-compact:not(.puzzle-hero){color:rgba(240,64,64,.5)}
-/* Live indicator on buttons */
-.game-card-compact .btn-play::before,.game-card-compact .btn-fight::before{content:'';position:absolute;top:50%;left:14px;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.8);animation:livePulse 1.5s ease-in-out infinite;transform:translateY(-50%);z-index:2}
-@keyframes livePulse{0%,100%{opacity:.4;transform:translateY(-50%) scale(1)}50%{opacity:1;transform:translateY(-50%) scale(1.3)}}
+.game-card-compact{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),inset 0 0 60px rgba(255,255,255,.01) !important}
+.game-card-compact.puzzle-hero{animation:cardPulsePuzzle 5s ease-in-out infinite}
+.game-card-compact:not(.puzzle-hero){animation:cardPulseBattle 5s ease-in-out infinite}
+@keyframes cardPulsePuzzle{0%,100%{filter:saturate(1) brightness(1)}50%{filter:saturate(1.15) brightness(1.05)}}
+@keyframes cardPulseBattle{0%,100%{filter:saturate(1) brightness(1)}50%{filter:saturate(1.15) brightness(1.05)}}
+/* Animated mesh background */
+.game-card-compact.puzzle-hero{background:radial-gradient(circle at var(--mx,30%) var(--my,30%),rgba(76,216,48,.12),transparent 50%),radial-gradient(circle at 70% 70%,rgba(0,200,100,.08),transparent 50%),rgba(14,14,14,.7) !important}
+.game-card-compact:not(.puzzle-hero){background:radial-gradient(circle at var(--mx,30%) var(--my,30%),rgba(240,72,72,.12),transparent 50%),radial-gradient(circle at 70% 70%,rgba(255,140,0,.08),transparent 50%),rgba(14,14,14,.7) !important}
+.game-card-compact.puzzle-hero{animation:meshPuzzle 8s ease-in-out infinite,cardPulsePuzzle 5s ease-in-out infinite}
+.game-card-compact:not(.puzzle-hero){animation:meshBattle 8s ease-in-out infinite,cardPulseBattle 5s ease-in-out infinite}
+@keyframes meshPuzzle{0%,100%{--mx:30%;--my:30%}50%{--mx:70%;--my:60%}}
+@keyframes meshBattle{0%,100%{--mx:30%;--my:30%}50%{--mx:70%;--my:60%}}
+@property --mx{syntax:'<percentage>';initial-value:30%;inherits:false}
+@property --my{syntax:'<percentage>';initial-value:30%;inherits:false}
+/* Title */
+.game-card-compact .t-hero{font-family:'Russo One',sans-serif !important;letter-spacing:.5px;display:inline-block}
+.game-card-compact .t-hero span.tch{display:inline-block;animation:titleDrop .5s cubic-bezier(.34,1.56,.64,1) backwards}
+.game-card-compact.puzzle-hero .t-hero{background:linear-gradient(135deg,#7fffa0,#4cd830) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
+.game-card-compact:not(.puzzle-hero) .t-hero{background:linear-gradient(135deg,#ff6080,#f04040) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
+@keyframes titleDrop{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+.game-card-compact b{font-family:'JetBrains Mono',monospace;font-weight:700}
+/* SVG decoration */
+.game-card-compact::after{content:'';position:absolute;right:8px;bottom:8px;width:80px;height:80px;opacity:.06;pointer-events:none;background-repeat:no-repeat;background-size:contain;background-position:center;z-index:0}
+.game-card-compact.puzzle-hero::after{background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' fill='%234cd830'%3E%3Cpath d='M40 10h20a5 5 0 015 5v15h15a5 5 0 015 5v20a5 5 0 01-5 5h-15v15a5 5 0 01-5 5H40a5 5 0 01-5-5V70H20a5 5 0 01-5-5V45a5 5 0 015-5h15V15a5 5 0 015-5z'/%3E%3C/svg%3E")}
+.game-card-compact:not(.puzzle-hero)::after{background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' fill='%23f04040'%3E%3Cpath d='M50 10L20 80h60L50 10zm0 25l15 35H35l15-35z'/%3E%3C/svg%3E")}
 
 /* Game card spinning border + noise */
 @property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
@@ -1141,7 +1151,6 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div></div>
 <!-- PUZZLE HERO — Twin Main -->
 <div class="cd puzzle-hero game-card-compact">
-<div class="gc-corner tl"></div><div class="gc-corner tr"></div><div class="gc-corner bl"></div><div class="gc-corner br"></div>
 <div style="margin-bottom:4px"><span class="tg tg-p" data-i18n="game_tag_farm">🌱 농장 부스트</span><span class="tg tg-t" data-i18n="game_tag_guild">🏰 길드 점수</span><span class="tg tg-r" data-i18n="game_tag_60s">⚡ 60초</span></div>
 <div class="t-hero" data-i18n="game_puzzle_title">🧩 감자 퍼즐</div>
 <div class="t-desc" style="margin-bottom:4px" data-i18n="game_puzzle_desc">콤보 · 연쇄폭발 · 파워업 · 60초 타임어택!</div>
@@ -1152,7 +1161,6 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 <!-- BATTLE HERO — Twin Main -->
 <div class="cd game-card-compact" style="border-color:rgba(240,72,72,.2);background:radial-gradient(ellipse at 20% 80%,rgba(240,72,72,.06),transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(240,140,24,.04),transparent 50%),linear-gradient(135deg,rgba(240,72,72,.04),var(--card) 60%);box-shadow:0 4px 16px rgba(240,72,72,.05),inset 0 1px 0 rgba(255,255,255,.04);position:relative;overflow:hidden">
-<div class="gc-corner tl"></div><div class="gc-corner tr"></div><div class="gc-corner bl"></div><div class="gc-corner br"></div>
 <div style="margin-bottom:4px"><span class="tg tg-r" data-i18n="game_tag_survival">🛡️ 생존 액션</span><span class="tg tg-t" data-i18n="game_tag_guild">🏰 길드 점수</span><span class="tg tg-g" data-i18n="game_tag_wave">⏱ 서바이벌</span></div>
 <div class="t-hero" data-i18n="game_battle_title">⚔️ 감자 왕국 수호전</div>
 <div class="t-desc" style="margin-bottom:4px" data-i18n="game_battle_desc">몰려오는 적을 물리치고 왕국을 지켜라!</div>
@@ -2328,6 +2336,47 @@ function getPageHeight(){
   if(!nav||!cta)return 600;
   return nav.getBoundingClientRect().top-cta.getBoundingClientRect().bottom;
 }
+function splitGameTitles(){
+  document.querySelectorAll('.game-card-compact .t-hero').forEach(function(el){
+    if(el.dataset.split)return;
+    var txt=el.textContent;
+    el.dataset.split='1';
+    el.dataset.orig=txt;
+    el.innerHTML='';
+    for(var i=0;i<txt.length;i++){
+      var c=txt[i];
+      var span=document.createElement('span');
+      span.className='tch';
+      span.textContent=c===' '?'\u00a0':c;
+      span.style.animationDelay=(i*0.04)+'s';
+      el.appendChild(span);
+    }
+  });
+  // 재실행을 위해 reflow
+  document.querySelectorAll('.game-card-compact .t-hero .tch').forEach(function(el){
+    el.style.animation='none';el.offsetHeight;el.style.animation='';
+  });
+}
+function animateGameStats(){
+  document.querySelectorAll('.game-card-compact b').forEach(function(el){
+    var raw=el.textContent.replace(/[^0-9.]/g,'');
+    if(!raw)return;
+    var target=parseFloat(raw);
+    if(isNaN(target)||target===0)return;
+    var suffix=el.textContent.replace(/[0-9.]/g,'');
+    var dur=800;var start=performance.now();
+    function step(now){
+      var p=Math.min((now-start)/dur,1);
+      var eased=1-Math.pow(1-p,3);
+      var v=target*eased;
+      var disp=target>=1000?(v/1000).toFixed(1)+'K':v.toFixed(target%1?1:0);
+      el.textContent=disp+suffix.replace('K','');
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=raw+suffix;
+    }
+    requestAnimationFrame(step);
+  });
+}
 function spawnScrollParticles(){
   var emojis=['🥔','🥔','🌱','✨','💎','🥔'];
   var btn=document.querySelector('.farm-scroll-btn:not(.hidden)');
@@ -2673,6 +2722,7 @@ if(el)el.classList.add('on');
 var tb=document.getElementById('topBar');if(tb)tb.style.display='';
 var fsb=document.getElementById('farmScrollBtn');if(fsb){if(id==='farm'){fsb.classList.remove('hidden')}else{fsb.classList.add('hidden')}}
 var gsb=document.getElementById('gameScrollBtn');if(gsb){if(id==='game'){gsb.classList.remove('hidden')}else{gsb.classList.add('hidden')}}
+if(id==='game'){splitGameTitles();animateGameStats();}
 var glb=document.getElementById('guildScrollBtn');if(glb){if(id==='guild'){glb.classList.remove('hidden')}else{glb.classList.add('hidden')}}
 var vlb=document.getElementById('vaultScrollBtn');if(vlb){if(id==='vault'){vlb.classList.remove('hidden')}else{vlb.classList.add('hidden')}}
 if(id==='farm'){setFarmBal(S.potato)}
