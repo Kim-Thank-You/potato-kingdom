@@ -6,7 +6,7 @@
 <title>Potato Kingdom v8</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Russo+One&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
 /**/
 --bg:#050505;--bg2:#0a0a0a;--card:#111111;--card2:#161616;
@@ -555,6 +555,23 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 /* ═══ UNIVERSAL PAGE SYSTEM ═══ */
 .page{height:var(--content-h);display:flex;flex-direction:column;padding:var(--gap) 0;box-sizing:border-box;overflow:hidden}
 .page>*{position:relative;z-index:1}
+
+/* Game card inner styling */
+.game-card-compact .t-hero{font-family:'Russo One',sans-serif !important;letter-spacing:.5px;text-shadow:0 0 12px currentColor}
+.game-card-compact.puzzle-hero .t-hero{background:linear-gradient(135deg,#7fffa0,#4cd830,#00ff88) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;filter:drop-shadow(0 0 8px rgba(76,216,48,.4))}
+.game-card-compact:not(.puzzle-hero) .t-hero{background:linear-gradient(135deg,#ff6080,#f04040,#ff3366) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;filter:drop-shadow(0 0 8px rgba(240,64,64,.4))}
+.game-card-compact b{font-family:'JetBrains Mono',monospace;font-weight:700;text-shadow:0 0 8px currentColor}
+/* Card corner decorations */
+.game-card-compact>.gc-corner{position:absolute;width:14px;height:14px;pointer-events:none;z-index:1}
+.game-card-compact .gc-corner.tl{top:6px;left:6px;border-top:1.5px solid currentColor;border-left:1.5px solid currentColor;border-radius:3px 0 0 0}
+.game-card-compact .gc-corner.tr{top:6px;right:6px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;border-radius:0 3px 0 0}
+.game-card-compact .gc-corner.bl{bottom:6px;left:6px;border-bottom:1.5px solid currentColor;border-left:1.5px solid currentColor;border-radius:0 0 0 3px}
+.game-card-compact .gc-corner.br{bottom:6px;right:6px;border-bottom:1.5px solid currentColor;border-right:1.5px solid currentColor;border-radius:0 0 3px 0}
+.game-card-compact.puzzle-hero{color:rgba(76,216,48,.5)}
+.game-card-compact:not(.puzzle-hero){color:rgba(240,64,64,.5)}
+/* Live indicator on buttons */
+.game-card-compact .btn-play::before,.game-card-compact .btn-fight::before{content:'';position:absolute;top:50%;left:14px;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.8);animation:livePulse 1.5s ease-in-out infinite;transform:translateY(-50%);z-index:2}
+@keyframes livePulse{0%,100%{opacity:.4;transform:translateY(-50%) scale(1)}50%{opacity:1;transform:translateY(-50%) scale(1.3)}}
 
 /* Game card spinning border + noise */
 @property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
@@ -1124,6 +1141,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div></div>
 <!-- PUZZLE HERO — Twin Main -->
 <div class="cd puzzle-hero game-card-compact">
+<div class="gc-corner tl"></div><div class="gc-corner tr"></div><div class="gc-corner bl"></div><div class="gc-corner br"></div>
 <div style="margin-bottom:4px"><span class="tg tg-p" data-i18n="game_tag_farm">🌱 농장 부스트</span><span class="tg tg-t" data-i18n="game_tag_guild">🏰 길드 점수</span><span class="tg tg-r" data-i18n="game_tag_60s">⚡ 60초</span></div>
 <div class="t-hero" data-i18n="game_puzzle_title">🧩 감자 퍼즐</div>
 <div class="t-desc" style="margin-bottom:4px" data-i18n="game_puzzle_desc">콤보 · 연쇄폭발 · 파워업 · 60초 타임어택!</div>
@@ -1134,6 +1152,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 </div>
 <!-- BATTLE HERO — Twin Main -->
 <div class="cd game-card-compact" style="border-color:rgba(240,72,72,.2);background:radial-gradient(ellipse at 20% 80%,rgba(240,72,72,.06),transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(240,140,24,.04),transparent 50%),linear-gradient(135deg,rgba(240,72,72,.04),var(--card) 60%);box-shadow:0 4px 16px rgba(240,72,72,.05),inset 0 1px 0 rgba(255,255,255,.04);position:relative;overflow:hidden">
+<div class="gc-corner tl"></div><div class="gc-corner tr"></div><div class="gc-corner bl"></div><div class="gc-corner br"></div>
 <div style="margin-bottom:4px"><span class="tg tg-r" data-i18n="game_tag_survival">🛡️ 생존 액션</span><span class="tg tg-t" data-i18n="game_tag_guild">🏰 길드 점수</span><span class="tg tg-g" data-i18n="game_tag_wave">⏱ 서바이벌</span></div>
 <div class="t-hero" data-i18n="game_battle_title">⚔️ 감자 왕국 수호전</div>
 <div class="t-desc" style="margin-bottom:4px" data-i18n="game_battle_desc">몰려오는 적을 물리치고 왕국을 지켜라!</div>
