@@ -2574,9 +2574,11 @@ function updateContentH(){
   if(!topBar||!ctaBanner||!nav)return;
   var navRect=nav.getBoundingClientRect();
   var ctaRect=ctaBanner.getBoundingClientRect();
-  // Clamp endpoints to the visible viewport so a layout-overflowing nav can't inflate content-h
+  var topRect=topBar.getBoundingClientRect();
+  // Clamp endpoints to the visible viewport so a layout-overflowing nav can't inflate content-h.
+  // When ctaBanner is hidden (display:none), its rect is all zeros — fall back to topBar.bottom.
   var navTop=Math.min(navRect.top,window.innerHeight);
-  var ctaBot=Math.max(ctaRect.bottom,0);
+  var ctaBot=Math.max(ctaRect.bottom,topRect.bottom,0);
   var contentH=navTop-ctaBot;
   document.documentElement.style.setProperty('--content-h',contentH+'px');
   // 스크롤 버튼을 네비 상단선에 중앙 걸치게
@@ -2586,6 +2588,18 @@ function updateContentH(){
 setTimeout(updateContentH,100);
 setTimeout(updateContentH,500);
 window.addEventListener('resize',updateContentH);
+// 배너 표시/숨김 변화를 자동 감지해서 content-h 재계산
+setTimeout(function(){
+  var cb=document.getElementById('ctaBanner');
+  if(!cb||!window.MutationObserver)return;
+  var pending=false;
+  var obs=new MutationObserver(function(){
+    if(pending)return;
+    pending=true;
+    setTimeout(function(){pending=false;updateContentH()},0);
+  });
+  obs.observe(cb,{attributes:true,attributeFilter:['style','class'],childList:true});
+},200);
 function fmtC(v){if(v>=1e6)return(v/1e6).toFixed(1)+'M';if(v>=1e3)return(v/1e3).toFixed(1)+'K';return v%1===0?''+v:v.toFixed(1)}
 function fmtFull(v){return Math.floor(v).toLocaleString()}
 function farmBalSize(s){var l=s.length;if(l<=5)return 56;if(l<=6)return 48;if(l<=7)return 40;if(l<=9)return 34;if(l<=11)return 28;return 22}
