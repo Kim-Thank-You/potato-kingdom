@@ -1117,30 +1117,8 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
    v10 시각적 디자인 개선 (레이아웃 변경 없음, 시각/인터랙션만)
    ════════════════════════════════════════════════════════════════ */
 
-/* === [폴리시] 스크롤바 미세 조정 === */
-::-webkit-scrollbar{width:0;height:0}
-*{scrollbar-width:none}
 
-/* === [폴리시] 앰비언트 글로우 (배경 미세 후광) === */
-.phone::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(76,216,48,.025),transparent 60%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(0,152,234,.02),transparent 60%);mix-blend-mode:screen}
-
-/* === [인터랙션] 카드 탭 펄스 글로우 === */
-@keyframes tapPulse{0%{box-shadow:0 0 0 0 rgba(76,216,48,.35)}100%{box-shadow:0 0 0 14px rgba(76,216,48,0)}}
-.cd.tap-pulse,button.tap-pulse{animation:tapPulse .6s var(--apple)}
-
-/* === [인터랙션] 버튼 ripple 효과 === */
-.btn,.btn-play,.btn-fight,.btn-pw,.btn-ghost,.ni{position:relative;overflow:hidden}
-.btn::after,.btn-play::after,.btn-fight::after,.btn-pw::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.25);transform:translate(-50%,-50%);pointer-events:none;transition:width .5s var(--apple),height .5s var(--apple),opacity .6s var(--apple);opacity:0}
-.btn:active::after,.btn-play:active::after,.btn-fight:active::after,.btn-pw:active::after{width:240%;height:240%;opacity:1;transition:width 0s,height 0s,opacity 0s}
-
-/* === [카드 표면] breathing 호흡 글로우 === */
-@keyframes cardBreath{0%,100%{filter:brightness(1) saturate(1)}50%{filter:brightness(1.04) saturate(1.06)}}
-.game-card-compact{animation:cardBreath 5s ease-in-out infinite}
-
-/* === [카드 표면] 시그니처 inner highlight === */
-.cd::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent);pointer-events:none;z-index:1}
-
-/* === [카드 표면] 길드 카드 / 농장 카드 등 시그니처 글로우 강화 === */
+/* === [카드 표면] 시그니처 글로우 강화 === */
 @keyframes shimmerSlide{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 /* === [타이포] 라벨/값 위계 === */
@@ -2665,12 +2643,6 @@ function animateNumberTo(el,from,to,dur){
   }
   requestAnimationFrame(step);
 }
-/* 전역 탭 펄스: .cd 또는 .btn 클릭 시 자동 적용 */
-document.addEventListener('click',function(e){
-  var c=e.target.closest&&e.target.closest('.cd, .btn, .btn-play, .btn-fight');
-  if(c)tapPulse(c);
-},true);
-
 function doUnlockSlot(idx){
 var req=FARM_SLOT_UNLOCK[idx];
 if(S.diamond<req.cost){showInfo('💎',t('farm_diamond_cost',{cost:req.cost})+' ('+S.diamond+'💎)');return}
