@@ -2748,7 +2748,7 @@ showSheet('<div style="position:relative"><div class="sh-head">🎯</div><button
 '</div>')}
 function missionTab(el,idx){document.querySelectorAll('#missionSeg .sh-seg-i').forEach(function(s){s.classList.remove('on')});el.classList.add('on');var ct=document.getElementById('missionContent');if(idx===1)ct.innerHTML='<div class="sh-item"><div class="sh-item-row"><div><div class="sh-item-title">'+t('guild_weekly_att')+' ×5</div><div class="sh-item-sub">Streak</div></div><div class="sh-item-progress" style="color:var(--potato)">3/5</div></div><div class="sh-item-btn">...</div></div><div class="sh-item"><div class="sh-item-row"><div><div class="sh-item-title">'+t('game_puzzle_title')+' ×30</div><div class="sh-item-sub">Weekly</div></div><div class="sh-item-progress" style="color:var(--ton)">12/30</div></div><div class="sh-item-btn">...</div></div>';else showMission()}
 /**/
-function showSettings(){document.getElementById('settingsOv').classList.add('active');var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='none';triggerHaptic('light')}
+function showSettings(){document.getElementById('settingsOv').classList.add('active');var cb=document.getElementById('ctaBanner');if(cb)cb.style.visibility='hidden';triggerHaptic('light')}
 
 /**/
 function getProfileSummary(){
@@ -2842,7 +2842,7 @@ function renderProfile(){
   h+='</div>';
   document.getElementById('profileBody').innerHTML=h;
 }
-function openProfile(){renderProfile();document.getElementById('profileOv').classList.add('active');var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='none';triggerHaptic('light')}
+function openProfile(){renderProfile();document.getElementById('profileOv').classList.add('active');var cb=document.getElementById('ctaBanner');if(cb)cb.style.visibility='hidden';triggerHaptic('light')}
 
 /**/
 function showAttendancePopup(fromTut){
@@ -2977,8 +2977,8 @@ function showMilestoneSheet(){
   h+='<button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px" onclick="document.getElementById(\'so\').classList.remove(\'show\')">\uB2EB\uAE30</button>';
   setTimeout(function(){showSheet(h)},300);
 }
-function closeProfile(){document.getElementById('profileOv').classList.remove('active');renderCTA();triggerHaptic('light')}
-function closeSettings(){document.getElementById('settingsOv').classList.remove('active');renderCTA();triggerHaptic('light')}
+function closeProfile(){document.getElementById('profileOv').classList.remove('active');var cb=document.getElementById('ctaBanner');if(cb)cb.style.visibility='';renderCTA();triggerHaptic('light')}
+function closeSettings(){document.getElementById('settingsOv').classList.remove('active');var cb=document.getElementById('ctaBanner');if(cb)cb.style.visibility='';renderCTA();triggerHaptic('light')}
 function showHarvest(idx){
 /* 튜토리얼 진행 중에는 수확 시트 차단 (step 1 수확 단계는 tutDoHarvest가 직접 doHarvest 호출) */
 if(TUT&&!TUT.completed&&TUT.step>=0&&TUT.step<6)return;
@@ -3352,7 +3352,7 @@ function requestTelegramFullscreenIfAvailable(){try{if(window.Telegram&&Telegram
 function restoreTelegramUiState(){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.exitFullscreen)Telegram.WebApp.exitFullscreen()}catch(e){}}
 function enterBattle(){
 var ov=document.getElementById('battleOverlay');ov.classList.add('active');
-var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='none';
+var cb=document.getElementById('ctaBanner');if(cb)cb.style.visibility='hidden';
 var stsB=document.getElementById('stsBar');if(stsB)stsB.style.display='none';
 document.getElementById('topBar').style.display='none';
 document.getElementById('mainNav').style.display='none';
@@ -3374,7 +3374,7 @@ setTelegramBattleGuards(false);restoreTelegramUiState();
 var rw=getGameReward('battle',0,battleSec);
 /**/
 applyAction('battle',{potato:rw.potato,guildContrib:rw.guildContrib,duration:Math.floor(battleSec/60)+'m'+battleSec%60+'s'});
-var cb=document.getElementById('ctaBanner');if(cb)cb.style.display='';
+var cb=document.getElementById('ctaBanner');if(cb)cb.style.visibility='';
 showInfo(t('battle_result_title'),t('battle_result_potato',{amount:rw.potato})+'\n'+t('battle_result_guild',{contrib:rw.guildContrib}));
 }
 /**/
