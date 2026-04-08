@@ -39,6 +39,16 @@
 --tma-top:var(--sa-top);--tma-bot:var(--sa-bot);
 --gap:min(20px,2.5vh);
 --content-h:100vh;
+/* === [v10 폴리시] 그림자 토큰 === */
+--sh-sm:0 1px 2px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.10);
+--sh-md:0 2px 6px rgba(0,0,0,.20),0 8px 20px rgba(0,0,0,.14);
+--sh-lg:0 6px 18px rgba(0,0,0,.32),0 18px 44px rgba(0,0,0,.24);
+--sh-glow:0 0 0 1px rgba(255,255,255,.04),0 0 24px rgba(76,216,48,.06);
+/* === [v10 폴리시] 디바이더/표면 색상 통일 === */
+--line:rgba(255,255,255,.06);
+--line2:rgba(255,255,255,.04);
+--surf:rgba(255,255,255,.025);
+--surf2:rgba(255,255,255,.04);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 button,a,[onclick]{cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0)}
@@ -1102,11 +1112,115 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 .tut-complete-reward .tcr-val{font-size:20px;font-weight:900;color:var(--potato)}
 .tut-complete-reward .tcr-lbl{font-size:10px;color:var(--dim);margin-top:3px}
 .tut-complete-reward.dia .tcr-val{color:var(--dia)}
+
+/* ════════════════════════════════════════════════════════════════
+   v10 시각적 디자인 개선 (레이아웃 변경 없음, 시각/인터랙션만)
+   ════════════════════════════════════════════════════════════════ */
+
+/* === [폴리시] 스크롤바 미세 조정 === */
+::-webkit-scrollbar{width:0;height:0}
+*{scrollbar-width:none}
+
+/* === [폴리시] 앰비언트 글로우 (배경 미세 후광) === */
+.phone::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(76,216,48,.025),transparent 60%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(0,152,234,.02),transparent 60%);mix-blend-mode:screen}
+
+/* === [인터랙션] 카드 탭 펄스 글로우 === */
+@keyframes tapPulse{0%{box-shadow:0 0 0 0 rgba(76,216,48,.35)}100%{box-shadow:0 0 0 14px rgba(76,216,48,0)}}
+.cd.tap-pulse,button.tap-pulse{animation:tapPulse .6s var(--apple)}
+
+/* === [인터랙션] 버튼 ripple 효과 === */
+.btn,.btn-play,.btn-fight,.btn-pw,.btn-ghost,.ni{position:relative;overflow:hidden}
+.btn::after,.btn-play::after,.btn-fight::after,.btn-pw::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.25);transform:translate(-50%,-50%);pointer-events:none;transition:width .5s var(--apple),height .5s var(--apple),opacity .6s var(--apple);opacity:0}
+.btn:active::after,.btn-play:active::after,.btn-fight:active::after,.btn-pw:active::after{width:240%;height:240%;opacity:1;transition:width 0s,height 0s,opacity 0s}
+
+/* === [카드 표면] breathing 호흡 글로우 === */
+@keyframes cardBreath{0%,100%{filter:brightness(1) saturate(1)}50%{filter:brightness(1.04) saturate(1.06)}}
+.game-card-compact{animation:cardBreath 5s ease-in-out infinite}
+
+/* === [카드 표면] 시그니처 inner highlight === */
+.cd::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent);pointer-events:none;z-index:1}
+
+/* === [카드 표면] 길드 카드 / 농장 카드 등 시그니처 글로우 강화 === */
+@keyframes shimmerSlide{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* === [타이포] 라벨/값 위계 === */
+.label,.lbl,.t-label{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);font-weight:700;opacity:.7}
+.value,.val,.t-value{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--tx);letter-spacing:-.2px}
+.value-hero{font-family:'Russo One',sans-serif;font-weight:900;letter-spacing:.3px}
+
+/* === [타이포] 메탈릭 그라데이션 텍스트 === */
+.metal-gold{background:linear-gradient(180deg,#fde08a 0%,#f0b818 40%,#c08010 70%,#f0c040 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 12px rgba(240,184,24,.15)}
+.metal-potato{background:linear-gradient(180deg,#9fff80 0%,#4cd830 45%,#2ea018 75%,#5fe040 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.metal-ton{background:linear-gradient(180deg,#7fcdff 0%,#0098ea 50%,#0070b8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* === [전환] 탭 페이드/슬라이드 === */
+@keyframes tabIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.tab-p.active{animation:tabIn .28s var(--apple)}
+
+/* === [전환] 모달 spring 등장 === */
+@keyframes modalSpring{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:scale(1)}}
+.so.show .so-card,.attendance-popup,.tut-modal{animation:modalSpring .35s var(--spring)}
+
+/* === [빈 공간] 배경 미세 파티클 (CSS only, GPU만) === */
+@keyframes floatUp1{0%{transform:translate3d(0,100vh,0);opacity:0}10%{opacity:.06}90%{opacity:.06}100%{transform:translate3d(20px,-10vh,0);opacity:0}}
+@keyframes floatUp2{0%{transform:translate3d(0,100vh,0);opacity:0}10%{opacity:.05}90%{opacity:.05}100%{transform:translate3d(-30px,-10vh,0);opacity:0}}
+.bg-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bg-particles span{position:absolute;width:3px;height:3px;border-radius:50%;background:radial-gradient(circle,#4cd830,transparent);will-change:transform,opacity}
+.bg-particles span:nth-child(1){left:12%;animation:floatUp1 22s linear infinite;animation-delay:0s}
+.bg-particles span:nth-child(2){left:32%;animation:floatUp2 28s linear infinite;animation-delay:-5s}
+.bg-particles span:nth-child(3){left:55%;animation:floatUp1 26s linear infinite;animation-delay:-12s;background:radial-gradient(circle,#f0b818,transparent)}
+.bg-particles span:nth-child(4){left:78%;animation:floatUp2 30s linear infinite;animation-delay:-18s;background:radial-gradient(circle,#0098ea,transparent)}
+.bg-particles span:nth-child(5){left:88%;animation:floatUp1 24s linear infinite;animation-delay:-9s}
+
+/* === [보상] 플로팅 텍스트 (예: +50 POTATO) === */
+@keyframes floatReward{0%{opacity:0;transform:translate(-50%,0) scale(.6)}15%{opacity:1;transform:translate(-50%,-12px) scale(1.05)}80%{opacity:1;transform:translate(-50%,-46px) scale(1)}100%{opacity:0;transform:translate(-50%,-64px) scale(.95)}}
+.float-reward{position:fixed;left:50%;font-family:'Russo One',sans-serif;font-size:24px;font-weight:900;pointer-events:none;z-index:9999;text-shadow:0 2px 8px rgba(0,0,0,.5),0 0 18px currentColor;animation:floatReward 1.6s var(--apple) forwards;will-change:transform,opacity}
+.float-reward.potato{color:#5fe040}
+.float-reward.gold{color:#f0c840}
+.float-reward.ton{color:#3fb8ff}
+.float-reward.diamond{color:#a0c8ff}
+
+/* === [보상] 코인 burst === */
+@keyframes coinBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(.4) rotate(0deg)}100%{opacity:0;transform:translate(calc(-50% + var(--bx,0px)),calc(-50% + var(--by,0px))) scale(1) rotate(360deg)}}
+.coin-burst{position:fixed;left:50%;top:50%;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fde080,#f0b818 50%,#a06808);box-shadow:0 0 12px rgba(240,184,24,.6),inset 0 -2px 0 rgba(0,0,0,.2);pointer-events:none;z-index:9999;animation:coinBurst 1.1s cubic-bezier(.2,.7,.3,1) forwards}
+
+/* === [보상] 마일스톤 빛 모이기 === */
+@keyframes milestoneRays{0%{opacity:0;transform:scale(.5)}50%{opacity:1}100%{opacity:0;transform:scale(1.4)}}
+.milestone-rays{position:fixed;inset:0;pointer-events:none;z-index:9998;background:radial-gradient(circle at center,rgba(240,184,24,.18),transparent 60%);animation:milestoneRays 1.2s var(--apple) forwards}
+
+/* === [디테일] 디바이더 톤 통일 === */
+hr,.divider{border:none;height:1px;background:var(--line);margin:8px 0}
+
+/* === [디테일] 진행바 shimmer === */
+@keyframes barShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.bar-fill,.progress-fill{background-image:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.18) 50%,rgba(255,255,255,0) 100%);background-size:200% 100%;animation:barShimmer 2.4s linear infinite}
+
+/* === [아이콘] 호버 미세 점프 === */
+@keyframes iconBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.cta-icon{animation:iconBob 2.2s ease-in-out infinite}
+
+/* === [디테일] 숫자 카운터 트랜지션 === */
+.num-tick{display:inline-block;transition:transform .25s var(--spring),color .2s var(--apple)}
+.num-tick.bump{transform:scale(1.18);color:var(--potato)}
+
+/* === [상태] 출석 가능 시 강조 === */
+@keyframes pulseAttention{0%,100%{box-shadow:inset 0 0 0 0 rgba(76,216,48,0)}50%{box-shadow:inset 0 0 0 1px rgba(76,216,48,.18)}}
+.cta-banner.cta-attendance{animation:pulseAttention 2.6s ease-in-out infinite}
+
+/* === [폴리시] 모서리 antialiasing === */
+.cd,.btn,.btn-play,.btn-fight,.cta-banner,.tab-p,.top-pill,.top-icon{transform:translateZ(0);backface-visibility:hidden}
+
+/* === [아이콘] 이모지 폰트 통일 (SVG 교체 대신 OS 무관 일관성 확보) === */
+.cta-icon,.top-avatar,.tp-icon,.ni .ico,.t-hero,.tg{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji','Twemoji Mozilla','EmojiOne Color','Android Emoji',sans-serif}
+
+/* === [폴리시] 다국어 폰트 fallback === */
+body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto Sans','Helvetica Neue',-apple-system,BlinkMacSystemFont,sans-serif}
 </style>
 </head>
 <body>
 <div class="phone" id="app">
 <div class="depth-bg"><div class="d-orb o1"></div><div class="d-orb o2"></div><div class="d-orb o3"></div></div>
+<div class="bg-particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
 <div class="top" id="topBar">
 <div class="top-left" onclick="openProfile()" style="cursor:pointer;-webkit-tap-highlight-color:transparent">
 <div class="top-avatar">🥔</div>
@@ -2486,6 +2600,77 @@ slot.diaUsed=true;
 if(slot.endAt<=Date.now()){slot.state='harvestable'}
 renderFarm(idx);triggerHaptic('medium')}
 
+/* ════════════════════════════════════════════════════════════════
+   v10 시각 헬퍼 — 보상 플로팅, 코인 burst, 마일스톤, 탭 펄스, 숫자 bump
+   순수 추가 함수, 기존 동작 영향 없음
+   ════════════════════════════════════════════════════════════════ */
+function spawnFloatReward(text,type,opts){
+  try{
+    var el=document.createElement('div');
+    el.className='float-reward '+(type||'potato');
+    el.textContent=text;
+    if(opts&&opts.x!=null)el.style.left=opts.x+'px';
+    if(opts&&opts.y!=null)el.style.top=opts.y+'px';else el.style.top='35%';
+    document.body.appendChild(el);
+    setTimeout(function(){if(el&&el.parentNode)el.parentNode.removeChild(el)},1700);
+  }catch(e){}
+}
+function spawnCoinBurst(count,originX,originY){
+  try{
+    count=count||8;
+    for(var i=0;i<count;i++){
+      (function(i){
+        var c=document.createElement('div');
+        c.className='coin-burst';
+        if(originX!=null)c.style.left=originX+'px';
+        if(originY!=null)c.style.top=originY+'px';
+        var ang=(Math.PI*2*i/count)+Math.random()*.5;
+        var dist=60+Math.random()*60;
+        c.style.setProperty('--bx',(Math.cos(ang)*dist)+'px');
+        c.style.setProperty('--by',(Math.sin(ang)*dist-30)+'px');
+        c.style.animationDelay=(i*30)+'ms';
+        document.body.appendChild(c);
+        setTimeout(function(){if(c&&c.parentNode)c.parentNode.removeChild(c)},1200+i*30);
+      })(i);
+    }
+  }catch(e){}
+}
+function spawnMilestoneRays(){
+  try{
+    var r=document.createElement('div');
+    r.className='milestone-rays';
+    document.body.appendChild(r);
+    setTimeout(function(){if(r&&r.parentNode)r.parentNode.removeChild(r)},1300);
+  }catch(e){}
+}
+function tapPulse(el){
+  if(!el)return;
+  try{el.classList.remove('tap-pulse');void el.offsetWidth;el.classList.add('tap-pulse');setTimeout(function(){el.classList.remove('tap-pulse')},650)}catch(e){}
+}
+function bumpNumber(el){
+  if(!el)return;
+  try{el.classList.add('num-tick');el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');setTimeout(function(){el.classList.remove('bump')},260)}catch(e){}
+}
+function animateNumberTo(el,from,to,dur){
+  if(!el)return;
+  dur=dur||700;
+  var start=null,fromV=Number(from)||0,toV=Number(to)||0;
+  function step(ts){
+    if(!start)start=ts;
+    var p=Math.min((ts-start)/dur,1);
+    var ep=1-Math.pow(1-p,3);
+    var v=Math.round(fromV+(toV-fromV)*ep);
+    el.textContent=(typeof v.toLocaleString==='function')?v.toLocaleString():String(v);
+    if(p<1)requestAnimationFrame(step);else bumpNumber(el);
+  }
+  requestAnimationFrame(step);
+}
+/* 전역 탭 펄스: .cd 또는 .btn 클릭 시 자동 적용 */
+document.addEventListener('click',function(e){
+  var c=e.target.closest&&e.target.closest('.cd, .btn, .btn-play, .btn-fight');
+  if(c)tapPulse(c);
+},true);
+
 function doUnlockSlot(idx){
 var req=FARM_SLOT_UNLOCK[idx];
 if(S.diamond<req.cost){showInfo('💎',t('farm_diamond_cost',{cost:req.cost})+' ('+S.diamond+'💎)');return}
@@ -2670,7 +2855,7 @@ p.style.animationDelay=(Math.random()*.2)+'s';
 c.appendChild(p);setTimeout(function(el){el.remove()},1100,p);
 }}
 function celebrateTonGain(){spawnP({list:['#0098ea','#40b8ff','#80d0ff','#fff'],cls:'ton-p'},200,55,32);triggerHaptic('heavy')}
-function celebratePotatoGain(){spawnP({list:['#4cd830','#68e050','#f0b818','#f8d860'],cls:'potato-p'},195,55,28);triggerHaptic('heavy')}
+function celebratePotatoGain(){spawnP({list:['#4cd830','#68e050','#f0b818','#f8d860'],cls:'potato-p'},195,55,28);triggerHaptic('heavy');try{spawnCoinBurst(10,window.innerWidth/2,window.innerHeight*0.4)}catch(e){}}
 /* HAPTIC */
 function triggerHaptic(t){
 try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.HapticFeedback){Telegram.WebApp.HapticFeedback.impactOccurred(t==='heavy'?'heavy':t==='medium'?'medium':'light');return}}catch(e){}
@@ -2916,6 +3101,11 @@ function claimAttendance(){
   document.getElementById('so').classList.remove('show');
   var attOvOld=document.getElementById('attPopupOverlay');if(attOvOld)attOvOld.remove();
   celebratePotatoGain();
+  try{
+    if(rw.potato>0)spawnFloatReward('+'+rw.potato+' POTATO','potato');
+    if(rw.diamond>0)setTimeout(function(){spawnFloatReward('+'+rw.diamond+' 💎','diamond')},250);
+    if(ATT.currentStreak>0&&ATT.currentStreak%7===0)setTimeout(spawnMilestoneRays,400);
+  }catch(e){}
   renderCTA();
   /* 출석 축하 중앙 팝업 */
   var attOv=document.createElement('div');attOv.id='attCelebrateOverlay';
