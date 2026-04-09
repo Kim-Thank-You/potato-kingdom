@@ -301,12 +301,12 @@ transition:all .12s var(--apple);
 @keyframes vaultGlowPulse{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:.48;transform:translate(-50%,-50%) scale(1.02)}}
 .vault-ton-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(0,152,234,.025),rgba(0,80,160,.008) 50%,rgba(0,152,234,.02));border:.5px solid rgba(0,152,234,.06);box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);animation:vaultRingRotate 30s linear infinite}
 @keyframes vaultRingRotate{0%,100%{box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);border-color:rgba(0,152,234,.06)}50%{box-shadow:0 0 14px rgba(0,152,234,.08),0 0 32px rgba(0,152,234,.025),inset 0 0 10px rgba(0,152,234,.01);border-color:rgba(0,152,234,.08)}}
-.vault-ton-inner{text-align:center}
-.vault-ton-label{font-size:9px;font-weight:600;color:rgba(100,210,255,.40);letter-spacing:4px;text-transform:uppercase;margin-bottom:min(4px,.5vh);text-shadow:none}
+.vault-ton-inner,.vault-potato-inner{text-align:center}
+.vault-ton-label{font-size:8px;font-weight:700;color:rgba(100,210,255,.50);letter-spacing:3px;text-transform:uppercase;margin-bottom:min(3px,.4vh);text-shadow:none}
 .vault-ton-amount{font-size:min(36px,4.5vh);font-weight:900;letter-spacing:-1.5px;line-height:1.05;background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);background-size:100% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));animation:vaultAmountShine 7s ease-in-out infinite}
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
-.vault-ton-usd{font-size:12px;color:rgba(140,200,240,.48);margin-top:8px;font-weight:500;letter-spacing:.3px;text-shadow:none}
+.vault-ton-usd{font-size:10px;color:rgba(140,200,240,.45);margin-top:min(3px,.4vh);font-weight:500;letter-spacing:.3px;text-shadow:none}
 .vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center}
 .vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
 .vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
@@ -1404,7 +1404,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .vault-page1 .btn-ton::before{content:'';position:absolute;inset:0;border-radius:14px;z-index:1;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.4) 35%,rgba(100,200,255,.7) 50%,rgba(0,152,234,.4) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 
 /* POTATO 출금 — 초록 유리 */
-.vault-page1 .btn-play{background:rgba(76,216,48,.06)!important;backdrop-filter:blur(16px) saturate(1.3)!important;-webkit-backdrop-filter:blur(16px) saturate(1.3)!important;border:none!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.12),0 4px 12px rgba(76,216,48,.06)!important;overflow:hidden!important;min-height:auto!important}
+.vault-page1 .btn-play{background:rgba(76,216,48,.06)!important;backdrop-filter:blur(16px) saturate(1.3)!important;-webkit-backdrop-filter:blur(16px) saturate(1.3)!important;border:none!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.12),0 4px 12px rgba(76,216,48,.06)!important;overflow:visible!important;min-height:auto!important}
 .vault-page1 .btn-play::before{content:'';position:absolute;inset:0;border-radius:14px;z-index:1;pointer-events:none;padding:2px;animation:gcBorderSpin 5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(76,216,48,.4) 35%,rgba(120,255,80,.6) 50%,rgba(76,216,48,.4) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 
 /* 무료 성장 가속 — 흰색 유리 (가장 은은) */
@@ -1412,7 +1412,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .farm-view .btn-ghost::before{content:'';position:absolute;inset:0;border-radius:var(--r-lg);z-index:1;pointer-events:none;padding:1.5px;animation:gcBorderSpin 8s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(255,255,255,.12) 42%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.12) 58%,transparent 70%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 
 /* 출석 보상 받기 — 골드 유리 */
-.att-popup .btn-play{background:rgba(240,184,24,.08)!important;backdrop-filter:blur(16px) saturate(1.3)!important;-webkit-backdrop-filter:blur(16px) saturate(1.3)!important;border:none!important;color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.3)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.12),0 4px 16px rgba(240,184,24,.06)!important;overflow:hidden!important}
+.att-popup .btn-play{background:rgba(240,184,24,.08)!important;backdrop-filter:blur(16px) saturate(1.3)!important;-webkit-backdrop-filter:blur(16px) saturate(1.3)!important;border:none!important;color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.3)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.12),0 4px 16px rgba(240,184,24,.06)!important;overflow:visible!important}
 .att-popup .btn-play span{position:relative;z-index:3}
 .att-popup .btn-play::before{content:'';position:absolute;inset:0;border-radius:var(--r-xl);z-index:1;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(240,184,24,.4) 35%,rgba(255,220,80,.7) 50%,rgba(240,184,24,.4) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 
@@ -1762,12 +1762,12 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="breathe" style="inset:-6px;border:.5px solid rgba(16,168,255,.06);--bd:5s;--bs1:0 0 18px rgba(16,168,255,.04),0 0 40px rgba(16,168,255,.02);--bs2:0 0 30px rgba(16,168,255,.08),0 0 60px rgba(16,168,255,.035)"></div>
 <div class="orb-trk" style="inset:-8px;--od:16s"><div class="od" style="width:3.5px;height:3.5px;top:0;left:50%;transform:translateX(-50%);background:rgba(60,200,255,.4);box-shadow:0 0 5px rgba(60,200,255,.2);position:absolute"></div><div class="od" style="width:2.5px;height:2.5px;bottom:0;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.2);box-shadow:0 0 3px rgba(255,255,255,.1);position:absolute"></div></div>
 <div class="vault-ton-inner">
-<div class="vault-ton-label">💎 MY TON</div>
+<div class="vault-ton-label">MY TON</div>
 <div class="vault-ton-amount" id="vaultTonBig">12.5</div>
 <div class="vault-ton-usd" id="vaultTonUsd">≈ $69</div>
+<div class="vault-trend-in ton-trend">오늘 +0.5<br>이번 주 +2.1</div>
 </div>
 </div>
-<div class="vault-trend">📈 오늘 +0.5 · 이번 주 +2.1</div>
 </div>
 <!-- TON HERO -->
 <button class="btn btn-ton" style="width:100%;margin-top:4px;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden" onclick="showWithdrawSheet()" data-i18n="vault_withdraw_btn">💠 TON 출금 신청</button>
@@ -1777,13 +1777,13 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="vault-potato-ring">
 <div class="breathe" style="inset:-6px;border:.5px solid rgba(80,224,48,.04);--bd:5s;--bs1:0 0 18px rgba(80,224,48,.03),0 0 40px rgba(240,192,48,.015);--bs2:0 0 30px rgba(80,224,48,.07),0 0 60px rgba(240,192,48,.03)"></div>
 <div class="orb-trk" style="inset:-8px;--od:14s"><div class="od" style="width:3.5px;height:3.5px;top:0;left:50%;transform:translateX(-50%);background:rgba(240,200,48,.5);box-shadow:0 0 5px rgba(240,200,48,.25);position:absolute"></div><div class="od" style="width:3px;height:3px;bottom:0;left:50%;transform:translateX(-50%);background:rgba(80,224,48,.4);box-shadow:0 0 5px rgba(80,224,48,.2);position:absolute"></div><div class="od" style="width:2.5px;height:2.5px;top:50%;left:0;transform:translateY(-50%);background:rgba(255,255,255,.2);box-shadow:0 0 3px rgba(255,255,255,.1);position:absolute"></div></div>
-<div style="text-align:center">
-<div class="vault-potato-label">🥔 MY POTATO</div>
+<div class="vault-potato-inner">
+<div class="vault-potato-label">MY POTATO</div>
 <div class="vault-potato-amount" id="vaultPotatoReel">48.2K</div>
 <div class="vault-potato-sub">총 채굴량</div>
+<div class="vault-trend-in potato-trend">오늘 +320<br>이번 주 +2,140</div>
 </div>
 </div>
-<div class="vault-trend">📈 오늘 +320 · 이번 주 +2,140</div>
 </div>
 <button class="btn btn-play" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
 </div><!-- /vault page 1 -->
