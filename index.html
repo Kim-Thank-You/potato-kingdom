@@ -1209,7 +1209,7 @@ hr,.divider{border:none;height:1px;background:var(--line);margin:8px 0}
 .cta-banner.cta-attendance{animation:pulseAttention 2.6s ease-in-out infinite}
 
 /* === [폴리시] 모서리 antialiasing === */
-.cd,.btn,.btn-play,.btn-fight,.cta-banner,.top-pill,.top-icon{transform:translateZ(0);backface-visibility:hidden}
+.btn,.btn-fight,.cta-banner,.top-pill,.top-icon{transform:translateZ(0);backface-visibility:hidden}
 
 /* === [아이콘] 이모지 폰트 통일 (SVG 교체 대신 OS 무관 일관성 확보) === */
 .cta-icon,.top-avatar,.tp-icon,.ni .ico{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji','Twemoji Mozilla','EmojiOne Color','Android Emoji',sans-serif}
@@ -1389,15 +1389,19 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(76,216,48,.4);animation:liveDotPulse 2s ease-out infinite;pointer-events:none}
 @keyframes liveDotPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
 
-/* 수확/심기 버튼 */
-/* farm-harvest-btn: 원본 유지, 건드리지 않음 */
+/* ═══ Frosted Glass CTA (배경만, 테두리 글로우 없음, ::before/::after 안 씀) ═══ */
 
-/* TON 출금, POTATO 출금 — 원본 유지, 글로우 효과 제거 */
+/* 농장 수확/심기 */
+.farm-harvest-btn{background:rgba(240,184,24,.10)!important;backdrop-filter:blur(16px) saturate(1.4)!important;-webkit-backdrop-filter:blur(16px) saturate(1.4)!important;color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.3)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 16px rgba(240,184,24,.08)!important;animation:none!important;border:.5px solid rgba(240,184,24,.15)!important}
 
-/* 무료 성장 가속 — 흰색 유리 (가장 은은) */
-/* farm-view btn-ghost: 원본 유지, 건드리지 않음 */
+/* 금고 TON 출금 */
+.vault-page1 .btn-ton{background:rgba(0,120,200,.10)!important;backdrop-filter:blur(16px) saturate(1.4)!important;-webkit-backdrop-filter:blur(16px) saturate(1.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 16px rgba(0,100,200,.08)!important;border:.5px solid rgba(0,152,234,.15)!important}
 
-/* 출석 보상 받기 — 원본 유지, 글로우 효과 제거 */
+/* 금고 POTATO 출금 */
+.vault-page1 .btn-play{background:rgba(76,216,48,.08)!important;backdrop-filter:blur(16px) saturate(1.4)!important;-webkit-backdrop-filter:blur(16px) saturate(1.4)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 16px rgba(76,216,48,.06)!important;border:.5px solid rgba(76,216,48,.12)!important}
+
+/* 출석 보상 받기 */
+.att-popup .btn-play{background:rgba(240,184,24,.10)!important;backdrop-filter:blur(16px) saturate(1.4)!important;-webkit-backdrop-filter:blur(16px) saturate(1.4)!important;color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.3)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 16px rgba(240,184,24,.06)!important;border:.5px solid rgba(240,184,24,.15)!important}
 
 /* ── 기존 v11 농장 연출 유지 ── */
 @keyframes farmIconBump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
