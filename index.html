@@ -816,8 +816,8 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
   padding:14px calc(16px + var(--sa-right,0px)) 14px calc(16px + var(--sa-left,0px));
   display:flex;align-items:center;gap:12px;
   cursor:pointer;flex-shrink:0;z-index:25;min-height:52px;
-  background:linear-gradient(90deg,rgba(76,216,48,.03),rgba(240,184,24,.015));
-  border-bottom:.5px solid rgba(76,216,48,.03);
+  background:rgba(10,10,10,.95);
+  border-bottom:.5px solid rgba(255,255,255,.04);
   -webkit-tap-highlight-color:transparent;
   animation:ctaSlideIn .3s var(--apple);
 }
@@ -825,21 +825,34 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 .cta-banner:active{opacity:.85;transform:scale(.98)}
 .cta-banner.cta-blank{visibility:hidden}
 .cta-banner.cta-blank *{visibility:hidden}
-.cta-icon{font-size:22px;flex-shrink:0}
-.cta-text{flex:1;font-size:14px;font-weight:900;color:var(--tx2,var(--dim));line-height:1.3;text-align:center}
+.cta-icon{font-size:18px;flex-shrink:0;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.06)}
+.cta-text{flex:1;font-size:13px;font-weight:800;color:var(--tx2);line-height:1.3;letter-spacing:.1px}
+.cta-arrow{font-size:18px;font-weight:700;color:var(--dim);animation:ctaArrowNudge 2s ease-in-out infinite}
+@keyframes ctaArrowNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
 .cta-arrow{color:var(--potato);font-size:20px;flex-shrink:0;font-weight:900}
-.cta-harvest{background:linear-gradient(90deg,rgba(240,184,24,.12),rgba(76,216,48,.08));border-bottom-color:rgba(76,216,48,.18)}
+/* CTA type — black base, icon+line color only */
+.cta-attendance .cta-icon{background:rgba(76,216,48,.08);border-color:rgba(76,216,48,.12)}
+.cta-attendance{border-bottom-color:rgba(76,216,48,.10)}
+.cta-harvest .cta-icon{background:rgba(240,184,24,.10);border-color:rgba(240,184,24,.15)}
+.cta-harvest{border-bottom-color:rgba(240,184,24,.12)}
 .cta-harvest .cta-text{color:var(--gold)}
-.cta-boost{background:linear-gradient(90deg,rgba(240,100,40,.10),rgba(240,184,24,.08));border-bottom-color:rgba(240,100,40,.15)}
+.cta-boost .cta-icon{background:rgba(240,100,40,.10);border-color:rgba(240,100,40,.12)}
+.cta-boost{border-bottom-color:rgba(240,100,40,.10)}
 .cta-boost .cta-text{color:var(--gold)}
-.cta-guild{background:linear-gradient(90deg,rgba(0,152,234,.10),rgba(240,184,24,.06));border-bottom-color:rgba(0,152,234,.15)}
+.cta-guild .cta-icon{background:rgba(0,152,234,.08);border-color:rgba(0,152,234,.12)}
+.cta-guild{border-bottom-color:rgba(0,152,234,.10)}
 .cta-guild .cta-text{color:var(--ton)}
-.cta-vault{background:linear-gradient(90deg,rgba(0,152,234,.08),rgba(0,152,234,.04));border-bottom-color:rgba(0,152,234,.12)}
+.cta-vault .cta-icon{background:rgba(0,152,234,.08);border-color:rgba(0,152,234,.12)}
+.cta-vault{border-bottom-color:rgba(0,152,234,.10)}
 .cta-vault .cta-text{color:var(--ton)}
-.cta-play{background:linear-gradient(90deg,rgba(76,216,48,.06),rgba(240,184,24,.04));border-bottom-color:rgba(76,216,48,.08)}
+.cta-play .cta-icon{background:rgba(76,216,48,.08);border-color:rgba(76,216,48,.12)}
+.cta-play{border-bottom-color:rgba(76,216,48,.08)}
 .cta-play .cta-text{color:var(--potato)}
-.cta-plant{background:linear-gradient(90deg,rgba(76,216,48,.10),rgba(240,184,24,.06));border-bottom-color:rgba(76,216,48,.15)}
+.cta-plant .cta-icon{background:rgba(76,216,48,.08);border-color:rgba(76,216,48,.12)}
+.cta-plant{border-bottom-color:rgba(76,216,48,.10)}
 .cta-plant .cta-text{color:var(--potato)}
+.cta-ref .cta-icon{background:rgba(76,216,48,.08);border-color:rgba(76,216,48,.10)}
+.cta-ref{border-bottom-color:rgba(76,216,48,.08)}
 .potato-char-svg.empty{opacity:.5}
 /**/
 .ni span[data-i18n]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60px;text-align:center;font-size:inherit}
@@ -1269,6 +1282,16 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-tier-gold{background:rgba(240,184,24,.14)!important;border-color:rgba(240,184,24,.18);box-shadow:0 0 6px rgba(240,184,24,.06)}
 .gs-tier-slv{background:rgba(192,200,216,.14)!important;border-color:rgba(192,200,216,.12)}
 .gs-tier-brz{background:rgba(212,165,116,.14)!important;border-color:rgba(212,165,116,.12)}
+
+/* ── 농장 2페이지 하단 정렬 (live-b 배너 하단 = 카드 배경 하단) ── */
+#refCard{padding-bottom:0!important}
+#refCard .live-b{margin-bottom:0!important;border-radius:var(--r2) var(--r2) var(--r) var(--r)}
+
+/* ── 금고 원 안 텍스트 크기 축소 (여백감) ── */
+.vault-ton-amount{font-size:min(36px,4.5vh)!important}
+.vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{font-size:inherit!important}
+.vault-potato-ring .vault-val,.vault-potato-ring [class*="amount"]{font-size:min(36px,4.5vh)!important}
+.vault-ton-label,.vault-potato-label{font-size:8px!important;letter-spacing:3px!important}
 
 /* ── #13 폰트 무게/색상 위계 (크기 불변, 무게만) ── */
 .t-hero,.sh-head,.gs-banner-headline,.prof-name{font-weight:900!important;letter-spacing:-.3px}
@@ -2995,20 +3018,11 @@ var tb=document.getElementById('topBar');if(tb)tb.style.display='';
 var fsb=document.getElementById('farmScrollBtn');if(fsb){if(id==='farm'){fsb.classList.remove('hidden')}else{fsb.classList.add('hidden')}}
 var gsb=document.getElementById('gameScrollBtn');if(gsb){if(id==='game'){gsb.classList.remove('hidden')}else{gsb.classList.add('hidden')}}
 if(id==='game'){animateGameStats();}
-/* [v12] 탭 전환 시 해당 탭의 CSS 애니메이션 강제 재시작 */
+/* [v12] 탭 전환 시 해당 탭의 CSS 애니메이션 강제 재시작 (display 토글 없이) */
 try{
-  var tp=document.getElementById('tab-'+id);
-  if(tp){
-    var anEls=tp.querySelectorAll('[style*="animation"],*');
-    /* ::before/::after 포함 모든 애니메이션 리셋: 탭 전체를 잠시 display:none 후 복원 */
-    tp.style.display='none';void tp.offsetHeight;tp.style.display='';tp.classList.add('active');
-    /* 게임카드 @property 애니메이션은 별도 리셋 필요 */
-    if(id==='game'){document.querySelectorAll('.game-card-compact').forEach(function(c){c.classList.add('gc-spin-restart');setTimeout(function(){c.classList.remove('gc-spin-restart')},30)})}
-    /* 금고탭 회전 애니메이션 */
-    if(id==='vault'){
-      document.querySelectorAll('.vault-ton-ring,.vault-potato-ring,.vault-ton-glow,.vault-potato-glow').forEach(function(e){e.style.animation='none';void e.offsetWidth;e.style.animation=''})
-    }
-  }
+  if(id==='game'){document.querySelectorAll('.game-card-compact').forEach(function(c){c.classList.add('gc-spin-restart');setTimeout(function(){c.classList.remove('gc-spin-restart')},30)})}
+  if(id==='vault'){document.querySelectorAll('.vault-ton-ring,.vault-potato-ring,.vault-ton-glow,.vault-potato-glow').forEach(function(e){e.style.animation='none';void e.offsetWidth;e.style.animation=''})}
+  if(id==='guild'){document.querySelectorAll('.gs-banner,.gs-tier-icon').forEach(function(e){e.style.animation='none';void e.offsetWidth;e.style.animation=''})}
 }catch(e){}
 var glb=document.getElementById('guildScrollBtn');if(glb){if(id==='guild'){glb.classList.remove('hidden')}else{glb.classList.add('hidden')}}
 var vlb=document.getElementById('vaultScrollBtn');if(vlb){if(id==='vault'){vlb.classList.remove('hidden')}else{vlb.classList.add('hidden')}}
@@ -3907,13 +3921,13 @@ const translations = {
     att_ms_title: '📆 누적 로그인 보상', att_ms_current: '현재 누적 {days}일',
     att_ms_done: '✅ 수령', att_ms_reached: '✅ 달성', att_ms_left: '{days}일 남음',
     // CTA
-    cta_harvest: '🥔 수확 준비 완료! 지금 수확하기',
-    cta_plant: '🌱 빈 농장에 씨앗 심기',
-    cta_ref: '👥 친구 보너스 +{amount} POTATO 수령 가능',
-    cta_guild: '🏰 길드 가입하고 TON 보상 받기',
-    cta_vault: '💰 출금 예정 {amount} TON 확인',
-    cta_play: '🧩 퍼즐 플레이하고 POTATO 모으기',
-    cta_attendance: '📅 오늘 출석 보상 받기',
+    cta_harvest: '수확 준비 완료! 지금 수확하기',
+    cta_plant: '빈 농장에 씨앗 심기',
+    cta_ref: '친구 보너스 +{amount} POTATO 수령 가능',
+    cta_guild: '길드 가입하고 TON 보상 받기',
+    cta_vault: '출금 예정 {amount} TON 확인',
+    cta_play: '퍼즐 플레이하고 POTATO 모으기',
+    cta_attendance: '오늘 출석 보상 받기',
     // battle overlay
     battle_exit: '✕ 나가기', battle_survive: '생존하여 더 많은 보상을 획득하세요!',
     battle_reward: '현재 보상: ~{amount} POTATO',
@@ -4175,13 +4189,13 @@ const translations = {
     att_done: '✅ Checked in today', att_milestone: '📆 Login Milestones',
     att_ms_title: '📆 Login Milestones', att_ms_current: '{days} days total',
     att_ms_done: '✅ Claimed', att_ms_reached: '✅ Done', att_ms_left: '{days}d left',
-    cta_harvest: '🥔 Ready to harvest! Collect now',
-    cta_plant: '🌱 Plant seeds on empty farm',
-    cta_ref: '👥 Claim fren bonus +{amount} POTATO',
-    cta_guild: '🏰 Join a guild to earn TON',
-    cta_vault: '💰 Check pending {amount} TON',
-    cta_play: '🧩 Play puzzle to earn POTATO',
-    cta_attendance: '📅 Claim daily check-in reward',
+    cta_harvest: 'Ready to harvest! Collect now',
+    cta_plant: 'Plant seeds on empty farm',
+    cta_ref: 'Claim fren bonus +{amount} POTATO',
+    cta_guild: 'Join a guild to earn TON',
+    cta_vault: 'Check pending {amount} TON',
+    cta_play: 'Play puzzle to earn POTATO',
+    cta_attendance: 'Claim daily check-in reward',
     battle_exit: '✕ Exit', battle_survive: 'Survive longer for bigger rewards!',
     battle_reward: 'Current: ~{amount} POTATO',
     confirm: 'OK', close: 'Close', cancel: 'Cancel',
@@ -4429,13 +4443,13 @@ const translations = {
     att_done: '✅ Отмечено', att_milestone: '📆 Бонусы за дни',
     att_ms_title: '📆 Бонусы за входы', att_ms_current: 'Всего {days} дней',
     att_ms_done: '✅ Получено', att_ms_reached: '✅ Готово', att_ms_left: 'ещё {days}д',
-    cta_harvest: '🥔 Урожай готов! Собери сейчас',
-    cta_plant: '🌱 Посади семена',
-    cta_ref: '👥 Забери бонус +{amount} POTATO',
-    cta_guild: '🏰 Вступи в гильдию за TON',
-    cta_vault: '💰 Проверь {amount} TON',
-    cta_play: '🧩 Играй и получай POTATO',
-    cta_attendance: '📅 Забери дневную награду',
+    cta_harvest: 'Урожай готов! Собери сейчас',
+    cta_plant: 'Посади семена',
+    cta_ref: 'Забери бонус +{amount} POTATO',
+    cta_guild: 'Вступи в гильдию за TON',
+    cta_vault: 'Проверь {amount} TON',
+    cta_play: 'Играй и получай POTATO',
+    cta_attendance: 'Забери дневную награду',
     battle_exit: '✕ Выход', battle_survive: 'Держись дольше!',
     battle_reward: 'Сейчас: ~{amount} POTATO',
     confirm: 'ОК', close: 'Закрыть', cancel: 'Отмена',
@@ -4670,13 +4684,13 @@ const translations = {
     att_done: '✅ Đã điểm danh', att_milestone: '📆 Thưởng tích lũy',
     att_ms_title: '📆 Thưởng đăng nhập', att_ms_current: 'Tổng {days} ngày',
     att_ms_done: '✅ Đã nhận', att_ms_reached: '✅ Đạt', att_ms_left: 'còn {days} ngày',
-    cta_harvest: '🥔 Sẵn sàng thu hoạch!',
-    cta_plant: '🌱 Gieo hạt trên đất trống',
-    cta_ref: '👥 Nhận thưởng +{amount} POTATO',
-    cta_guild: '🏰 Gia nhập guild nhận TON',
-    cta_vault: '💰 Kiểm tra {amount} TON',
-    cta_play: '🧩 Chơi puzzle nhận POTATO',
-    cta_attendance: '📅 Nhận thưởng điểm danh',
+    cta_harvest: 'Sẵn sàng thu hoạch!',
+    cta_plant: 'Gieo hạt trên đất trống',
+    cta_ref: 'Nhận thưởng +{amount} POTATO',
+    cta_guild: 'Gia nhập guild nhận TON',
+    cta_vault: 'Kiểm tra {amount} TON',
+    cta_play: 'Chơi puzzle nhận POTATO',
+    cta_attendance: 'Nhận thưởng điểm danh',
     battle_exit: '✕ Thoát', battle_survive: 'Sống sót lâu hơn để nhận nhiều hơn!',
     battle_reward: 'Hiện tại: ~{amount} POTATO',
     confirm: 'OK', close: 'Đóng', cancel: 'Hủy',
@@ -4911,13 +4925,13 @@ const translations = {
     att_done: '✅ Registrado', att_milestone: '📆 Hitos de login',
     att_ms_title: '📆 Hitos de login', att_ms_current: '{days} días total',
     att_ms_done: '✅ Reclamado', att_ms_reached: '✅ Logrado', att_ms_left: '{days}d restantes',
-    cta_harvest: '🥔 ¡Listo para cosechar!',
-    cta_plant: '🌱 Plantar en granja vacía',
-    cta_ref: '👥 Reclama +{amount} POTATO',
-    cta_guild: '🏰 Únete a un gremio por TON',
-    cta_vault: '💰 Revisa {amount} TON',
-    cta_play: '🧩 Juega y gana POTATO',
-    cta_attendance: '📅 Reclama recompensa diaria',
+    cta_harvest: '¡Listo para cosechar!',
+    cta_plant: 'Plantar en granja vacía',
+    cta_ref: 'Reclama +{amount} POTATO',
+    cta_guild: 'Únete a un gremio por TON',
+    cta_vault: 'Revisa {amount} TON',
+    cta_play: 'Juega y gana POTATO',
+    cta_attendance: 'Reclama recompensa diaria',
     battle_exit: '✕ Salir', battle_survive: '¡Sobrevive más para ganar más!',
     battle_reward: 'Actual: ~{amount} POTATO',
     confirm: 'OK', close: 'Cerrar', cancel: 'Cancelar',
@@ -5152,13 +5166,13 @@ const translations = {
     att_done: '✅ Sudah absen', att_milestone: '📆 Milestone Login',
     att_ms_title: '📆 Milestone Login', att_ms_current: 'Total {days} hari',
     att_ms_done: '✅ Diklaim', att_ms_reached: '✅ Tercapai', att_ms_left: '{days} hari lagi',
-    cta_harvest: '🥔 Siap panen! Kumpulkan sekarang',
-    cta_plant: '🌱 Tanam benih di kebun kosong',
-    cta_ref: '👥 Klaim bonus +{amount} POTATO',
-    cta_guild: '🏰 Gabung guild untuk TON',
-    cta_vault: '💰 Cek {amount} TON',
-    cta_play: '🧩 Main puzzle dapat POTATO',
-    cta_attendance: '📅 Klaim hadiah harian',
+    cta_harvest: 'Siap panen! Kumpulkan sekarang',
+    cta_plant: 'Tanam benih di kebun kosong',
+    cta_ref: 'Klaim bonus +{amount} POTATO',
+    cta_guild: 'Gabung guild untuk TON',
+    cta_vault: 'Cek {amount} TON',
+    cta_play: 'Main puzzle dapat POTATO',
+    cta_attendance: 'Klaim hadiah harian',
     battle_exit: '✕ Keluar', battle_survive: 'Bertahan lebih lama untuk hadiah lebih besar!',
     battle_reward: 'Saat ini: ~{amount} POTATO',
     confirm: 'OK', close: 'Tutup', cancel: 'Batal',
