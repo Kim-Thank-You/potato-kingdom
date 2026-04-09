@@ -1195,49 +1195,111 @@ hr,.divider{border:none;height:1px;background:var(--line);margin:8px 0}
 body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto Sans','Helvetica Neue',-apple-system,BlinkMacSystemFont,sans-serif}
 
 /* ════════════════════════════════════════════════════════════════
-   [v11 농장 Stage 1] 시각 개선 (레이아웃 영향 없음)
+   [v12] 전체 시각 디자인 개선 — 레이아웃 변경 없음
    ════════════════════════════════════════════════════════════════ */
 
-/* [A-3] 감자 아이콘 bump — 잔액 증가 시 scale 튀어오름 */
+/* ── #1 상단바/네비 남색 제거 → 순수 검정 ── */
+.top{background:rgba(8,8,8,.88)!important;border-bottom:.5px solid rgba(255,255,255,.04)!important}
+.nav{background:rgba(8,8,8,.92)!important}
+.nav::before{background:rgba(255,255,255,.04)!important}
+
+/* ── #2 금고 원형 글로우 대폭 강화 ── */
+.vault-ton-ring{border:1px solid rgba(0,152,234,.18)!important;box-shadow:0 0 18px rgba(0,152,234,.14),0 0 48px rgba(0,152,234,.06),inset 0 0 14px rgba(0,152,234,.04)!important;background:linear-gradient(160deg,rgba(0,152,234,.06),rgba(0,80,160,.02) 50%,rgba(0,152,234,.04))!important}
+.vault-ton-glow{width:300px!important;height:300px!important;background:radial-gradient(circle,rgba(0,152,234,.07) 0%,rgba(0,152,234,.03) 35%,transparent 60%)!important}
+.vault-potato-ring{border:1px solid rgba(80,224,48,.12)!important;box-shadow:0 0 14px rgba(80,224,48,.10),0 0 40px rgba(240,192,48,.05),inset 0 0 12px rgba(80,224,48,.03)!important}
+.vault-potato-glow{width:320px!important;height:320px!important;background:radial-gradient(circle,rgba(80,224,48,.06) 0%,rgba(240,192,48,.025) 35%,transparent 55%)!important}
+
+/* ── #3 카드 테두리 + 상단 하이라이트 ── */
+.cd{border-color:rgba(255,255,255,.06)!important}
+.cd:not(.game-card-compact):not(.ref-card)::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);pointer-events:none;z-index:1}
+
+/* ── #4 숫자/값 메탈릭 그라데이션 ── */
+.gh-est-hero-val,.vault-ton-ring .vault-val,.vault-hero-val{background:linear-gradient(180deg,#7fcdff 0%,#0098ea 50%,#0070b8 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;filter:drop-shadow(0 0 8px rgba(0,152,234,.15))}
+.vault-potato-ring .vault-val{background:linear-gradient(180deg,#9fff80 0%,#4cd830 50%,#2ea018 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;filter:drop-shadow(0 0 8px rgba(76,216,48,.15))}
+#topDiamond{color:#b4c8ff;text-shadow:0 0 6px rgba(160,180,240,.15)}
+
+/* ── #5 CTA 가로 길이 통일 ── */
+.farm-harvest-btn,.btn-play,.btn-fight,.btn-pw,.ref-card .btn:not(.btn-ghost):not(.btn-sm),.gs-actions .gj-btn,.gj-btn-find,.gj-btn-create{width:100%!important;box-sizing:border-box}
+
+/* ── #6 CTA 색상 계층 통일 ── */
+.btn-play,.farm-harvest-btn,.gs-actions .gj-btn-find{background:linear-gradient(180deg,#50e038,#38b820 48%,#2ca018 100%)!important;color:#062000!important}
+.btn-fight{background:linear-gradient(180deg,#e84848,#c82828 48%,#b82222 100%)!important;color:#fff!important}
+.skip-btn,.btn-ghost{background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.06)!important}
+
+/* ── #7 네비 활성 탭 글로우 ── */
+.ni.on .ico{background:linear-gradient(135deg,rgba(76,216,48,.08),rgba(76,216,48,.03))!important;box-shadow:0 0 10px rgba(76,216,48,.08),0 0 3px rgba(76,216,48,.04)!important;border:1px solid rgba(76,216,48,.10)!important}
+.ni.on .ico::after{width:4px!important;height:4px!important;opacity:.55!important;box-shadow:0 0 4px rgba(76,216,48,.3)!important}
+.ni.on{color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.12)}
+
+/* ── #8 버튼 입체감 ── */
+.btn,.btn-play,.btn-fight,.farm-harvest-btn,.ad-cta,.skip-btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.15)}
+.btn-play,.farm-harvest-btn{text-shadow:0 1px 1px rgba(0,40,0,.25)}
+.btn-fight{text-shadow:0 1px 1px rgba(40,0,0,.25)}
+
+/* ── #9 진행바 통일 ── */
+.ref-prog-fill,.gs-tier-bar-fill,[class*="prog-fill"],[class*="bar-fill"]{border-radius:99px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.ref-prog-bar,.gs-tier-bar,[class*="prog-bar"]{border-radius:99px!important}
+.ref-prog-fill{position:relative;overflow:hidden}
+.ref-prog-fill::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:refBarShimmer 3s linear infinite;pointer-events:none}
+@keyframes refBarShimmer{0%{left:-60%}100%{left:160%}}
+
+/* ── #10 태그 또렷하게 ── */
+.tg{border:.5px solid transparent}
+.tg-p{border-color:rgba(76,216,48,.15);background:rgba(76,216,48,.12)}
+.tg-t{border-color:rgba(0,152,234,.15);background:rgba(0,152,234,.12)}
+.tg-g{border-color:rgba(240,184,24,.15);background:rgba(240,184,24,.12)}
+.tg-r{border-color:rgba(240,64,64,.15);background:rgba(240,64,64,.12)}
+
+/* ── #11 그림자 계층 통일 ── */
+.cd{box-shadow:0 1px 2px rgba(0,0,0,.14),0 4px 16px rgba(0,0,0,.10),inset 0 .5px 0 rgba(255,255,255,.025)}
+.game-card-compact{box-shadow:none!important}
+.so.show .sh{box-shadow:0 -8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04)}
+
+/* ── #12 뱃지/타이머 글래스 효과 ── */
+.farm-timer-badge{background:rgba(8,8,8,.75)!important;backdrop-filter:blur(12px)!important;border:1px solid rgba(255,255,255,.10)!important;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.gs-tier{backdrop-filter:blur(4px);border:.5px solid rgba(255,255,255,.06)}
+.gs-tier-dia{background:rgba(180,224,255,.14)!important;border-color:rgba(180,224,255,.18);box-shadow:0 0 6px rgba(180,224,255,.06)}
+.gs-tier-gold{background:rgba(240,184,24,.14)!important;border-color:rgba(240,184,24,.18);box-shadow:0 0 6px rgba(240,184,24,.06)}
+.gs-tier-slv{background:rgba(192,200,216,.14)!important;border-color:rgba(192,200,216,.12)}
+.gs-tier-brz{background:rgba(212,165,116,.14)!important;border-color:rgba(212,165,116,.12)}
+
+/* ── #13 폰트 무게/색상 위계 (크기 불변, 무게만) ── */
+.t-hero,.sh-head,.gs-banner-headline,.prof-name{font-weight:900!important;letter-spacing:-.3px}
+.t-desc,.sh-item-sub,.ref-desc{color:rgba(255,255,255,.32)!important;font-weight:500}
+.rm-label,.ref-prog-cur,.gs-banner-tag,.prof-id{letter-spacing:.5px;text-transform:uppercase;font-weight:700;color:var(--mut)!important}
+
+/* ── #14 아이콘 주변 간격 일관성 (크기 불변) ── */
+.cta-icon,.tp-icon,.rli-emoji{margin:0;vertical-align:middle}
+
+/* ── #15 상단바 pill/아바타 강화 ── */
+.top-avatar{border:1.5px solid rgba(216,144,48,.30)!important;box-shadow:0 0 8px rgba(216,144,48,.10)}
+.top-pill.diamond-pill{border-color:rgba(160,140,255,.10)!important;box-shadow:0 0 6px rgba(160,140,255,.05),inset 0 0 4px rgba(160,140,255,.02)}
+.top-icon{border-color:rgba(255,255,255,.04)!important;background:rgba(255,255,255,.03)!important}
+
+/* ── #16 구분선 톤 통일 (간격 불변, 색만 통일) ── */
+.nav::before{background:rgba(255,255,255,.04)!important}
+
+/* ── #17 길드 티어 아이콘 글로우 ── */
+.gs-tier-icon.dia{box-shadow:0 0 10px rgba(180,224,255,.08),inset 0 0 8px rgba(180,224,255,.04)}
+.gs-tier-icon.gold{box-shadow:0 0 10px rgba(240,184,24,.08),inset 0 0 8px rgba(240,184,24,.04)}
+.gs-tier-icon.slv{box-shadow:0 0 8px rgba(192,200,216,.06),inset 0 0 6px rgba(192,200,216,.03)}
+.gs-tier-icon.brz{box-shadow:0 0 8px rgba(212,165,116,.06),inset 0 0 6px rgba(212,165,116,.03)}
+
+/* ── 기존 v11 농장 연출 유지 ── */
 @keyframes farmIconBump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
 .farm-bal-icon.bump{animation:farmIconBump .45s var(--spring)}
-
-/* [D-5] 화면 초록 플래시 — 수확 직후 */
-@keyframes greenFlash{0%{opacity:0}15%{opacity:.08}100%{opacity:0}}
-.harvest-flash{position:fixed;inset:0;pointer-events:none;z-index:9997;background:radial-gradient(ellipse at center,rgba(76,216,48,.35),rgba(76,216,48,0) 70%);animation:greenFlash .55s var(--apple) forwards;mix-blend-mode:screen}
-
-/* [D-2] 수확 팝업 spring 등장 (기존 shUp 대체) */
+@keyframes greenFlash{0%{opacity:0}15%{opacity:.1}100%{opacity:0}}
+.harvest-flash{position:fixed;inset:0;pointer-events:none;z-index:9997;background:radial-gradient(ellipse at center,rgba(76,216,48,.4),rgba(76,216,48,0) 70%);animation:greenFlash .55s var(--apple) forwards;mix-blend-mode:screen}
 @keyframes sheetSpring{0%{opacity:0;transform:translateY(40px) scale(.96)}60%{opacity:1;transform:translateY(-4px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .so.show .sh{animation:sheetSpring .42s var(--spring)}
-
-/* [D-4] 수확 팝업 내부 요소 stagger — harvest-btns 안의 버튼들 */
 @keyframes harvestItemIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .so.show .sh .harvest-btns > *{animation:harvestItemIn .35s var(--apple) both}
 .so.show .sh .harvest-btns > *:nth-child(1){animation-delay:.08s}
 .so.show .sh .harvest-btns > *:nth-child(2){animation-delay:.16s}
-.so.show .sh .harvest-btns > *:nth-child(3){animation-delay:.24s}
-
-/* [E-1] 친구 로그 슬라이드인 */
-@keyframes refLogSlide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
-.ref-log-item.new-in{animation:refLogSlide .35s var(--apple)}
-
-/* [E-2] 친구 진행바 shimmer */
-.ref-prog-fill{position:relative;overflow:hidden}
-.ref-prog-fill::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:refBarShimmer 3s linear infinite;pointer-events:none}
-@keyframes refBarShimmer{0%{left:-60%}100%{left:160%}}
-
-/* [E-3] 통계 카드 탭 스케일 */
 .ref-m{transition:transform .2s var(--spring),background .2s var(--apple),border-color .2s var(--apple)}
 .ref-m:active{transform:scale(.97);background:rgba(255,255,255,.05);border-color:rgba(76,216,48,.1)}
-
-/* [E-4] CTA 버튼 (친구 초대하기 같은) shimmer */
 .ref-card .btn:not(.btn-ghost):not(.btn-sm){position:relative;overflow:hidden}
 .ref-card .btn:not(.btn-ghost):not(.btn-sm)::after{content:'';position:absolute;top:0;left:-120%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.22) 50%,transparent 75%);transform:skewX(-18deg);pointer-events:none;animation:ctaShimmer 6s ease-in-out infinite}
-
-/* [E-1 보조] 친구 로그 숫자 hover bump */
-.ref-log-item .rli-val{transition:transform .2s var(--spring)}
-
-/* [A-2 보조] 플로팅 리워드 기본 top 위치 (농장 잔액 근처) */
 .float-reward.at-bal{top:90px}
 </style>
 </style>
