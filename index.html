@@ -356,7 +356,7 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-hook{text-align:center;padding:24px 20px 8px;position:relative}
 .gs-hook::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:100px;background:radial-gradient(ellipse,rgba(0,152,234,.08),transparent 70%);pointer-events:none;border-radius:50%}
 .gs-hook-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);margin-bottom:6px;letter-spacing:.5px}
-.gs-hook-num{font-size:48px;font-weight:900;color:var(--ton);letter-spacing:-1.5px;line-height:1;position:relative;z-index:1;text-shadow:0 0 24px rgba(0,152,234,.12)}
+.gs-hook-num{font-size:48px;font-weight:900;color:var(--ton);letter-spacing:-1.5px;line-height:1;position:relative;z-index:1;text-shadow:0 0 24px rgba(0,152,234,.12);text-align:center;display:block;width:100%}
 .gs-hook-unit{font-size:22px;font-weight:700;opacity:.40;letter-spacing:0}
 .gs-hook-usd{font-size:13px;color:rgba(255,255,255,.25);font-weight:500;margin-top:4px}
 .gs-pool{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;margin:12px 18px 0;border-radius:var(--r-sm);background:rgba(255,255,255,.025);border:.5px solid rgba(255,255,255,.03)}
@@ -1358,9 +1358,9 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-pool-val{color:var(--ton)!important;opacity:1!important;text-shadow:0 0 6px rgba(0,152,234,.1)}
 
 /* ── [5] 시즌 엔트리 카드 회전 글로우 ── */
-.gs-entry{position:relative;overflow:visible!important;background:rgba(8,8,8,.95)!important;border:none!important}
-.gs-entry::before{content:'';position:absolute;inset:-1px;border-radius:calc(var(--r) + 1px);z-index:-1;pointer-events:none;padding:1.5px;animation:gcBorderSpin 5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(0,152,234,.4) 37%,rgba(0,152,234,.7) 50%,rgba(0,152,234,.4) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-.gs-entry::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent);pointer-events:none;z-index:1}
+.gs-entry{position:relative;overflow:visible!important;background:rgba(8,8,8,.95)!important;border:none!important;box-shadow:0 0 20px rgba(0,152,234,.08),0 0 50px rgba(0,152,234,.03)}
+.gs-entry::before{content:'';position:absolute;inset:-1.5px;border-radius:calc(var(--r) + 1.5px);z-index:-1;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(60,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-entry::after{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);pointer-events:none;z-index:1}
 
 /* ── 금고 trend 텍스트 → 원 안으로 이동 + 스타일 ── */
 .vault-trend{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:9px;opacity:.6!important;white-space:nowrap;background:rgba(0,0,0,.5);padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,.06);backdrop-filter:blur(4px)}
