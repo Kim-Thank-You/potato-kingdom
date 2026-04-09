@@ -1215,6 +1215,9 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
    [v12] 전체 시각 디자인 개선 — 레이아웃 변경 없음
    ════════════════════════════════════════════════════════════════ */
 
+/* 탭 전환 시 모든 애니메이션 강제 재시작 (범용) */
+.anim-reset,.anim-reset *,.anim-reset *::before,.anim-reset *::after{animation:none!important}
+
 /* ── #1 상단바/네비 남색 제거 → 순수 검정 ── */
 .top{background:rgba(8,8,8,.88)!important;border-bottom:.5px solid rgba(255,255,255,.04)!important}
 .nav{background:rgba(8,8,8,.92)!important}
@@ -1315,16 +1318,54 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 /* ── #16 구분선 톤 통일 (간격 불변, 색만 통일) ── */
 .nav::before{background:rgba(255,255,255,.04)!important}
 
-/* ── #17 길드 티어 뱃지 + 아이콘 글로우 강화 ── */
-.gs-tier-icon.dia{box-shadow:0 0 14px rgba(180,224,255,.18),0 0 28px rgba(180,224,255,.06),inset 0 0 10px rgba(180,224,255,.08);border:1px solid rgba(180,224,255,.15)}
-.gs-tier-icon.gold{box-shadow:0 0 14px rgba(240,184,24,.18),0 0 28px rgba(240,184,24,.06),inset 0 0 10px rgba(240,184,24,.08);border:1px solid rgba(240,184,24,.15)}
-.gs-tier-icon.slv{box-shadow:0 0 10px rgba(192,200,216,.12),0 0 22px rgba(192,200,216,.04),inset 0 0 8px rgba(192,200,216,.06);border:1px solid rgba(192,200,216,.10)}
-.gs-tier-icon.brz{box-shadow:0 0 10px rgba(212,165,116,.12),0 0 22px rgba(212,165,116,.04),inset 0 0 8px rgba(212,165,116,.06);border:1px solid rgba(212,165,116,.10)}
-/* 티어 텍스트 뱃지도 글로우 */
-.gs-tier-dia{box-shadow:0 0 8px rgba(180,224,255,.12);text-shadow:0 0 6px rgba(180,224,255,.3)}
-.gs-tier-gold{box-shadow:0 0 8px rgba(240,184,24,.12);text-shadow:0 0 6px rgba(240,184,24,.3)}
-.gs-tier-slv{box-shadow:0 0 6px rgba(192,200,216,.08);text-shadow:0 0 4px rgba(192,200,216,.2)}
-.gs-tier-brz{box-shadow:0 0 6px rgba(212,165,116,.08);text-shadow:0 0 4px rgba(212,165,116,.2)}
+/* ═══════════════════════════════════════════════
+   길드 시각 개선 — Liquid Glass + 검정 기반
+   ═══════════════════════════════════════════════ */
+
+/* ── [1] 티어 카드 회전 글로우 테두리 (liquid glass) ── */
+.gs-tier-row{position:relative;overflow:visible;background:rgba(8,8,8,.95)!important;border:none!important}
+.gs-tier-row::before{content:'';position:absolute;inset:-1px;border-radius:calc(var(--r2) + 1px);z-index:-1;pointer-events:none;padding:1px;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-tier-row::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);pointer-events:none;z-index:1}
+/* 티어별 회전 글로우 색상 */
+.gs-tier-row.tier-dia::before{background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(180,224,255,.45) 37%,rgba(180,224,255,.7) 50%,rgba(180,224,255,.45) 63%,transparent 75%);animation:gcBorderSpin 5s linear infinite}
+.gs-tier-row.tier-gold::before{background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(240,184,24,.45) 37%,rgba(240,184,24,.7) 50%,rgba(240,184,24,.45) 63%,transparent 75%);animation:gcBorderSpin 6s linear infinite}
+.gs-tier-row.tier-slv::before{background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(192,200,216,.35) 37%,rgba(192,200,216,.55) 50%,rgba(192,200,216,.35) 63%,transparent 75%);animation:gcBorderSpin 8s linear infinite}
+.gs-tier-row.tier-brz::before{background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(212,165,116,.3) 37%,rgba(212,165,116,.5) 50%,rgba(212,165,116,.3) 63%,transparent 75%);animation:gcBorderSpin 10s linear infinite}
+
+/* ── [2] 티어 아이콘/텍스트 강화 ── */
+.gs-tier-icon.dia{box-shadow:0 0 16px rgba(180,224,255,.20),0 0 32px rgba(180,224,255,.06),inset 0 0 10px rgba(180,224,255,.08);border:1px solid rgba(180,224,255,.18)}
+.gs-tier-icon.gold{box-shadow:0 0 16px rgba(240,184,24,.20),0 0 32px rgba(240,184,24,.06),inset 0 0 10px rgba(240,184,24,.08);border:1px solid rgba(240,184,24,.18)}
+.gs-tier-icon.slv{box-shadow:0 0 12px rgba(192,200,216,.14),0 0 24px rgba(192,200,216,.04),inset 0 0 8px rgba(192,200,216,.06);border:1px solid rgba(192,200,216,.12)}
+.gs-tier-icon.brz{box-shadow:0 0 12px rgba(212,165,116,.14),0 0 24px rgba(212,165,116,.04),inset 0 0 8px rgba(212,165,116,.06);border:1px solid rgba(212,165,116,.12)}
+/* 티어 텍스트 뱃지 글로우 */
+.gs-tier-dia{box-shadow:0 0 8px rgba(180,224,255,.14);text-shadow:0 0 6px rgba(180,224,255,.3)}
+.gs-tier-gold{box-shadow:0 0 8px rgba(240,184,24,.14);text-shadow:0 0 6px rgba(240,184,24,.3)}
+.gs-tier-slv{box-shadow:0 0 6px rgba(192,200,216,.10);text-shadow:0 0 4px rgba(192,200,216,.2)}
+.gs-tier-brz{box-shadow:0 0 6px rgba(212,165,116,.10);text-shadow:0 0 4px rgba(212,165,116,.2)}
+/* 티어 이름 메탈릭 그라데이션 */
+.gs-tier-name.dia{background:linear-gradient(180deg,#fff 0%,#b4e0ff 50%,#80c0f0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gs-tier-name.gold{background:linear-gradient(180deg,#ffe080 0%,#f0b818 50%,#c08010 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gs-tier-name.slv{background:linear-gradient(180deg,#f0f0f4 0%,#c0c8d8 50%,#a0a8b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gs-tier-name.brz{background:linear-gradient(180deg,#f0c890 0%,#d4a574 50%,#b08050 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ── [3] 1페이지 배너 검정 기반 ── */
+.gs-banner{background:linear-gradient(175deg,rgba(10,10,10,.97) 0%,rgba(6,6,6,.99) 100%)!important;border-color:rgba(255,255,255,.06)!important}
+.gs-banner::before{background:radial-gradient(ellipse,rgba(240,64,64,.06),transparent 70%)!important}
+
+/* ── [4] TON 풀 숫자 메탈릭 ── */
+.gs-hook-num{background:linear-gradient(180deg,#7fcdff 0%,#0098ea 40%,#0070b8 80%,#40b0ff 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;filter:drop-shadow(0 0 12px rgba(0,152,234,.18))}
+.gs-hook-usd{color:rgba(140,200,240,.55)!important}
+.gs-pool-val{color:var(--ton)!important;opacity:1!important;text-shadow:0 0 6px rgba(0,152,234,.1)}
+
+/* ── [5] 시즌 엔트리 카드 회전 글로우 ── */
+.gs-entry{position:relative;overflow:visible!important;background:rgba(8,8,8,.95)!important;border:none!important}
+.gs-entry::before{content:'';position:absolute;inset:-1px;border-radius:calc(var(--r) + 1px);z-index:-1;pointer-events:none;padding:1.5px;animation:gcBorderSpin 5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(0,152,234,.4) 37%,rgba(0,152,234,.7) 50%,rgba(0,152,234,.4) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-entry::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent);pointer-events:none;z-index:1}
+
+/* ── [6] 라이브 도트 펄스 링 ── */
+.gs-dot{position:relative}
+.gs-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(76,216,48,.4);animation:liveDotPulse 2s ease-out infinite;pointer-events:none}
+@keyframes liveDotPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
 
 /* ── 기존 v11 농장 연출 유지 ── */
 @keyframes farmIconBump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
@@ -1504,22 +1545,22 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 </div><!-- /guild 1st fold -->
 <!-- Guild 2nd Fold: Tier Guide -->
 <div data-guild-section="1" class="guild-fold page">
-<div class="gs-tier-row">
+<div class="gs-tier-row tier-dia">
 <div class="gs-tier-icon dia">💎</div>
 <div class="gs-tier-info"><div class="gs-tier-name dia" data-i18n="tier_dia_name">DIAMOND</div><div class="gs-tier-desc" data-i18n="tier_dia_detail">상위 5% · 최고 보상 구간</div></div>
 <div class="gs-tier-right"><div class="gs-tier-payout" data-i18n="tier_payout_label">월말</div><div class="gs-tier-payout-val ton-c" data-i18n="tier_payout">정산 예정</div></div>
 </div>
-<div class="gs-tier-row">
+<div class="gs-tier-row tier-gold">
 <div class="gs-tier-icon gold">🥇</div>
 <div class="gs-tier-info"><div class="gs-tier-name gold" data-i18n="tier_gold_name">GOLD</div><div class="gs-tier-desc" data-i18n="tier_gold_detail">상위 30% · 상위 보상 구간</div></div>
 <div class="gs-tier-right"><div class="gs-tier-payout" data-i18n="tier_payout_label">월말</div><div class="gs-tier-payout-val ton-c" data-i18n="tier_payout">정산 예정</div></div>
 </div>
-<div class="gs-tier-row">
+<div class="gs-tier-row tier-slv">
 <div class="gs-tier-icon slv">🥈</div>
 <div class="gs-tier-info"><div class="gs-tier-name slv" data-i18n="tier_slv_name">SILVER</div><div class="gs-tier-desc" data-i18n="tier_slv_detail">상위 70% · 기본 보상 구간</div></div>
 <div class="gs-tier-right"><div class="gs-tier-payout" data-i18n="tier_payout_label">월말</div><div class="gs-tier-payout-val ton-c" data-i18n="tier_payout">정산 예정</div></div>
 </div>
-<div class="gs-tier-row">
+<div class="gs-tier-row tier-brz">
 <div class="gs-tier-icon brz">🥉</div>
 <div class="gs-tier-info"><div class="gs-tier-name brz" data-i18n="tier_brz_name">BRONZE</div><div class="gs-tier-desc" data-i18n="tier_brz_detail">참여만 해도 · 참여 보상 구간</div></div>
 <div class="gs-tier-right"><div class="gs-tier-payout" data-i18n="tier_payout_label">월말</div><div class="gs-tier-payout-val ton-c" data-i18n="tier_payout">정산 예정</div></div>
@@ -3024,11 +3065,15 @@ var tb=document.getElementById('topBar');if(tb)tb.style.display='';
 var fsb=document.getElementById('farmScrollBtn');if(fsb){if(id==='farm'){fsb.classList.remove('hidden')}else{fsb.classList.add('hidden')}}
 var gsb=document.getElementById('gameScrollBtn');if(gsb){if(id==='game'){gsb.classList.remove('hidden')}else{gsb.classList.add('hidden')}}
 if(id==='game'){animateGameStats();}
-/* [v12] 탭 전환 시 해당 탭의 CSS 애니메이션 강제 재시작 (display 토글 없이) */
+/* [v12] 탭 전환 시 해당 탭의 모든 CSS 애니메이션 강제 재시작 */
 try{
+  if(tabEl){
+    tabEl.classList.add('anim-reset');
+    void tabEl.offsetWidth;
+    tabEl.classList.remove('anim-reset');
+  }
+  /* 게임카드 @property 애니메이션은 별도 리셋 필요 */
   if(id==='game'){document.querySelectorAll('.game-card-compact').forEach(function(c){c.classList.add('gc-spin-restart');setTimeout(function(){c.classList.remove('gc-spin-restart')},30)})}
-  if(id==='vault'){document.querySelectorAll('.vault-ton-ring,.vault-potato-ring,.vault-ton-glow,.vault-potato-glow').forEach(function(e){e.style.animation='none';void e.offsetWidth;e.style.animation=''})}
-  if(id==='guild'){document.querySelectorAll('.gs-banner,.gs-tier-icon').forEach(function(e){e.style.animation='none';void e.offsetWidth;e.style.animation=''})}
 }catch(e){}
 var glb=document.getElementById('guildScrollBtn');if(glb){if(id==='guild'){glb.classList.remove('hidden')}else{glb.classList.add('hidden')}}
 var vlb=document.getElementById('vaultScrollBtn');if(vlb){if(id==='vault'){vlb.classList.remove('hidden')}else{vlb.classList.add('hidden')}}
@@ -3187,7 +3232,6 @@ function showAttendancePopup(fromTut){
     var col=done?'potato-c':today?'gold-c':'mut-c';
     cal+='<div class="'+cls+'">';
     cal+='<div class="att-day-label '+col+'">DAY '+(i+1)+'</div>';
-    cal+='<div class="att-day-icon">'+d.icon+'</div>';
     cal+='<div class="att-day-rwd '+col+'">'+(done?'\u2705':d.label)+'</div>';
     cal+='</div>';
   }
