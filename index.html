@@ -1186,7 +1186,7 @@ hr,.divider{border:none;height:1px;background:var(--line);margin:8px 0}
 .cta-banner.cta-attendance{animation:pulseAttention 2.6s ease-in-out infinite}
 
 /* === [폴리시] 모서리 antialiasing === */
-.cd,.btn,.btn-play,.btn-fight,.cta-banner,.tab-p,.top-pill,.top-icon{transform:translateZ(0);backface-visibility:hidden}
+.cd,.btn,.btn-play,.btn-fight,.cta-banner,.top-pill,.top-icon{transform:translateZ(0);backface-visibility:hidden}
 
 /* === [아이콘] 이모지 폰트 통일 (SVG 교체 대신 OS 무관 일관성 확보) === */
 .cta-icon,.top-avatar,.tp-icon,.ni .ico{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji','Twemoji Mozilla','EmojiOne Color','Android Emoji',sans-serif}
@@ -1258,7 +1258,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .tg-r{border-color:rgba(240,64,64,.15);background:rgba(240,64,64,.12)}
 
 /* ── #11 그림자 계층 통일 ── */
-.cd{box-shadow:0 1px 2px rgba(0,0,0,.14),0 4px 16px rgba(0,0,0,.10),inset 0 .5px 0 rgba(255,255,255,.025)}
+.cd:not(.ref-card):not(.game-card-compact){box-shadow:0 1px 2px rgba(0,0,0,.14),0 4px 16px rgba(0,0,0,.10),inset 0 .5px 0 rgba(255,255,255,.025)}
 .game-card-compact{box-shadow:none!important}
 .so.show .sh{box-shadow:0 -8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04)}
 
@@ -2236,9 +2236,9 @@ function applyAction(actionType,payload){
       S.potato+=(p.amount||0);
       addVaultLog('potato',p.label||t('vault_src_harvest'),p.amount||0,p.adBoost?'adboost':'harvest');
       if(p.adBoost)celebratePotatoGain();else triggerHaptic('light');
-      /* [v11] 수확 직후 시각 연출 */
+      /* [v11] 수확 직후 시각 연출 (출석 보상 제외 — 출석은 claimAttendance에서 별도 처리) */
       try{
-        if((p.amount||0)>0){
+        if((p.amount||0)>0 && p.label!=='Check-in DAY1' && p.label!=='Check-in DAY2' && p.label!=='Check-in DAY3' && p.label!=='Check-in DAY4' && p.label!=='Check-in DAY5' && p.label!=='Check-in DAY6' && p.label!=='Check-in DAY7' && !(p.label&&p.label.indexOf('Check-in')===0)){
           spawnFloatReward('+'+fmtFull(p.amount)+' POTATO','potato',{y:window.innerHeight*0.18});
           var bi=document.querySelector('.farm-bal-icon');
           if(bi){bi.classList.remove('bump');void bi.offsetWidth;bi.classList.add('bump')}
@@ -2994,7 +2994,22 @@ if(el)el.classList.add('on');
 var tb=document.getElementById('topBar');if(tb)tb.style.display='';
 var fsb=document.getElementById('farmScrollBtn');if(fsb){if(id==='farm'){fsb.classList.remove('hidden')}else{fsb.classList.add('hidden')}}
 var gsb=document.getElementById('gameScrollBtn');if(gsb){if(id==='game'){gsb.classList.remove('hidden')}else{gsb.classList.add('hidden')}}
-if(id==='game'){animateGameStats();try{document.querySelectorAll('.game-card-compact').forEach(function(c){var b=c.querySelector('*')||c;c.classList.remove('gc-spin-restart');void c.offsetWidth;c.classList.add('gc-spin-restart');setTimeout(function(){c.classList.remove('gc-spin-restart')},50)})}catch(e){}}
+if(id==='game'){animateGameStats();}
+/* [v12] 탭 전환 시 해당 탭의 CSS 애니메이션 강제 재시작 */
+try{
+  var tp=document.getElementById('tab-'+id);
+  if(tp){
+    var anEls=tp.querySelectorAll('[style*="animation"],*');
+    /* ::before/::after 포함 모든 애니메이션 리셋: 탭 전체를 잠시 display:none 후 복원 */
+    tp.style.display='none';void tp.offsetHeight;tp.style.display='';tp.classList.add('active');
+    /* 게임카드 @property 애니메이션은 별도 리셋 필요 */
+    if(id==='game'){document.querySelectorAll('.game-card-compact').forEach(function(c){c.classList.add('gc-spin-restart');setTimeout(function(){c.classList.remove('gc-spin-restart')},30)})}
+    /* 금고탭 회전 애니메이션 */
+    if(id==='vault'){
+      document.querySelectorAll('.vault-ton-ring,.vault-potato-ring,.vault-ton-glow,.vault-potato-glow').forEach(function(e){e.style.animation='none';void e.offsetWidth;e.style.animation=''})
+    }
+  }
+}catch(e){}
 var glb=document.getElementById('guildScrollBtn');if(glb){if(id==='guild'){glb.classList.remove('hidden')}else{glb.classList.add('hidden')}}
 var vlb=document.getElementById('vaultScrollBtn');if(vlb){if(id==='vault'){vlb.classList.remove('hidden')}else{vlb.classList.add('hidden')}}
 if(id==='farm'){setFarmBal(S.potato)}
@@ -3207,6 +3222,7 @@ function claimAttendance(){
   var attOvOld=document.getElementById('attPopupOverlay');if(attOvOld)attOvOld.remove();
   celebratePotatoGain();
   try{
+    if(rw.potato>0)spawnFloatReward('+'+rw.potato+' POTATO','potato');
     if(rw.diamond>0)setTimeout(function(){spawnFloatReward('+'+rw.diamond+' 💎','diamond')},250);
     if(ATT.currentStreak>0&&ATT.currentStreak%7===0)setTimeout(spawnMilestoneRays,400);
   }catch(e){}
