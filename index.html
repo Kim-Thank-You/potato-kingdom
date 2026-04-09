@@ -1137,7 +1137,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 
 /* === [전환] 모달 spring 등장 === */
 @keyframes modalSpring{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:scale(1)}}
-.so.show .so-card,.attendance-popup,.tut-modal{animation:modalSpring .35s var(--spring)}
+.attendance-popup,.tut-modal{animation:modalSpring .35s var(--spring)}
 
 /* === [빈 공간] 배경 미세 파티클 (CSS only, GPU만) === */
 @keyframes floatUp1{0%{transform:translate3d(0,100vh,0);opacity:0}10%{opacity:.06}90%{opacity:.06}100%{transform:translate3d(20px,-10vh,0);opacity:0}}
@@ -1193,6 +1193,53 @@ hr,.divider{border:none;height:1px;background:var(--line);margin:8px 0}
 
 /* === [폴리시] 다국어 폰트 fallback === */
 body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto Sans','Helvetica Neue',-apple-system,BlinkMacSystemFont,sans-serif}
+
+/* ════════════════════════════════════════════════════════════════
+   [v11 농장 Stage 1] 시각 개선 (레이아웃 영향 없음)
+   ════════════════════════════════════════════════════════════════ */
+
+/* [A-3] 감자 아이콘 bump — 잔액 증가 시 scale 튀어오름 */
+@keyframes farmIconBump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+.farm-bal-icon.bump{animation:farmIconBump .45s var(--spring)}
+
+/* [D-5] 화면 초록 플래시 — 수확 직후 */
+@keyframes greenFlash{0%{opacity:0}15%{opacity:.08}100%{opacity:0}}
+.harvest-flash{position:fixed;inset:0;pointer-events:none;z-index:9997;background:radial-gradient(ellipse at center,rgba(76,216,48,.35),rgba(76,216,48,0) 70%);animation:greenFlash .55s var(--apple) forwards;mix-blend-mode:screen}
+
+/* [D-2] 수확 팝업 spring 등장 (기존 shUp 대체) */
+@keyframes sheetSpring{0%{opacity:0;transform:translateY(40px) scale(.96)}60%{opacity:1;transform:translateY(-4px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.so.show .sh{animation:sheetSpring .42s var(--spring)}
+
+/* [D-4] 수확 팝업 내부 요소 stagger — harvest-btns 안의 버튼들 */
+@keyframes harvestItemIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.so.show .sh .harvest-btns > *{animation:harvestItemIn .35s var(--apple) both}
+.so.show .sh .harvest-btns > *:nth-child(1){animation-delay:.08s}
+.so.show .sh .harvest-btns > *:nth-child(2){animation-delay:.16s}
+.so.show .sh .harvest-btns > *:nth-child(3){animation-delay:.24s}
+
+/* [E-1] 친구 로그 슬라이드인 */
+@keyframes refLogSlide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+.ref-log-item.new-in{animation:refLogSlide .35s var(--apple)}
+
+/* [E-2] 친구 진행바 shimmer */
+.ref-prog-fill{position:relative;overflow:hidden}
+.ref-prog-fill::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:refBarShimmer 3s linear infinite;pointer-events:none}
+@keyframes refBarShimmer{0%{left:-60%}100%{left:160%}}
+
+/* [E-3] 통계 카드 탭 스케일 */
+.ref-m{transition:transform .2s var(--spring),background .2s var(--apple),border-color .2s var(--apple)}
+.ref-m:active{transform:scale(.97);background:rgba(255,255,255,.05);border-color:rgba(76,216,48,.1)}
+
+/* [E-4] CTA 버튼 (친구 초대하기 같은) shimmer */
+.ref-card .btn:not(.btn-ghost):not(.btn-sm){position:relative;overflow:hidden}
+.ref-card .btn:not(.btn-ghost):not(.btn-sm)::after{content:'';position:absolute;top:0;left:-120%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.22) 50%,transparent 75%);transform:skewX(-18deg);pointer-events:none;animation:ctaShimmer 6s ease-in-out infinite}
+
+/* [E-1 보조] 친구 로그 숫자 hover bump */
+.ref-log-item .rli-val{transition:transform .2s var(--spring)}
+
+/* [A-2 보조] 플로팅 리워드 기본 top 위치 (농장 잔액 근처) */
+.float-reward.at-bal{top:90px}
+</style>
 </style>
 </head>
 <body>
@@ -2115,6 +2162,18 @@ function applyAction(actionType,payload){
       S.potato+=(p.amount||0);
       addVaultLog('potato',p.label||t('vault_src_harvest'),p.amount||0,p.adBoost?'adboost':'harvest');
       if(p.adBoost)celebratePotatoGain();else triggerHaptic('light');
+      /* [v11] 수확 직후 시각 연출 */
+      try{
+        if((p.amount||0)>0){
+          spawnFloatReward('+'+fmtFull(p.amount)+' POTATO','potato',{y:window.innerHeight*0.18});
+          var bi=document.querySelector('.farm-bal-icon');
+          if(bi){bi.classList.remove('bump');void bi.offsetWidth;bi.classList.add('bump')}
+          var fl=document.createElement('div');fl.className='harvest-flash';document.body.appendChild(fl);
+          setTimeout(function(){if(fl&&fl.parentNode)fl.parentNode.removeChild(fl)},600);
+          var balEl=document.querySelector('.farm-bal');
+          if(balEl){var br=balEl.getBoundingClientRect();spawnCoinBurst(7,br.left+br.width*0.15,br.top+br.height/2)}
+        }
+      }catch(e){}
       break;
     case 'puzzle':
       S.potato+=(p.potato||0);
