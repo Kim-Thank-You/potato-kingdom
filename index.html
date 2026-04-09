@@ -1060,14 +1060,18 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 .sh-empty{text-align:center;padding:30px 0;color:var(--dim);font-size:13px}
 .sh-sub-text{font-size:11px;color:var(--dim);margin-top:4px}
 .sh-top{position:relative;min-height:32px}
-.att-popup{position:relative;background:linear-gradient(145deg,rgba(20,28,45,.97),rgba(12,16,28,.98));border:.5px solid rgba(240,184,24,.08);border-radius:20px;padding:24px 20px;text-align:center;max-width:360px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 0 40px rgba(0,0,0,.5)}
+.att-popup{position:relative;background:linear-gradient(160deg,rgba(10,10,10,.97),rgba(6,6,6,.99));border:none;border-radius:20px;padding:24px 20px;text-align:center;max-width:360px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 0 50px rgba(0,0,0,.6);overflow:visible}
+/* Liquid glass spinning border */
+.att-popup::before{content:'';position:absolute;inset:-1px;border-radius:21px;z-index:-1;pointer-events:none;padding:1.5px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(240,184,24,.5) 37%,rgba(240,184,24,.8) 50%,rgba(240,184,24,.5) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+/* Inner glass reflection */
+.att-popup::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);pointer-events:none;border-radius:20px 20px 0 0;z-index:1}
 .att-close{position:absolute;top:12px;right:16px;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.03);color:var(--dim);font-size:16px;width:var(--h-sm);height:var(--h-sm);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all .12s var(--apple)}
 .att-close:active{background:rgba(255,255,255,.08);transform:scale(.92)}
-.att-badge{text-align:center;padding:14px;border-radius:14px;border:.5px solid rgba(240,184,24,.08);background:rgba(240,184,24,.03);margin-bottom:12px}
+.att-badge{text-align:center;padding:14px;border-radius:14px;border:.5px solid rgba(240,184,24,.10);background:rgba(240,184,24,.04);margin-bottom:12px;backdrop-filter:blur(4px)}
 .att-milestone-btn{width:100%;margin-top:8px;padding:10px;border-radius:var(--r-md);font-size:var(--fs-sm);font-weight:800;border:.5px solid rgba(255,255,255,.04);background:rgba(255,255,255,.03);color:var(--dim);cursor:pointer;font-family:inherit;min-height:var(--h-md);transition:all .12s var(--apple)}
 .att-milestone-btn:active{transform:translateY(1px) scale(.985)}
 /* ── attendance calendar ── */
-.popup-overlay{position:absolute;inset:0;z-index:9500;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px;animation:tutFadeIn .35s ease-out}
+.popup-overlay{position:absolute;inset:0;z-index:9500;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:tutFadeIn .35s ease-out}
 .att-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:10px 0}
 .att-day{text-align:center;padding:8px 2px;border-radius:var(--r-xs);border:.5px solid rgba(255,255,255,.03);background:rgba(255,255,255,.04)}
 .att-day.done{background:rgba(76,216,48,.08);border-color:rgba(76,216,48,.04)}
@@ -1238,8 +1242,10 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .vault-potato-ring .vault-val{background:linear-gradient(180deg,#9fff80 0%,#4cd830 50%,#2ea018 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;filter:drop-shadow(0 0 8px rgba(76,216,48,.15))}
 #topDiamond{color:#b4c8ff;text-shadow:0 0 6px rgba(160,180,240,.15)}
 
-/* ── #5 CTA 가로 길이 통일 ── */
-.btn-play,.btn-fight,.btn-pw,.ref-card .btn:not(.btn-ghost):not(.btn-sm),.gs-actions .gj-btn,.gj-btn-find,.gj-btn-create{width:100%!important;box-sizing:border-box}
+/* ── #5 CTA 가로 길이 통일 (게임탭 카드 내 버튼 제외) ── */
+.btn-pw,.ref-card .btn:not(.btn-ghost):not(.btn-sm),.gs-actions .gj-btn,.gj-btn-find,.gj-btn-create{width:100%!important;box-sizing:border-box}
+/* 길드 메인 CTA — 다른 탭과 동일한 가로 */
+.gs-cta{width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box}
 
 /* ── #6 CTA 색상 계층 통일 ── */
 .btn-play,.gs-actions .gj-btn-find{background:linear-gradient(180deg,#50e038,#38b820 48%,#2ca018 100%)!important;color:#062000!important}
@@ -3202,7 +3208,6 @@ function showAttendancePopup(fromTut){
       cal+
       '<div class="att-badge">'+
         '<div class="sh-hero-sub">'+t('att_today')+' (DAY '+dayInWeek+')</div>'+
-        '<div class="att-rwd-icon">'+rw.icon+'</div>'+
         '<div class="sh-title gold-c">'+rw.label+'</div>'+
       '</div>'+
       claimBtn+
