@@ -352,19 +352,20 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-dot{width:7px;height:7px;border-radius:50%;background:rgba(76,216,48,.65);display:inline-block;animation:livep 1.5s infinite}
 .gs-banner-sub{font-size:11px;color:rgba(255,255,255,.25);font-weight:500;line-height:1.5}
 /* ── guild season entry card ── */
-.gs-entry{padding:0;overflow:hidden;border-color:rgba(0,152,234,.08);background:linear-gradient(160deg,rgba(0,152,234,.04),rgba(14,18,32,.95) 55%);box-shadow:0 2px 16px rgba(0,0,0,.15),var(--gT3);margin-top:10px}
+.gs-entry{padding:0;overflow:visible;border:none;background:rgba(8,8,8,.95);box-shadow:0 0 20px rgba(0,152,234,.08),0 0 50px rgba(0,152,234,.03);margin-top:10px;position:relative}
 .gs-hook{text-align:center;padding:24px 20px 8px;position:relative}
 .gs-hook::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:100px;background:radial-gradient(ellipse,rgba(0,152,234,.08),transparent 70%);pointer-events:none;border-radius:50%}
 .gs-hook-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);margin-bottom:6px;letter-spacing:.5px}
-.gs-hook-num{font-size:48px;font-weight:900;color:var(--ton);letter-spacing:-1.5px;line-height:1;position:relative;z-index:1;text-shadow:0 0 24px rgba(0,152,234,.12);text-align:center;display:block;width:100%}
+.gs-hook-num{font-size:48px;font-weight:900;color:var(--ton);letter-spacing:-1.5px;line-height:1;position:relative;z-index:1;text-shadow:0 0 24px rgba(0,152,234,.12);display:flex;justify-content:center;align-items:baseline;gap:4px;width:100%}
 .gs-hook-unit{font-size:22px;font-weight:700;opacity:.40;letter-spacing:0}
 .gs-hook-usd{font-size:13px;color:rgba(255,255,255,.25);font-weight:500;margin-top:4px}
 .gs-pool{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;margin:12px 18px 0;border-radius:var(--r-sm);background:rgba(255,255,255,.025);border:.5px solid rgba(255,255,255,.03)}
 .gs-pool-label{font-size:11px;color:rgba(255,255,255,.30);font-weight:600}
 .gs-pool-val{font-size:16px;font-weight:900;color:var(--ton);letter-spacing:-.3px;opacity:.7}
 .gs-fomo{text-align:center;padding:12px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
-.gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden}
-.gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.15) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 10s ease-in-out infinite}
+.gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:visible;background:rgba(0,120,200,.15);border:none;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.2);backdrop-filter:blur(8px)}
+.gs-cta::before{content:'';position:absolute;inset:-1px;border-radius:calc(var(--r-lg) + 1px);z-index:-1;pointer-events:none;padding:1.5px;animation:gcBorderSpin 3.5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(100,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.15) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 10s ease-in-out infinite;border-radius:var(--r-lg)}
 .guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(20px,2.5vh) 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3);display:flex;flex-direction:column;justify-content:center}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
 @keyframes auroraRot{to{transform:rotate(360deg)}}
@@ -1358,7 +1359,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-pool-val{color:var(--ton)!important;opacity:1!important;text-shadow:0 0 6px rgba(0,152,234,.1)}
 
 /* ── [5] 시즌 엔트리 카드 회전 글로우 ── */
-.gs-entry{position:relative;overflow:visible!important;background:rgba(8,8,8,.95)!important;border:none!important;box-shadow:0 0 20px rgba(0,152,234,.08),0 0 50px rgba(0,152,234,.03)}
+/* gs-entry 원본에서 직접 수정됨 — 여기서는 추가 효과만 */
 .gs-entry::before{content:'';position:absolute;inset:-1.5px;border-radius:calc(var(--r) + 1.5px);z-index:-1;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(60,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .gs-entry::after{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);pointer-events:none;z-index:1}
 
