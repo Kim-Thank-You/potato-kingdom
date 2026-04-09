@@ -303,7 +303,7 @@ transition:all .12s var(--apple);
 @keyframes vaultRingRotate{0%,100%{box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);border-color:rgba(0,152,234,.06)}50%{box-shadow:0 0 14px rgba(0,152,234,.08),0 0 32px rgba(0,152,234,.025),inset 0 0 10px rgba(0,152,234,.01);border-color:rgba(0,152,234,.08)}}
 .vault-ton-inner{text-align:center}
 .vault-ton-label{font-size:9px;font-weight:600;color:rgba(100,210,255,.40);letter-spacing:4px;text-transform:uppercase;margin-bottom:min(4px,.5vh);text-shadow:none}
-.vault-ton-amount{font-size:min(44px,5.5vh);font-weight:900;letter-spacing:-1px;line-height:1.05;background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);background-size:100% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));animation:vaultAmountShine 7s ease-in-out infinite}
+.vault-ton-amount{font-size:min(36px,4.5vh);font-weight:900;letter-spacing:-1.5px;line-height:1.05;background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);background-size:100% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));animation:vaultAmountShine 7s ease-in-out infinite}
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
 .vault-ton-usd{font-size:12px;color:rgba(140,200,240,.48);margin-top:8px;font-weight:500;letter-spacing:.3px;text-shadow:none}
@@ -364,7 +364,7 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-pool-val{font-size:16px;font-weight:900;color:var(--ton);letter-spacing:-.3px;opacity:.7}
 .gs-fomo{text-align:center;padding:12px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
 .gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:visible;background:linear-gradient(180deg,rgba(30,120,200,.20) 0%,rgba(0,80,160,.12) 100%);border:none;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.2),0 4px 16px rgba(0,100,200,.12)}
-.gs-cta::before{content:'';position:absolute;inset:0;border-radius:var(--r-lg);z-index:-1;pointer-events:none;padding:2px;animation:gcBorderSpin 3.5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(100,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-cta::before{content:'';position:absolute;inset:0;border-radius:var(--r-lg);z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 3.5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(100,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .gs-cta::after{content:'';position:absolute;inset:0;border-radius:var(--r-lg);pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
 .guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(20px,2.5vh) 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3);display:flex;flex-direction:column;justify-content:center}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
@@ -1063,7 +1063,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 .sh-top{position:relative;min-height:32px}
 .att-popup{position:relative;background:linear-gradient(160deg,rgba(10,10,10,.97),rgba(6,6,6,.99));border:none;border-radius:20px;padding:24px 20px;text-align:center;max-width:360px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 0 50px rgba(0,0,0,.6);overflow:visible}
 /* Liquid glass spinning border */
-.att-popup::before{content:'';position:absolute;inset:0;border-radius:20px;z-index:-1;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(240,184,24,.5) 37%,rgba(240,184,24,.8) 50%,rgba(240,184,24,.5) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.att-popup::before{content:'';position:absolute;inset:0;border-radius:20px;z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(240,184,24,.5) 37%,rgba(240,184,24,.8) 50%,rgba(240,184,24,.5) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 /* Inner glass reflection */
 .att-popup::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);pointer-events:none;border-radius:20px 20px 0 0;z-index:1}
 .att-close{position:absolute;top:12px;right:16px;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.03);color:var(--dim);font-size:16px;width:var(--h-sm);height:var(--h-sm);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all .12s var(--apple)}
@@ -1297,10 +1297,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 #refCard{padding-bottom:0!important}
 #refCard .live-b{margin-bottom:0!important;border-radius:var(--r2) var(--r2) var(--r) var(--r)}
 
-/* ── 금고 원 안 텍스트 크기 축소 (여백감) ── */
-.vault-ton-amount{font-size:min(36px,4.5vh)!important}
-.vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{font-size:inherit!important}
-.vault-potato-ring .vault-val,.vault-potato-ring [class*="amount"]{font-size:min(36px,4.5vh)!important}
+/* ── 금고 원 안 라벨 축소 ── */
 .vault-ton-label,.vault-potato-label{font-size:8px!important;letter-spacing:3px!important}
 
 /* ── #13 폰트 무게/색상 위계 (크기 불변, 무게만) ── */
@@ -1325,7 +1322,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 
 /* ── [1] 티어 카드 회전 글로우 테두리 (liquid glass) ── */
 .gs-tier-row{position:relative;overflow:visible;background:rgba(8,8,8,.95)!important;border:none!important}
-.gs-tier-row::before{content:'';position:absolute;inset:0;border-radius:var(--r2);z-index:-2;pointer-events:none;padding:2px;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-tier-row::before{content:'';position:absolute;inset:0;border-radius:var(--r2);z-index:2;pointer-events:none;padding:2px;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .gs-tier-row::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);pointer-events:none;z-index:1}
 /* 티어별 회전 글로우 색상 */
 .gs-tier-row.tier-dia::before{background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(180,224,255,.45) 37%,rgba(180,224,255,.7) 50%,rgba(180,224,255,.45) 63%,transparent 75%);animation:gcBorderSpin 5s linear infinite}
@@ -1361,8 +1358,8 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 
 /* ── [5] 시즌 엔트리 카드 회전 글로우 ── */
 /* gs-entry 원본에서 직접 수정됨 — 여기서는 추가 효과만 */
-.gs-entry::before{content:'';position:absolute;inset:0;border-radius:var(--r);z-index:-2;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(60,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-.gs-entry::after{content:'';position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:-1;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
+.gs-entry::before{content:'';position:absolute;inset:0;border-radius:var(--r);z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(60,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-entry::after{content:'';position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:3;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
 
 /* ── 금고 trend 텍스트 → 원 안으로 이동 + 스타일 ── */
 .vault-trend{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:9px;opacity:.6!important;white-space:nowrap;background:rgba(0,0,0,.5);padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,.06);backdrop-filter:blur(4px)}
@@ -1370,7 +1367,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 
 /* ── 길드 1페이지 상단 배너 liquid glass 테두리 ── */
 .gs-banner{position:relative;overflow:visible!important}
-.gs-banner::after{content:'';position:absolute;inset:0;border-radius:var(--r);z-index:-1;pointer-events:none;padding:2px;animation:gcBorderSpin 6s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(255,100,100,.4) 37%,rgba(255,140,100,.6) 50%,rgba(255,100,100,.4) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.gs-banner::after{content:'';position:absolute;inset:0;border-radius:var(--r);z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 6s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 25%,rgba(255,100,100,.4) 37%,rgba(255,140,100,.6) 50%,rgba(255,100,100,.4) 63%,transparent 75%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 
 /* ── 길드 1페이지 텍스트 중앙 정렬 ── */
 .gs-banner-crowd{justify-content:center;text-align:center;width:100%}
@@ -1384,6 +1381,24 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-dot{position:relative}
 .gs-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(76,216,48,.4);animation:liveDotPulse 2s ease-out infinite;pointer-events:none}
 @keyframes liveDotPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+
+/* ── 버튼 Liquid Glass 공통 ── */
+.farm-harvest-btn,.vault-page1 .btn-ton,.vault-page1 .btn-play,.farm-view .btn-ghost{overflow:visible!important;position:relative}
+
+/* 수확 버튼 — 골드 회전 글로우 */
+.farm-harvest-btn::before{content:'';position:absolute;inset:0;border-radius:14px;z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(240,184,24,.5) 35%,rgba(255,220,80,.8) 50%,rgba(240,184,24,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+
+/* TON 출금 버튼 — 파란 회전 글로우 */
+.vault-page1 .btn-ton{background:linear-gradient(180deg,rgba(30,120,200,.20),rgba(0,80,160,.12))!important;backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.2),0 4px 12px rgba(0,100,200,.10)}
+.vault-page1 .btn-ton::before{content:'';position:absolute;inset:0;border-radius:14px;z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(100,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+
+/* POTATO 출금 버튼 — 초록 회전 글로우 */
+.vault-page1 .btn-play{background:linear-gradient(180deg,rgba(76,216,48,.15),rgba(40,160,24,.08))!important;backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.2),0 4px 12px rgba(76,216,48,.08)}
+.vault-page1 .btn-play::before{content:'';position:absolute;inset:0;border-radius:14px;z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 5s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(76,216,48,.5) 35%,rgba(120,255,80,.7) 50%,rgba(76,216,48,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+
+/* 무료 성장 가속 / 씨앗 심기 ghost 버튼 — 은은한 흰색 회전 글로우 */
+.farm-view .btn-ghost{backdrop-filter:blur(4px)}
+.farm-view .btn-ghost::before{content:'';position:absolute;inset:0;border-radius:var(--r-lg);z-index:2;pointer-events:none;padding:1.5px;animation:gcBorderSpin 8s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(255,255,255,.15) 42%,rgba(255,255,255,.25) 50%,rgba(255,255,255,.15) 58%,transparent 70%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 
 /* ── 기존 v11 농장 연출 유지 ── */
 @keyframes farmIconBump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
