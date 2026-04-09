@@ -218,7 +218,7 @@ body{padding:0!important;margin:0!important;display:flex!important}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:var(--r-md);font-family:inherit;font-weight:800;cursor:pointer;transition:all .12s var(--apple);-webkit-tap-highlight-color:transparent}
 .btn:active{transform:translateY(1px) scale(.985)}
 .btn-play{
-width:100%;padding:16px 20px;font-size:var(--fs-xl);letter-spacing:.4px;border-radius:var(--r-xl);color:#062000;position:relative;overflow:hidden;min-height:var(--h-xl);
+width:100%;padding:16px 20px;font-size:var(--fs-xl);letter-spacing:.4px;border-radius:var(--r-xl);color:#062000;position:relative;overflow:visible;min-height:var(--h-xl);
 background:linear-gradient(180deg,#6cd048 0%,#4cb828 48%,#40a822 100%);
 box-shadow:0 1px 0 rgba(30,130,10,.18),var(--gP2);
 text-shadow:0 1px 0 rgba(255,255,255,.12);
@@ -232,7 +232,7 @@ transition:all .12s var(--apple);
 .btn-play::before{content:'';position:absolute;top:0;left:0;right:0;height:35%;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent);border-radius:14px 14px 40% 40%;pointer-events:none}
 .btn-play::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.18) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 9s ease-in-out infinite}
 .btn-play:active{animation:none;box-shadow:0 0 0 rgba(30,130,10,.15),0 1px 4px rgba(76,216,48,.04);transform:translateY(2px) scale(.995)}
-.btn-fight{padding:16px 20px;font-size:var(--fs-xl);min-height:var(--h-xl);background:linear-gradient(180deg,#e84848,#c82828 48%,#b82222 100%);color:#fff;box-shadow:0 1px 0 rgba(130,20,20,.15),var(--gR2);border-radius:var(--r-xl);position:relative;overflow:hidden;text-shadow:0 1px 0 rgba(0,0,0,.10);width:100%;letter-spacing:.4px;transition:all .12s var(--apple)}
+.btn-fight{padding:16px 20px;font-size:var(--fs-xl);min-height:var(--h-xl);background:linear-gradient(180deg,#e84848,#c82828 48%,#b82222 100%);color:#fff;box-shadow:0 1px 0 rgba(130,20,20,.15),var(--gR2);border-radius:var(--r-xl);position:relative;overflow:visible;text-shadow:0 1px 0 rgba(0,0,0,.10);width:100%;letter-spacing:.4px;transition:all .12s var(--apple)}
 @keyframes fightIdle{0%,100%{box-shadow:0 1px 0 rgba(130,20,20,.15),var(--gR2)}50%{box-shadow:0 1px 0 rgba(130,20,20,.15),0 0 14px rgba(240,64,64,.12),0 5px 18px rgba(240,64,64,.05)}}
 .btn-fight::before{content:'';position:absolute;top:0;left:0;right:0;height:35%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:14px 14px 40% 40%;pointer-events:none}
 .btn-fight::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.18) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 9s ease-in-out infinite}
@@ -241,7 +241,7 @@ transition:all .12s var(--apple);
 @keyframes battleSpin{to{transform:rotate(360deg)}}
 .btn-sm{padding:8px 16px;font-size:var(--fs-sm);border-radius:var(--r-sm);min-height:var(--h-md)}
 .btn-ghost{background:rgba(255,255,255,.04);color:var(--tx2,var(--dim));border:.5px solid rgba(255,255,255,.06);padding:12px 20px;font-size:var(--fs-md);border-radius:var(--r-md);min-height:var(--h-lg)}
-.btn-ton{background:linear-gradient(180deg,#1ab0ff,#0090e0 48%,#0078c0 100%);color:#fff;padding:10px 20px;font-size:var(--fs-sm);box-shadow:0 1px 0 rgba(0,100,180,.12),var(--gT2);border-radius:var(--r-md);min-height:var(--h-md);transition:all .12s var(--apple);position:relative;overflow:hidden}
+.btn-ton{background:linear-gradient(180deg,#1ab0ff,#0090e0 48%,#0078c0 100%);color:#fff;padding:10px 20px;font-size:var(--fs-sm);box-shadow:0 1px 0 rgba(0,100,180,.12),var(--gT2);border-radius:var(--r-md);min-height:var(--h-md);transition:all .12s var(--apple);position:relative;overflow:visible}
 .btn-ton::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.15) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 10s ease-in-out infinite}
 .btn-ton:active{transform:translateY(2px) scale(.995);box-shadow:0 0 0 rgba(0,100,180,.06),0 1px 4px rgba(0,152,234,.03)}
 .btn-harvest-card{padding:10px 20px;font-size:var(--fs-sm);border-radius:var(--r-md);min-height:var(--h-md);background:linear-gradient(180deg,#f8d040,#e8a818 48%,#d09010 100%);color:#1a0e00;font-weight:900;box-shadow:0 1px 0 rgba(180,130,10,.12),var(--gG2);animation:hvCardPulse 6s ease-in-out infinite;transition:all .12s var(--apple);position:relative;overflow:hidden}
@@ -310,12 +310,17 @@ transition:all .12s var(--apple);
 .vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center}
 .vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
 .vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
-.vault-potato-label{font-size:9px;font-weight:600;color:rgba(100,230,60,.30);letter-spacing:4px;text-transform:uppercase;margin-bottom:min(4px,.5vh);text-shadow:none}
+.vault-potato-label{font-size:8px;font-weight:700;color:rgba(100,230,60,.45);letter-spacing:3px;text-transform:uppercase;margin-bottom:min(3px,.4vh);text-shadow:none}
 .vault-potato-amount{font-size:min(36px,4.5vh);font-weight:900;letter-spacing:-1.5px;filter:drop-shadow(0 0 8px rgba(240,192,48,.12)) drop-shadow(0 0 16px rgba(240,192,48,.04))}
 .vault-potato-amount,.vault-potato-amount .reel-digit,.vault-potato-amount .reel-col,.vault-potato-amount .reel-col span,.vault-potato-amount .reel-suffix{background:linear-gradient(175deg,#ffe890 0%,#f0c838 40%,#e0a818 70%,#f0d060 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .vault-potato-amount .reel-suffix{opacity:1;font-weight:900}
-.vault-potato-sub{font-size:11px;color:rgba(255,255,255,.28);margin-top:4px;font-weight:500}
-.vault-trend{font-size:10px;color:var(--potato);font-weight:600;margin-top:min(4px,.5vh);opacity:.45;text-shadow:none}
+.vault-potato-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:min(3px,.4vh);font-weight:500}
+/* 원 안 trend 텍스트 */
+.vault-trend-in{font-size:9px!important;font-weight:600!important;line-height:1.4!important;margin-top:min(3px,.4vh)!important;text-shadow:none!important;letter-spacing:.3px}
+.vault-trend-in.ton-trend{color:rgba(100,200,255,.40)!important;-webkit-text-fill-color:rgba(100,200,255,.40)!important}
+.vault-trend-in.potato-trend{color:rgba(100,230,60,.35)!important;-webkit-text-fill-color:rgba(100,230,60,.35)!important}
+/* 원 밖 trend 제거용 (이미 HTML에서 이동됨, fallback) */
+.vault-trend{display:none}
 .v3g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
 .vc{padding:14px 6px;border-radius:var(--r3);text-align:center;border:.5px solid rgba(255,255,255,.02)}
 .vc .vl{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;color:rgba(255,255,255,.28)}
@@ -1365,9 +1370,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-entry::before{content:'';position:absolute;inset:0;border-radius:var(--r);z-index:2;pointer-events:none;padding:2px;animation:gcBorderSpin 4s linear infinite;background:conic-gradient(from var(--gcAngle),transparent 20%,rgba(0,152,234,.5) 35%,rgba(60,200,255,.8) 50%,rgba(0,152,234,.5) 65%,transparent 80%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .gs-entry::after{content:'';position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:3;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
 
-/* ── 금고 trend 텍스트 → 원 안으로 이동 + 스타일 ── */
-.vault-trend{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:9px;opacity:.6!important;white-space:nowrap;background:rgba(0,0,0,.5);padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,.06);backdrop-filter:blur(4px)}
-.vault-ton-hero,.vault-potato-hero{position:relative}
+/* ── 금고 trend: 원 안으로 이동 완료 (HTML 수정됨) ── */
 
 /* ── 길드 1페이지 상단 배너 liquid glass 테두리 ── */
 .gs-banner{position:relative;overflow:visible!important}
@@ -1770,7 +1773,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 </div>
 </div>
 <!-- TON HERO -->
-<button class="btn btn-ton" style="width:100%;margin-top:4px;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden" onclick="showWithdrawSheet()" data-i18n="vault_withdraw_btn">💠 TON 출금 신청</button>
+<button class="btn btn-ton" style="width:100%;margin-top:4px;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:visible" onclick="showWithdrawSheet()" data-i18n="vault_withdraw_btn">💠 TON 출금 신청</button>
 <!-- POTATO HERO -->
 <div class="vault-potato-hero">
 <div class="vault-potato-glow"></div>
@@ -1785,7 +1788,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 </div>
 </div>
 </div>
-<button class="btn btn-play" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
+<button class="btn btn-play" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:visible;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
 </div><!-- /vault page 1 -->
 <!-- VAULT PAGE 2 -->
 <div class="page vault-page2">
