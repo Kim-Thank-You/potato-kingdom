@@ -1401,7 +1401,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 /* 공통 테두리 빛 움직임 (::before) */
 .farm-harvest-btn::before,.vault-page1 .btn-ton::before,.vault-page1 .btn-play::before{content:''!important;position:absolute!important;inset:-1px!important;border-radius:inherit!important;background:conic-gradient(from var(--ctaGlint),transparent 0%,transparent 35%,rgba(200,220,255,.15) 38%,rgba(255,255,255,.35) 40%,rgba(255,240,220,.15) 42%,transparent 45%,transparent 100%)!important;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;-webkit-mask-composite:xor!important;mask-composite:exclude!important;padding:2px!important;pointer-events:none!important;animation:ctaGlint 8s linear infinite!important}
 /* 출석 보상 받기 — 회전 글로우 대신 shimmer */
-.att-popup .btn-play::before{content:''!important;position:absolute!important;inset:0!important;border-radius:inherit!important;pointer-events:none!important;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%)!important;background-size:250% 100%!important;animation:attShimmer 3s ease-in-out infinite!important}
+.att-popup .btn-play::before{content:''!important;position:absolute!important;inset:0!important;border-radius:inherit!important;pointer-events:none!important;z-index:2!important;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%)!important;background-size:250% 100%!important;animation:attShimmer 3s ease-in-out infinite!important}
 @keyframes attShimmer{0%{background-position:150% 0}100%{background-position:-50% 0}}
 
 /* 공통 noise 텍스처 (::after) */
