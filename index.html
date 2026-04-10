@@ -3290,7 +3290,7 @@ function showAttendancePopup(fromTut){
   ov.className='popup-overlay';
   var claimBtn=ATT.todayClaimed?
     '<button class="btn btn-ghost btn-full" disabled>'+t('att_done')+'</button>':
-    '<button class="btn btn-play btn-full" style="position:relative;overflow:hidden" onclick="claimAttendance()"><span style="position:relative;z-index:1">'+t('att_claim')+'</span><span style="position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.5) 50%,transparent 100%);animation:attShimmer 2.5s infinite;pointer-events:none"></span></button>';
+    '<button class="btn btn-play btn-full" onclick="claimAttendance()">'+t('att_claim')+'</button>';
   ov.innerHTML=
     '<div class="att-popup">'+
       '<button class="att-close" onclick="document.getElementById(\'attPopupOverlay\').remove()">✕</button>'+
