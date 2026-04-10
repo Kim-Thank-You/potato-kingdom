@@ -1390,19 +1390,25 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .gs-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(76,216,48,.4);animation:liveDotPulse 2s ease-out infinite;pointer-events:none}
 @keyframes liveDotPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
 
-/* ═══ CTA 버튼 리퀴드 글래스 (김땡큐 스타일) ═══ */
+/* ═══ CTA 버튼 리퀴드 글래스 (김땡큐 nav 스타일 그대로) ═══ */
+/* 빛 움직임 @property */
+@property --ctaGlint{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes ctaGlint{0%{--ctaGlint:0deg}100%{--ctaGlint:360deg}}
 
-/* 농장 수확/심기 — 골드 유리 */
-.farm-harvest-btn{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;border:1px solid rgba(240,184,24,.18)!important;border-top:1px solid rgba(255,255,255,.15)!important;border-bottom:1px solid rgba(240,184,24,.08)!important;color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)!important;animation:none!important}
+/* 공통 유리 배경 */
+.farm-harvest-btn,.vault-page1 .btn-ton,.vault-page1 .btn-play,.att-popup .btn-play{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(6px)!important;-webkit-backdrop-filter:blur(6px)!important;border:1px solid rgba(255,255,255,.12)!important;border-top:1px solid rgba(255,255,255,.18)!important;border-bottom:1px solid rgba(255,255,255,.05)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(255,255,255,.04),inset 0 20px 30px rgba(255,255,255,.02)!important;overflow:visible!important;position:relative}
 
-/* 금고 TON 출금 — 파란 유리 */
-.vault-page1 .btn-ton{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;border:1px solid rgba(0,152,234,.18)!important;border-top:1px solid rgba(255,255,255,.15)!important;border-bottom:1px solid rgba(0,152,234,.08)!important;color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)!important}
+/* 공통 테두리 빛 움직임 (::before) */
+.farm-harvest-btn::before,.vault-page1 .btn-ton::before,.vault-page1 .btn-play::before,.att-popup .btn-play::before{content:''!important;position:absolute!important;inset:-1px!important;border-radius:inherit!important;background:conic-gradient(from var(--ctaGlint),transparent 0%,transparent 35%,rgba(200,220,255,.15) 38%,rgba(255,255,255,.35) 40%,rgba(255,240,220,.15) 42%,transparent 45%,transparent 100%)!important;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;-webkit-mask-composite:xor!important;mask-composite:exclude!important;padding:2px!important;pointer-events:none!important;animation:ctaGlint 8s linear infinite!important}
 
-/* 금고 POTATO 출금 — 초록 유리 */
-.vault-page1 .btn-play{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;border:1px solid rgba(76,216,48,.18)!important;border-top:1px solid rgba(255,255,255,.15)!important;border-bottom:1px solid rgba(76,216,48,.08)!important;color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.25)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)!important}
+/* 공통 noise 텍스처 (::after) */
+.farm-harvest-btn::after,.vault-page1 .btn-ton::after,.vault-page1 .btn-play::after,.att-popup .btn-play::after{content:''!important;position:absolute!important;inset:0!important;border-radius:inherit!important;opacity:.15!important;pointer-events:none!important;background:repeating-linear-gradient(90deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 3px)!important;z-index:1!important}
 
-/* 출석 보상 받기 — 골드 유리 */
-.att-popup .btn-play{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;border:1px solid rgba(240,184,24,.18)!important;border-top:1px solid rgba(255,255,255,.15)!important;border-bottom:1px solid rgba(240,184,24,.08)!important;color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)!important}
+/* 텍스트 색상 — 각 테마별 */
+.farm-harvest-btn{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;animation:none!important}
+.vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
+.vault-page1 .btn-play{color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.25)!important}
+.att-popup .btn-play{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important}
 
 /* 길드 CTA 텍스트 색상 */
 .gs-cta{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.3)!important}
