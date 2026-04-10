@@ -2133,13 +2133,13 @@ var ATT={
 /**/
 /* attendance: diamond 2/3/2/3/2/3/20 + POTATO 10 every day */
 var ATT_DAILY=[
-  {day:1,diamond:2,potato:10,icon:'💎',label:'💎2 +🥔10'},
-  {day:2,diamond:3,potato:10,icon:'💎',label:'💎3 +🥔10'},
-  {day:3,diamond:2,potato:10,icon:'💎',label:'💎2 +🥔10'},
-  {day:4,diamond:3,potato:10,icon:'💎',label:'💎3 +🥔10'},
-  {day:5,diamond:2,potato:10,icon:'💎',label:'💎2 +🥔10'},
-  {day:6,diamond:3,potato:10,icon:'💎',label:'💎3 +🥔10'},
-  {day:7,diamond:20,potato:10,icon:'🔥',label:'💎20 +🥔10'}
+  {day:1,diamond:2,potato:10,icon:'💎',label:'💎2 🥔10'},
+  {day:2,diamond:3,potato:10,icon:'💎',label:'💎3 🥔10'},
+  {day:3,diamond:2,potato:10,icon:'💎',label:'💎2 🥔10'},
+  {day:4,diamond:3,potato:10,icon:'💎',label:'💎3 🥔10'},
+  {day:5,diamond:2,potato:10,icon:'💎',label:'💎2 🥔10'},
+  {day:6,diamond:3,potato:10,icon:'💎',label:'💎3 🥔10'},
+  {day:7,diamond:20,potato:10,icon:'🔥',label:'💎20 🥔10'}
 ];
 /* 28-day milestone (resets after 28d+24h) */
 var ATT_MILESTONE=[
@@ -3120,8 +3120,13 @@ try{
     void tabEl.offsetWidth;
     tabEl.classList.remove('anim-reset');
   }
-  /* 게임카드 @property 애니메이션은 별도 리셋 필요 */
+  /* @property 애니메이션 별도 리셋 */
   if(id==='game'){document.querySelectorAll('.game-card-compact').forEach(function(c){c.classList.add('gc-spin-restart');setTimeout(function(){c.classList.remove('gc-spin-restart')},30)})}
+  /* CTA 버튼 + 카드 글로우 리셋 */
+  var glowEls=tabEl.querySelectorAll('.farm-harvest-btn,.btn-ton,.btn-play,.gs-cta,.gs-entry,.gs-banner,.gs-tier-row');
+  glowEls.forEach(function(e){var b=e.querySelector('::before');e.style.animation='none';void e.offsetWidth;e.style.animation='';var before=e.querySelectorAll('*');});
+  /* ::before는 JS로 직접 리셋 불가 — 부모를 잠깐 숨겼다 보여서 리셋 */
+  glowEls.forEach(function(e){e.style.display='none';void e.offsetWidth;e.style.display=''})
 }catch(e){}
 var glb=document.getElementById('guildScrollBtn');if(glb){if(id==='guild'){glb.classList.remove('hidden')}else{glb.classList.add('hidden')}}
 var vlb=document.getElementById('vaultScrollBtn');if(vlb){if(id==='vault'){vlb.classList.remove('hidden')}else{vlb.classList.add('hidden')}}
