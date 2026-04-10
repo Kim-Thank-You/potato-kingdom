@@ -1411,9 +1411,10 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
 .btn-potato-wd{color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.25)!important}
 .att-popup .btn-play{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;overflow:hidden!important;width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.att-popup .att-claim-btn{isolation:isolate!important}
-.att-popup .att-claim-btn::after{content:''!important;position:absolute!important;top:0!important;left:-100%!important;width:100%!important;height:100%!important;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%)!important;transform:none!important;pointer-events:none!important;z-index:0!important;animation:attShimmer 2s linear infinite!important}
-.att-popup .att-claim-btn .att-claim-label{position:relative!important;z-index:1!important}
+.att-popup .att-claim-btn{position:relative!important;z-index:4!important;isolation:isolate!important;overflow:hidden!important}
+.att-popup .att-claim-btn::before{z-index:0!important}
+.att-popup .att-claim-btn::after{content:''!important;position:absolute!important;top:0!important;left:-100%!important;width:100%!important;height:100%!important;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%)!important;transform:none!important;pointer-events:none!important;z-index:1!important;animation:attShimmer 2s linear infinite!important}
+.att-popup .att-claim-btn .att-claim-label{position:relative!important;z-index:2!important}
 
 /* 길드 CTA 텍스트 색상 */
 .gs-cta{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.3)!important}
