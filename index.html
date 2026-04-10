@@ -369,7 +369,7 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-pool-val{font-size:16px;font-weight:900;color:var(--ton);letter-spacing:-.3px;opacity:.7}
 .gs-fomo{text-align:center;padding:12px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
 .gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--ton);text-shadow:0 0 8px rgba(0,152,234,.3);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)}
-.gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.12) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 9s ease-in-out infinite}
+.gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);pointer-events:none;animation:ctaShimmer 2s infinite}
 .guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(20px,2.5vh) 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3);display:flex;flex-direction:column;justify-content:center}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
 @keyframes auroraRot{to{transform:rotate(360deg)}}
@@ -876,7 +876,7 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 .game-chip{word-break:break-word;overflow-wrap:break-word;line-height:1.3}
 .st-section-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @keyframes appleShim{0%,72%{left:-130%}88%{left:180%}100%{left:180%}}
-@keyframes ctaShimmer{0%{left:-100%}100%{left:140%}}
+@keyframes ctaShimmer{0%{left:-100%}100%{left:100%}}
 .shim{position:absolute;top:-30%;left:-130%;width:50%;height:160%;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.02) 50%,transparent 58%);transform:skewX(-20deg);pointer-events:none;animation:appleShim 18s ease-in-out infinite}
 /* ═══ BREATHE + ORBITAL ═══ */
 .breathe{position:absolute;border-radius:50%;animation:breathe var(--bd,5s) ease-in-out infinite}
@@ -1400,7 +1400,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 
 /* 공통 테두리 빛 움직임 (::before) */
 .farm-harvest-btn::before,.vault-page1 .btn-ton::before,.btn-potato-wd::before{content:''!important;position:absolute!important;inset:-1px!important;border-radius:inherit!important;background:conic-gradient(from var(--ctaGlint),transparent 0%,transparent 35%,rgba(200,220,255,.15) 38%,rgba(255,255,255,.35) 40%,rgba(255,240,220,.15) 42%,transparent 45%,transparent 100%)!important;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;-webkit-mask-composite:xor!important;mask-composite:exclude!important;padding:2px!important;pointer-events:none!important;animation:ctaGlint 8s linear infinite!important}
-/* 출석 보상 받기 shimmer — 인라인으로 이동됨 */
+/* 출석 보상 받기 shimmer */
 @keyframes attShimmer{0%{left:-100%}100%{left:100%}}
 
 /* 공통 noise 텍스처 (::after) */
@@ -1411,6 +1411,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
 .btn-potato-wd{color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.25)!important}
 .att-popup .btn-play{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;overflow:hidden!important;width:100%!important;display:flex!important}
+.att-popup .btn-play::after{content:''!important;position:absolute!important;top:0!important;left:-100%!important;width:100%!important;height:100%!important;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%)!important;transform:none!important;pointer-events:none!important;animation:attShimmer 2s infinite!important}
 
 /* 길드 CTA 텍스트 색상 */
 .gs-cta{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.3)!important}
