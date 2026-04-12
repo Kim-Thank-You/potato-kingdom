@@ -369,7 +369,7 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-pool-val{font-size:16px;font-weight:900;color:var(--ton);letter-spacing:-.3px;opacity:.7}
 .gs-fomo{text-align:center;padding:12px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
 .gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--ton);text-shadow:0 0 8px rgba(0,152,234,.3);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)}
-.gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);pointer-events:none;animation:ctaShimmer 2s infinite}
+.gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);pointer-events:none;animation:ctaShimmer .35s infinite}
 .guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(20px,2.5vh) 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3);display:flex;flex-direction:column;justify-content:center}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
 @keyframes auroraRot{to{transform:rotate(360deg)}}
@@ -1413,7 +1413,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .att-popup .btn-play{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;overflow:hidden!important;width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important}
 .att-popup .att-claim-btn{position:relative!important;z-index:4!important;isolation:isolate!important;overflow:hidden!important}
 .att-popup .att-claim-btn::before{z-index:0!important}
-.att-popup .att-claim-btn::after{content:''!important;position:absolute!important;top:0!important;left:-100%!important;width:100%!important;height:100%!important;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%)!important;transform:none!important;pointer-events:none!important;z-index:1!important;animation:attShimmer 2s linear infinite!important}
+.att-popup .att-claim-btn::after{content:''!important;position:absolute!important;top:0!important;left:-100%!important;width:100%!important;height:100%!important;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%)!important;transform:none!important;pointer-events:none!important;z-index:1!important;animation:attShimmer .35s linear infinite!important}
 .att-popup .att-claim-btn .att-claim-label{position:relative!important;z-index:2!important}
 
 /* 길드 CTA 텍스트 색상 */
@@ -2137,13 +2137,13 @@ var ATT={
 /**/
 /* attendance: diamond 2/3/2/3/2/3/20 + POTATO 10 every day */
 var ATT_DAILY=[
-  {day:1,diamond:2,potato:10,icon:'💎',label:'💎2 🥔10'},
-  {day:2,diamond:3,potato:10,icon:'💎',label:'💎3 🥔10'},
-  {day:3,diamond:2,potato:10,icon:'💎',label:'💎2 🥔10'},
-  {day:4,diamond:3,potato:10,icon:'💎',label:'💎3 🥔10'},
-  {day:5,diamond:2,potato:10,icon:'💎',label:'💎2 🥔10'},
-  {day:6,diamond:3,potato:10,icon:'💎',label:'💎3 🥔10'},
-  {day:7,diamond:20,potato:10,icon:'🔥',label:'💎20 🥔10'}
+  {day:1,diamond:2,potato:10,icon:'💎',label:'💎 2<br>🥔 10'},
+  {day:2,diamond:3,potato:10,icon:'💎',label:'💎 3<br>🥔 10'},
+  {day:3,diamond:2,potato:10,icon:'💎',label:'💎 2<br>🥔 10'},
+  {day:4,diamond:3,potato:10,icon:'💎',label:'💎 3<br>🥔 10'},
+  {day:5,diamond:2,potato:10,icon:'💎',label:'💎 2<br>🥔 10'},
+  {day:6,diamond:3,potato:10,icon:'💎',label:'💎 3<br>🥔 10'},
+  {day:7,diamond:20,potato:10,icon:'🔥',label:'💎 20<br>🥔 10'}
 ];
 /* 28-day milestone (resets after 28d+24h) */
 var ATT_MILESTONE=[
