@@ -1410,11 +1410,9 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .farm-harvest-btn{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;animation:none!important}
 .vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
 .btn-potato-wd{color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.25)!important}
-.att-popup .btn-play{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;overflow:hidden!important;width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.att-popup .att-claim-btn{position:relative!important;z-index:4!important;isolation:isolate!important;overflow:hidden!important}
-.att-popup .att-claim-btn::before{z-index:0!important}
-.att-popup .att-claim-btn::after{content:''!important;position:absolute!important;top:0!important;left:-100%!important;width:100%!important;height:100%!important;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%)!important;transform:none!important;pointer-events:none!important;z-index:1!important;animation:attShimmer .35s linear infinite!important}
-.att-popup .att-claim-btn .att-claim-label{position:relative!important;z-index:2!important}
+.att-claim-btn{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(240,184,24,.18);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--gold);text-shadow:0 0 8px rgba(240,184,24,.25);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(255,255,255,.04);width:100%;display:flex;align-items:center;justify-content:center;padding:16px 20px;font-size:var(--fs-xl);font-weight:900;border-radius:var(--r-xl);min-height:var(--h-xl)}
+.att-claim-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);pointer-events:none;animation:attShimmer 2s linear infinite}
+.att-claim-btn .att-claim-label{position:relative;z-index:2}
 
 /* 길드 CTA 텍스트 색상 */
 .gs-cta{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.3)!important}
@@ -3299,7 +3297,7 @@ function showAttendancePopup(fromTut){
   ov.className='popup-overlay';
   var claimBtn=ATT.todayClaimed?
     '<button class="btn btn-ghost btn-full" disabled>'+t('att_done')+'</button>':
-    '<button class="btn btn-play btn-full att-claim-btn" onclick="claimAttendance()"><span class="att-claim-label">'+t('att_claim')+'</span></button>';
+    '<button class="btn btn-full att-claim-btn" onclick="claimAttendance()"><span class="att-claim-label">'+t('att_claim')+'</span></button>';
   ov.innerHTML=
     '<div class="att-popup">'+
       '<button class="att-close" onclick="document.getElementById(\'attPopupOverlay\').remove()">✕</button>'+
