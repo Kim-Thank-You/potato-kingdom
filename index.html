@@ -37,7 +37,7 @@
 --sa-top:env(safe-area-inset-top,0px);--sa-bot:env(safe-area-inset-bottom,0px);
 --sa-left:env(safe-area-inset-left,0px);--sa-right:env(safe-area-inset-right,0px);
 --tma-top:var(--sa-top);--tma-bot:var(--sa-bot);
---gap:min(20px,2.5vh);
+--gap:min(28px,3.5vh);
 --content-h:100vh;
 /* === [v10 폴리시] 그림자 토큰 === */
 --sh-sm:0 1px 2px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.10);
@@ -556,7 +556,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-top:0;padding-bottom:600px}
-.game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;gap:8px;box-sizing:border-box}
+.game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;gap:var(--gap);box-sizing:border-box}
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
