@@ -1448,8 +1448,8 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 @keyframes wheelFast{0%{transform:rotate(45deg)}100%{transform:rotate(405deg)}}
 @keyframes dialCrack{0%{transform:rotate(0)}12%{transform:rotate(150deg)}24%{transform:rotate(60deg)}36%,50%{transform:rotate(220deg)}100%{transform:rotate(0)}}
 .nav ul li.active .vdial{animation:dialCrack 6s ease-in-out infinite;transform-origin:16px 18px}
-@keyframes doorOpenRight{0%,10%{transform:perspective(80px) rotateY(0)}30%,70%{transform:perspective(80px) rotateY(-45deg)}90%,100%{transform:perspective(80px) rotateY(0)}}
-.nav ul li.active .vdoor{animation:doorOpenRight 6s ease-in-out infinite;transform-origin:5px 20px}
+@keyframes doorOpenRight{0%,10%{transform:skewY(0) scaleX(1)}30%,70%{transform:skewY(-3deg) scaleX(.85)}90%,100%{transform:skewY(0) scaleX(1)}}
+.nav ul li.active .vdoor{animation:doorOpenRight 6s ease-in-out infinite;transform-origin:left center}
 @keyframes hPush{0%,10%{transform:translateX(0)}20%,70%{transform:translateX(-2px)}80%,100%{transform:translateX(0)}}
 .nav ul li.active .vhandle{animation:hPush 6s ease-in-out infinite}
 @keyframes goldGlow{0%,10%{opacity:0;filter:blur(0)}25%{opacity:.6;filter:blur(3px)}50%{opacity:1;filter:blur(6px)}70%{opacity:.6;filter:blur(3px)}90%,100%{opacity:0;filter:blur(0)}}
