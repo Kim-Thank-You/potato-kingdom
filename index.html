@@ -2719,7 +2719,7 @@ document.addEventListener('click',function(){
 function getPageHeight(){
   var ch=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--content-h'));
   if(ch&&ch>100)return ch;
-  var nav=document.getElementById('mainNav');
+  var nav=document.querySelector('.nav-border')||document.getElementById('mainNav');
   var cta=document.getElementById('ctaBanner');
   if(!nav||!cta)return 600;
   return nav.getBoundingClientRect().top-cta.getBoundingClientRect().bottom;
@@ -3040,7 +3040,7 @@ Telegram.WebApp.onEvent('contentSafeAreaChanged',applyTmaSafeArea);
 function updateContentH(){
   var topBar=document.getElementById('topBar');
   var ctaBanner=document.getElementById('ctaBanner');
-  var nav=document.getElementById('mainNav');
+  var nav=document.querySelector('.nav-border')||document.getElementById('mainNav');
   if(!topBar||!ctaBanner||!nav)return;
   var navRect=nav.getBoundingClientRect();
   var ctaRect=ctaBanner.getBoundingClientRect();
@@ -3846,7 +3846,7 @@ var ov=document.getElementById('battleOverlay');ov.classList.add('active');
 var cb=document.getElementById('ctaBanner');if(cb){cb.classList.add('cta-blank');cb.style.visibility=''}
 var stsB=document.getElementById('stsBar');if(stsB)stsB.style.display='none';
 document.getElementById('topBar').style.display='none';
-document.getElementById('mainNav').style.display='none';
+var mn=document.getElementById('mainNav');if(mn)mn.style.display='none';
 battleSec=0;document.getElementById('battleKills').textContent='0';
 setTelegramBattleGuards(true);requestTelegramFullscreenIfAvailable();
 battleTimer=setInterval(function(){
@@ -3860,7 +3860,7 @@ clearInterval(battleTimer);
 document.getElementById('battleOverlay').classList.remove('active');
 var stsB2=document.getElementById('stsBar');if(stsB2)stsB2.style.display='';
 document.getElementById('topBar').style.display='';
-document.getElementById('mainNav').style.display='';
+var mn2=document.getElementById('mainNav');if(mn2)mn2.style.display='';
 setTelegramBattleGuards(false);restoreTelegramUiState();
 var rw=getGameReward('battle',0,battleSec);
 /**/
