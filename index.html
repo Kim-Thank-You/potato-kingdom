@@ -30,10 +30,10 @@
 --gG1:0 0 6px rgba(240,184,24,.05);--gG2:0 0 10px rgba(240,184,24,.08),0 4px 14px rgba(240,184,24,.03);--gG3:0 0 16px rgba(240,184,24,.10),0 0 36px rgba(240,184,24,.03);
 --gR1:0 0 8px rgba(240,64,64,.06);--gR2:0 0 12px rgba(240,64,64,.10),0 4px 16px rgba(240,64,64,.04);
 --r:14px;--r2:11px;--r3:9px;
-/* size system: XS=28 SM=36 MD=42 LG=52 XL=56 */
---h-xs:28px;--h-sm:36px;--h-md:42px;--h-lg:52px;--h-xl:56px;
+/* size system: XS=28 SM=36 MD=42 LG=52 XL=56 — now fluid */
+--h-xs:min(28px,3.5vh);--h-sm:min(36px,4.5vh);--h-md:min(42px,5.2vh);--h-lg:min(52px,6.5vh);--h-xl:min(56px,7vh);
 --r-xs:7px;--r-sm:10px;--r-md:12px;--r-lg:14px;--r-xl:16px;
---fs-xs:10px;--fs-sm:13px;--fs-md:14px;--fs-lg:16px;--fs-xl:17px;
+--fs-xs:min(10px,1.3vh);--fs-sm:min(13px,1.6vh);--fs-md:min(14px,1.75vh);--fs-lg:min(16px,2vh);--fs-xl:min(17px,2.1vh);
 --sa-top:env(safe-area-inset-top,0px);--sa-bot:env(safe-area-inset-bottom,0px);
 --sa-left:env(safe-area-inset-left,0px);--sa-right:env(safe-area-inset-right,0px);
 --tma-top:var(--sa-top);--tma-bot:var(--sa-bot);
@@ -197,21 +197,21 @@ body{padding:0!important;margin:0!important;display:flex!important}
 .tab-p.active>:nth-child(7){animation:cIn .42s .25s var(--apple) both}
 @keyframes cIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 /* old nav CSS removed — replaced by NEW NAVIGATION BAR section */
-.cd{background:linear-gradient(152deg,rgba(24,28,46,.85),rgba(18,22,36,.90));border:.5px solid rgba(255,255,255,.035);border-radius:15px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;box-shadow:0 1px 1px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.08),inset 0 .5px 0 rgba(255,255,255,.02);transition:transform .3s var(--apple),box-shadow .3s var(--apple)}
+.cd{background:linear-gradient(152deg,rgba(24,28,46,.85),rgba(18,22,36,.90));border:.5px solid rgba(255,255,255,.035);border-radius:15px;padding:min(18px,2.2vh);margin-bottom:min(12px,1.5vh);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;box-shadow:0 1px 1px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.08),inset 0 .5px 0 rgba(255,255,255,.02);transition:transform .3s var(--apple),box-shadow .3s var(--apple)}
 .cd:active{transform:scale(.988)}
 /* ── 공통 타이포그래피 클래스 ── */
-.t-hero{font-size:22px;font-weight:900;color:var(--tx);letter-spacing:-.4px;line-height:1.25;margin-bottom:4px}
+.t-hero{font-size:min(22px,2.75vh);font-weight:900;color:var(--tx);letter-spacing:-.4px;line-height:1.25;margin-bottom:min(4px,.5vh)}
 .t-title{font-size:16px;font-weight:800;color:var(--tx);line-height:1.3;margin-bottom:4px}
-.t-desc{font-size:12px;font-weight:500;color:rgba(255,255,255,.28);line-height:1.6;margin-bottom:8px}
+.t-desc{font-size:min(12px,1.5vh);font-weight:500;color:rgba(255,255,255,.28);line-height:1.6;margin-bottom:min(8px,1vh)}
 .t-label{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.30);text-transform:uppercase;letter-spacing:1.2px}
 .t-val{font-size:18px;font-weight:900;color:var(--tx);letter-spacing:-.3px}
 .t-sub{font-size:11px;font-weight:500;color:rgba(255,255,255,.30)}
-.tg{display:inline-block;padding:4px 8px;border-radius:var(--r-xs);font-size:var(--fs-xs);font-weight:700;margin-right:4px;margin-bottom:4px}
+.tg{display:inline-block;padding:min(4px,.5vh) 8px;border-radius:var(--r-xs);font-size:var(--fs-xs);font-weight:700;margin-right:4px;margin-bottom:min(4px,.5vh)}
 .tg-p{background:var(--potato-d);color:var(--potato);text-shadow:none}.tg-t{background:var(--ton-d);color:var(--ton);text-shadow:none}.tg-g{background:var(--gold-d);color:var(--gold);text-shadow:none}.tg-r{background:var(--red-d);color:var(--red);text-shadow:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:var(--r-md);font-family:inherit;font-weight:800;cursor:pointer;transition:all .12s var(--apple);-webkit-tap-highlight-color:transparent}
 .btn:active{transform:translateY(1px) scale(.985)}
 .btn-play{
-width:100%;padding:16px 20px;font-size:var(--fs-xl);letter-spacing:.4px;border-radius:var(--r-xl);color:#062000;position:relative;overflow:hidden;min-height:var(--h-xl);
+width:100%;padding:min(16px,2vh) 20px;font-size:var(--fs-xl);letter-spacing:.4px;border-radius:var(--r-xl);color:#062000;position:relative;overflow:hidden;min-height:var(--h-xl);
 background:linear-gradient(180deg,#6cd048 0%,#4cb828 48%,#40a822 100%);
 box-shadow:0 1px 0 rgba(30,130,10,.18),var(--gP2);
 text-shadow:0 1px 0 rgba(255,255,255,.12);
@@ -340,10 +340,10 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .skip-btn{flex:1;padding:14px 12px;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(76,216,48,.06),rgba(76,216,48,.025));border:.5px solid rgba(76,216,48,.08);color:var(--potato);font-size:var(--fs-md);font-weight:900;min-height:var(--h-lg);cursor:pointer;font-family:inherit;text-align:center;-webkit-tap-highlight-color:transparent;line-height:1.3;transition:all .12s var(--apple)}
 .skip-btn:active{transform:translateY(2px) scale(.995)}
 /* ── guild season banner ── */
-.gs-banner{text-align:center;padding:28px 20px 24px;margin-bottom:0;position:relative;overflow:hidden;border-radius:var(--r);background:linear-gradient(175deg,rgba(90,30,40,.22) 0%,rgba(40,20,50,.18) 30%,rgba(14,18,32,.95) 65%);border:.5px solid rgba(160,80,80,.10)}
+.gs-banner{text-align:center;padding:min(28px,3.5vh) 20px min(24px,3vh);margin-bottom:0;position:relative;overflow:hidden;border-radius:var(--r);background:linear-gradient(175deg,rgba(90,30,40,.22) 0%,rgba(40,20,50,.18) 30%,rgba(14,18,32,.95) 65%);border:.5px solid rgba(160,80,80,.10)}
 .gs-banner::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:200px;height:80px;background:radial-gradient(ellipse,rgba(180,60,60,.12),transparent 70%);pointer-events:none}
-.gs-banner-tag{font-size:10px;font-weight:800;letter-spacing:2.5px;color:rgba(255,180,160,.55);text-transform:uppercase;margin-bottom:18px;position:relative;z-index:1}
-.gs-banner-headline{font-size:22px;font-weight:900;color:rgba(255,255,255,.88);line-height:1.35;letter-spacing:-.3px;margin-bottom:18px;position:relative;z-index:1}
+.gs-banner-tag{font-size:min(10px,1.3vh);font-weight:800;letter-spacing:2.5px;color:rgba(255,180,160,.55);text-transform:uppercase;margin-bottom:min(18px,2.2vh);position:relative;z-index:1}
+.gs-banner-headline{font-size:min(22px,2.75vh);font-weight:900;color:rgba(255,255,255,.88);line-height:1.35;letter-spacing:-.3px;margin-bottom:min(18px,2.2vh);position:relative;z-index:1}
 .gs-banner-headline b{color:var(--ton);font-weight:900}
 .gs-banner-crowd{font-size:12px;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:10px;display:inline-flex;align-items:center;gap:6px}
 .gs-banner-crowd b{color:rgba(255,255,255,.70);font-weight:900}
@@ -351,17 +351,17 @@ box-shadow:var(--gG1);-webkit-tap-highlight-color:transparent;text-align:center;
 .gs-banner-sub{font-size:11px;color:rgba(255,255,255,.25);font-weight:500;line-height:1.5}
 /* ── guild season entry card ── */
 .gs-entry{padding:0;overflow:visible;border:none;background:rgba(8,8,8,.95);box-shadow:0 0 20px rgba(0,152,234,.08),0 0 50px rgba(0,152,234,.03);margin-top:10px;position:relative}
-.gs-hook{text-align:center;padding:28px 20px 12px;position:relative}
+.gs-hook{text-align:center;padding:min(28px,3.5vh) 20px min(12px,1.5vh);position:relative}
 .gs-hook::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:100px;background:radial-gradient(ellipse,rgba(0,152,234,.08),transparent 70%);pointer-events:none;border-radius:50%}
 .gs-hook-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);margin-bottom:6px;letter-spacing:.5px}
-.gs-hook-num{font-size:48px;font-weight:900;color:var(--ton);letter-spacing:-1.5px;line-height:1;position:relative;z-index:1;text-shadow:0 0 24px rgba(0,152,234,.12);display:flex;justify-content:center;align-items:baseline;gap:4px;width:100%}
+.gs-hook-num{font-size:min(48px,6vh);font-weight:900;color:var(--ton);letter-spacing:-1.5px;line-height:1;position:relative;z-index:1;text-shadow:0 0 24px rgba(0,152,234,.12);display:flex;justify-content:center;align-items:baseline;gap:4px;width:100%}
 .gs-hook-unit{font-size:22px;font-weight:700;opacity:.65;letter-spacing:0;color:var(--ton)}
 .gs-hook-usd{font-size:13px;color:rgba(255,255,255,.25);font-weight:500;margin-top:4px}
-.gs-pool{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 18px;margin:16px 18px 0;border-radius:var(--r-sm);background:rgba(255,255,255,.025);border:.5px solid rgba(255,255,255,.03)}
+.gs-pool{display:flex;align-items:center;justify-content:center;gap:8px;padding:min(16px,2vh) 18px;margin:min(16px,2vh) 18px 0;border-radius:var(--r-sm);background:rgba(255,255,255,.025);border:.5px solid rgba(255,255,255,.03)}
 .gs-pool-label{font-size:11px;color:rgba(255,255,255,.30);font-weight:600}
 .gs-pool-val{font-size:16px;font-weight:900;color:var(--ton);letter-spacing:-.3px;opacity:.7}
-.gs-fomo{text-align:center;padding:16px 20px 0;font-size:12px;color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
-.gs-cta{width:calc(100% - 36px);margin:16px 18px 20px;padding:15px 20px;font-size:15px;font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--ton);text-shadow:0 0 8px rgba(0,152,234,.3);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)}
+.gs-fomo{text-align:center;padding:min(16px,2vh) 20px 0;font-size:min(12px,1.5vh);color:rgba(240,184,24,.7);font-weight:700;letter-spacing:.1px}
+.gs-cta{width:calc(100% - 36px);margin:min(16px,2vh) 18px min(20px,2.5vh);padding:min(15px,1.9vh) 20px;font-size:min(15px,1.9vh);font-weight:900;border-radius:var(--r-lg);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--ton);text-shadow:0 0 8px rgba(0,152,234,.3);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.03)}
 .gs-cta::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);pointer-events:none;animation:ctaShimmer 2s infinite}
 .guild-hero{border-color:rgba(0,152,234,.10);background:linear-gradient(152deg,rgba(0,152,234,.04),rgba(240,184,24,.015),rgba(22,26,42,.92) 60%);padding:min(20px,2.5vh) 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12),var(--gT3);display:flex;flex-direction:column;justify-content:center}
 .guild-hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:conic-gradient(from 200deg,transparent 28%,rgba(0,152,234,.03) 38%,transparent 48%,rgba(76,216,48,.02) 58%,transparent 68%);animation:auroraRot 30s linear infinite;pointer-events:none}
@@ -576,14 +576,14 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 /* Game card spinning border + noise */
 @property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes gcBorderSpin{to{--gcAngle:360deg}}
-.game-card-compact{padding:16px 18px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;margin:0 !important;border:none !important;position:relative;overflow:visible !important;box-shadow:none !important}
+.game-card-compact{padding:min(16px,2vh) 18px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:min(8px,1vh);margin:0 !important;border:none !important;position:relative;overflow:hidden !important;box-shadow:none !important}
 .game-card-compact::before{content:'';position:absolute;inset:0;border-radius:15px;z-index:-2;pointer-events:none;animation:gcBorderSpin 5s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px}
 .game-card-compact.puzzle-hero::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(76,216,48,.5) 45%,rgba(76,216,48,.7) 50%,rgba(76,216,48,.5) 55%,transparent 70%)}
 .game-card-compact:not(.puzzle-hero)::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(240,72,72,.5) 45%,rgba(240,72,72,.7) 50%,rgba(240,72,72,.5) 55%,transparent 70%)}
 .game-card-compact::after{content:'';position:absolute;inset:0;border-radius:inherit;opacity:.12;pointer-events:none;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
-.game-card-compact .t-hero{font-size:20px;margin-bottom:0}
+.game-card-compact .t-hero{font-size:min(20px,2.5vh);margin-bottom:0}
 .game-card-compact .t-desc{margin-bottom:0}
-.game-card-compact .btn-play,.game-card-compact .btn-fight{padding:14px 20px;min-height:var(--h-xl);margin-top:auto;width:100%}
+.game-card-compact .btn-play,.game-card-compact .btn-fight{padding:min(14px,1.7vh) 20px;min-height:var(--h-xl);margin-top:auto;width:100%}
 .game-card-compact .t-hero{margin-bottom:2px}
 .game-card-compact .t-desc{margin-bottom:2px}
 /**/
