@@ -556,7 +556,7 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 #tab-guild [data-guild-section="1"] .gs-tier-row{flex:1;display:flex;align-items:center;margin:0 !important;box-sizing:border-box}
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-top:0;padding-bottom:600px}
-.game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;gap:var(--gap);box-sizing:border-box}
+.game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:min(8px,1vh) 0;gap:min(8px,1vh);box-sizing:border-box}
 #tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
 #tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
@@ -576,16 +576,16 @@ text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-
 /* Game card spinning border + noise */
 @property --gcAngle{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes gcBorderSpin{to{--gcAngle:360deg}}
-.game-card-compact{padding:min(20px,2.5vh) 18px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:min(6px,.8vh);margin:0 !important;border:none !important;position:relative;overflow:hidden !important;box-shadow:none !important}
+.game-card-compact{padding:min(10px,1.2vh) 18px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:min(4px,.5vh);margin:0 !important;border:none !important;position:relative;overflow:hidden !important;box-shadow:none !important}
 .game-card-compact::before{content:'';position:absolute;inset:0;border-radius:15px;z-index:-2;pointer-events:none;animation:gcBorderSpin 5s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px}
 .game-card-compact.puzzle-hero::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(76,216,48,.5) 45%,rgba(76,216,48,.7) 50%,rgba(76,216,48,.5) 55%,transparent 70%)}
 .game-card-compact:not(.puzzle-hero)::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(240,72,72,.5) 45%,rgba(240,72,72,.7) 50%,rgba(240,72,72,.5) 55%,transparent 70%)}
 .game-card-compact::after{content:'';position:absolute;inset:0;border-radius:inherit;opacity:.12;pointer-events:none;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
 .game-card-compact .t-hero{font-size:min(20px,2.5vh);margin-bottom:0}
 .game-card-compact .t-desc{margin-bottom:0}
-.game-card-compact .btn-play,.game-card-compact .btn-fight{padding:min(14px,1.7vh) 20px;min-height:var(--h-xl);margin-top:auto;width:100%}
-.game-card-compact .t-hero{margin-bottom:2px}
-.game-card-compact .t-desc{margin-bottom:2px}
+.game-card-compact .btn-play,.game-card-compact .btn-fight{padding:min(12px,1.5vh) 20px;min-height:var(--h-lg);margin-top:auto;width:100%}
+.game-card-compact .t-hero{margin-bottom:0}
+.game-card-compact .t-desc{margin-bottom:0}
 /**/
 .potato-grow{display:flex;justify-content:center;align-items:flex-end;height:130px;margin:10px 0;position:relative}
 .potato-grow::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:140px;height:100px;background:radial-gradient(ellipse,rgba(240,184,24,.12),rgba(76,216,48,.04) 50%,transparent 75%);border-radius:50%;pointer-events:none;animation:potatoHalo 3s ease-in-out infinite;z-index:0}
