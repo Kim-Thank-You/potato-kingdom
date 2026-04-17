@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Potato Kingdom v8</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Russo+One&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -294,16 +295,18 @@ transition:all .12s var(--apple);
 @keyframes vaultGlowPulse{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:.48;transform:translate(-50%,-50%) scale(1.02)}}
 .vault-ton-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(0,152,234,.025),rgba(0,80,160,.008) 50%,rgba(0,152,234,.02));border:.5px solid rgba(0,152,234,.06);box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);animation:vaultRingRotate 30s linear infinite}
 @keyframes vaultRingRotate{0%,100%{box-shadow:var(--gT3),inset 0 0 8px rgba(0,152,234,.008);border-color:rgba(0,152,234,.06)}50%{box-shadow:0 0 14px rgba(0,152,234,.08),0 0 32px rgba(0,152,234,.025),inset 0 0 10px rgba(0,152,234,.01);border-color:rgba(0,152,234,.08)}}
-.vault-ton-inner,.vault-potato-inner{text-align:center}
+.vault-ton-inner,.vault-potato-inner{text-align:center;position:relative;z-index:5}
+.vault-particle-canvas{position:absolute;inset:0;border-radius:50%;overflow:hidden;z-index:1;pointer-events:none}
+.vault-particle-canvas canvas{width:100%;height:100%;display:block}
 .vault-ton-label{font-size:8px;font-weight:700;color:rgba(100,210,255,.50);letter-spacing:3px;text-transform:uppercase;margin-bottom:min(3px,.4vh);text-shadow:none}
 .vault-ton-amount{font-size:min(36px,4.5vh);font-weight:900;letter-spacing:-1.5px;line-height:1.05;background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);background-size:100% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));animation:vaultAmountShine 7s ease-in-out infinite}
 .vault-ton-amount,.vault-ton-amount .reel-digit,.vault-ton-amount .reel-col,.vault-ton-amount .reel-col span,.vault-ton-amount .reel-suffix{background:linear-gradient(180deg,#fff 0%,#a0e8ff 20%,#18b0ff 50%,#0088dd 80%,#60d0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes vaultAmountShine{0%,100%{filter:drop-shadow(0 0 8px rgba(0,180,255,.16)) drop-shadow(0 0 18px rgba(0,140,234,.05));background-position:0 0}50%{filter:drop-shadow(0 0 10px rgba(0,210,255,.20)) drop-shadow(0 0 22px rgba(0,160,255,.07));background-position:0 100%}}
 .vault-ton-usd{font-size:10px;color:rgba(140,200,240,.45);margin-top:min(3px,.4vh);font-weight:500;letter-spacing:.3px;text-shadow:none}
 .vault-potato-hero{text-align:center;padding:0;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center}
-.vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,224,48,.025) 0%,rgba(240,192,48,.01) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
-.vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(80,224,48,.015);border:.5px solid rgba(80,224,48,.04);box-shadow:0 0 8px rgba(80,224,48,.015),0 0 22px rgba(240,192,48,.008),inset 0 0 8px rgba(80,224,48,.008)}
-.vault-potato-label{font-size:8px;font-weight:700;color:rgba(100,230,60,.45);letter-spacing:3px;text-transform:uppercase;margin-bottom:min(3px,.4vh);text-shadow:none}
+.vault-potato-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(240,184,24,.03) 0%,rgba(240,200,80,.015) 35%,transparent 60%);animation:vaultGlowPulse 12s ease-in-out infinite 2s;pointer-events:none}
+.vault-potato-ring{position:relative;z-index:2;width:min(150px,17vh);height:min(150px,17vh);margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,184,24,.015);border:.5px solid rgba(240,184,24,.04);box-shadow:0 0 8px rgba(240,184,24,.015),0 0 22px rgba(240,200,80,.008),inset 0 0 8px rgba(240,184,24,.008)}
+.vault-potato-label{font-size:8px;font-weight:700;color:rgba(240,200,80,.55);letter-spacing:3px;text-transform:uppercase;margin-bottom:min(3px,.4vh);text-shadow:none}
 .vault-potato-amount{font-size:min(36px,4.5vh);font-weight:900;letter-spacing:-1.5px;filter:drop-shadow(0 0 8px rgba(240,192,48,.12)) drop-shadow(0 0 16px rgba(240,192,48,.04))}
 .vault-potato-amount,.vault-potato-amount .reel-digit,.vault-potato-amount .reel-col,.vault-potato-amount .reel-col span,.vault-potato-amount .reel-suffix{background:linear-gradient(175deg,#ffe890 0%,#f0c838 40%,#e0a818 70%,#f0d060 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .vault-potato-amount .reel-suffix{opacity:1;font-weight:900}
@@ -311,7 +314,7 @@ transition:all .12s var(--apple);
 /* 원 안 trend 텍스트 */
 .vault-trend-in{font-size:9px!important;font-weight:600!important;line-height:1.4!important;margin-top:min(3px,.4vh)!important;text-shadow:none!important;letter-spacing:.3px}
 .vault-trend-in.ton-trend{color:rgba(100,200,255,.40)!important;-webkit-text-fill-color:rgba(100,200,255,.40)!important}
-.vault-trend-in.potato-trend{color:rgba(100,230,60,.35)!important;-webkit-text-fill-color:rgba(100,230,60,.35)!important}
+.vault-trend-in.potato-trend{color:rgba(240,200,80,.45)!important;-webkit-text-fill-color:rgba(240,200,80,.45)!important}
 /* 원 밖 trend 제거용 (이미 HTML에서 이동됨, fallback) */
 .vault-trend{display:none}
 .v3g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
@@ -1232,12 +1235,12 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 /* ── #2 금고 원형 글로우 대폭 강화 ── */
 .vault-ton-ring{border:1.5px solid rgba(0,152,234,.22)!important;box-shadow:0 0 20px rgba(0,152,234,.20),0 0 50px rgba(0,152,234,.10),0 0 90px rgba(0,152,234,.04),inset 0 0 18px rgba(0,152,234,.06)!important;background:linear-gradient(160deg,rgba(0,152,234,.08),rgba(0,80,160,.03) 50%,rgba(0,152,234,.06))!important}
 .vault-ton-glow{width:320px!important;height:320px!important;background:radial-gradient(circle,rgba(0,152,234,.10) 0%,rgba(0,152,234,.05) 30%,rgba(0,80,160,.02) 50%,transparent 65%)!important}
-.vault-potato-ring{border:1.5px solid rgba(80,224,48,.18)!important;box-shadow:0 0 18px rgba(80,224,48,.16),0 0 44px rgba(240,192,48,.08),0 0 80px rgba(80,224,48,.03),inset 0 0 16px rgba(80,224,48,.05)!important}
-.vault-potato-glow{width:340px!important;height:340px!important;background:radial-gradient(circle,rgba(80,224,48,.08) 0%,rgba(240,192,48,.04) 30%,rgba(80,224,48,.015) 50%,transparent 60%)!important}
+.vault-potato-ring{border:1.5px solid rgba(240,184,24,.22)!important;box-shadow:0 0 18px rgba(240,184,24,.16),0 0 44px rgba(240,200,80,.08),0 0 80px rgba(240,184,24,.03),inset 0 0 16px rgba(240,184,24,.05)!important}
+.vault-potato-glow{width:340px!important;height:340px!important;background:radial-gradient(circle,rgba(240,184,24,.10) 0%,rgba(240,200,80,.04) 30%,rgba(240,184,24,.015) 50%,transparent 60%)!important}
 /* 금고 원 회전하는 외곽 링 추가 (absolute, layout 무영향) */
 @keyframes vaultOuterSpin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
 .vault-ton-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 14px);height:calc(100% + 14px);border-radius:50%;border:1px dashed rgba(0,152,234,.15);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 20s linear infinite}
-.vault-potato-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 14px);height:calc(100% + 14px);border-radius:50%;border:1px dashed rgba(80,224,48,.12);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 24s linear infinite reverse}
+.vault-potato-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 14px);height:calc(100% + 14px);border-radius:50%;border:1px dashed rgba(240,184,24,.14);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 24s linear infinite reverse}
 
 /* ── #3 카드 테두리 + 상단 하이라이트 ── */
 .cd{border-color:rgba(255,255,255,.06)!important}
@@ -1403,7 +1406,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 /* 텍스트 색상 — 각 테마별 */
 .farm-harvest-btn{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;animation:none!important}
 .vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
-.btn-potato-wd{color:var(--potato)!important;text-shadow:0 0 8px rgba(76,216,48,.25)!important}
+.btn-potato-wd{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important}
 .att-claim-btn{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(240,184,24,.18);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--gold);text-shadow:0 0 8px rgba(240,184,24,.25);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(255,255,255,.04);width:100%;display:flex;align-items:center;justify-content:center;padding:16px 20px;font-size:var(--fs-xl);font-weight:900;border-radius:var(--r-xl);min-height:var(--h-xl)}
 .att-claim-btn::after{content:'';position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);transform:skewX(-15deg);pointer-events:none;animation:attShimmer 2s linear infinite}
 .att-claim-btn .att-claim-label{position:relative;z-index:2}
@@ -1809,8 +1812,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="vault-ton-hero" style="flex:1;display:flex;flex-direction:column;justify-content:center">
 <div class="vault-ton-glow"></div>
 <div class="vault-ton-ring">
-<div class="breathe" style="inset:-6px;border:.5px solid rgba(16,168,255,.06);--bd:5s;--bs1:0 0 18px rgba(16,168,255,.04),0 0 40px rgba(16,168,255,.02);--bs2:0 0 30px rgba(16,168,255,.08),0 0 60px rgba(16,168,255,.035)"></div>
-<div class="orb-trk" style="inset:-8px;--od:16s"><div class="od" style="width:3.5px;height:3.5px;top:0;left:50%;transform:translateX(-50%);background:rgba(60,200,255,.4);box-shadow:0 0 5px rgba(60,200,255,.2);position:absolute"></div><div class="od" style="width:2.5px;height:2.5px;bottom:0;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.2);box-shadow:0 0 3px rgba(255,255,255,.1);position:absolute"></div></div>
+<div class="vault-particle-canvas" id="vaultTonCanvas"></div>
 <div class="vault-ton-inner">
 <div class="vault-ton-label">MY TON</div>
 <div class="vault-ton-amount" id="vaultTonBig">12.5</div>
@@ -1825,8 +1827,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="vault-potato-hero">
 <div class="vault-potato-glow"></div>
 <div class="vault-potato-ring">
-<div class="breathe" style="inset:-6px;border:.5px solid rgba(80,224,48,.04);--bd:5s;--bs1:0 0 18px rgba(80,224,48,.03),0 0 40px rgba(240,192,48,.015);--bs2:0 0 30px rgba(80,224,48,.07),0 0 60px rgba(240,192,48,.03)"></div>
-<div class="orb-trk" style="inset:-8px;--od:14s"><div class="od" style="width:3.5px;height:3.5px;top:0;left:50%;transform:translateX(-50%);background:rgba(240,200,48,.5);box-shadow:0 0 5px rgba(240,200,48,.25);position:absolute"></div><div class="od" style="width:3px;height:3px;bottom:0;left:50%;transform:translateX(-50%);background:rgba(80,224,48,.4);box-shadow:0 0 5px rgba(80,224,48,.2);position:absolute"></div><div class="od" style="width:2.5px;height:2.5px;top:50%;left:0;transform:translateY(-50%);background:rgba(255,255,255,.2);box-shadow:0 0 3px rgba(255,255,255,.1);position:absolute"></div></div>
+<div class="vault-particle-canvas" id="vaultPotatoCanvas"></div>
 <div class="vault-potato-inner">
 <div class="vault-potato-label">MY POTATO</div>
 <div class="vault-potato-amount" id="vaultPotatoReel">48.2K</div>
@@ -3236,6 +3237,7 @@ if(gl)gl.innerHTML=guildState==='leader'?'\u{1F451} <b>\uB0B4 \uAE38\uB4DC</b> \
 }
 if(id==='vault'){
 renderVault();
+setTimeout(function(){try{setupVaultParticles()}catch(e){}},100);
 }
 if(id==='farm'){
 renderRefCard();
@@ -6298,6 +6300,67 @@ if(newIdx!==undefined){
   el=navLis[newIdx];/* always pass the li to original sTab */
 }
 _origSTab(id,el)};
+
+/* ═══ VAULT PARTICLE SPHERES (Three.js) ═══ */
+var vaultTonTHREE=null,vaultPotatoTHREE=null,vaultAnimRAF=null;
+
+function _createVaultSphere(container,theme){
+  if(typeof THREE==='undefined'||!container)return null;
+  var w=container.offsetWidth||150,h=container.offsetHeight||150;
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(75,w/h,0.1,1000);
+  var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setSize(w,h);
+  renderer.setPixelRatio(window.devicePixelRatio||1);
+  renderer.setClearColor(0x000000,0);
+  container.innerHTML='';
+  container.appendChild(renderer.domElement);
+  camera.position.z=22;
+  var count=1500,radius=8;
+  var geometry=new THREE.BufferGeometry();
+  var positions=new Float32Array(count*3);
+  var colors=new Float32Array(count*3);
+  for(var i=0;i<count;i++){
+    var phi=Math.acos(-1+(2*i)/count);
+    var theta=Math.sqrt(count*Math.PI)*phi;
+    var x=radius*Math.cos(theta)*Math.sin(phi);
+    var y=radius*Math.sin(theta)*Math.sin(phi);
+    var z=radius*Math.cos(phi);
+    positions[i*3]=x+(Math.random()-0.5)*0.5;
+    positions[i*3+1]=y+(Math.random()-0.5)*0.5;
+    positions[i*3+2]=z+(Math.random()-0.5)*0.5;
+    var depth=Math.sqrt(x*x+y*y+z*z)/radius;
+    var color=new THREE.Color();
+    if(theme==='ton'){color.setHSL(0.55+depth*0.05,0.85,0.45+depth*0.3)}
+    else{color.setHSL(0.12+depth*0.03,0.9,0.45+depth*0.3)}
+    colors[i*3]=color.r;colors[i*3+1]=color.g;colors[i*3+2]=color.b;
+  }
+  geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));
+  var material=new THREE.PointsMaterial({size:0.10,vertexColors:true,blending:THREE.AdditiveBlending,transparent:true,opacity:0.85,sizeAttenuation:true});
+  var particles=new THREE.Points(geometry,material);
+  scene.add(particles);
+  return{scene:scene,camera:camera,renderer:renderer,particles:particles,container:container};
+}
+
+function _vaultAnimLoop(){
+  vaultAnimRAF=requestAnimationFrame(_vaultAnimLoop);
+  if(vaultTonTHREE){vaultTonTHREE.particles.rotation.y+=0.003;vaultTonTHREE.renderer.render(vaultTonTHREE.scene,vaultTonTHREE.camera)}
+  if(vaultPotatoTHREE){vaultPotatoTHREE.particles.rotation.y+=0.003;vaultPotatoTHREE.renderer.render(vaultPotatoTHREE.scene,vaultPotatoTHREE.camera)}
+}
+
+function setupVaultParticles(){
+  var tc=document.getElementById('vaultTonCanvas');
+  var pc=document.getElementById('vaultPotatoCanvas');
+  if(!tc||!pc)return;
+  /* re-create on each entry so size is correct */
+  if(vaultTonTHREE&&vaultTonTHREE.renderer){try{vaultTonTHREE.renderer.dispose()}catch(e){}}
+  if(vaultPotatoTHREE&&vaultPotatoTHREE.renderer){try{vaultPotatoTHREE.renderer.dispose()}catch(e){}}
+  vaultTonTHREE=_createVaultSphere(tc,'ton');
+  vaultPotatoTHREE=_createVaultSphere(pc,'potato');
+  if(vaultAnimRAF)cancelAnimationFrame(vaultAnimRAF);
+  _vaultAnimLoop();
+}
 
 /* INIT */
 buildReel('reelGuild',fmtT(S.guildReward),34);
