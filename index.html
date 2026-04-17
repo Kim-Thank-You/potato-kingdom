@@ -1229,15 +1229,30 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 /* ── 게임카드 스핀 재시작 (탭 복귀 시) ── */
 .game-card-compact.gc-spin-restart::before{animation:none!important}
 
-/* ── #2 금고 원형 글로우 대폭 강화 ── */
-.vault-ton-ring{border:1.5px solid rgba(0,152,234,.22)!important;box-shadow:0 0 20px rgba(0,152,234,.20),0 0 50px rgba(0,152,234,.10),0 0 90px rgba(0,152,234,.04),inset 0 0 18px rgba(0,152,234,.06)!important;background:linear-gradient(160deg,rgba(0,152,234,.08),rgba(0,80,160,.03) 50%,rgba(0,152,234,.06))!important}
-.vault-ton-glow{width:320px!important;height:320px!important;background:radial-gradient(circle,rgba(0,152,234,.10) 0%,rgba(0,152,234,.05) 30%,rgba(0,80,160,.02) 50%,transparent 65%)!important}
-.vault-potato-ring{border:1.5px solid rgba(240,184,24,.22)!important;box-shadow:0 0 18px rgba(240,184,24,.16),0 0 44px rgba(240,200,80,.08),0 0 80px rgba(240,184,24,.03),inset 0 0 16px rgba(240,184,24,.05)!important}
-.vault-potato-glow{width:340px!important;height:340px!important;background:radial-gradient(circle,rgba(240,184,24,.10) 0%,rgba(240,200,80,.04) 30%,rgba(240,184,24,.015) 50%,transparent 60%)!important}
-/* 금고 원 회전하는 외곽 링 추가 (absolute, layout 무영향) */
+/* ── #2 금고 원형: 네온 튜브 (강화판) — 강한 림 + 다층 블룸 + 진한 플리커 + 회전 스윕 ── */
+.vault-ton-ring{border:2px solid rgba(0,200,255,.60)!important;box-shadow:0 0 4px rgba(255,255,255,.50),0 0 20px rgba(0,210,255,.65),0 0 48px rgba(0,152,234,.45),0 0 100px rgba(0,152,234,.26),0 0 200px rgba(0,152,234,.13),inset 0 0 3px rgba(220,245,255,.85),inset 0 0 18px rgba(0,210,255,.22),inset 0 0 42px rgba(0,152,234,.10)!important;background:radial-gradient(circle at 30% 20%,rgba(140,230,255,.10),transparent 55%),linear-gradient(160deg,rgba(0,190,255,.10),rgba(0,80,160,.04) 50%,rgba(0,210,255,.08))!important;animation:vaultNeonFlickerTon 5.1s ease-in-out infinite!important}
+.vault-ton-glow{width:360px!important;height:360px!important;background:radial-gradient(circle,rgba(0,210,255,.25) 0%,rgba(0,152,234,.14) 25%,rgba(0,80,160,.06) 45%,transparent 65%)!important;animation:vaultGlowPulse 6s ease-in-out infinite!important}
+.vault-potato-ring{border:2px solid rgba(255,210,80,.60)!important;box-shadow:0 0 4px rgba(255,255,255,.50),0 0 20px rgba(255,220,100,.58),0 0 48px rgba(240,184,24,.40),0 0 100px rgba(240,200,80,.24),0 0 200px rgba(240,184,24,.11),inset 0 0 3px rgba(255,248,215,.85),inset 0 0 18px rgba(255,220,100,.20),inset 0 0 42px rgba(240,184,24,.09)!important;background:radial-gradient(circle at 30% 20%,rgba(255,240,180,.11),transparent 55%),linear-gradient(160deg,rgba(255,210,80,.09),rgba(180,120,20,.04) 50%,rgba(255,220,120,.07))!important;animation:vaultNeonFlickerPotato 5.9s ease-in-out infinite!important}
+.vault-potato-glow{width:380px!important;height:380px!important;background:radial-gradient(circle,rgba(255,220,100,.28) 0%,rgba(240,184,24,.14) 25%,rgba(160,100,20,.05) 45%,transparent 65%)!important;animation:vaultGlowPulse 7s ease-in-out infinite 1s!important}
+/* 회전하는 밝은 호 (conic sweep) — @property로 매끈한 각도 애니메이션 */
+@property --vTonSweep{syntax:'<angle>';inherits:false;initial-value:0deg}
+@property --vPotSweep{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes vaultTonSweepA{0%{--vTonSweep:0deg}100%{--vTonSweep:360deg}}
+@keyframes vaultPotSweepA{0%{--vPotSweep:0deg}100%{--vPotSweep:360deg}}
+.vault-ton-ring::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from var(--vTonSweep),transparent 0deg,transparent 210deg,rgba(120,230,255,.40) 255deg,rgba(230,248,255,1) 290deg,rgba(120,230,255,.40) 325deg,transparent 360deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px;pointer-events:none;filter:blur(1.5px);animation:vaultTonSweepA 4.5s linear infinite;z-index:1}
+.vault-potato-ring::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from var(--vPotSweep),transparent 0deg,transparent 210deg,rgba(255,220,130,.40) 255deg,rgba(255,248,220,1) 290deg,rgba(255,220,130,.40) 325deg,transparent 360deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px;pointer-events:none;filter:blur(1.5px);animation:vaultPotSweepA 5.2s linear infinite reverse;z-index:1}
+/* 네온관 불규칙 플리커 — 진폭 확대 (0.90~1.12) */
+@keyframes vaultNeonFlickerTon{0%,100%{filter:brightness(1) saturate(1.05)}8%{filter:brightness(1.10) saturate(1.18)}18%{filter:brightness(.92) saturate(.95)}29%{filter:brightness(1.12) saturate(1.20)}41%{filter:brightness(.94) saturate(1)}55%{filter:brightness(1.06) saturate(1.12)}70%{filter:brightness(.90) saturate(.92)}84%{filter:brightness(1.08) saturate(1.15)}}
+@keyframes vaultNeonFlickerPotato{0%,100%{filter:brightness(1) saturate(1.05)}11%{filter:brightness(1.10) saturate(1.18)}23%{filter:brightness(.93) saturate(.96)}35%{filter:brightness(1.12) saturate(1.20)}48%{filter:brightness(.94) saturate(.98)}62%{filter:brightness(1.06) saturate(1.12)}76%{filter:brightness(.91) saturate(.93)}89%{filter:brightness(1.07) saturate(1.15)}}
+/* 원 안 숫자·라벨 글로우 대폭 강화 */
+.vault-ton-amount{filter:drop-shadow(0 0 10px rgba(180,240,255,.80)) drop-shadow(0 0 24px rgba(0,210,255,.55)) drop-shadow(0 0 48px rgba(0,140,234,.28))!important}
+.vault-potato-amount{filter:drop-shadow(0 0 10px rgba(255,240,180,.80)) drop-shadow(0 0 24px rgba(240,200,60,.55)) drop-shadow(0 0 48px rgba(240,180,30,.28))!important}
+.vault-ton-label{color:rgba(160,225,255,.95)!important;text-shadow:0 0 10px rgba(0,200,255,.70),0 0 22px rgba(0,152,234,.35)!important}
+.vault-potato-label{color:rgba(255,225,140,.95)!important;text-shadow:0 0 10px rgba(255,210,80,.70),0 0 22px rgba(240,184,24,.35)!important}
+/* 외곽 dashed 링 — 글로우 추가로 더 진하게 */
 @keyframes vaultOuterSpin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
-.vault-ton-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 14px);height:calc(100% + 14px);border-radius:50%;border:1px dashed rgba(0,152,234,.15);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 20s linear infinite}
-.vault-potato-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 14px);height:calc(100% + 14px);border-radius:50%;border:1px dashed rgba(240,184,24,.14);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 24s linear infinite reverse}
+.vault-ton-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 22px);height:calc(100% + 22px);border-radius:50%;border:1.5px dashed rgba(0,210,255,.48);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 20s linear infinite;box-shadow:0 0 14px rgba(0,200,255,.25),inset 0 0 14px rgba(0,200,255,.12)}
+.vault-potato-ring::after{content:'';position:absolute;top:50%;left:50%;width:calc(100% + 22px);height:calc(100% + 22px);border-radius:50%;border:1.5px dashed rgba(255,220,100,.46);transform:translate(-50%,-50%);pointer-events:none;animation:vaultOuterSpin 24s linear infinite reverse;box-shadow:0 0 14px rgba(240,184,24,.22),inset 0 0 14px rgba(240,184,24,.10)}
 
 /* ── #3 카드 테두리 + 상단 하이라이트 ── */
 .cd{border-color:rgba(255,255,255,.06)!important}
@@ -1253,7 +1268,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 /* CTA 가로 통일 — 게임카드 버튼과 동일 (좌우 16px 여백) */
 .gs-cta{width:calc(100% - 32px)!important;margin-left:16px!important;margin-right:16px!important;box-sizing:border-box}
 .farm-harvest-btn{width:calc(100% - 32px)!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
-.vault-page1 .btn-ton,.btn-potato-wd{width:calc(100% - 32px)!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+.vault-page1 .btn-ton,.btn-potato-wd{width:min(150px,17vh)!important;padding-left:10px!important;padding-right:10px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box;display:block!important;white-space:nowrap!important}
 
 /* ── #6 CTA 색상 계층 통일 ── */
 .btn-play,.gs-actions .gj-btn-find{background:linear-gradient(180deg,#50e038,#38b820 48%,#2ca018 100%)!important;color:#062000!important}
@@ -1404,6 +1419,8 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .farm-harvest-btn{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;animation:none!important}
 .vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
 .btn-potato-wd{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important}
+/* 출석 축하 팝업 '확인' 버튼: 유리 배경 위에서 검은 텍스트가 안 보이던 문제 수정 */
+.att-popup .btn-play{color:var(--gold)!important;text-shadow:0 0 10px rgba(240,184,24,.45),0 1px 2px rgba(0,0,0,.5)!important;font-weight:900!important}
 .att-claim-btn{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(240,184,24,.18);border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.05);color:var(--gold);text-shadow:0 0 8px rgba(240,184,24,.25);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(255,255,255,.04);width:100%;display:flex;align-items:center;justify-content:center;padding:16px 20px;font-size:var(--fs-xl);font-weight:900;border-radius:var(--r-xl);min-height:var(--h-xl)}
 .att-claim-btn::after{content:'';position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);transform:skewX(-15deg);pointer-events:none;animation:attShimmer 2s linear infinite}
 .att-claim-btn .att-claim-label{position:relative;z-index:2}
@@ -1820,7 +1837,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 </div>
 </div>
 <!-- TON HERO -->
-<button class="btn btn-ton" style="width:100%;margin-top:4px;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden" onclick="showWithdrawSheet()" data-i18n="vault_withdraw_btn">💠 TON 출금 신청</button>
+<button class="btn btn-ton" style="width:100%;margin-top:4px;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:hidden" onclick="showWithdrawSheet()" data-i18n="vault_withdraw_btn">💠 TON 출금</button>
 <!-- POTATO HERO -->
 <div class="vault-potato-hero">
 <div class="vault-potato-glow"></div>
@@ -1835,7 +1852,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 </div>
 </div>
 </div>
-<button class="btn btn-potato-wd" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:visible;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금하기</button>
+<button class="btn btn-potato-wd" style="width:100%;margin:4px 0;padding:10.25px 20px;font-size:15px;border-radius:14px;position:relative;overflow:visible;min-height:auto" onclick="showPotatoWithdraw()" data-i18n="vault_potato_withdraw_btn">🥔 POTATO 출금</button>
 </div><!-- /vault page 1 -->
 <!-- VAULT PAGE 2 -->
 <div class="page vault-page2">
@@ -4063,7 +4080,7 @@ const translations = {
     // vault
     vault_pending: '적립 예정', vault_confirmed: '출금 가능',
     vault_withdraw_day: '출금일', vault_pending_sub: '이번 달 미확정',
-    vault_confirmed_sub: '월간 확정', vault_withdraw_btn: '💠 TON 출금 신청', vault_potato_withdraw_btn: '🥔 POTATO 출금하기',
+    vault_confirmed_sub: '월간 확정', vault_withdraw_btn: '💠 TON 출금', vault_potato_withdraw_btn: '🥔 POTATO 출금',
     vault_potato_label: 'RWA 기대 자산', vault_diamond_label: '유틸리티',
     vault_ton_history: '💠 TON 리워드 내역',
     vault_potato_history: '🥔 POTATO 내역',
