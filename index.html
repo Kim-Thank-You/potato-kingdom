@@ -525,19 +525,41 @@ padding:18px;position:relative;overflow:hidden;text-align:center;
 .farm-char-ring{width:270px;height:270px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;border:1px solid rgba(76,216,48,.06);background:radial-gradient(circle at 50% 45%,rgba(76,216,48,.04),rgba(240,184,24,.02) 40%,rgba(11,14,22,.6) 70%);box-shadow:var(--gP3),inset 0 0 16px rgba(76,216,48,.03);animation:charRingPulse 8s ease-in-out infinite}
 @keyframes charRingPulse{0%,100%{box-shadow:var(--gP3),inset 0 0 16px rgba(76,216,48,.03);border-color:rgba(76,216,48,.10)}50%{box-shadow:0 0 24px rgba(76,216,48,.14),0 0 48px rgba(76,216,48,.05),inset 0 0 20px rgba(76,216,48,.04);border-color:rgba(76,216,48,.14)}}
 .farm-char-ring .potato-sprite{transform:scale(2.2);transform-origin:center center}
-.farm-action{text-align:center;margin:0 0 20px}
+.farm-action{text-align:center;margin:0 0 20px;position:relative}
 .farm-action-status{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:6px;text-shadow:0 0 8px rgba(255,192,32,.10)}
+/* 수확 가능 상태 텍스트는 버튼 내부 .fh-bubble 말풍선으로 이동 — 기존 외부 배지 숨김 */
+.farm-action-status.ready{display:none}
 .farm-action-sub{font-size:13px;color:var(--dim);margin-bottom:10px}
 .farm-timer-badge{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(8,11,20,.88);border:.5px solid rgba(255,255,255,.08);border-radius:28px;padding:8px 22px;font-size:24px;font-weight:900;color:var(--tx);letter-spacing:3px;white-space:nowrap;z-index:3;font-variant-numeric:tabular-nums;text-shadow:0 1px 4px rgba(0,0,0,.4);backdrop-filter:blur(6px);pointer-events:none}
-.farm-harvest-btn{
-width:100%;padding:16px 20px;font-size:17px;font-weight:900;letter-spacing:.3px;border-radius:14px;min-height:56px;color:#2a1600;border:none;cursor:pointer;font-family:inherit;
-background:linear-gradient(90deg,#ffd040,#f0a010,#e88800,#ffd040);background-size:300% 100%;
-box-shadow:0 2px 14px rgba(240,184,24,.35);
-animation:harvestFlow 4s ease-in-out infinite,megaPulse 3.5s ease-in-out infinite;
-text-shadow:0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;min-height:44px;
-}
-.farm-harvest-btn::after{content:'';position:absolute;top:0;left:-100%;width:80%;height:100%;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.18) 50%,transparent 75%);transform:skewX(-20deg);pointer-events:none;animation:ctaShimmer 9s ease-in-out infinite}
-.farm-harvest-btn:active{animation:none;transform:translateY(3px) scale(.98);box-shadow:0 1px 0 rgba(160,100,0,.4)}
+
+/* ── 👁 FARM HARVEST — Creepy 감자 캐릭터 버튼 (커버가 기울어지며 감자 얼굴 드러남) ── */
+.farm-harvest-btn{position:relative;display:inline-block;padding:0;border:none;font-family:inherit;font-size:20px;font-weight:900;letter-spacing:1px;min-width:13em;color:#f5f5f5;background-color:#000;border-radius:1.25em;cursor:pointer;outline:.1875em solid transparent;transition:outline .1s linear;-webkit-tap-highlight-color:transparent;overflow:visible;min-height:0}
+.farm-harvest-btn .fh-cover{position:relative;display:block;inset:0;padding:.7em 1.5em;border-radius:inherit;background-color:#f0b030;color:#2a1400;box-shadow:0 0 0 .125em #000 inset;transform-origin:1.25em 50%;transition:background-color .3s,transform .35s cubic-bezier(.65,0,.35,1);text-align:center;z-index:1}
+
+/* 👁 눈 (커버 뒤에 숨어있다가 틈으로 엿보임) */
+.farm-harvest-btn .fh-eyes{position:absolute;right:1em;bottom:.5em;display:flex;align-items:center;gap:.375em;height:.75em;z-index:0;pointer-events:none}
+.farm-harvest-btn .fh-eye{position:relative;width:.75em;height:.75em;background-color:#f5f5f5;border-radius:50%;overflow:hidden;animation:fhEyeBlink 3s infinite}
+.farm-harvest-btn .fh-pupil{position:absolute;top:50%;left:50%;aspect-ratio:1;width:.375em;background-color:#000;border-radius:50%;display:block;transform:translate(-50%,-50%);transition:transform .18s cubic-bezier(.25,.8,.35,1)}
+@keyframes fhEyeBlink{0%,92%,100%{animation-timing-function:cubic-bezier(.32,0,.67,0);height:.75em}96%{animation-timing-function:cubic-bezier(.33,1,.68,1);height:0}}
+
+.farm-harvest-btn:focus-visible{outline:.1875em solid rgba(255,200,100,.7)}
+/* 탭 — 커버 완전히 닫히며 squash (액션 피드백) */
+.farm-harvest-btn:active .fh-cover{animation:none;transform:rotate(0) scale(.98);transition:transform .08s cubic-bezier(.65,0,.35,1)}
+
+/* 수확 가능 상태: amber glow + 커버 부드러운 breath (살짝 열림 ↔ 닫힘, sinusoidal) */
+.farm-harvest-btn.ready{filter:drop-shadow(0 0 16px rgba(255,180,60,.5)) drop-shadow(0 6px 12px rgba(0,0,0,.45))}
+.farm-harvest-btn.ready .fh-cover{background-color:#f5c040;animation:coverBreath 4s ease-in-out infinite}
+@keyframes coverBreath{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(0)}}
+.farm-harvest-btn.ready:active .fh-cover{animation:none;transform:rotate(0) scale(.98);transition-duration:.08s}
+
+/* 💬 말풍선 "수확 가능!" — 캐릭터 머리 바로 위에 붙임 */
+.farm-char-area{position:relative}
+.farm-char-bubble{position:absolute;top:20%;left:50%;background:#fff5d8;color:#2a1400;padding:7px 16px;border-radius:100px;font-size:14px;font-weight:900;letter-spacing:.4px;white-space:nowrap;border:2px solid #2a1400;box-shadow:0 4px 10px rgba(0,0,0,.55),0 0 18px rgba(255,190,80,.4);z-index:6;pointer-events:none;animation:fhBubbleAppear .5s cubic-bezier(.34,1.56,.64,1) both,fhBubbleFloat 3s ease-in-out 1s infinite}
+/* 꼬리 — 아래로 향하는 정삼각형 (회전 없음) */
+.farm-char-bubble::before{content:'';position:absolute;bottom:-11px;left:50%;margin-left:-9px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:11px solid #2a1400}
+.farm-char-bubble::after{content:'';position:absolute;bottom:-7px;left:50%;margin-left:-7px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #fff5d8}
+@keyframes fhBubbleAppear{0%{transform:translateX(-50%) translateY(10px) scale(.5);opacity:0}70%{transform:translateX(-50%) translateY(-3px) scale(1.08);opacity:1}100%{transform:translateX(-50%) translateY(0) scale(1);opacity:1}}
+@keyframes fhBubbleFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
 .farm-view{display:none}.farm-view.active{display:block}
 /* Farm scroll-down chevron */
 .farm-scroll-btn{position:absolute;bottom:var(--scroll-btn-bottom,60px);left:50%;transform:translateX(-50%);width:60px;height:30px;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:32;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility .3s;animation:farmChevBounce 2s ease-in-out infinite}
@@ -1161,17 +1183,6 @@ border:.5px solid rgba(76,216,48,.04);border-radius:var(--r);padding:14px;margin
 @keyframes modalSpring{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:scale(1)}}
 .attendance-popup,.tut-modal{animation:modalSpring .35s var(--spring)}
 
-/* === [빈 공간] 배경 미세 파티클 (CSS only, GPU만) === */
-@keyframes floatUp1{0%{transform:translate3d(0,100vh,0);opacity:0}10%{opacity:.06}90%{opacity:.06}100%{transform:translate3d(20px,-10vh,0);opacity:0}}
-@keyframes floatUp2{0%{transform:translate3d(0,100vh,0);opacity:0}10%{opacity:.05}90%{opacity:.05}100%{transform:translate3d(-30px,-10vh,0);opacity:0}}
-.bg-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.bg-particles span{position:absolute;width:3px;height:3px;border-radius:50%;background:radial-gradient(circle,#4cd830,transparent);will-change:transform,opacity}
-.bg-particles span:nth-child(1){left:12%;animation:floatUp1 22s linear infinite;animation-delay:0s}
-.bg-particles span:nth-child(2){left:32%;animation:floatUp2 28s linear infinite;animation-delay:-5s}
-.bg-particles span:nth-child(3){left:55%;animation:floatUp1 26s linear infinite;animation-delay:-12s;background:radial-gradient(circle,#f0b818,transparent)}
-.bg-particles span:nth-child(4){left:78%;animation:floatUp2 30s linear infinite;animation-delay:-18s;background:radial-gradient(circle,#0098ea,transparent)}
-.bg-particles span:nth-child(5){left:88%;animation:floatUp1 24s linear infinite;animation-delay:-9s}
-
 /* === [보상] 플로팅 텍스트 (예: +50 POTATO) === */
 @keyframes floatReward{0%{opacity:0;transform:translate(-50%,0) scale(.6)}15%{opacity:1;transform:translate(-50%,-12px) scale(1.05)}80%{opacity:1;transform:translate(-50%,-46px) scale(1)}100%{opacity:0;transform:translate(-50%,-64px) scale(.95)}}
 .float-reward{position:fixed;left:50%;font-family:'Russo One',sans-serif;font-size:24px;font-weight:900;pointer-events:none;z-index:9999;text-shadow:0 2px 8px rgba(0,0,0,.5),0 0 18px currentColor;animation:floatReward 1.6s var(--apple) forwards;will-change:transform,opacity}
@@ -1267,7 +1278,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 .btn-pw,.ref-card .btn:not(.btn-ghost):not(.btn-sm),.gs-actions .gj-btn,.gj-btn-find,.gj-btn-create{width:100%!important;box-sizing:border-box}
 /* CTA 가로 통일 — 게임카드 버튼과 동일 (좌우 16px 여백) */
 .gs-cta{width:calc(100% - 32px)!important;margin-left:16px!important;margin-right:16px!important;box-sizing:border-box}
-.farm-harvest-btn{width:calc(100% - 32px)!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+.farm-harvest-btn{width:auto!important;max-width:none!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
 .vault-page1 .btn-ton,.btn-potato-wd{width:min(150px,17vh)!important;padding-left:10px!important;padding-right:10px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box;display:block!important;white-space:nowrap!important}
 
 /* ── #6 CTA 색상 계층 통일 ── */
@@ -1405,18 +1416,17 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 @keyframes ctaGlint{0%{--ctaGlint:0deg}100%{--ctaGlint:360deg}}
 
 /* 공통 유리 배경 */
-.farm-harvest-btn,.vault-page1 .btn-ton,.btn-potato-wd,.att-popup .btn-play{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(6px)!important;-webkit-backdrop-filter:blur(6px)!important;border:1px solid rgba(255,255,255,.12)!important;border-top:1px solid rgba(255,255,255,.18)!important;border-bottom:1px solid rgba(255,255,255,.05)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(255,255,255,.04),inset 0 20px 30px rgba(255,255,255,.02)!important;overflow:visible!important;position:relative}
+.vault-page1 .btn-ton,.btn-potato-wd,.att-popup .btn-play{background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.01) 50%,rgba(255,255,255,.03) 100%)!important;backdrop-filter:blur(6px)!important;-webkit-backdrop-filter:blur(6px)!important;border:1px solid rgba(255,255,255,.12)!important;border-top:1px solid rgba(255,255,255,.18)!important;border-bottom:1px solid rgba(255,255,255,.05)!important;box-shadow:0 6px 24px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(255,255,255,.04),inset 0 20px 30px rgba(255,255,255,.02)!important;overflow:visible!important;position:relative}
 
 /* 공통 테두리 빛 움직임 (::before) */
-.farm-harvest-btn::before,.vault-page1 .btn-ton::before,.btn-potato-wd::before{content:''!important;position:absolute!important;inset:-1px!important;border-radius:inherit!important;background:conic-gradient(from var(--ctaGlint),transparent 0%,transparent 35%,rgba(200,220,255,.15) 38%,rgba(255,255,255,.35) 40%,rgba(255,240,220,.15) 42%,transparent 45%,transparent 100%)!important;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;-webkit-mask-composite:xor!important;mask-composite:exclude!important;padding:2px!important;pointer-events:none!important;animation:ctaGlint 8s linear infinite!important}
+.vault-page1 .btn-ton::before,.btn-potato-wd::before{content:''!important;position:absolute!important;inset:-1px!important;border-radius:inherit!important;background:conic-gradient(from var(--ctaGlint),transparent 0%,transparent 35%,rgba(200,220,255,.15) 38%,rgba(255,255,255,.35) 40%,rgba(255,240,220,.15) 42%,transparent 45%,transparent 100%)!important;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;-webkit-mask-composite:xor!important;mask-composite:exclude!important;padding:2px!important;pointer-events:none!important;animation:ctaGlint 8s linear infinite!important}
 /* 출석 보상 받기 shimmer */
 @keyframes attShimmer{0%{left:-100%}100%{left:100%}}
 
 /* 공통 noise 텍스처 (::after) */
-.farm-harvest-btn::after,.vault-page1 .btn-ton::after,.btn-potato-wd::after{content:''!important;position:absolute!important;inset:0!important;border-radius:inherit!important;opacity:.15!important;pointer-events:none!important;background:repeating-linear-gradient(90deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 3px)!important;z-index:1!important}
+.vault-page1 .btn-ton::after,.btn-potato-wd::after{content:''!important;position:absolute!important;inset:0!important;border-radius:inherit!important;opacity:.15!important;pointer-events:none!important;background:repeating-linear-gradient(90deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 3px)!important;z-index:1!important}
 
 /* 텍스트 색상 — 각 테마별 */
-.farm-harvest-btn{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important;animation:none!important}
 .vault-page1 .btn-ton{color:var(--ton)!important;text-shadow:0 0 8px rgba(0,152,234,.25)!important}
 .btn-potato-wd{color:var(--gold)!important;text-shadow:0 0 8px rgba(240,184,24,.25)!important}
 /* 출석 축하 팝업 '확인' 버튼: 유리 배경 위에서 검은 텍스트가 안 보이던 문제 수정 */
@@ -1505,7 +1515,6 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <body>
 <div class="phone" id="app">
 <div class="depth-bg"><div class="d-orb o1"></div><div class="d-orb o2"></div><div class="d-orb o3"></div></div>
-<div class="bg-particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
 <div class="top" id="topBar">
 <div class="top-left" onclick="openProfile()" style="cursor:pointer;-webkit-tap-highlight-color:transparent">
 <div class="top-avatar">🥔</div>
@@ -2816,6 +2825,26 @@ function farmScrollNext(){pageScroll('tab-farm')}
 function gameScrollNext(){pageScroll('tab-game')}
 function guildScrollNext(){pageScroll('tab-guild')}
 function vaultScrollNext(){pageScroll('tab-vault')}
+/* 👁 Creepy eye pupil tracking — 눈 밖으로 안 나가게 clamp */
+(function(){
+  function updatePupils(cx,cy){
+    document.querySelectorAll('.farm-harvest-btn').forEach(function(btn){
+      var eyes=btn.querySelector('.fh-eyes');if(!eyes)return;
+      var r=eyes.getBoundingClientRect();
+      var dx=cx-(r.left+r.width/2),dy=cy-(r.top+r.height/2);
+      var angle=Math.atan2(-dy,dx)+Math.PI/2;
+      var d=Math.hypot(dx,dy);
+      var x=Math.sin(angle)*d/180,y=Math.cos(angle)*d/75;
+      /* -1~1 범위로 clamp (눈알 안에서만 움직이도록) */
+      if(x>1)x=1;else if(x<-1)x=-1;
+      if(y>1)y=1;else if(y<-1)y=-1;
+      var tx=(-50+x*28)+'%',ty=(-50+y*28)+'%';
+      btn.querySelectorAll('.fh-pupil').forEach(function(p){p.style.transform='translate('+tx+','+ty+')'});
+    });
+  }
+  document.addEventListener('mousemove',function(e){updatePupils(e.clientX,e.clientY)},{passive:true});
+  document.addEventListener('touchmove',function(e){if(e.touches[0])updatePupils(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
+})();
 (function(){
   var tabs=['tab-farm','tab-game','tab-guild','tab-vault'];
   var btns=['farmScrollBtn','gameScrollBtn','guildScrollBtn','vaultScrollBtn'];
@@ -2852,7 +2881,7 @@ h='<div class="farm-char-area" style="height:280px">'+
 else if(slot.state==='empty'){
 h='<div class="farm-char-area"><div class="farm-char-ring" style="border-color:rgba(255,255,255,.08);box-shadow:none;animation:none">'+svgEmptyPlot()+'</div></div>'+
 '<div class="farm-action">'+
-'<button class="btn farm-harvest-btn" onclick="doPlant('+idx+')">'+t('farm_plant')+'</button></div>'}
+'<button class="btn farm-harvest-btn" onclick="doPlant('+idx+')"><span class="fh-cover">'+t('farm_plant')+'</span></button></div>'}
 else if(slot.state==='growing'){
 var remainMs=Math.max(0,slot.endAt-Date.now());
 var remainSec=Math.ceil(remainMs/1000);
@@ -2864,10 +2893,9 @@ h='<div class="farm-char-area">'+
 '<div class="farm-action-status" style="color:var(--dim);font-size:16px">🌱 '+t('farm_growing')+'</div>'+
 '<button class="btn btn-ghost" style="font-size:13px;padding:12px 24px;margin-top:4px" onclick="showBoost('+idx+')">'+t('farm_boost_free')+'</button></div>'}
 else if(slot.state==='harvestable'){
-h='<div class="farm-char-area"><div class="farm-char-ring harvest-ring">'+svgHarvestPotato()+'</div></div>'+
+h='<div class="farm-char-area"><div class="farm-char-bubble">'+t('farm_harvestable')+'</div><div class="farm-char-ring harvest-ring">'+svgHarvestPotato()+'</div></div>'+
 '<div class="farm-action">'+
-'<div class="farm-action-status">✨ '+t('farm_harvestable')+'</div>'+
-'<button class="btn farm-harvest-btn" onclick="showHarvest('+idx+')">'+t('farm_harvest')+' (+'+slot.yieldPotato+')</button></div>'}
+'<button class="btn farm-harvest-btn ready" onclick="showHarvest('+idx+')"><span class="fh-eyes"><span class="fh-eye"><span class="fh-pupil"></span></span><span class="fh-eye"><span class="fh-pupil"></span></span></span><span class="fh-cover">'+t('farm_harvest')+'</span></button></div>'}
 view.innerHTML=h}
 
 /**/
@@ -4038,7 +4066,7 @@ const translations = {
     game_ticker2: '🔥 60초 퍼즐 성공 시 농장 수확 30분 단축!',
     game_ticker3: '⚔️ 수호전에서 생존하고 막대한 길드 점수를 챙기세요!',
     // farm
-    farm_plant: '🌱 씨앗 심기', farm_harvest: '🌾 지금 수확하기',
+    farm_plant: '씨앗 심기', farm_harvest: '수확하기',
     farm_boost: '⚡ 성장 가속하기', farm_instant: '💎 즉시 수확',
     farm_unlock: '🔓 농장 개방', farm_empty: '빈 땅',
     farm_growing: '성장 중', farm_harvestable: '수확 가능!',
