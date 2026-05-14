@@ -584,6 +584,20 @@ padding:18px;position:relative;overflow:hidden;text-align:center;
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-top:0;padding-bottom:600px}
 .game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:min(8px,1vh) 0;gap:min(8px,1vh);box-sizing:border-box}
+/* 2x2 grid */
+.game-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:min(8px,1vh);flex:1;min-height:0;min-width:0;width:100%;box-sizing:border-box}
+.game-grid .game-card-compact{flex:none;min-height:0;min-width:0;padding:min(10px,1.4vh) min(10px,3vw) !important;gap:min(3px,.4vh) !important}
+.game-grid .game-card-compact .t-hero{font-size:min(14px,1.8vh) !important;line-height:1.15}
+.game-grid .game-card-compact .t-desc{font-size:min(10px,1.3vh) !important;line-height:1.3;margin-bottom:0}
+.game-grid .game-card-compact .btn-play{padding:min(8px,1vh) 6px !important;min-height:0 !important;font-size:min(11px,1.4vh) !important;margin-top:auto;width:100%}
+.game-grid .game-card-compact .tg{font-size:9px !important;padding:2px 5px !important;margin:0 2px 2px 0 !important;letter-spacing:0}
+.game-grid .game-card-compact .game-icon{font-size:min(26px,3.2vh);line-height:1;margin:2px 0}
+/* COMING SOON cell */
+.game-card-soon{background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(255,255,255,.01)) !important;border:.5px dashed rgba(255,255,255,.10) !important;box-shadow:none !important;opacity:.78}
+.game-card-soon::before,.game-card-soon::after{display:none !important}
+.game-card-soon .t-hero{background:linear-gradient(135deg,#a0a0a0,#707070) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
+.game-card-soon .btn-soon{padding:min(8px,1vh) 6px;min-height:0;font-size:min(11px,1.4vh);width:100%;background:rgba(255,255,255,.04);color:var(--dim);font-weight:800;border-radius:10px;border:.5px solid rgba(255,255,255,.06);letter-spacing:.3px;margin-top:auto}
+.game-card-soon .soon-badge{font-size:8px;font-weight:900;letter-spacing:1px;padding:2px 6px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--dim);border:.5px solid rgba(255,255,255,.08);display:inline-block}
 /* Game tab: compact cards */
 /* ═══ UNIVERSAL PAGE SYSTEM ═══ */
 .page{height:var(--content-h);display:flex;flex-direction:column;padding:var(--gap) 0;box-sizing:border-box;overflow:hidden}
@@ -1539,26 +1553,40 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="ticker-line" style="color:var(--ton)" data-i18n="game_ticker2">📈 3위까지 800점! 예상 보상 +0.2 TON ↑</div>
 <div class="ticker-line" style="color:var(--potato)" data-i18n="game_ticker3">🔥 퍼즐 플레이 → 농장 성장 30분 단축!</div>
 </div></div>
-<!-- CARD 1 — Potato Puzzle Pop -->
+<!-- 2x2 GAME GRID -->
+<div class="game-grid">
+<!-- CELL 1 — Potato Puzzle Pop -->
 <div class="cd puzzle-hero game-card-compact">
-<div style="margin-bottom:4px"><span class="tg tg-p" data-i18n="game_tag_puzzle">🧩 퍼즐 게임</span><span class="tg tg-g" data-i18n="game_tag_guild_score">🏰 길드 점수</span><span class="tg tg-p" data-i18n="game_tag_potato">🥔 POTATO 보상</span></div>
+<div><span class="tg tg-p" data-i18n="game_tag_puzzle">🧩 퍼즐</span><span class="tg tg-p" data-i18n="game_tag_potato_s">🥔 보상</span></div>
+<div class="game-icon">🧩</div>
 <div class="t-hero" data-i18n="game_puzzle_title">포테이토 퍼즐 팝</div>
-<div class="t-desc" style="margin-bottom:4px" data-i18n="game_puzzle_desc">매치하고, 터트리고, 빠른 퍼즐로 점수를 올리세요</div>
-<button class="btn btn-play" style="margin-top:8px" onclick="doCompletePuzzle(Math.round(300+Math.random()*400))"><span data-i18n="game_puzzle_play">▶ 플레이</span></button>
+<div class="t-desc" data-i18n="game_puzzle_desc_s">매치하고 터트려 점수 UP</div>
+<button class="btn btn-play" onclick="doCompletePuzzle(Math.round(300+Math.random()*400))"><span data-i18n="game_puzzle_play">▶ 플레이</span></button>
 </div>
-<!-- CARD 2 — Potato Block Pang -->
+<!-- CELL 2 — Potato Block Pang -->
 <div class="cd block-hero game-card-compact">
-<div style="margin-bottom:4px"><span class="tg tg-t" data-i18n="game_tag_board">🎲 보드 게임</span><span class="tg tg-g" data-i18n="game_tag_guild_score">🏰 길드 점수</span><span class="tg tg-p" data-i18n="game_tag_potato">🥔 POTATO 보상</span></div>
+<div><span class="tg tg-t" data-i18n="game_tag_board">🎲 보드</span><span class="tg tg-p" data-i18n="game_tag_potato_s">🥔 보상</span></div>
+<div class="game-icon">🧱</div>
 <div class="t-hero" data-i18n="game_battle_title">포테이토 블록 팡</div>
-<div class="t-desc" style="margin-bottom:4px" data-i18n="game_battle_desc">블록을 놓고, 라인을 지우고, 점수를 쌓으세요</div>
-<button class="btn btn-play" style="margin-top:8px" onclick="showToast&&showToast('🎮 게임을 준비중이에요')"><span data-i18n="game_battle_play">▶ 플레이</span></button>
+<div class="t-desc" data-i18n="game_battle_desc_s">블록 놓고 라인 클리어</div>
+<button class="btn btn-play" onclick="showToast&&showToast('🎮 게임을 준비중이에요')"><span data-i18n="game_battle_play">▶ 플레이</span></button>
 </div>
-<!-- CARD 3 — Potato Family -->
+<!-- CELL 3 — Potato Family -->
 <div class="cd family-hero game-card-compact">
-<div style="margin-bottom:4px"><span class="tg tg-t" data-i18n="game_tag_board">🎲 보드 게임</span><span class="tg tg-g" data-i18n="game_tag_guild_score">🏰 길드 점수</span><span class="tg tg-p" data-i18n="game_tag_potato">🥔 POTATO 보상</span></div>
+<div><span class="tg tg-t" data-i18n="game_tag_board">🎲 보드</span><span class="tg tg-p" data-i18n="game_tag_potato_s">🥔 보상</span></div>
+<div class="game-icon">👨‍👩‍👧</div>
 <div class="t-hero" data-i18n="game_family_title">포테이토 패밀리</div>
-<div class="t-desc" style="margin-bottom:4px" data-i18n="game_family_desc">매주 즐기는 가벼운 보드 게임</div>
-<button class="btn btn-play" style="margin-top:8px" onclick="showToast&&showToast('🎮 게임을 준비중이에요')"><span data-i18n="game_family_play">▶ 플레이</span></button>
+<div class="t-desc" data-i18n="game_family_desc_s">주간 가벼운 보드 게임</div>
+<button class="btn btn-play" onclick="showToast&&showToast('🎮 게임을 준비중이에요')"><span data-i18n="game_family_play">▶ 플레이</span></button>
+</div>
+<!-- CELL 4 — COMING SOON -->
+<div class="cd game-card-compact game-card-soon">
+<div><span class="soon-badge" data-i18n="game_soon_badge">COMING SOON</span></div>
+<div class="game-icon" style="filter:blur(1px);opacity:.6">❓</div>
+<div class="t-hero" data-i18n="game_soon_title">새로운 게임</div>
+<div class="t-desc" data-i18n="game_soon_desc">곧 만나요!</div>
+<button class="btn btn-soon" onclick="showToast&&showToast('🔔 알림 등록됐어요!')"><span data-i18n="game_soon_notify">🔔 알림 받기</span></button>
+</div>
 </div>
 </div>
 </div><!-- /tab-game -->
@@ -4034,8 +4062,14 @@ const translations = {
     game_family_desc: '매주 즐기는 가벼운 보드 게임',
     game_family_play: '▶ 플레이',
     game_today: '오늘', game_best: '최고', game_reward: '보상',
-    game_tag_puzzle: '🧩 퍼즐 게임', game_tag_board: '🎲 보드 게임',
+    game_tag_puzzle: '🧩 퍼즐', game_tag_board: '🎲 보드',
     game_tag_guild_score: '🏰 길드 점수', game_tag_potato: '🥔 POTATO 보상',
+    game_tag_potato_s: '🥔 보상',
+    game_puzzle_desc_s: '매치하고 터트려 점수 UP',
+    game_battle_desc_s: '블록 놓고 라인 클리어',
+    game_family_desc_s: '주간 가벼운 보드 게임',
+    game_soon_title: '새로운 게임', game_soon_desc: '곧 만나요!',
+    game_soon_badge: 'COMING SOON', game_soon_notify: '🔔 알림 받기',
     game_tag_farm: '🌱 농장 부스트', game_tag_guild: '🏰 길드 점수', game_tag_60s: '⚡ 60초',
     game_tag_survival: '🛡️ 생존 액션', game_tag_wave: '🥔 감자 보상',
     game_chip_potato: '🥔 POTATO 획득', game_chip_farm: '🌱 농장 -30분', game_chip_guild: '🏰 길드 점수',
