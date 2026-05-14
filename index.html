@@ -584,8 +584,6 @@ padding:18px;position:relative;overflow:hidden;text-align:center;
 /* Game tab: snap scrolling + compact cards */
 #tab-game{padding-top:0;padding-bottom:600px}
 .game-fold{display:flex;flex-direction:column;height:var(--content-h);padding:min(8px,1vh) 0;gap:min(8px,1vh);box-sizing:border-box}
-#tab-game [data-game-section="1"]{display:flex;flex-direction:column;height:var(--content-h);padding:var(--gap) 0;box-sizing:border-box}
-#tab-game [data-game-section="1"] .cd{padding:20px 18px}
 /* Game tab: compact cards */
 /* ═══ UNIVERSAL PAGE SYSTEM ═══ */
 .page{height:var(--content-h);display:flex;flex-direction:column;padding:var(--gap) 0;box-sizing:border-box;overflow:hidden}
@@ -597,7 +595,8 @@ padding:18px;position:relative;overflow:hidden;text-align:center;
 /* Title */
 .game-card-compact .t-hero{font-family:'Russo One',sans-serif !important;letter-spacing:.5px}
 .game-card-compact.puzzle-hero .t-hero{background:linear-gradient(135deg,#7fffa0,#4cd830) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
-.game-card-compact:not(.puzzle-hero) .t-hero{background:linear-gradient(135deg,#ff6080,#f04040) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
+.game-card-compact.block-hero .t-hero{background:linear-gradient(135deg,#ffc070,#ff8830) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
+.game-card-compact.family-hero .t-hero{background:linear-gradient(135deg,#d090ff,#a060f0) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important}
 .game-card-compact b{font-family:'JetBrains Mono',monospace;font-weight:700}
 
 /* Game card spinning border + noise */
@@ -606,7 +605,8 @@ padding:18px;position:relative;overflow:hidden;text-align:center;
 .game-card-compact{padding:min(10px,1.2vh) 18px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:min(4px,.5vh);margin:0 !important;border:none !important;position:relative;overflow:hidden !important;box-shadow:none !important}
 .game-card-compact::before{content:'';position:absolute;inset:0;border-radius:15px;z-index:-2;pointer-events:none;animation:gcBorderSpin 5s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px}
 .game-card-compact.puzzle-hero::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(76,216,48,.5) 45%,rgba(76,216,48,.7) 50%,rgba(76,216,48,.5) 55%,transparent 70%)}
-.game-card-compact:not(.puzzle-hero)::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(240,72,72,.5) 45%,rgba(240,72,72,.7) 50%,rgba(240,72,72,.5) 55%,transparent 70%)}
+.game-card-compact.block-hero::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(255,136,48,.5) 45%,rgba(255,136,48,.7) 50%,rgba(255,136,48,.5) 55%,transparent 70%)}
+.game-card-compact.family-hero::before{background:conic-gradient(from var(--gcAngle),transparent 30%,rgba(160,96,240,.5) 45%,rgba(160,96,240,.7) 50%,rgba(160,96,240,.5) 55%,transparent 70%)}
 .game-card-compact::after{content:'';position:absolute;inset:0;border-radius:inherit;opacity:.12;pointer-events:none;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");background-size:200px 200px;mix-blend-mode:overlay}
 .game-card-compact .t-hero{font-size:min(20px,2.5vh);margin-bottom:0}
 .game-card-compact .t-desc{margin-bottom:0}
@@ -1531,7 +1531,7 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="content" id="mainContent">
 <!-- GAME TAB -->
 <div class="tab-p" id="tab-game">
-<!-- Game 1st Fold: Puzzle + Battle -->
+<!-- Game: 3 cards on a single page -->
 <div data-game-section="0" class="game-fold page">
 <!-- TICKER -->
 <div class="ticker"><div class="ticker-inner">
@@ -1539,51 +1539,28 @@ body,.tab-p,.cd,.btn{font-family:'DM Sans','Pretendard','Noto Sans KR','Noto San
 <div class="ticker-line" style="color:var(--ton)" data-i18n="game_ticker2">📈 3위까지 800점! 예상 보상 +0.2 TON ↑</div>
 <div class="ticker-line" style="color:var(--potato)" data-i18n="game_ticker3">🔥 퍼즐 플레이 → 농장 성장 30분 단축!</div>
 </div></div>
-<!-- PUZZLE HERO — Twin Main -->
+<!-- CARD 1 — Potato Puzzle Pop -->
 <div class="cd puzzle-hero game-card-compact">
-<div style="margin-bottom:4px"><span class="tg tg-p" data-i18n="game_tag_farm">🌱 농장 부스트</span><span class="tg tg-t" data-i18n="game_tag_guild">🏰 길드 점수</span><span class="tg tg-r" data-i18n="game_tag_60s">⚡ 60초</span></div>
-<div class="t-hero" data-i18n="game_puzzle_title">🧩 감자 퍼즐</div>
-<div class="t-desc" style="margin-bottom:4px" data-i18n="game_puzzle_desc">콤보 · 연쇄폭발 · 파워업 · 60초 타임어택!</div>
-<div style="display:flex;gap:14px;font-size:11px;color:var(--dim);margin:4px 0;justify-content:center">
-<span><span data-i18n="game_today">오늘</span> <b style="color:var(--tx)" id="puzzleTodayCount">6/10</b></span><span><span data-i18n="game_best">최고</span> <b style="color:var(--gold)" id="puzzleHighScore">45.2K</b></span><span>Best7 <b style="color:var(--potato)">287K</b></span>
+<div style="margin-bottom:4px"><span class="tg tg-p" data-i18n="game_tag_puzzle">🧩 퍼즐 게임</span><span class="tg tg-g" data-i18n="game_tag_guild_score">🏰 길드 점수</span><span class="tg tg-p" data-i18n="game_tag_potato">🥔 POTATO 보상</span></div>
+<div class="t-hero" data-i18n="game_puzzle_title">포테이토 퍼즐 팝</div>
+<div class="t-desc" style="margin-bottom:4px" data-i18n="game_puzzle_desc">매치하고, 터트리고, 빠른 퍼즐로 점수를 올리세요</div>
+<button class="btn btn-play" style="margin-top:8px" onclick="doCompletePuzzle(Math.round(300+Math.random()*400))"><span data-i18n="game_puzzle_play">▶ 플레이</span></button>
 </div>
-<button class="btn btn-play" style="margin-top:8px" onclick="doCompletePuzzle(Math.round(300+Math.random()*400))"><span data-i18n="game_puzzle_play">▶ PLAY NOW</span></button>
+<!-- CARD 2 — Potato Block Pang -->
+<div class="cd block-hero game-card-compact">
+<div style="margin-bottom:4px"><span class="tg tg-t" data-i18n="game_tag_board">🎲 보드 게임</span><span class="tg tg-g" data-i18n="game_tag_guild_score">🏰 길드 점수</span><span class="tg tg-p" data-i18n="game_tag_potato">🥔 POTATO 보상</span></div>
+<div class="t-hero" data-i18n="game_battle_title">포테이토 블록 팡</div>
+<div class="t-desc" style="margin-bottom:4px" data-i18n="game_battle_desc">블록을 놓고, 라인을 지우고, 점수를 쌓으세요</div>
+<button class="btn btn-play" style="margin-top:8px" onclick="showToast&&showToast('🎮 게임을 준비중이에요')"><span data-i18n="game_battle_play">▶ 플레이</span></button>
 </div>
-<!-- BATTLE HERO — Twin Main -->
-<div class="cd game-card-compact" style="border-color:rgba(240,72,72,.2);background:radial-gradient(ellipse at 20% 80%,rgba(240,72,72,.06),transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(240,140,24,.04),transparent 50%),linear-gradient(135deg,rgba(240,72,72,.04),var(--card) 60%);box-shadow:0 4px 16px rgba(240,72,72,.05),inset 0 1px 0 rgba(255,255,255,.04);position:relative;overflow:hidden">
-<div style="margin-bottom:4px"><span class="tg tg-r" data-i18n="game_tag_survival">🛡️ 생존 액션</span><span class="tg tg-t" data-i18n="game_tag_guild">🏰 길드 점수</span><span class="tg tg-g" data-i18n="game_tag_wave">⏱ 서바이벌</span></div>
-<div class="t-hero" data-i18n="game_battle_title">⚔️ 감자 왕국 수호전</div>
-<div class="t-desc" style="margin-bottom:4px" data-i18n="game_battle_desc">몰려오는 적을 물리치고 왕국을 지켜라!</div>
-<div style="display:flex;gap:14px;font-size:11px;color:var(--dim);margin:4px 0;justify-content:center">
-<span><span data-i18n="game_today">오늘</span> <b style="color:var(--tx)">3</b></span><span><span data-i18n="game_best">최고</span> <b style="color:var(--gold)">2:34</b></span><span><span data-i18n="game_reward">보상</span> <b style="color:var(--potato)">~120 POTATO</b></span>
-</div>
-<button class="btn btn-fight" style="margin-top:8px" onclick="enterBattle()"><span data-i18n="game_battle_play">⚔️ 출정하기</span> <span style="font-size:12px;opacity:.7" data-i18n="game_battle_sub">서바이벌 액션</span></button>
+<!-- CARD 3 — Potato Family -->
+<div class="cd family-hero game-card-compact">
+<div style="margin-bottom:4px"><span class="tg tg-t" data-i18n="game_tag_board">🎲 보드 게임</span><span class="tg tg-g" data-i18n="game_tag_guild_score">🏰 길드 점수</span><span class="tg tg-p" data-i18n="game_tag_potato">🥔 POTATO 보상</span></div>
+<div class="t-hero" data-i18n="game_family_title">포테이토 패밀리</div>
+<div class="t-desc" style="margin-bottom:4px" data-i18n="game_family_desc">매주 즐기는 가벼운 보드 게임</div>
+<button class="btn btn-play" style="margin-top:8px" onclick="showToast&&showToast('🎮 게임을 준비중이에요')"><span data-i18n="game_family_play">▶ 플레이</span></button>
 </div>
 </div>
-<!-- Game 2nd Fold: Next Game -->
-<div data-game-section="1" class="page">
-<!-- NEXT GAME — COMING SOON -->
-<div class="cd" style="margin-top:4px;border:.5px dashed rgba(255,255,255,.06);background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(76,216,48,.02));position:relative;overflow:hidden;opacity:.85">
-  <!-- glimmer bg -->
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(76,216,48,.04),transparent 60%);pointer-events:none"></div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;position:relative">
-    <div class="t-hero" data-i18n="game_next_title">🚀 다음 게임</div>
-    <span style="font-size:9px;font-weight:900;letter-spacing:1.2px;padding:3px 7px;border-radius:20px;background:rgba(76,216,48,.12);color:var(--potato);border:.5px solid rgba(76,216,48,.10)" data-i18n="game_next_badge">COMING SOON</span>
-  </div>
-  <!-- mystery game icons -->
-  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:10px;position:relative">
-    <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:22px;filter:blur(1.5px)">❓</div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:60%">
-      <div style="height:10px;border-radius:6px;background:rgba(255,255,255,.06);width:60%"></div>
-      <div style="height:8px;border-radius:6px;background:rgba(255,255,255,.04);width:80%"></div>
-      <div style="height:8px;border-radius:6px;background:rgba(255,255,255,.04);width:50%"></div>
-    </div>
-  </div>
-  <div style="font-size:11px;color:var(--dim);line-height:1.6;white-space:pre-line;margin-bottom:12px;position:relative" data-i18n="game_next_desc">새로운 게임이 준비 중이에요!
-개발팀이 열심히 만들고 있습니다.</div>
-  <button class="btn" style="width:100%;padding:13px;background:rgba(255,255,255,.05);color:var(--dim);font-weight:800;font-size:13px;border-radius:12px;border:.5px solid rgba(255,255,255,.05);letter-spacing:.2px;position:relative" onclick="showToast&&showToast('🔔 알림 등록됐어요!')"><span data-i18n="game_next_notify">🔔 출시 알림 받기</span></button>
-</div>
-</div><!-- /game 2nd fold -->
 </div><!-- /tab-game -->
 <!-- FARM TAB -->
 <div class="tab-p active" id="tab-farm">
@@ -3058,7 +3035,7 @@ function getReferralTier(cnt){
 /* TMA Safe Area */
 (function(){try{
 if(window.Telegram&&Telegram.WebApp){
-try{Telegram.WebApp.ready();Telegram.WebApp.expand();Telegram.WebApp.disableVerticalSwipes();Telegram.WebApp.enableClosingConfirmation();if(Telegram.WebApp.requestFullscreen)Telegram.WebApp.requestFullscreen();}catch(e){}
+try{Telegram.WebApp.ready();Telegram.WebApp.expand();Telegram.WebApp.disableVerticalSwipes();Telegram.WebApp.enableClosingConfirmation();var _tp=(Telegram.WebApp.platform||'').toLowerCase();if(Telegram.WebApp.requestFullscreen&&(_tp==='ios'||_tp==='android'||_tp==='android_x'))Telegram.WebApp.requestFullscreen();}catch(e){}
 var sa=Telegram.WebApp.safeAreaInset;
 var csa=Telegram.WebApp.contentSafeAreaInset;
 function applyTmaSafeArea(){
@@ -3248,7 +3225,7 @@ if(tabEl){tabEl.classList.add('active');tabEl.scrollTop=0}
 if(el)el.classList.add('on');
 var tb=document.getElementById('topBar');if(tb)tb.style.display='';
 var fsb=document.getElementById('farmScrollBtn');if(fsb){if(id==='farm'){fsb.classList.remove('hidden')}else{fsb.classList.add('hidden')}}
-var gsb=document.getElementById('gameScrollBtn');if(gsb){if(id==='game'){gsb.classList.remove('hidden')}else{gsb.classList.add('hidden')}}
+var gsb=document.getElementById('gameScrollBtn');if(gsb){gsb.classList.add('hidden')}
 if(id==='game'){animateGameStats();}
 /* [v12] 탭 전환 시 해당 탭의 모든 CSS 애니메이션 강제 재시작 */
 try{
@@ -3913,7 +3890,7 @@ try{if(!window.Telegram||!Telegram.WebApp)return;var wa=Telegram.WebApp;
 if(on){if(wa.enableClosingConfirmation)wa.enableClosingConfirmation();if(wa.isVerticalSwipesEnabled!==undefined)wa.isVerticalSwipesEnabled=false}
 else{if(wa.disableClosingConfirmation)wa.disableClosingConfirmation();if(wa.isVerticalSwipesEnabled!==undefined)wa.isVerticalSwipesEnabled=true}
 }catch(e){}}
-function requestTelegramFullscreenIfAvailable(){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.requestFullscreen)Telegram.WebApp.requestFullscreen()}catch(e){}}
+function requestTelegramFullscreenIfAvailable(){try{if(!window.Telegram||!Telegram.WebApp||!Telegram.WebApp.requestFullscreen)return;var p=(Telegram.WebApp.platform||'').toLowerCase();if(p==='ios'||p==='android'||p==='android_x')Telegram.WebApp.requestFullscreen()}catch(e){}}
 function restoreTelegramUiState(){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.exitFullscreen)Telegram.WebApp.exitFullscreen()}catch(e){}}
 function enterBattle(){
 var ov=document.getElementById('battleOverlay');ov.classList.add('active');
@@ -4045,15 +4022,20 @@ const translations = {
     // nav
     nav_game: '게임', nav_farm: '농장', nav_guild: '길드', nav_vault: '금고',
     // game tab
-    game_puzzle_title: '🧩 감자 퍼즐',
-    game_puzzle_desc: '짜릿한 쓰리매치 퍼즐!\n감자 블록을 터뜨리고 농장 시계를 30분 앞당기세요',
-    game_puzzle_play: '▶ 60초 퍼즐 시작',
-    game_puzzle_sub: '60초 타임어택',
-    game_battle_title: '⚔️ 서바이벌 수호전',
-    game_battle_desc: '숨막히는 무한 몬스터 웨이브! 끝까지 살아남아\n포테이토 챙기고 길드 점수도 끌어올리세요 ⚔️',
-    game_battle_play: '⚔️ 수호전 출정',
-    game_battle_sub: '서바이벌 액션',
+    game_puzzle_title: '포테이토 퍼즐 팝',
+    game_puzzle_desc: '매치하고, 터트리고, 빠른 퍼즐로 점수를 올리세요',
+    game_puzzle_play: '▶ 플레이',
+    game_puzzle_sub: '퍼즐 게임',
+    game_battle_title: '포테이토 블록 팡',
+    game_battle_desc: '블록을 놓고, 라인을 지우고, 점수를 쌓으세요',
+    game_battle_play: '▶ 플레이',
+    game_battle_sub: '보드 게임',
+    game_family_title: '포테이토 패밀리',
+    game_family_desc: '매주 즐기는 가벼운 보드 게임',
+    game_family_play: '▶ 플레이',
     game_today: '오늘', game_best: '최고', game_reward: '보상',
+    game_tag_puzzle: '🧩 퍼즐 게임', game_tag_board: '🎲 보드 게임',
+    game_tag_guild_score: '🏰 길드 점수', game_tag_potato: '🥔 POTATO 보상',
     game_tag_farm: '🌱 농장 부스트', game_tag_guild: '🏰 길드 점수', game_tag_60s: '⚡ 60초',
     game_tag_survival: '🛡️ 생존 액션', game_tag_wave: '🥔 감자 보상',
     game_chip_potato: '🥔 POTATO 획득', game_chip_farm: '🌱 농장 -30분', game_chip_guild: '🏰 길드 점수',
